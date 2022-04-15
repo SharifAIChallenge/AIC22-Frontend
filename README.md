@@ -1,4 +1,4 @@
-# ai-challenge-app1222
+# ai-challenge-app 2022
 
 > AI Challenge App
 
