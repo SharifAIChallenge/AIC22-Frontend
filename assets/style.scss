@@ -1,0 +1,126 @@
+@import './button.scss';
+
+svg:not([fill]) {
+  fill: currentColor;
+}
+
+svg {
+  width: 100%;
+}
+
+.p-absolute {
+  position: absolute !important;
+}
+
+.blur-4 {
+  -webkit-filter: blur(4px);
+  filter: blur(4px);
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  max-width: 100%;
+}
+
+body .v-application .text-stroke-width-2 {
+  -webkit-text-stroke-width: 2px;
+  text-stroke-width: 2px;
+  letter-spacing: 0 !important;
+}
+
+body .v-application .text-stroke-width-1 {
+  -webkit-text-stroke-width: 1px;
+  text-stroke-width: 1px;
+  letter-spacing: 0 !important;
+}
+
+.text-stroke-primary {
+  -webkit-text-stroke-color: var(--v-primary-base);
+  text-stroke-color: var(--v-primary-base);
+}
+
+.text-stroke-secondary {
+  -webkit-text-stroke-color: var(--v-secondary-base);
+  text-stroke-color: var(--v-secondary-base);
+}
+
+.text-stroke-accent {
+  -webkit-text-stroke-color: var(--v-accent-base);
+  text-stroke-color: var(--v-accent-base);
+}
+
+.text-stroke-white {
+  -webkit-text-stroke-color: #fff;
+  text-stroke-color: #fff;
+}
+
+.dashboard .v-card {
+  border-radius: 24px !important;
+}
+
+hr {
+  border-top-width: 1.5px !important;
+}
+
+.autofill-bg input:-webkit-autofill,
+.autofill-bg select:-webkit-autofill,
+.autofill-bg textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--v-info-base) !important;
+  -webkit-box-shadow: 0 0 0 100px var(--v-bg-base) inset !important;
+  box-shadow: 0 0 0 100px var(--v-bg-base) inset !important;
+}
+
+.bg-dotted {
+  background: var(--v-bg-base) url('/image/bg-dotted.jpg') bottom center no-repeat !important;
+}
+
+.bg-decorated {
+  background: var(--v-bg-base) url('/image/bg-decorated.jpg') bottom center no-repeat !important;
+}
+
+::-moz-selection {
+  background-color: var(--v-primary-base) !important;
+  color: #fff !important;
+}
+
+::selection {
+  background-color: var(--v-primary-base) !important; /* Required when declaring ::selection */
+  color: #fff !important;
+}
+
+//html {
+//  overflow-y: visible !important;
+//}
+
+iframe {
+  border: none;
+}
+
+p {
+  font-weight: 300;
+  font-family: LTZaridSans;
+  font-size: 1.25rem;
+}
+a {
+  text-decoration: none;
+}
+
+strong {
+  font-weight: bold;
+}
+
+.v-alert {
+  background-color: #141432 !important;
+}
+
+.theme--dark.v-tabs > .v-tabs-bar {
+  background-color: rgb(8, 10, 24) !important;
+}
+
+.bg-color-12 {
+  background: map-get($material-dark-elevation-colors, '12');
+}
+.v-data-footer {
+  justify-content: flex-start !important;
+}

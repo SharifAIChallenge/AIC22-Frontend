@@ -1,0 +1,59 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+$body-font-family: 'Vazir', serif;
+$btn-letter-spacing: 0;
+$tabs-item-letter-spacing: 0;
+$material-dark-elevation-colors: (
+  '0': #090c18,
+  '1': #090c18,
+  '2': #090c18,
+  '3': #090c18,
+  '4': #090c18,
+  '6': #090c18,
+  '8': #090c18,
+  '12': #0e1224,
+  '16': #141432,
+  '24': #1a1940,
+);
+$material-dark: (
+  'background': #090c18,
+  'surface': #090c18,
+  'bg-color': #090c18,
+  'navigation-drawer': map-get($material-dark-elevation-colors, '16'),
+  'toolbar': map-get($material-dark-elevation-colors, '4'),
+  'app-bar': map-get($material-dark-elevation-colors, '4'),
+  'bottom-navigation': map-get($material-dark-elevation-colors, '8'),
+  'cards': map-get($material-dark-elevation-colors, '24'),
+  'tabs': map-get($material-dark-elevation-colors, '8'),
+  'calendar': (
+    'background-color': map-get($material-dark-elevation-colors, '12'),
+    'outside-background-color': map-get($material-dark-elevation-colors, '1'),
+    'line-color': map-get($material-dark-elevation-colors, '16'),
+    'interval-color': map-get($material-dark-elevation-colors, '24'),
+    'interval-line-color': map-get($material-dark-elevation-colors, '12'),
+  ),
+  'picker': (
+    'body': map-get($material-dark-elevation-colors, '16'),
+    'clock': map-get($material-dark-elevation-colors, '16'),
+    'indeterminateTime': map-get($material-dark-elevation-colors, '12'),
+    'title': map-get($material-dark-elevation-colors, '16'),
+  ),
+  'table': (
+    'active': map-get($material-dark-elevation-colors, '12'),
+    'hover': map-get($material-dark-elevation-colors, '24'),
+    'group': map-get($material-dark-elevation-colors, '24'),
+  ),
+  'chips': map-get($material-dark-elevation-colors, '24'),
+);
+$data-table-expanded-content-box-shadow: inset 0px 4px 8px -5px rgba(255, 255, 255, 0.1), inset 0px -4px 8px -5px rgba(255, 255, 255, 0.1) !default;
+$btn-outline-border-width: 0px;
+$border-radius-root: 0px;
+$treeview-label-font-size: 0.7rem;
+$text-field-filled-full-width-outlined-slot-min-height: 50px !default;
+// $text-field-filled-full-width-outlined-single-line-slot-min-height: px !default;
+$treeview-node-height-dense: 30px;
+//@import '~vuetify/src/styles/styles.sass';
+$container-max-widths: (
+  'xl': 1200px,
+);
