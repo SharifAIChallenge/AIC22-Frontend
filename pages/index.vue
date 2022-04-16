@@ -2,15 +2,15 @@
   <div id="main">
     <Header color="transparent" />
     <HeadTop />
-    <Social />
-    <Intersection
-      :isIntersecAbout="isIntersec.About"
-      :isIntersecTimeline="isIntersec.Timeline"
-      :isIntersecSponser="isIntersec.Sponser"
-      :isIntersecVideo="isIntersec.Video"
-      :isIntersecStaff="isIntersec.Staff"
-      :isIntersecTrophy="isIntersec.Trophy"
-    />
+<!--    <Social />-->
+<!--    <Intersection-->
+<!--      :isIntersecAbout="isIntersec.About"-->
+<!--      :isIntersecTimeline="isIntersec.Timeline"-->
+<!--      :isIntersecSponser="isIntersec.Sponser"-->
+<!--      :isIntersecVideo="isIntersec.Video"-->
+<!--      :isIntersecStaff="isIntersec.Staff"-->
+<!--      :isIntersecTrophy="isIntersec.Trophy"-->
+<!--    />-->
     <About :onIntersecAbout="onIntersecAbout" />
     <Video :onIntersecVideo="onIntersecVideo" />
     <Statistics />
@@ -19,7 +19,7 @@
     <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
     <Staff :onIntersecStaff="onIntersecStaff" />
     <Sponsor :onIntersecSponser="onIntersecSponser" />
-    <!-- <EmaliCallToAction /> -->
+<!--     <EmaliCallToAction />-->
     <CallToAction />
   </div>
 </template>
@@ -105,63 +105,63 @@ export default {
       this.width = window.innerWidth;
       this.height = window.innerHeight;
     },
-    scrollHandleFunc() {
-      if (this.width > 767) {
-        if (document.querySelector('html').scrollTop > this.height / 2) {
-          for (let item = 0; item < 6; item++) {
-            document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(-200px)';
-          }
-          document.getElementsByClassName('intersection')[0].style.left = '0px';
-        } else {
-          for (let item = 0; item < 6; item++) {
-            document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(0px)';
-          }
-          document.getElementsByClassName('intersection')[0].style.left = '30px';
-        }
-      } else if (this.width < 500) {
-        switch (true) {
-          case this.isIntersec.About: {
-            this.scrollItem = 0;
-            break;
-          }
-          case this.isIntersec.Video: {
-            this.scrollItem = 50;
-            break;
-          }
-          case this.isIntersec.Timeline: {
-            this.scrollItem = 100;
-            break;
-          }
-          case this.isIntersec.Trophy: {
-            this.scrollItem = 150;
-            break;
-          }
-          case this.isIntersec.Staff: {
-            this.scrollItem = 200;
-            break;
-          }
-          case this.isIntersec.Sponser: {
-            this.scrollItem = 250;
-            break;
-          }
-        }
-        document.getElementById('intersection').scrollTo({
-          left: -this.scrollItem,
-          behavior: 'smooth',
-        });
-      }
-    },
+    // scrollHandleFunc() {
+    //   if (this.width > 767) {
+    //     if (document.querySelector('html').scrollTop > this.height / 2) {
+    //       for (let item = 0; item < 6; item++) {
+    //         document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(-200px)';
+    //       }
+    //       document.getElementsByClassName('intersection')[0].style.left = '0px';
+    //     } else {
+    //       for (let item = 0; item < 6; item++) {
+    //         document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(0px)';
+    //       }
+    //       document.getElementsByClassName('intersection')[0].style.left = '30px';
+    //     }
+    //   } else if (this.width < 500) {
+    //     switch (true) {
+    //       case this.isIntersec.About: {
+    //         this.scrollItem = 0;
+    //         break;
+    //       }
+    //       case this.isIntersec.Video: {
+    //         this.scrollItem = 50;
+    //         break;
+    //       }
+    //       case this.isIntersec.Timeline: {
+    //         this.scrollItem = 100;
+    //         break;
+    //       }
+    //       case this.isIntersec.Trophy: {
+    //         this.scrollItem = 150;
+    //         break;
+    //       }
+    //       case this.isIntersec.Staff: {
+    //         this.scrollItem = 200;
+    //         break;
+    //       }
+    //       case this.isIntersec.Sponser: {
+    //         this.scrollItem = 250;
+    //         break;
+    //       }
+    //     }
+    //     document.getElementById('intersection').scrollTo({
+    //       left: -this.scrollItem,
+    //       behavior: 'smooth',
+    //     });
+    //   }
+    // },
   },
   mounted() {
     this.height = window.innerHeight;
     this.width = window.innerWidth;
     for (let item = 0; item < 6; item++) {
-      document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(0px)';
+      // document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(0px)';
     }
-    this.scrollHandle();
+    // this.scrollHandle();
   },
   destroyed() {
-    window.removeEventListener('scroll', this.scrollHandleFunc);
+    // window.removeEventListener('scroll', this.scrollHandleFunc);
   },
 };
 </script>
