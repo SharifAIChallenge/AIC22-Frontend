@@ -21,7 +21,7 @@
 <script></script>
 
 <style scoped lang="scss">
-@import '../../assets/mixins.scss';
+@import '../../../assets/mixins';
 
 #HeadTop {
   height: 100vh;

@@ -25,7 +25,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-@import '../../assets/mixins.scss';
+@import '../../../assets/mixins';
 
 .part {
   font-size: 5rem;

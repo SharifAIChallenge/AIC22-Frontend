@@ -89,7 +89,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../assets/mixins.scss';
+@import '../../../assets/mixins';
 
 #intersection {
   position: fixed;

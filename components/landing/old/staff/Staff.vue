@@ -57,7 +57,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-@import '../../../assets/mixins.scss';
+@import '../../../../assets/mixins';
 #staff {
   margin: 20vmin auto;
   position: relative;

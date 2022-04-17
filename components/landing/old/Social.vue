@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../assets/mixins.scss';
+@import '../../../assets/mixins';
 #main,
 #aic-logo-mark {
   transition: 0.4s;

@@ -91,7 +91,7 @@
 
 <script>
 import { PastAi } from '~/api/index';
-import Header from '~/components/landing/Header.vue';
+import Header from '~/components/landing/old/Header.vue';
 export default {
   layout: 'landing',
   auth: false,

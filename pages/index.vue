@@ -25,19 +25,19 @@
 </template>
 
 <script>
-import Header from '~/components/landing/Header.vue';
-import Intersection from '~/components/landing/Intersection.vue';
-import TimeLine from '~/components/landing/Timeline';
-import Video from '~/components/landing/video.vue';
-import Statistics from '~/components/landing/Statistics';
-import TrophyDesktop from '~/components/landing/TrophyDesktop';
-import TrophyMobile from '~/components/landing/TrophyMobile';
-import Social from '~/components/landing/Social.vue';
-import About from '~/components/landing/About.vue';
-import Sponsor from '~/components/landing/Sponsor.vue';
-import HeadTop from '~/components/landing/HeadTop.vue';
+import Header from '~/components/landing/old/Header.vue';
+import Intersection from '~/components/landing/old/Intersection.vue';
+import TimeLine from '~/components/landing/old/Timeline';
+import Video from '~/components/landing/old/video.vue';
+import Statistics from '~/components/landing/old/Statistics';
+import TrophyDesktop from '~/components/landing/old/TrophyDesktop';
+import TrophyMobile from '~/components/landing/old/TrophyMobile';
+import Social from '~/components/landing/old/Social.vue';
+import About from '~/components/landing/old/About.vue';
+import Sponsor from '~/components/landing/old/Sponsor.vue';
+import HeadTop from '~/components/landing/old/HeadTop.vue';
 import CallToAction from '~/components/CallToAction.vue';
-import Staff from '~/components/landing/staff/Staff';
+import Staff from '~/components/landing/old/staff/Staff';
 import EmaliCallToAction from '~/components/EmailCallToAction.vue';
 
 export default {

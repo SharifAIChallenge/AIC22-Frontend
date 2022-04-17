@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import StaffCard from '../landing/staff/StaffCard.vue';
+import StaffCard from '../landing/old/staff/StaffCard.vue';
 export default {
   props: ['group', 'team'],
   components: {

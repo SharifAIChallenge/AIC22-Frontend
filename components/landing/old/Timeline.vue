@@ -7,7 +7,7 @@
           handler: onIntersecTimeline,
         }"
       >
-        <img src="../../assets/images/logo/logo__white.svg" alt="Ai-challenge" class="timelineLogo d-none d-md-block" width="30%" />
+        <img src="../../../assets/images/logo/logo__white.svg" alt="Ai-challenge" class="timelineLogo d-none d-md-block" width="30%" />
         <div class="col-4 d-flex align-center justify-end timelineTitle my-5">
           <h4 class="mt-5">زمان‌بندی</h4>
         </div>
@@ -65,7 +65,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../assets/mixins.scss';
+@import '../../../assets/mixins';
 
 #timeline {
   background-color: #0e1224;

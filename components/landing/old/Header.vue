@@ -54,7 +54,7 @@
 
       <nuxt-link to="/" style="width: 56px; height: 100%">
         <img src="logo__white.svg" class="logo" v-if="color === 'primary'" />
-        <img src="../../assets/images/logo/logo__primary.svg" class="logo" v-else />
+        <img src="../../../assets/images/logo/logo__primary.svg" class="logo" v-else />
       </nuxt-link>
     </v-app-bar>
     <formManager :isPage="false" />
