@@ -1,31 +1,31 @@
 <template>
   <div id="main">
-    <Header color="transparent" />
-    <HeadTop />
-<!--    <Social />-->
-<!--    <Intersection-->
-<!--      :isIntersecAbout="isIntersec.About"-->
-<!--      :isIntersecTimeline="isIntersec.Timeline"-->
-<!--      :isIntersecSponser="isIntersec.Sponser"-->
-<!--      :isIntersecVideo="isIntersec.Video"-->
-<!--      :isIntersecStaff="isIntersec.Staff"-->
-<!--      :isIntersecTrophy="isIntersec.Trophy"-->
-<!--    />-->
-    <About :onIntersecAbout="onIntersecAbout" />
-    <Video :onIntersecVideo="onIntersecVideo" />
-    <Statistics />
-    <TimeLine :onIntersecTimeline="onIntersecTimeline" />
-    <TrophyDesktop :trophies="trophies" class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy" />
-    <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
-    <Staff :onIntersecStaff="onIntersecStaff" />
-    <Sponsor :onIntersecSponser="onIntersecSponser" />
-<!--     <EmaliCallToAction />-->
-    <CallToAction />
+    <Header/>
+    <HeadTop/>
+    <!--    <Social />-->
+    <!--    <Intersection-->
+    <!--      :isIntersecAbout="isIntersec.About"-->
+    <!--      :isIntersecTimeline="isIntersec.Timeline"-->
+    <!--      :isIntersecSponser="isIntersec.Sponser"-->
+    <!--      :isIntersecVideo="isIntersec.Video"-->
+    <!--      :isIntersecStaff="isIntersec.Staff"-->
+    <!--      :isIntersecTrophy="isIntersec.Trophy"-->
+    <!--    />-->
+    <About :onIntersecAbout="onIntersecAbout"/>
+    <Video :onIntersecVideo="onIntersecVideo"/>
+    <Statistics/>
+    <TimeLine :onIntersecTimeline="onIntersecTimeline"/>
+    <TrophyDesktop :trophies="trophies" class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy"/>
+    <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy"/>
+    <Staff :onIntersecStaff="onIntersecStaff"/>
+    <Sponsor :onIntersecSponser="onIntersecSponser"/>
+    <!--     <EmaliCallToAction />-->
+    <CallToAction/>
   </div>
 </template>
 
 <script>
-import Header from '~/components/landing/old/Header.vue';
+import Header from '~/components/landing/Header.vue';
 import Intersection from '~/components/landing/old/Intersection.vue';
 import TimeLine from '~/components/landing/old/Timeline';
 import Video from '~/components/landing/old/video.vue';
@@ -170,6 +170,7 @@ export default {
 body {
   overflow-x: hidden;
 }
+
 .v-dialog--fullscreen {
   background: #0e1224;
 }
