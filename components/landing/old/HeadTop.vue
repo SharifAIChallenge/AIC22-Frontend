@@ -27,7 +27,7 @@
   height: 100vh;
   transition: 0.4s;
   position: relative;
-  background-color: #090c18;
+  //background-color: #090c18;
   padding-top: 50px;
   @include not-md {
     height: 100vh;
