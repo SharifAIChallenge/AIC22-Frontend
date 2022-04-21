@@ -19,20 +19,24 @@
   position: relative;
   display: flex;
   cursor: pointer;
+  z-index: 0
 }
 
 .logo-container::after {
-  content: "";
-  width: 104%;
-  height: 104%;
-  border-radius: 8px;
-  background-image: linear-gradient(
-      var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
   position: absolute;
+  content: "";
+
   z-index: -1;
-  top: -1%;
-  left: -2%;
-  animation: spin 2.5s linear infinite;
+  height: 108%;
+  width: 108%;
+
+  transform: scale(0.85);
+  filter: blur(20px);
+  background-image: linear-gradient(
+      var(--rotate), #FC147F, #480AC2, #E08250, #3AE4F6);
+  opacity: 1;
+  transition: opacity .5s;
+  animation: spin 5s linear infinite;
 }
 
 @keyframes spin {
