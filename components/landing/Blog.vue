@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="my-14 py-14">
     <h3 class="text-h2 text-center">
       آخرین اخبار
     </h3>
-    <v-container class="mt-16">
+    <v-container class="my-16">
       <box>
         <div class="pa-4 pa-sm-8 pa-md-14">
           <v-row>

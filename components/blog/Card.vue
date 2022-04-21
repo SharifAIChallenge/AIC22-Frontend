@@ -1,6 +1,6 @@
 <template>
   <v-card
-      class="blog-card py-4 py-sm-6"
+      class="blog-card py-4 py-sm-6 d-flex flex-column"
       elevation="0"
   >
     <v-card-title
@@ -13,8 +13,9 @@
     >
       {{ description }}
     </v-card-text>
-    <v-flex class="d-flex px-4 px-sm-6 align-center justify-space-between pt-12">
-      <v-card-text class="caption ma-0 pa-0">
+
+    <v-flex class="more-data d-flex px-4 px-sm-6 align-end justify-space-between pt-12 mt-auto">
+      <v-card-text class="caption ma-0 pa-0 pb-1" >
         {{ date }}
       </v-card-text>
       <v-btn
@@ -47,12 +48,16 @@ export default {
 
 <style scoped lang="scss">
 .blog-card {
+  height: 100%;
   background-color: var(--v-bg-base);
   .v-card__title {
     border-right: 5px solid var(--v-primary-base);
   }
   .read-more{
     border-bottom: 1px solid var(--v-bg_secondary-base);
+  }
+  .more-data{
+    flex-grow: 1;
   }
 }
 
