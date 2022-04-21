@@ -21,6 +21,7 @@
     <Sponsor :onIntersecSponser="onIntersecSponser"/>
     <!--     <EmaliCallToAction />-->
     <CallToAction/>
+    <Blog/>
   </div>
 </template>
 
@@ -39,9 +40,11 @@ import HeadTop from '~/components/landing/old/HeadTop.vue';
 import CallToAction from '~/components/CallToAction.vue';
 import Staff from '~/components/landing/old/staff/Staff';
 import EmaliCallToAction from '~/components/EmailCallToAction.vue';
+import Blog from "~/components/landing/Blog";
 
 export default {
   components: {
+    Blog,
     Header,
     Video,
     Statistics,

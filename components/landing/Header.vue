@@ -26,7 +26,7 @@
       <v-btn id="menu-btn" icon class="transparent hidden-md-and-up" @click="showMenu = !showMenu">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
-      <div class="hidden-sm-only" id="menu">
+      <div class="hidden-sm-only hidden-xs-only" id="menu">
         <v-container
         >
           <v-row
