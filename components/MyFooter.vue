@@ -14,7 +14,7 @@
                 icon
                 large
             >
-              <v-icon size="25px">
+              <v-icon size="30px">
                 {{ social.icon }}
               </v-icon>
             </v-btn>
@@ -57,9 +57,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.v-footer {
-  .col-12, .v-icon {
-    color: #7d888e;
-  }
-}
+
 </style>
