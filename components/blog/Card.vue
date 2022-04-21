@@ -1,19 +1,19 @@
 <template>
   <v-card
-      class="blog-card py-2"
+      class="blog-card py-4 py-sm-6"
       elevation="0"
   >
     <v-card-title
-        class="py-0 my-2"
+        class="py-0 my-2 px-4 px-sm-6"
     >
       {{ title }}
     </v-card-title>
     <v-card-text
-        class="pt-8"
+        class="pt-12 px-4 px-sm-6"
     >
       {{ description }}
     </v-card-text>
-    <v-flex class="d-flex px-4 align-center justify-space-between">
+    <v-flex class="d-flex px-4 px-sm-6 align-center justify-space-between pt-12">
       <v-card-text class="caption ma-0 pa-0">
         {{ date }}
       </v-card-text>
@@ -49,7 +49,7 @@ export default {
 .blog-card {
   background-color: var(--v-bg-base);
   .v-card__title {
-    border-right: 4px solid var(--v-primary-base);
+    border-right: 5px solid var(--v-primary-base);
   }
   .read-more{
     border-bottom: 1px solid var(--v-bg_secondary-base);
