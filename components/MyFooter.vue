@@ -1,20 +1,18 @@
 <template>
-  <v-footer dark padless class="footer">
-    <v-card-text class="align-center justify-space-between d-flex mx-md-3 flex-wrap">
+  <v-footer dark padless class="footer" color="bg_secondary">
+    <v-container>
       <v-row dir="ltr" align="center">
-        <v-col class="d-flex col-12 col-md-3 justify-center justify-md-start">
-          <img src="../assets/images/logo/logo__primary.svg" class="logo" />
-        </v-col>
-        <v-col class="hidden-sm-and-down col-12 col-md-6 social_box mx-auto mb-3 ">
-          <div class="d-flex justify-center ">
+
+        <v-col class="text-center-sm-and-down col-12 col-md-6 social_box mx-auto">
+          <div class="d-flex justify-center justify-md-start">
             <v-btn
-              v-for="social in socials"
-              :key="social.icon"
-              :href="social.url"
-              class="mx-4 transparent primary--text mx-sm-4"
-              target="_blank"
-              icon
-              large
+                v-for="social in socials"
+                :key="social.icon"
+                :href="social.url"
+                class="mx-1 transparent"
+                target="_blank"
+                icon
+                large
             >
               <v-icon size="30px">
                 {{ social.icon }}
@@ -22,13 +20,13 @@
             </v-btn>
           </div>
         </v-col>
-
-        <v-col class="primary--text col-12 col-md-3  text-center text-md-right">
-          <v-icon right small class="primary--text">mdi-copyright</v-icon>
-          2021 Sharif AI Challenge
+        <v-col class="col-12 caption col-md-6 text-center text-md-right">
+            <v-icon right small>mdi-copyright</v-icon>
+            تمامی حقوق متعلق به تیم برندینگ رویداد میباشد
         </v-col>
+
       </v-row>
-    </v-card-text>
+    </v-container>
   </v-footer>
 </template>
 
@@ -36,10 +34,19 @@
 import LogoMark from '../components/LogoMark';
 
 export default {
-  components: { LogoMark },
+  components: {LogoMark},
   data() {
     return {
-      socials: [],
+      socials: [
+        {
+          url: 'https://www.instagram.com/barnig.ir/',
+          icon: 'mdi-instagram',
+        },
+        {
+          url: 'https://www.instagram.com/barnig.ir/',
+          icon: 'mdi-instagram',
+        }
+      ],
     };
   },
   async fetch() {
@@ -50,11 +57,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import 'assets/mixins.scss';
-.footer {
-  padding: 40px 0px;
-  .logo {
-    width: 60px;
-  }
-}
+
 </style>
