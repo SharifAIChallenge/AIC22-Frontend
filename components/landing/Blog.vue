@@ -5,7 +5,7 @@
     </h3>
     <v-container class="mt-16">
       <box>
-        <div class="pa-14">
+        <div class="pa-4 pa-sm-8 pa-md-14">
           <v-row>
             <v-col class="col-12 col-md-4">
               <Card

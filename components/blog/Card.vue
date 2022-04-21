@@ -22,6 +22,7 @@
           :to="href"
           plain
           text
+          small
       >
         مطالعه
         <v-icon>
@@ -46,16 +47,12 @@ export default {
 
 <style scoped lang="scss">
 .blog-card {
-  background-color: #13202e;
-
+  background-color: var(--v-bg-base);
   .v-card__title {
-    border-right: 4px solid #0071e3;
-  }
-  .v-card__text{
-    color: rgba(255, 255, 255, 0.7);
+    border-right: 4px solid var(--v-primary-base);
   }
   .read-more{
-    border-bottom: 1px solid #182636;
+    border-bottom: 1px solid var(--v-bg_secondary-base);
   }
 }
 
