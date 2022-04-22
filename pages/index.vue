@@ -36,7 +36,7 @@ import TrophyMobile from '~/components/landing/old/TrophyMobile';
 import Social from '~/components/landing/old/Social.vue';
 import About from '~/components/landing/old/About.vue';
 import Sponsor from '~/components/landing/old/Sponsor.vue';
-import HeadTop from '~/components/landing/old/HeadTop.vue';
+import HeadTop from '~/components/landing/HeadTop.vue';
 import CallToAction from '~/components/CallToAction.vue';
 import Staff from '~/components/landing/old/staff/Staff';
 import EmaliCallToAction from '~/components/EmailCallToAction.vue';
