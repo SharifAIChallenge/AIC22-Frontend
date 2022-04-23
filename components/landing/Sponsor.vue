@@ -9,43 +9,17 @@
       },
     }"
   >
-    <v-row>
-      <v-col md="6" class="white ssc">
-        <div class="sscLogo">
-          <a href="https://ssc.ce.sharif.edu" target="_blank" class="d-flex justify-center" style="width: 100%; height: 100%">
-            <img src="~assets/images/logo/ssc-logo.svg" />
-          </a>
-        </div>
-      </v-col>
-      <v-col md="6" align-self="center" class="padding-y">
-        <div class="sscIntro">
-          <h4>انجمن علمی دانشکده مهندسی کامپیوتر</h4>
-          <h3>دانشگاه صنعتی شریف</h3>
-          <h2>برگزار می‌کند</h2>
-        </div>
+    <v-row align-center class=' justify-center mt-auto'>
+      <div style='text-align: center;'>
+        <div class="font-weight-bold text-sm-h4 text-h6 mb-4">حامیان</div>
+      </div>
+    </v-row>
+    <br/>
+    <v-row class='mt-16 justify-space-around ma-4'>
+      <v-col class='align-center justify-center text-center' cols='1' v-for='n in 5' :key='n'>
+        <img src="~assets/images/logo/digikala-logo.svg"  alt='img'/>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols="6" class="digikala padding-y" align-self="center">
-        <h2>با حمایت</h2>
-        <h1 style="font-size: 3.5rem" class="mt-3">
-          <nuxt-link to="/sponsors/digikala">دیجیکالا</nuxt-link>
-        </h1>
-      </v-col>
-      <v-col cols="6" class="digikalaLogoCol">
-        <nuxt-link to="/sponsors/digikala">
-          <div>
-            <img src="~assets/images/logo/digikala-logo.svg" class="digikalaLogo" />
-          </div>
-        </nuxt-link>
-      </v-col>
-    </v-row>
-    <div style="text-align: center" class="mt-10">
-      <h3>حامی رسانه‌ای</h3>
-      <nuxt-link to="/sponsors/aparat">
-        <h1 class="mt-3" style="font-size: 2.2rem">آپارات</h1>
-      </nuxt-link>
-    </div>
   </div>
 </template>
 
