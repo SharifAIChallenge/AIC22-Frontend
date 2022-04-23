@@ -4,7 +4,7 @@
 <!--    <img src='../assets/images/logo/logo__white.svg' class='background-logo' />-->
     <div style='text-align: center;'>
       <v-row sm='5' class='align-start justify-center' style='z-index:1'>
-        <img src="~/assets/images/logo/header-logo-01.svg" width="120px" height="120px" alt="logo" class="object-fit"/>
+        <img src="~/assets/images/logo/header-logo-01.svg" width="320px" height="320px" alt="logo" class="object-fit"/>
       </v-row>
       <v-row sm='5' class='align-start justify-center' style='z-index:1'>
         <div class='d-flex flex-column align-center align-sm-end justify-center pl-5' style='height:100%'>
@@ -94,9 +94,9 @@ export default {
 .call_to_action {
   max-width: 750px;
   position: relative;
-  padding-top: 6rem;
+  padding-top: 5rem;
   padding-bottom: 200px;
-  margin-top: 8rem;
+  margin-top: 5rem;
   overflow: hidden;
 }
 </style>

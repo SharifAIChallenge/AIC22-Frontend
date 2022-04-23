@@ -73,7 +73,7 @@
             </v-col>
             <v-col class="text-left" cols="3">
               <nuxt-link to="/" class="d-flex align-center justify-end">
-                <img src="~/assets/images/logo/header-logo-01.svg" width="80px" height="80px" alt="logo" class="object-fit-none"/>
+                <img src="~/assets/images/logo/header-logo-01.svg" width="80px" height="80px" alt="logo"/>
               </nuxt-link>
             </v-col>
           </v-row>
@@ -156,8 +156,5 @@ export default {
   .col {
     padding: 0;
   }
-}
-.object-fit-none{
-  object-fit: none;
 }
 </style>
