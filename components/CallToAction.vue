@@ -1,28 +1,56 @@
 <template>
-  <v-card flat tile class="call_to_action transparent mx-auto">
-    <img src="../assets/images/logo/logo__white.svg" class="background-logo" />
-    <v-row class="mb-16" justify="space-between">
-      <v-col cols="12" sm="5" class="align-start justify-center" style="z-index:1">
-        <div class="d-flex flex-column align-center align-sm-end justify-center pl-5" style="height:100%">
-          <div class="font-weight-bold text-sm-h4 text-h6 mb-1">همین حالا</div>
-          <div class="primary--text font-weight-bold text-sm-h2 text-h5 mb-1">ثبت نام</div>
-          <div class="font-weight-blod text-sm-h4 text-h6 mb-1">کنید</div>
+  <v-card flat tile class='call_to_action transparent mx-auto'>
+<!--    this will be used for background-->
+<!--    <img src='../assets/images/logo/logo__white.svg' class='background-logo' />-->
+    <div style='text-align: center;'>
+      <v-row sm='5' class='align-start justify-center' style='z-index:1'>
+        <img src="~/assets/images/logo/header-logo-01.svg" width="120px" height="120px" alt="logo" class="object-fit"/>
+      </v-row>
+      <v-row sm='5' class='align-start justify-center' style='z-index:1'>
+        <div class='d-flex flex-column align-center align-sm-end justify-center pl-5' style='height:100%'>
+          <div class='font-weight-bold text-sm-h4 text-h6 mt-4 mb-1'>همین حالا ثبت نام کنید!</div>
         </div>
-      </v-col>
-      <v-col cols="12" sm="5" class="align-start justify-center px-3">
-        <v-btn @click="loginWithGoogle" block tile x-large :disabled="true" class="primary my-3 text-center" style="width:calc(100% - 12px)">
-          <v-icon>mdi-google</v-icon>
-          ثبت نام با گوگل
-        </v-btn>
-        <v-btn @click="toggleShow()" tile block x-large :disabled="true" class="black white--text my-3 px-sm-1 text-center" style="width:calc(100% - 12px)">
-          ثبت نام با ایمیل و رمز عبور
-        </v-btn>
-      </v-col>
-    </v-row>
+      </v-row>
+      <v-row sm='5' class='align-start justify-center px-5'>
+        <v-col cols='4'>
+          <v-btn
+            block
+            color='primary'
+            rounded
+            class='mt-4 ml-4 px-6 v-btn--primary'
+          >
+            ثبت‌نام
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row sm='5' class='align-start justify-center px-5'>
+        <v-col cols='4'>
+          <v-btn
+            block
+            color='secondary'
+            rounded
+            class='mt-0 ml-4 px-6 v-btn--primary'
+          >
+
+            ثبت نام با گوگل
+            <v-icon>mdi-google</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </div>
+    <!--        <v-btn @click="loginWithGoogle" block tile x-large :disabled="true" class="primary my-3 text-center" style="width:12px">-->
+    <!--          <v-icon>mdi-google</v-icon>-->
+    <!--          ثبت نام با گوگل-->
+    <!--        </v-btn>-->
+    <!--        <v-btn @click="toggleShow()" tile block x-large :disabled="true" class="black white&#45;&#45;text my-3 px-sm-1 text-center" style="width:calc(100% - 12px)">-->
+    <!--          ثبت نام با ایمیل و رمز عبور-->
+    <!--        </v-btn>-->
+
   </v-card>
 </template>
 <script>
 import { sendGoogleAuthCode } from '~/api/auth';
+
 export default {
   data() {
     return {
@@ -62,6 +90,7 @@ export default {
   opacity: 0.15;
   z-index: 0;
 }
+
 .call_to_action {
   max-width: 750px;
   position: relative;
