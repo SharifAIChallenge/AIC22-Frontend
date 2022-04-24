@@ -15,7 +15,7 @@
     <Statics/>
 <!--    <Video :onIntersecVideo="onIntersecVideo"/>-->
 <!--    <Statistics/>-->
-<!--    <TimeLine :onIntersecTimeline="onIntersecTimeline"/>-->
+    <TimeLine :onIntersecTimeline="onIntersecTimeline"/>
 <!--    <TrophyDesktop :trophies="trophies" class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy"/>-->
 <!--    <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy"/>-->
     <Staff :onIntersecStaff="onIntersecStaff"/>
@@ -29,7 +29,7 @@
 <script>
 import Header from '~/components/landing/Header.vue';
 import Intersection from '~/components/landing/old/Intersection.vue';
-import TimeLine from '~/components/landing/old/Timeline';
+import TimeLine from '~/components/landing/Timeline';
 import Video from '~/components/landing/old/video.vue';
 import Statistics from '~/components/landing/old/Statistics';
 import TrophyDesktop from '~/components/landing/old/TrophyDesktop';
