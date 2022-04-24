@@ -16,7 +16,6 @@
           <v-btn
             block
             color='primary'
-            rounded
             class='mt-4 ml-4 px-6 v-btn--primary'
           >
             ثبت‌نام
@@ -28,12 +27,11 @@
           <v-btn
             block
             color='secondary'
-            rounded
             class='mt-0 ml-4 px-6 v-btn--primary'
           >
 
             ثبت نام با گوگل
-            <v-icon>mdi-google</v-icon>
+            <v-icon class="mr-2">mdi-google</v-icon>
           </v-btn>
         </v-col>
       </v-row>
