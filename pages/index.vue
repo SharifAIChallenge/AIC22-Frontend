@@ -13,13 +13,13 @@
     <!--    />-->
     <About :onIntersecAbout="onIntersecAbout"/>
     <Statics/>
-    <Video :onIntersecVideo="onIntersecVideo"/>
-    <Statistics/>
-    <TimeLine :onIntersecTimeline="onIntersecTimeline"/>
-    <TrophyDesktop :trophies="trophies" class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy"/>
-    <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy"/>
+<!--    <Video :onIntersecVideo="onIntersecVideo"/>-->
+<!--    <Statistics/>-->
+<!--    <TimeLine :onIntersecTimeline="onIntersecTimeline"/>-->
+<!--    <TrophyDesktop :trophies="trophies" class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy"/>-->
+<!--    <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy"/>-->
     <Staff :onIntersecStaff="onIntersecStaff"/>
-    <Sponsor :onIntersecSponser="onIntersecSponser"/>
+<!--    <Sponsor :onIntersecSponser="onIntersecSponser"/>-->
     <!--     <EmaliCallToAction />-->
     <CallToAction/>
     <Blog/>
@@ -39,7 +39,7 @@ import About from '~/components/landing/About.vue';
 import Sponsor from '~/components/landing/old/Sponsor.vue';
 import HeadTop from '~/components/landing/HeadTop.vue';
 import CallToAction from '~/components/CallToAction.vue';
-import Staff from '~/components/landing/old/staff/Staff';
+import Staff from '~/components/landing/Staff';
 import EmaliCallToAction from '~/components/EmailCallToAction.vue';
 import Blog from "~/components/landing/Blog";
 import Statics from "~/components/landing/Statics";
