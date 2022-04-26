@@ -12,13 +12,14 @@
     <!--      :isIntersecTrophy="isIntersec.Trophy"-->
     <!--    />-->
     <About :onIntersecAbout="onIntersecAbout"/>
-    <Video :onIntersecVideo="onIntersecVideo"/>
-    <Statistics/>
-    <TimeLine :onIntersecTimeline="onIntersecTimeline"/>
-    <TrophyDesktop :trophies="trophies" class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy"/>
-    <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy"/>
+    <Statics/>
+<!--    <Video :onIntersecVideo="onIntersecVideo"/>-->
+<!--    <Statistics/>-->
+<!--    <TimeLine :onIntersecTimeline="onIntersecTimeline"/>-->
+<!--    <TrophyDesktop :trophies="trophies" class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy"/>-->
+<!--    <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy"/>-->
     <Staff :onIntersecStaff="onIntersecStaff"/>
-    <Sponsor :onIntersecSponser="onIntersecSponser"/>
+<!--    <Sponsor :onIntersecSponser="onIntersecSponser"/>-->
     <!--     <EmaliCallToAction />-->
     <CallToAction/>
     <Blog/>
@@ -34,13 +35,14 @@ import Statistics from '~/components/landing/old/Statistics';
 import TrophyDesktop from '~/components/landing/old/TrophyDesktop';
 import TrophyMobile from '~/components/landing/old/TrophyMobile';
 import Social from '~/components/landing/old/Social.vue';
-import About from '~/components/landing/old/About.vue';
-import Sponsor from '~/components/landing/Sponsor.vue';
+import About from '~/components/landing/About.vue';
+import Sponsor from '~/components/landing/old/Sponsor.vue';
 import HeadTop from '~/components/landing/HeadTop.vue';
 import CallToAction from '~/components/CallToAction.vue';
-import Staff from '~/components/landing/old/staff/Staff';
+import Staff from '~/components/landing/Staff';
 import EmaliCallToAction from '~/components/EmailCallToAction.vue';
 import Blog from "~/components/landing/Blog";
+import Statics from "~/components/landing/Statics";
 
 export default {
   components: {
@@ -59,6 +61,7 @@ export default {
     Staff,
     CallToAction,
     EmaliCallToAction,
+    Statics
   },
   layout: 'landing',
   EmaliCallToActionh: false,
