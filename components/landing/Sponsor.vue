@@ -11,12 +11,12 @@
   >
     <v-row align-center class=' justify-center mt-auto'>
       <div style='text-align: center;'>
-        <div class="font-weight-bold text-sm-h4 text-h6 mb-4">حامیان</div>
+        <div class="font-weight-bold text-sm-h4 text-h6 my-5">حامیان</div>
       </div>
     </v-row>
     <br/>
     <v-row class='mt-16 justify-space-around ma-4'>
-      <v-col class='align-center justify-center text-center' cols='1' v-for='n in 5' :key='n'>
+      <v-col class='align-center justify-center text-center col-3 col-md-2' v-for='n in 4' :key='n'>
         <img src="~assets/images/logo/digikala-logo.svg"  alt='img'/>
       </v-col>
     </v-row>
