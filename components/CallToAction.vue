@@ -1,33 +1,33 @@
 <template>
   <v-card flat tile class='call_to_action transparent mx-auto'>
-<!--    this will be used for background-->
-<!--    <img src='../assets/images/logo/logo__white.svg' class='background-logo' />-->
+    <!--    this will be used for background-->
+    <!--    <img src='../assets/images/logo/logo__white.svg' class='background-logo' />-->
     <div style='text-align: center;'>
       <v-row sm='5' class='align-start justify-center' style='z-index:1'>
         <img src="~/assets/images/logo/header-logo-01.svg" width="320px" height="320px" alt="logo" class="object-fit"/>
       </v-row>
       <v-row sm='5' class='align-start justify-center' style='z-index:1'>
         <div class='d-flex flex-column align-center align-sm-end justify-center pl-5' style='height:100%'>
-          <div class='font-weight-bold text-sm-h4 text-h6 mt-4 mb-1'>همین حالا ثبت نام کنید!</div>
+          <div class='font-weight-bold text-sm-h4 text-h6 mt-4 mb-1'>{{ $t('form.registerNow') }}!</div>
         </div>
       </v-row>
       <v-row sm='5' class='align-start justify-center px-5'>
         <v-col cols='4'>
           <v-btn
-            block
-            color='primary'
-            class='mt-4 ml-4 px-6 v-btn--primary'
+              block
+              color='primary'
+              class='mt-4 ml-4 px-6 v-btn--primary'
           >
-            ثبت‌نام
+            {{ $t('form.register')}}
           </v-btn>
         </v-col>
       </v-row>
       <v-row sm='5' class='align-start justify-center px-5'>
         <v-col cols='4'>
           <v-btn
-            block
-            color='secondary'
-            class='mt-0 ml-4 px-6 v-btn--primary'
+              block
+              color='secondary'
+              class='mt-0 ml-4 px-6 v-btn--primary'
           >
 
             ثبت نام با گوگل
@@ -47,7 +47,7 @@
   </v-card>
 </template>
 <script>
-import { sendGoogleAuthCode } from '~/api/auth';
+import {sendGoogleAuthCode} from '~/api/auth';
 
 export default {
   data() {
@@ -59,8 +59,8 @@ export default {
     async loginWithGoogle() {
       const googleUser = await this.$gAuth.signIn();
       const googleData = googleUser.getAuthResponse();
-      const { id_token, access_token, scope, expires_in, expires_at } = googleData;
-      let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
+      const {id_token, access_token, scope, expires_in, expires_at} = googleData;
+      let res = await sendGoogleAuthCode(this.$axios, {access_token, id_token, scope, expires_in, expires_at});
       if (res.status_code === 400) {
         this.$toast.error('لاگین با خطا مواجه شد');
       } else {

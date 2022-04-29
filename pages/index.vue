@@ -4,6 +4,7 @@
     <HeadTop/>
     <About/>
     <Statics/>
+    <TimeLine/>
     <sponsor/>
     <Staff/>
     <CallToAction/>
@@ -14,7 +15,7 @@
 <script>
 import Header from '~/components/landing/Header.vue';
 import Intersection from '~/components/landing/old/Intersection.vue';
-import TimeLine from '~/components/landing/old/Timeline';
+import TimeLine from '~/components/landing/Timeline';
 import Video from '~/components/landing/old/video.vue';
 import Statistics from '~/components/landing/old/Statistics';
 import TrophyDesktop from '~/components/landing/old/TrophyDesktop';
