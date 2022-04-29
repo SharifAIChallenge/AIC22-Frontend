@@ -1,10 +1,13 @@
 <template>
-  <v-responsive class='overflow-y-auto'>
+  <v-responsive
+      class='overflow-y-auto'
+      style="margin-bottom: 120px"
+  >
     <div class='timelineTitleContainer'>
       <img class='timelineTitleContainer__curveFirstImg' src='../../assets/images/curve1.svg' alt='curve-icon'>
       <img class='timelineTitleContainer__curveSecondImg' src='../../assets/images/curve2.svg' alt='curve-icon'>
       <div class='timelineTitleContainer__text'>
-        زمان بندی
+        {{$t('form.scheduling')}}
       </div>
     </div>
 

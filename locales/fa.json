@@ -43,7 +43,8 @@
     "download": "دانلود",
     "inviteAs": "دعوت به عنوان",
     "optional": "اختیاری",
-    "addToCalendar": "افزودن به تقویم"
+    "addToCalendar": "افزودن به تقویم",
+    "scheduling": "زمان بندی"
   },
   "validation": {
     "email": "ایمیل معتبر نیست",
