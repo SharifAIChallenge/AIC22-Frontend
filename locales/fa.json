@@ -15,6 +15,7 @@
     "signUpWithGoogle": "ثبت‌نام با گوگل",
     "termsAndConditions": "شرایط و قوانین را می پذیرم",
     "registerNow": "همین حالا ثبت‌نام کن",
+    "register": "ثبت\u200Cنام",
     "to": "به",
     "for": "در",
     "forgotPassword": "رمز عبور را فراموش کردید؟",
@@ -41,7 +42,8 @@
     "upload": "آپلود",
     "download": "دانلود",
     "inviteAs": "دعوت به عنوان",
-    "optional": "اختیاری"
+    "optional": "اختیاری",
+    "addToCalendar": "افزودن به تقویم"
   },
   "validation": {
     "email": "ایمیل معتبر نیست",
