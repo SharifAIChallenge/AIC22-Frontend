@@ -45,6 +45,9 @@ $material-dark: (
     'group': map-get($material-dark-elevation-colors, '24'),
   ),
   'chips': map-get($material-dark-elevation-colors, '24'),
+  'timeline':(
+    'card': map-get($material-dark-elevation-colors,'8')
+  ),
 );
 $data-table-expanded-content-box-shadow: inset 0px 4px 8px -5px rgba(255, 255, 255, 0.1), inset 0px -4px 8px -5px rgba(255, 255, 255, 0.1) !default;
 $btn-outline-border-width: 0px;
@@ -57,3 +60,7 @@ $treeview-node-height-dense: 30px;
 $container-max-widths: (
   'xl': 1200px,
 );
+
+$pink-button:  #E5165D;
+
+$min-md-size:960px
