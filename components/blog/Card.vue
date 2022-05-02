@@ -9,7 +9,7 @@
       {{ title }}
     </v-card-title>
     <v-card-text
-        class="pt-12 px-4 px-sm-6"
+        class="pt-10 px-4 px-sm-6"
     >
       {{ description }}
     </v-card-text>
