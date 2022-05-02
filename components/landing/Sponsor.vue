@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mt-2"
+    class="mt-2 h-screen d-flex flex-column align-center justify-center"
     id="sponser"
     v-intersect="{
       handler: onIntersecSponser,
@@ -9,17 +9,20 @@
       },
     }"
   >
-    <v-row align-center class=' justify-center mt-auto'>
-      <div style='text-align: center;'>
-        <div class="font-weight-bold text-sm-h4 text-h6 my-5">حامیان</div>
-      </div>
-    </v-row>
-    <br/>
-    <v-row class='mt-16 justify-space-around ma-4'>
-      <v-col class='align-center justify-center text-center col-3 col-md-2' v-for='n in 4' :key='n'>
-        <img src="~assets/images/logo/digikala-logo.svg"  alt='img'/>
-      </v-col>
-    </v-row>
+    <div class="w-full">
+      <v-row align-center class=' justify-center mt-auto '>
+        <div style='text-align: center;'>
+          <div class="font-weight-bold text-sm-h4 text-h6 my-5">حامیان</div>
+        </div>
+      </v-row>
+      <br/>
+      <v-row class='mt-16 pt-16 justify-space-around ma-4'>
+        <v-col class='align-center justify-center text-center col-3 col-md-2' v-for='n in 4' :key='n'>
+          <img src="~assets/images/logo/digikala-logo.svg"  alt='img'/>
+        </v-col>
+      </v-row>
+    </div>
+
   </div>
 </template>
 
@@ -36,7 +39,9 @@ $image-width: 30vmin;
 .padding-y {
   padding: 20vmin 0px;
 }
-
+.w-full{
+  width: 100%;
+}
 .sscLogo {
   transition: all 0.6s;
   &:hover {
@@ -100,5 +105,8 @@ $image-width: 30vmin;
       filter: invert(0%) sepia(0%) saturate(7500%) hue-rotate(327deg) brightness(0%) contrast(104%);
     }
   }
+}
+.h-screen{
+  height: 100vh;
 }
 </style>
