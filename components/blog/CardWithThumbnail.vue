@@ -4,11 +4,7 @@
       elevation="0"
   >
     <v-row class="w-full">
-      <v-col class="col-12 col-md-4 p-relative img-col">
-        <div class="p-absolute img px-4 px-sm-6 my-4 mx-3">
-          <img src="https://via.placeholder.com/500" :alt="title" class=" rounded-0.5"/>
-        </div>
-      </v-col>
+
       <v-col class="col-12 col-md-8">
         <v-card-title
             class="py-0 my-2 pr-4 pr-sm-6"
@@ -44,7 +40,11 @@
           </v-btn>
         </v-flex>
       </v-col>
-
+      <v-col class="col-12 col-md-4 p-relative img-col">
+        <div class="p-absolute img px-4 px-sm-6 my-4 mx-3">
+          <img src="https://via.placeholder.com/500" :alt="title" class=" rounded-0.5"/>
+        </div>
+      </v-col>
     </v-row>
 
   </v-card>
