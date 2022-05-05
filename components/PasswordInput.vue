@@ -1,5 +1,6 @@
 <template>
   <v-text-field
+    rounded
     :value="value"
     :label="$t(label)"
     :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-import { requiredRules } from '../mixins/formValidations';
+import { requiredRules } from "~/mixins/formValidations";
 
 export default {
   mixins: [requiredRules],
@@ -47,4 +48,7 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+
+</style>
