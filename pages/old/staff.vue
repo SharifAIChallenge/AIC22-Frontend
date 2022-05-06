@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import Header from '../components/staffs/Header';
-import StaffIntro from '../components/staffs/StaffIntro';
-import StaffPreview from '../components/staffs/StaffPreview';
+import Header from '../../components/staffs/Header';
+import StaffIntro from '../../components/staffs/StaffIntro';
+import StaffPreview from '../../components/staffs/StaffPreview';
 
 export default {
   auth: false,
@@ -56,8 +56,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'assets/variables.scss';
-@import 'assets/mixins.scss';
+@import '../../assets/variables';
+@import '../../assets/mixins';
 
 .stickyBar {
   position: sticky;
