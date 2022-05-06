@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <v-container class="blog">
-      <div class='blogTitleContainer'>
-        <img class='blogTitleContainer__curveFirstImg' src='../../assets/images/curve1.svg' alt='curve-icon'>
-        <img class='blogTitleContainer__curveSecondImg' src='../../assets/images/curve2.svg' alt='curve-icon'>
-        <div class='blogTitleContainer__text'>
+      <div class='curveTitleContainer'>
+        <img class='curveTitleContainer__curveFirstImg' src='../../assets/images/curve1.svg' alt='curve-icon'>
+        <img class='curveTitleContainer__curveSecondImg' src='../../assets/images/curve2.svg' alt='curve-icon'>
+        <div class='curveTitleContainer__text'>
           اخبار
         </div>
       </div>
@@ -94,55 +94,6 @@ export default {
 }
 .blog {
   margin-top: 100px;
-}
-.blogTitleContainer {
-  display: flex;
-  align-items: center;
-  justify-self: center;
-  justify-content: center;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 37px;
-  line-height: 45px;
-  height: 160px;
-
-&__text {
-   z-index: 1;
- }
-
-&__curveFirstImg {
-   position: absolute;
-   margin: auto;
-   -webkit-animation: spin 4s linear infinite;
-   -moz-animation: spin 4s linear infinite;
-   animation: spin 4s linear infinite;
- }
-
-&__curveSecondImg {
-   position: absolute;
-   margin: auto;
-   -webkit-animation: spin 4s linear infinite;
-   -moz-animation: spin 4s linear infinite;
-   animation: spin 4s linear infinite;
- }
-}
-@-moz-keyframes spin {
-  100% {
-    -moz-transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes spin {
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
 }
 
 </style>

@@ -35,16 +35,18 @@
             <v-col cols="3">
               <div v-if="!isAuthenticated">
                 <v-btn
-                    v-if="!isAuthenticated" @click="toggleShow('signUp')"
+                    v-if="!isAuthenticated"
                     color="primary"
                     rounded
+                    to="/signup"
                     class="ml-4 px-6 v-btn--primary"
                 >
                   ثبت‌نام
                 </v-btn>
-                <v-btn v-if="!isAuthenticated" @click="toggleShow('login')"
+                <v-btn v-if="!isAuthenticated"
                        rounded
                        class="px-6 v-button--secondary"
+                       to="/login"
                 >
                   <span class="font-weight-bold">ورود</span>
                 </v-btn>
