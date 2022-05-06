@@ -125,54 +125,23 @@ strong {
   justify-content: flex-start !important;
 }
 
-.rounded-0\.5{
-  border-radius: 0.5em!important;
+.rounded-0\.5 {
+  border-radius: 0.5em !important;
 }
-.rounded-1\.5{
-  border-radius: 1.5em!important;
+.rounded-1\.5 {
+  border-radius: 1.5em !important;
 }
 
-
-.h-full{
+.h-full {
   height: 100%;
 }
-.w-full{
+.w-full {
   width: 100%;
 }
-.v-input__append-inner{
+.v-input__append-inner {
   margin-top: 0.8rem !important;
 }
-.curveTitleContainer {
-  display: flex;
-  align-items: center;
-  justify-self: center;
-  justify-content: center;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 37px;
-  line-height: 45px;
-  height: 160px;
 
-  &__text {
-    z-index: 1;
-  }
-
-  &__curveFirstImg {
-    position: absolute;
-    margin: auto;
-    -webkit-animation: spin 4s linear infinite;
-    -moz-animation: spin 4s linear infinite;
-    animation: spin 4s linear infinite;
-  }
-
-  &__curveSecondImg {
-    position: absolute;
-    margin: auto;
-    -webkit-animation: spin 4s linear infinite;
-    -moz-animation: spin 4s linear infinite;
-    animation: spin 4s linear infinite;
-  }
-}
 @-moz-keyframes spin {
   100% {
     -moz-transform: rotate(360deg);

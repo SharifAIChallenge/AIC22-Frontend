@@ -1,13 +1,7 @@
 <template>
   <v-app>
     <v-container class="blog">
-      <div class='curveTitleContainer'>
-        <img class='curveTitleContainer__curveFirstImg' src='../../assets/images/curve1.svg' alt='curve-icon'>
-        <img class='curveTitleContainer__curveSecondImg' src='../../assets/images/curve2.svg' alt='curve-icon'>
-        <div class='curveTitleContainer__text'>
-          اخبار
-        </div>
-      </div>
+      <TitleContainer title="اخبار"/>
       <box classes="elevation-12 mb-16">
         <div class="pa-4 pa-sm-8 pa-md-14 "
         >
@@ -67,9 +61,11 @@
 import Card from "~/components/blog/Card";
 import Box from "~/components/utilities/Box";
 import CardWithThumbnail from "~/components/blog/CardWithThumbnail";
+import TitleContainer from '~/components/TitleContainer';
 
 export default {
   components: {
+    TitleContainer,
     Box,
     Card,
     CardWithThumbnail

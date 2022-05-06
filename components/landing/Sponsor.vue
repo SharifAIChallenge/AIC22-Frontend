@@ -10,24 +10,21 @@
     }"
   >
     <div class="w-full">
-      <v-row align-center class=' justify-center mt-auto '>
-        <div style='text-align: center;'>
-          <div class="font-weight-bold text-sm-h4 text-h6 my-5">حامیان</div>
-        </div>
-      </v-row>
-      <br/>
-      <v-row class='mt-16 pt-16 justify-space-around ma-4'>
-        <v-col class='align-center justify-center text-center col-3 col-md-2' v-for='n in 4' :key='n'>
-          <img src="~assets/images/logo/digikala-logo.svg"  alt='img'/>
+      <TitleContainer title="حامیان" />
+      <v-row class="mt-16 pt-16 justify-space-around ma-4">
+        <v-col class="align-center justify-center text-center col-3 col-md-2" v-for="n in 4" :key="n">
+          <img src="~assets/images/logo/digikala-logo.svg" alt="img" />
         </v-col>
       </v-row>
     </div>
-
   </div>
 </template>
 
 <script>
+import TitleContainer from '~/components/TitleContainer';
+
 export default {
+  components: { TitleContainer },
   props: {
     onIntersecSponser: Function,
   },
@@ -39,7 +36,7 @@ $image-width: 30vmin;
 .padding-y {
   padding: 20vmin 0px;
 }
-.w-full{
+.w-full {
   width: 100%;
 }
 .sscLogo {
@@ -106,7 +103,7 @@ $image-width: 30vmin;
     }
   }
 }
-.h-screen{
+.h-screen {
   height: 100vh;
 }
 </style>

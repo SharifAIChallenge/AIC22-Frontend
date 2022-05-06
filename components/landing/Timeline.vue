@@ -1,66 +1,36 @@
 <template>
-  <v-responsive
-      class='overflow-y-auto'
-      style="margin-bottom: 120px"
-  >
-    <div class='timelineTitleContainer'>
-      <img class='timelineTitleContainer__curveFirstImg' src='../../assets/images/curve1.svg' alt='curve-icon'>
-      <img class='timelineTitleContainer__curveSecondImg' src='../../assets/images/curve2.svg' alt='curve-icon'>
-      <div class='timelineTitleContainer__text'>
-        {{$t('form.scheduling')}}
-      </div>
-    </div>
+  <v-responsive class="overflow-y-auto" style="margin-bottom: 120px">
+    <TitleContainer :title="$t('form.scheduling')" />
 
-    <v-responsive class='d-flex align-center text-center'>
-      <v-timeline
-          align-top
-          :dense='$vuetify.breakpoint.smAndDown'
-      >
-        <v-timeline-item
-            v-for='(item, i) in timelineArrey'
-            :key='i'
-            small
-            fill-dot
-            color="transparent"
-            class="timelineItem"
-        >
+    <v-responsive class="d-flex align-center text-center">
+      <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
+        <v-timeline-item v-for="(item, i) in timelineArrey" :key="i" small fill-dot color="transparent" class="timelineItem">
           <template v-slot:icon>
-            <div class="timelineItem__icon">
-            </div>
+            <div class="timelineItem__icon"></div>
           </template>
-          <template v-slot:opposite>
-          </template>
+          <template v-slot:opposite></template>
           <template v-slot:divider>
-            <div class="timelineItem__icon">
-            </div>
+            <div class="timelineItem__icon"></div>
           </template>
           <div class="timelineCard__container">
-            <v-card
-                dark
-                class='timelineCard v-card--flat'
-            >
-              <div class='timelineCard__date'>
+            <v-card dark class="timelineCard v-card--flat">
+              <div class="timelineCard__date">
                 <p>
                   {{ item.month }}
                 </p>
               </div>
               <div class="d-flex flex-row justify-end">
-                <v-card-title class='timelineCard__title'>
+                <v-card-title class="timelineCard__title">
                   {{ item.title }}
                 </v-card-title>
-                <v-card-text class='timelineCard__text'>
+                <v-card-text class="timelineCard__text">
                   <p>{{ item.des }}</p>
-
                 </v-card-text>
               </div>
             </v-card>
           </div>
         </v-timeline-item>
-        <v-btn
-            color='primary'
-            class='pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary'
-            style="width: 186px"
-        >
+        <v-btn color="primary" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary" style="width: 186px">
           {{ $t('form.addToCalendar') }}
         </v-btn>
       </v-timeline>
@@ -68,14 +38,16 @@
   </v-responsive>
 </template>
 <script>
+import TitleContainer from '~/components/TitleContainer';
+
 export default {
+  components: { TitleContainer },
   data() {
     return {
       timelineArrey: [
-        {title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت'},
-        {title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت'},
-        {title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت'},
-
+        { title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت' },
+        { title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت' },
+        { title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت' },
       ],
       calendarLink: '',
     };
@@ -86,50 +58,18 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 @import '../../assets/mixins';
-@import "../../assets/variables";
+@import '../../assets/variables';
 
 @property --rotate {
-  syntax: "<angle>";
+  syntax: '<angle>';
   initial-value: 132deg;
   inherits: false;
 }
 #timeline {
   background-color: #0e1224;
   position: relative;
-}
-
-.timelineTitleContainer {
-  display: flex;
-  align-items: center;
-  justify-self: center;
-  justify-content: center;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 37px;
-  line-height: 45px;
-  height: 160px;
-
-  &__text {
-    z-index: 1;
-  }
-
-  &__curveFirstImg {
-    position: absolute;
-    margin: auto;
-    -webkit-animation: spin 4s linear infinite;
-    -moz-animation: spin 4s linear infinite;
-    animation: spin 4s linear infinite;
-  }
-
-  &__curveSecondImg {
-    position: absolute;
-    margin: auto;
-    -webkit-animation: spin 4s linear infinite;
-    -moz-animation: spin 4s linear infinite;
-    animation: spin 4s linear infinite;
-  }
 }
 
 @-moz-keyframes spin {
@@ -151,7 +91,6 @@ export default {
   }
 }
 
-
 .timelineCard {
   justify-content: center;
   display: flex;
@@ -167,12 +106,10 @@ export default {
     max-width: 260px;
     padding: 2px !important;
     z-index: 0;
-    background-image: linear-gradient(
-            var(--rotate), #FC147F, #480AC2, #E08250, #3AE4F6) !important;
+    background-image: linear-gradient(var(--rotate), #fc147f, #480ac2, #e08250, #3ae4f6) !important;
     opacity: 1;
-    transition: opacity .5s;
+    transition: opacity 0.5s;
     animation: roods 5s linear infinite;
-
   }
 
   @keyframes roods {
@@ -206,7 +143,7 @@ export default {
     padding-left: 0;
     padding-bottom: 12px;
   }
-  &__text{
+  &__text {
     padding-bottom: 12px;
   }
 }
@@ -219,7 +156,6 @@ export default {
 }
 
 .timelineItem {
-
   @media screen and (min-width: 960px) {
     &:nth-of-type(odd) {
       .timelineCard__container {
@@ -248,7 +184,6 @@ export default {
   //    }
   //  }
   //}
-
 
   .v-timeline-item__divider {
     border: 2px dashed map-get($material-dark-elevation-colors, '8') !important;
