@@ -2,13 +2,7 @@
   <div class="h-full my-16">
     <Header/>
     <v-container class="h-full d-flex flex-column align-center justify-center">
-      <div class='curveTitleContainer'>
-        <img class='curveTitleContainer__curveFirstImg' src='../assets/images/curve1.svg' alt='curve-icon'>
-        <img class='curveTitleContainer__curveSecondImg' src='../assets/images/curve2.svg' alt='curve-icon'>
-        <div class='curveTitleContainer__text'>
-          ورود
-        </div>
-      </div>
+      <TitleContainer title="ورود"/>
       <div>
         <Box>
           <Login/>
@@ -36,8 +30,10 @@
 import Header from "~/components/landing/Header";
 import Box from "~/components/utilities/Box";
 import Login from "~/components/userForms/login";
+import TitleContainer from '~/components/TitleContainer';
+
 export default {
-  components: { Login, Box, Header },
+  components: {TitleContainer, Login, Box, Header },
   layout: 'landing',
 };
 </script>

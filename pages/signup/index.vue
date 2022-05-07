@@ -2,13 +2,7 @@
   <div class="h-full my-16">
     <Header/>
     <v-container class="h-full d-flex flex-column align-center justify-center">
-      <div class='curveTitleContainer'>
-        <img class='curveTitleContainer__curveFirstImg' src='../../assets/images/curve1.svg' alt='curve-icon'>
-        <img class='curveTitleContainer__curveSecondImg' src='../../assets/images/curve2.svg' alt='curve-icon'>
-        <div class='curveTitleContainer__text'>
-          ثبت نام
-        </div>
-      </div>
+      <TitleContainer title="ثبت نام"/>
       <div>
         <Box>
           <SignUp/>
@@ -36,9 +30,10 @@
 import Header from "~/components/landing/Header";
 import Box from "~/components/utilities/Box";
 import SignUp from "~/components/userForms/signUp";
+import TitleContainer from '~/components/TitleContainer';
 
 export default {
-  components: { SignUp,  Box, Header },
+  components: {TitleContainer, SignUp,  Box, Header },
   layout: 'landing',
 };
 </script>
