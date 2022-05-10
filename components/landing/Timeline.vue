@@ -1,62 +1,56 @@
 <template>
-  <v-responsive class="overflow-y-auto">
+  <v-responsive class="overflow-y-auto" style="margin-bottom: 120px">
+    <TitleContainer :title="$t('form.scheduling')" />
+
     <v-responsive class="d-flex align-center text-center">
-      <v-card
-        id="timeline"
-        v-intersect="{
-          handler: onIntersecTimeline,
-        }"
-      >
-        <img src="../../assets/images/logo/logo__white.svg" alt="Ai-challenge" class="timelineLogo d-none d-md-block" width="30%" />
-        <div class="col-4 d-flex align-center justify-end timelineTitle my-5">
-          <h4 class="mt-5">زمان‌بندی</h4>
-        </div>
-        <div>
-          <div v-for="(time, index) in timelineArrey" :key="index" class="timelineItem d-flex">
-            <div class="col-4 timelineDate d-flex align-end justify-center flex-column">
-              <h3>{{ time.day }}</h3>
-              <h4 class="text-left ml-md-3">{{ time.month }}</h4>
-            </div>
-            <div class="timelineDes col-8 d-flex align-start justify-center flex-column">
-              <span></span>
-              <div>
-                <h3 class="d-flex align-center">
-                  <v-icon class="ml-3" size="40" medium>mdi-gamepad-variant</v-icon>
-                  {{ time.title }}
-                </h3>
-                <p class="mt-3 text-right pl-3">{{ time.des }}</p>
+      <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
+        <v-timeline-item v-for="(item, i) in timelineArrey" :key="i" small fill-dot color="transparent" class="timelineItem">
+          <template v-slot:icon>
+            <div class="timelineItem__icon"></div>
+          </template>
+          <template v-slot:opposite></template>
+          <template v-slot:divider>
+            <div class="timelineItem__icon"></div>
+          </template>
+          <div class="timelineCard__container">
+            <v-card dark class="timelineCard v-card--flat">
+              <div class="timelineCard__date">
+                <p>
+                  {{ item.month }}
+                </p>
               </div>
-            </div>
+              <div class="d-flex flex-row justify-end">
+                <v-card-title class="timelineCard__title">
+                  {{ item.title }}
+                </v-card-title>
+                <v-card-text class="timelineCard__text">
+                  <p>{{ item.des }}</p>
+                </v-card-text>
+              </div>
+            </v-card>
           </div>
-          <div class="addToCal d-flex">
-            <div class="timelineDate col-4"></div>
-            <div class="timeLineBtn">
-              <span></span>
-              <v-btn block :href="calendarLink" target="blank">
-                <v-icon medium class="ml-2">mdi-calendar-plus</v-icon>
-                به تقویمم اضافه کن
-              </v-btn>
-            </div>
-          </div>
-        </div>
-      </v-card>
+        </v-timeline-item>
+        <v-btn color="primary" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary" style="width: 186px">
+          {{ $t('form.addToCalendar') }}
+        </v-btn>
+      </v-timeline>
     </v-responsive>
   </v-responsive>
 </template>
 <script>
+import TitleContainer from '~/components/TitleContainer';
+
 export default {
+  components: { TitleContainer },
   data() {
     return {
-      timelineArrey: [],
+      timelineArrey: [
+        { title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت' },
+        { title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت' },
+        { title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت' },
+      ],
       calendarLink: '',
     };
-  },
-  async fetch() {
-    const res = await this.$axios.$get('homepage/timeline');
-    this.calendarLink = res.calendar;
-    this.timelineArrey = res.data.map(item => {
-      return { title: item.title_fa, des: item.text_fa, day: item.day, month: item.month };
-    });
   },
   props: {
     onIntersecTimeline: Function,
@@ -65,29 +59,150 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../assets/mixins.scss';
+@import '../../assets/mixins';
+@import '../../assets/variables';
 
+@property --rotate {
+  syntax: '<angle>';
+  initial-value: 132deg;
+  inherits: false;
+}
 #timeline {
   background-color: #0e1224;
   position: relative;
 }
-.timelineTitle {
-  font-size: 4.2rem;
-  @include not-md {
-    font-size: 7vw;
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
   }
 }
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.timelineCard {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: map-get($material-dark-elevation-colors, '8') !important;
+  z-index: 1;
+  border-radius: 16px !important;
+
+  &__container {
+    margin: auto 24px auto auto;
+    border-radius: 16px !important;
+    max-width: 260px;
+    padding: 2px !important;
+    z-index: 0;
+    background-image: linear-gradient(var(--rotate), #fc147f, #480ac2, #e08250, #3ae4f6) !important;
+    opacity: 1;
+    transition: opacity 0.5s;
+    animation: roods 5s linear infinite;
+  }
+
+  @keyframes roods {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  }
+
+  &__date {
+    flex: 1 0 100%;
+    padding: 8px 12px;
+    height: 28px;
+    > p {
+      top: -20px;
+      border-radius: 8px !important;
+      text-align: center;
+      position: relative;
+      margin: auto;
+      max-width: 80px;
+      max-height: 29px;
+      background-color: $pink-button;
+    }
+  }
+
+  &__title {
+    min-width: 80px;
+    padding-top: 0;
+    padding-left: 0;
+    padding-bottom: 12px;
+  }
+  &__text {
+    padding-bottom: 12px;
+  }
+}
+
 .timelineLogo {
   position: absolute;
   opacity: 0.3;
   left: -15%;
   top: 20%;
 }
+
 .timelineItem {
-  height: 320px;
+  @media screen and (min-width: 960px) {
+    &:nth-of-type(odd) {
+      .timelineCard__container {
+        margin-right: 24px !important;
+        margin: auto;
+      }
+    }
+    &:nth-of-type(even) {
+      .timelineCard__container {
+        margin-left: 24px !important;
+        margin: auto;
+      }
+    }
+  }
+  // TODO: vuetify and our display breakpoints don't same
+
+  //@include md {
+  //  &:nth-of-type(odd) {
+  //    .timelineCard__container {
+  //      margin-right: 24px;
+  //    }
+  //  }
+  //  &:nth-of-type(even) {
+  //    .timelineCard__container {
+  //      margin-left: 24px;
+  //    }
+  //  }
+  //}
+
+  .v-timeline-item__divider {
+    border: 2px dashed map-get($material-dark-elevation-colors, '8') !important;
+  }
+
+  &__icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: map-get($material-dark-elevation-colors, '8');
+    border: 2px solid rgb(31, 53, 77);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+  }
+
   .timelineDate {
     background-color: #ef394e;
     position: relative;
+
     h3 {
       font-size: 9rem;
       line-height: 150px;
@@ -103,11 +218,13 @@ export default {
         line-height: 80px;
       }
     }
+
     h4 {
       border-top: 3px solid white;
       font-size: 2rem;
     }
   }
+
   .timelineDes {
     position: relative;
     padding-right: 96px;
@@ -117,11 +234,13 @@ export default {
         right: 24px !important;
       }
     }
+
     > div {
       display: flex;
       justify-content: center;
       flex-direction: column;
     }
+
     span {
       background-color: white;
       width: 2px;
@@ -130,6 +249,7 @@ export default {
       height: 100%;
       right: 48px;
       top: 0;
+
       &::after {
         display: block;
         content: '';
@@ -143,19 +263,24 @@ export default {
         left: -10px;
       }
     }
+
     h3 {
       font-size: 2.3rem;
     }
+
     i {
       color: #ef394e;
     }
   }
 }
+
 .addToCal {
   height: 150px;
+
   .timelineDate {
     background-color: #ef394e;
   }
+
   .timeLineBtn {
     margin-right: 96px;
     position: relative;
@@ -164,6 +289,7 @@ export default {
     @include not-md {
       margin-right: 48px;
     }
+
     button {
       border-radius: 0;
       padding: 0 45px;
@@ -171,6 +297,7 @@ export default {
         padding: 0;
       }
     }
+
     span {
       background-color: white;
       width: 2px;
@@ -182,6 +309,7 @@ export default {
       @include not-md {
         right: -24px;
       }
+
       &::after {
         display: block;
         content: '';

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Header color="transparent" />
+    <Header/>
     <v-main>
       <nuxt />
     </v-main>

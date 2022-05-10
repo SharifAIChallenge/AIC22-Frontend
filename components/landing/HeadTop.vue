@@ -1,67 +1,73 @@
 <template>
   <div>
     <div id="HeadTop">
-      <div class="aiTitle d-flex align-center justify-center">
-        <div class="d-flex flex-column align-end justify-center">
-          <div class="d-flex align-end" dir="ltr" style="position:relative; width:100%">
-            <h2>sharif</h2>
-            <h2 class="fight fight-ai">ai</h2>
-          </div>
-          <div>
-            <h2>challenge</h2>
-          </div>
-          <div><h2 class="fight">2021</h2></div>
+      <div class="container">
+        <div>
+          <h2>CHALLENGE</h2>
+          <h3>2022</h3>
         </div>
+        <AI-card></AI-card>
+
       </div>
+
       <span class="scroll"></span>
     </div>
+
   </div>
 </template>
 
-<script></script>
+<script>
+import AI_card from './AI_card'
+
+export default {
+  components: {
+    'AI-card': AI_card
+  }
+}
+</script>
 
 <style scoped lang="scss">
-@import '../../assets/mixins.scss';
+@import '../../assets/mixins';
+
+.object-fit-none {
+  object-fit: none;
+}
 
 #HeadTop {
   height: 100vh;
   transition: 0.4s;
   position: relative;
-  background-color: #090c18;
-  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @include not-md {
     height: 100vh;
   }
-  .aiTitle {
-    height: 100%;
-    width: 100%;
-    h2 {
-      text-transform: uppercase;
-      font-size: 5rem;
-      line-height: 80px;
-      @include not-md {
-        font-size: 2rem;
-        line-height: 30px;
-      }
-    }
-    .fight {
-      color: var(--v-primary-base);
-      font-size: 10rem;
-      line-height: 160px;
-      @include not-md {
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    font-family: Nebula, serif;
+
+    div {
+      margin-left: 3%;
+
+      h2 {
+        margin-bottom: -3%;
         font-size: 4rem;
-        line-height: 70px;
+      }
+
+      h3 {
+        margin-top: -3%;
+
+        font-size: 1.5rem;
       }
     }
-    .fight-ai {
-      position: absolute;
-      right: 0;
-      bottom: -23px;
-      @include not-md {
-        bottom: -13px;
-      }
-    }
+
   }
+
   .scroll {
     display: block;
     width: 2px;
@@ -73,6 +79,7 @@
     animation: ScrollAnimate 2s infinite;
   }
 }
+
 @keyframes ScrollAnimate {
   0% {
     opacity: 1;

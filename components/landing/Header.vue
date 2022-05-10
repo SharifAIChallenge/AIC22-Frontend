@@ -5,71 +5,124 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
       <div class="d-flex flex-column align-center justify-center" style="height: 85%">
-        <v-btn v-if="isAuthenticated" plain :ripple="false" text tile :class="getClass()" to="/dashboard">داشبورد</v-btn>
-        <v-btn plain :ripple="false" text tile :class="getClass()" to="/">خانه</v-btn>
-        <v-btn plain :ripple="false" text tile :class="getClass()" to="/faq">سوالات متداول</v-btn>
-        <v-btn plain :ripple="false" text tile :class="getClass()" to="/blog">اخبار</v-btn>
-        <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">تاریخچه</v-btn>
-        <v-btn plain text :ripple="false" tile :class="getClass()" to="/live">لایو</v-btn>
+        <v-btn v-if="isAuthenticated" plain text tile to="/dashboard">داشبورد</v-btn>
+        <v-btn
+            v-for="(item,index) in items"
+            :key="index"
+            plain
+            text
+            rounded
+            :to="item.href"
+        >
+          {{ item.text }}
+        </v-btn>
       </div>
     </v-dialog>
-    <v-app-bar flat absolute :color="color">
-      <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
+    <v-app-bar
+        fixed
+        elevation="10"
+        height="auto"
+    >
+      <v-btn id="menu-btn" icon class="transparent hidden-md-and-up" @click="showMenu = !showMenu">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
-      <div class="hidden-xs-only" id="menu">
-        <v-btn v-if="!isAuthenticated" plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow('login')">
-          <v-icon left>mdi-shield-star</v-icon>
-          <span class="font-weight-bold">ورود</span>
-        </v-btn>
-         <v-btn v-if="!isAuthenticated" plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow('signUp')">
-          ثبت‌نام
-        </v-btn>
-        <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
-          خانه
-        </v-btn>
-        <v-btn v-if="isAuthenticated" plain text :ripple="false" tile :class="getClass()" to="/dashboard">
-          داشبورد
-        </v-btn>
-        <v-btn plain text tile :class="getClass()" to="/blog">
-          اخبار
-        </v-btn>
-        <v-btn plain text :ripple="false" tile :class="getClass()" to="/faq">
-          سوالات متداول
-        </v-btn>
-        <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
-          تاریخچه
-        </v-btn>
-        <v-btn plain text :ripple="false" tile :class="getClass()" to="/live">
-          لایو
-        </v-btn>
-        <sponsers-dropdown></sponsers-dropdown>
-      </div>
-      <v-spacer></v-spacer>
-      <v-btn v-if="!isAuthenticated" plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow('login')">
-        <v-icon left>mdi-shield-star</v-icon>
-        <span class="font-weight-bold">ورود</span>
-      </v-btn>
-      <v-spacer></v-spacer>
+      <div class="hidden-sm-only hidden-xs-only" id="menu">
+        <v-container
+        >
+          <v-row
+              class="justify-center align-center"
+          >
+            <v-col cols="3">
+              <div v-if="!isAuthenticated">
+                <v-btn
+                    v-if="!isAuthenticated"
+                    color="primary"
+                    rounded
+                    to="/signup"
+                    class="ml-4 px-6 v-btn--primary"
+                >
+                  ثبت‌نام
+                </v-btn>
+                <v-btn v-if="!isAuthenticated"
+                       rounded
+                       class="px-6 v-button--secondary"
+                       to="/login"
+                >
+                  <span class="font-weight-bold">ورود</span>
+                </v-btn>
+              </div>
+              <div v-else>
+                <v-btn v-if="isAuthenticated" plain text :ripple="false" tile to="/dashboard">
+                  داشبورد
+                </v-btn>
+              </div>
 
-      <nuxt-link to="/" style="width: 56px; height: 100%">
-        <img src="logo__white.svg" class="logo" v-if="color === 'primary'" />
-        <img src="../../assets/images/logo/logo__primary.svg" class="logo" v-else />
-      </nuxt-link>
+            </v-col>
+            <v-col class="text-center" cols="6">
+              <v-btn
+                  v-for="(item,index) in items"
+                  :key="index"
+                  plain
+                  text
+                  rounded
+                  small
+                  :to="item.href"
+              >
+                {{ item.text }}
+              </v-btn>
+
+              <sponsers-dropdown></sponsers-dropdown>
+            </v-col>
+            <v-col class="text-left" cols="3">
+              <nuxt-link to="/" class="d-flex align-center justify-end">
+                <img src="~/assets/images/logo/header-logo-01.svg" width="80px" height="80px" alt="logo"/>
+              </nuxt-link>
+            </v-col>
+          </v-row>
+        </v-container>
+
+
+      </div>
     </v-app-bar>
-    <formManager :isPage="false" />
+    <formManager :isPage="false"/>
   </div>
 </template>
 <script>
 import formManager from '~/components/userForms/formManager';
-import SponsersDropdown from './SponserDropdown';
-import { mapState } from 'vuex';
+import SponsersDropdown from './old/SponserDropdown';
+import {mapState} from 'vuex';
 
 export default {
-  props: ['color'],
   data() {
     return {
       showMenu: false,
+      items: [
+        {
+          text: 'خانه',
+          icon: 'mdi-home',
+          href: '/'
+        },
+        {
+          text: 'اخبار',
+          icon: 'mdi-newspaper',
+          href: '/blog'
+        },
+        {
+          text: 'سوالات متداول',
+          icon: 'mdi-help-circle',
+          href: '/faq'
+        },
+        {
+          text: 'تاریخچه',
+          icon: 'mdi-history',
+          href: '/history'
+        },
+        {
+          text: 'لایو',
+          icon: 'mdi-play',
+          href: '/live'
+        },
+      ]
     };
   },
   components: {
@@ -87,57 +140,24 @@ export default {
       this.$store.commit('formStatus/toggleShow');
       this.$store.commit('formStatus/changeStatus', mode);
     },
-    getClass() {
-      return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent py-8 text-h5 text-sm-subtitle-2';
-    },
+
   },
 };
 </script>
 <style lang="scss">
-#header {
-  position: relative;
-  .mobile-wrapper {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    a {
-      display: block;
-    }
-  }
-  .logo {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 56px;
-  }
-  .navLinks {
-    height: calc(100% - 200px);
-  }
-  #menu {
-    transition: 0.4s;
-  }
-  .v-toolbar__content {
-    padding-bottom: 0 !important;
-    align-items: flex-end;
-  }
-  .hover_white {
-    &.v-btn--active,
-    &:hover {
-      color: var(--v-anchor-base);
-      transition: all 0.7s;
-    }
-  }
-  .hover_primary {
-    &.v-btn--active,
-    &:hover {
-      transition: all 0.7s;
-    }
-  }
-  .v-btn--active #header {
-    background-color: #090c18;
+.h-full {
+  height: 100%;
+}
+
+.v-toolbar__content {
+  display: block;
+}
+
+#menu {
+
+  .col {
+    padding: 0;
   }
 }
+
 </style>

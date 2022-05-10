@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mt-2"
+    class="mt-2 h-screen d-flex flex-column align-center justify-center"
     id="sponser"
     v-intersect="{
       handler: onIntersecSponser,
@@ -9,48 +9,22 @@
       },
     }"
   >
-    <v-row>
-      <v-col md="6" class="white ssc">
-        <div class="sscLogo">
-          <a href="https://ssc.ce.sharif.edu" target="_blank" class="d-flex justify-center" style="width: 100%; height: 100%">
-            <img src="~assets/images/logo/ssc-logo.svg" />
-          </a>
-        </div>
-      </v-col>
-      <v-col md="6" align-self="center" class="padding-y">
-        <div class="sscIntro">
-          <h4>انجمن علمی دانشکده مهندسی کامپیوتر</h4>
-          <h3>دانشگاه صنعتی شریف</h3>
-          <h2>برگزار می‌کند</h2>
-        </div>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="6" class="digikala padding-y" align-self="center">
-        <h2>با حمایت</h2>
-        <h1 style="font-size: 3.5rem" class="mt-3">
-          <nuxt-link to="/sponsors/digikala">دیجیکالا</nuxt-link>
-        </h1>
-      </v-col>
-      <v-col cols="6" class="digikalaLogoCol">
-        <nuxt-link to="/sponsors/digikala">
-          <div>
-            <img src="~assets/images/logo/digikala-logo.svg" class="digikalaLogo" />
-          </div>
-        </nuxt-link>
-      </v-col>
-    </v-row>
-    <div style="text-align: center" class="mt-10">
-      <h3>حامی رسانه‌ای</h3>
-      <nuxt-link to="/sponsors/aparat">
-        <h1 class="mt-3" style="font-size: 2.2rem">آپارات</h1>
-      </nuxt-link>
+    <div class="w-full">
+      <TitleContainer title="حامیان" />
+      <v-row class="mt-16 pt-16 justify-space-around ma-4">
+        <v-col class="align-center justify-center text-center col-3 col-md-2" v-for="n in 4" :key="n">
+          <img src="~assets/images/logo/digikala-logo.svg" alt="img" />
+        </v-col>
+      </v-row>
     </div>
   </div>
 </template>
 
 <script>
+import TitleContainer from '~/components/TitleContainer';
+
 export default {
+  components: { TitleContainer },
   props: {
     onIntersecSponser: Function,
   },
@@ -62,7 +36,9 @@ $image-width: 30vmin;
 .padding-y {
   padding: 20vmin 0px;
 }
-
+.w-full {
+  width: 100%;
+}
 .sscLogo {
   transition: all 0.6s;
   &:hover {
@@ -126,5 +102,8 @@ $image-width: 30vmin;
       filter: invert(0%) sepia(0%) saturate(7500%) hue-rotate(327deg) brightness(0%) contrast(104%);
     }
   }
+}
+.h-screen {
+  height: 100vh;
 }
 </style>

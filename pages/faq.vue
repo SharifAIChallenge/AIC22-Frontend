@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import Header from '~/components/landing/Header.vue';
+import Header from '~/components/landing/old/Header.vue';
 import { FAQ } from '~/api/index';
 import CallToAction from '~/components/CallToAction.vue';
 

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import StaffCard from '../landing/staff/StaffCard';
+import StaffCard from '../landing/old/staff/StaffCard';
 export default {
   props: {
     techStaffs:{

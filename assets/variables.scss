@@ -5,19 +5,19 @@ $body-font-family: 'Vazir', serif;
 $btn-letter-spacing: 0;
 $tabs-item-letter-spacing: 0;
 $material-dark-elevation-colors: (
-  '0': #090c18,
-  '1': #090c18,
-  '2': #090c18,
-  '3': #090c18,
-  '4': #090c18,
-  '6': #090c18,
-  '8': #090c18,
+  '0': #13202E,
+  '1': #13202E,
+  '2': #13202E,
+  '3': #13202E,
+  '4': #13202E,
+  '6': #13202E,
+  '8': #13202E,
   '12': #0e1224,
   '16': #141432,
   '24': #1a1940,
 );
 $material-dark: (
-  'background': #090c18,
+  'background':#13202E,
   'surface': #090c18,
   'bg-color': #090c18,
   'navigation-drawer': map-get($material-dark-elevation-colors, '16'),
@@ -45,6 +45,9 @@ $material-dark: (
     'group': map-get($material-dark-elevation-colors, '24'),
   ),
   'chips': map-get($material-dark-elevation-colors, '24'),
+  'timeline':(
+    'card': map-get($material-dark-elevation-colors,'8')
+  ),
 );
 $data-table-expanded-content-box-shadow: inset 0px 4px 8px -5px rgba(255, 255, 255, 0.1), inset 0px -4px 8px -5px rgba(255, 255, 255, 0.1) !default;
 $btn-outline-border-width: 0px;
@@ -57,3 +60,7 @@ $treeview-node-height-dense: 30px;
 $container-max-widths: (
   'xl': 1200px,
 );
+
+$pink-button:  #E5165D;
+
+$min-md-size:960px

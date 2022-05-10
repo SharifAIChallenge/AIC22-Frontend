@@ -149,11 +149,12 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: '#eb3654',
+          primary: '#0071E3',
           accent: colors.pink.base,
-          secondary: '#42b3aa',
+          secondary: '#E30062',
           warning: colors.amber.base,
-          bg: '#0e1224',
+          bg: '#13202E',
+          bg_secondary :'#182636',
           shades: '#090c18',
           error: '#ffb300',
           success: '#00c853',

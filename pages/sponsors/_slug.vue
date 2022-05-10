@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import Header from '~/components/landing/Header.vue';
+import Header from '~/components/landing/old/Header.vue';
 
 export default {
   layout: 'landing',
