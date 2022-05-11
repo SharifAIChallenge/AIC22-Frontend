@@ -19,11 +19,9 @@ RUN rm -rf node_modules && \
   --non-interactive \
   --production=true
 
-FROM node:lts
 
-WORKDIR /app
 
-COPY --from=builder /app  .
-ENV HOST 0.0.0.0
-
-CMD [ "yarn", "start" ]
+FROM nginx:stable-alpine as production-stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 3000
+CMD ["nginx", "-g", "daemon off;"]
