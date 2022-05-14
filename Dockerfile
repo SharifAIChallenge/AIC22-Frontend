@@ -1,27 +1,12 @@
 FROM node:lts as builder
-
 WORKDIR /app
-
+COPY package*.json ./
+RUN npm install 
 COPY . .
-
-RUN yarn install \
-  --prefer-offline \
-  --frozen-lockfile \
-  --non-interactive \
-  --production=false
-
-RUN yarn build
-
-RUN rm -rf node_modules && \
-  NODE_ENV=production yarn install \
-  --prefer-offline \
-  --pure-lockfile \
-  --non-interactive \
-  --production=true
-
+RUN npm run generate
 
 
 FROM nginx:stable-alpine as production-stage
 COPY --from=builder /app/dist /usr/share/nginx/html
-EXPOSE 3000
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
