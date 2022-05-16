@@ -1,13 +1,7 @@
 <template>
   <v-app>
     <v-container class="blog">
-      <div class='blogTitleContainer'>
-        <img class='blogTitleContainer__curveFirstImg' src='../../assets/images/curve1.svg' alt='curve-icon'>
-        <img class='blogTitleContainer__curveSecondImg' src='../../assets/images/curve2.svg' alt='curve-icon'>
-        <div class='blogTitleContainer__text'>
-          اخبار
-        </div>
-      </div>
+      <TitleContainer title="اخبار"/>
       <box classes="elevation-12 mb-16">
         <div class="pa-4 pa-sm-8 pa-md-14 "
         >
@@ -67,9 +61,11 @@
 import Card from "~/components/blog/Card";
 import Box from "~/components/utilities/Box";
 import CardWithThumbnail from "~/components/blog/CardWithThumbnail";
+import TitleContainer from '~/components/TitleContainer';
 
 export default {
   components: {
+    TitleContainer,
     Box,
     Card,
     CardWithThumbnail
@@ -96,55 +92,6 @@ export default {
 }
 .blog {
   margin-top: 100px;
-}
-.blogTitleContainer {
-  display: flex;
-  align-items: center;
-  justify-self: center;
-  justify-content: center;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 37px;
-  line-height: 45px;
-  height: 160px;
-
-&__text {
-   z-index: 1;
- }
-
-&__curveFirstImg {
-   position: absolute;
-   margin: auto;
-   -webkit-animation: spin 4s linear infinite;
-   -moz-animation: spin 4s linear infinite;
-   animation: spin 4s linear infinite;
- }
-
-&__curveSecondImg {
-   position: absolute;
-   margin: auto;
-   -webkit-animation: spin 4s linear infinite;
-   -moz-animation: spin 4s linear infinite;
-   animation: spin 4s linear infinite;
- }
-}
-@-moz-keyframes spin {
-  100% {
-    -moz-transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes spin {
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
 }
 
 </style>

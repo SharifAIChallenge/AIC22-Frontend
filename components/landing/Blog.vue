@@ -1,8 +1,6 @@
 <template>
   <div class="my-14 py-14">
-    <h3 class="text-h2 text-center">
-      آخرین اخبار
-    </h3>
+    <TitleContainer title="آخرین اخبار"/>
     <v-container class="my-16">
       <box>
         <div class="pa-4 pa-sm-8 pa-md-14">
@@ -51,10 +49,11 @@
 <script>
 import Box from "~/components/utilities/Box";
 import Card from "~/components/blog/Card";
+import TitleContainer from '~/components/TitleContainer';
 
 export default {
   name: "Blog",
-  components: {Card, Box}
+  components: {TitleContainer, Card, Box}
 }
 </script>
 

@@ -19,6 +19,7 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/svg": "^0.1.12",
     "@nuxtjs/toast": "^3.3.0",
+    "@nuxtjs/vuetify": "^1.11.3",
     "cookie-universal-nuxt": "^2.1.4",
     "front-matter": "^4.0.2",
     "linkify-it": "^3.0.2",
@@ -37,7 +38,6 @@
   "devDependencies": {
     "@nuxt/types": "^2.14.12",
     "@nuxt/typescript-build": "^2.1.0",
-    "@nuxtjs/vuetify": "^1.11.3",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^4.3.0",

@@ -1,12 +1,8 @@
 <template>
-  <div class="main">
-    <div class="main-sign-up-form container">
+  <div class="main pa-5">
+    <div class="container">
       <v-row justify="center" align="center">
         <v-col cols="12">
-          <div class="sign-up-title">
-            <v-icon right size="55px" color="wihte">mdi-shield-plus-outline</v-icon>
-            {{ $t('form.signUp') }}
-          </div>
           <v-alert :type="result.type" :value="result.value" text outlined>
             {{ result.message }}
           </v-alert>
@@ -14,6 +10,7 @@
         <v-col cols="12">
           <v-form ref="form" v-model="valid" @submit.prevent="signUp">
             <v-text-field
+              rounded
               :label="$t('form.email')"
               v-model="form.email"
               type="email"
@@ -29,6 +26,7 @@
             ></v-text-field>
 
             <v-text-field
+              rounded
               label="شماره تلفن"
               v-model="form.phone_number"
               required
@@ -53,19 +51,18 @@
               <v-col>
                 <v-btn
                   block
+                  rounded
                   :disabled="!valid"
                   :loading="loading"
                   type="submit"
                   color="primary"
-                  height="50px"
-                  style="border-radius: 0; font-weight: normal"
                 >
                   {{ $t('form.signUp') }}
                 </v-btn>
                 <div class="my-6">
                   <div class="or-separator"><span class="px-3">یا</span></div>
                 </div>
-                <v-btn @click="loginWithGoogle" block color="primary" height="50px" style="border-radius: 0; font-weight: normal">
+                <v-btn @click="loginWithGoogle" block color="secondary" rounded>
                   <v-icon style="margin: 5px" size="25px">mdi-google</v-icon>
                   {{ $t('form.signUpWithGoogle') }}
                 </v-btn>
@@ -75,10 +72,6 @@
         </v-col>
       </v-row>
     </div>
-    <v-btn color="secondary" class="login-btn" height="50px" @click="changeStatus('login')">
-      <v-icon style="margin: 5px" size="25px">mdi-shield-star</v-icon>
-      {{ $t('form.signIn') }}
-    </v-btn>
   </div>
 </template>
 
