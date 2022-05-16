@@ -7,42 +7,24 @@
         >
           <div class="mb-6 ">
             <CardWithThumbnail
-                title="افتتاحیه"
-                description="یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد "
-                date="فروردین"
-                href="https://google.com"/>
+              :title="posts[0].title"
+              :description="posts[0].description"
+              :date="posts[0].post_time"
+                href="/"/>
           </div>
 
           <v-row >
-            <v-col sm="12" md="6" lg="4" xl="3">
+
+            <v-col sm="12" md="6" lg="4" xl="3" v-for="(post,index) in posts.slice(1, posts.length)" :key="index">
               <Card
-                  title="افتتاحیه"
-                  description="یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد "
-                  date="فروردین"
-                  href="https://google.com"
+                  :title="post.title"
+                  :description="post.description"
+                  :date="post.post_time"
+                  href="/"
               />
 
             </v-col>
-            <v-col sm="12" md="6" lg="4" xl="3">
-              <Card
-                  class=""
-                  title="افتتاحیه"
-                  description="یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد "
-                  date="فروردین"
-                  href="https://google.com"
-              />
 
-            </v-col>
-            <v-col sm="12" md="6" lg="4" xl="3">
-              <Card
-                  class=""
-                  title="افتتاحیه"
-                  description="یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد یه سری اخبار مربوط به رویداد "
-                  date="فروردین"
-                  href="https://google.com"
-              />
-
-            </v-col>
           </v-row>
         </div>
       </box>
@@ -78,10 +60,14 @@ export default {
     };
   },
   async asyncData({$axios}) {
-    console.log($axios.$get('news'));
-  //   let posts = await $axios.$get('/news/')
-  //   console.log(posts)
-  //   return { posts };
+    let posts = [];
+    try{
+      posts = await $axios.$get('news')
+    }catch (e) {
+      console.log(e);
+    }
+
+    return { posts };
   },
 };
 </script>
