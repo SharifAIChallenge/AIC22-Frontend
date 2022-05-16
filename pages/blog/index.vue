@@ -82,8 +82,10 @@ export default {
     };
   },
   async asyncData({$axios}) {
-    // let posts = await getPosts($axios);
-    // return { posts };
+    console.log($axios.$get('news'));
+  //   let posts = await $axios.$get('/news/')
+  //   console.log(posts)
+  //   return { posts };
   },
 };
 </script>
