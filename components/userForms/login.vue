@@ -76,7 +76,7 @@ export default {
       this.$store.commit("formStatus/changeStatus", form);
     },
     login() {
-      // this.loading = true;
+      this.loading = true;
       this.$store.dispatch("auth/login", {
         username: this.email,
         password: this.password

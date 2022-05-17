@@ -7,6 +7,7 @@
         >
           <div class="mb-6 ">
             <CardWithThumbnail
+              v-if="posts.length > 0"
               :title="posts[0].title"
               :description="posts[0].description"
               :date="posts[0].post_time"
@@ -63,10 +64,10 @@ export default {
     let posts = [];
     try{
       posts = await $axios.$get('news')
+
     }catch (e) {
       console.log(e);
     }
-
     return { posts };
   },
 };

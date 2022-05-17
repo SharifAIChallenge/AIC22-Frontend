@@ -1,5 +1,5 @@
 export const signup = (axios, data) => {
-  return axios.$post('/accounts/signup', data, {
+  return axios.$post('/account/signup', data, {
     headers: {
       Authorization: false,
     },

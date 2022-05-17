@@ -123,8 +123,18 @@ export default {
         return;
       }
       this.loading = true;
-      let data = await signup(this.$axios, this.form);
-      this.loading = false;
+      try{
+        let data = await signup(this.$axios, this.form);
+        this.loading = false;
+      }catch (e) {
+        this.loading = false;
+        if (e.response)
+            if (e.response.statusCode === 500)
+              this.$toast.error('خطایی رخ داده است');
+            else if(e.response.statusCode === 400)
+              this.$toast.error('خطایی رخ داده است');
+          return
+      }
       if (data.status_code) {
         if (data.status_code === 200) {
           this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
