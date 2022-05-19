@@ -16,12 +16,13 @@ export const actions = {
   async login({ commit, dispatch }, payload) {
     commit("loading");
     let res = await login(this.$axios, payload).catch(e => {
-
       // isAccountActivated(this.$axios, payload.username).then(res => {
       if (e.response)
         if (e.response.status_code === 404) {
           this.$toast.error("ایمیل موردنظر یافت نشد");
-        }
+        }else
+          this.$toast.error("درصورتی که حساب کاربری دارید لطفا حساب خود را فعال کنید یا ثبت نام کنید");
+
       // });
     });
     commit("loaded");

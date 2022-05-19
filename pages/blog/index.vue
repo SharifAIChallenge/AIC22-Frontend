@@ -5,28 +5,36 @@
       <box classes="elevation-12 mb-16">
         <div class="pa-4 pa-sm-8 pa-md-14 "
         >
-          <div class="mb-6 ">
-            <CardWithThumbnail
-              v-if="posts.length > 0"
-              :title="posts[0].title"
-              :description="posts[0].description"
-              :date="posts[0].post_time"
+          <div
+            v-if="posts && posts.length > 0"
+          >
+            <div class="mb-6 ">
+              <CardWithThumbnail
+                v-if="posts.length > 0"
+                :title="posts[0].title"
+                :description="posts[0].description"
+                :date="posts[0].post_time"
                 href="/"/>
-          </div>
+            </div>
+            <v-row >
 
-          <v-row >
-
-            <v-col sm="12" md="6" lg="4" xl="3" v-for="(post,index) in posts.slice(1, posts.length)" :key="index">
-              <Card
+              <v-col sm="12" md="6" lg="4" xl="3" v-for="(post,index) in posts.slice(1, posts.length)" :key="index">
+                <Card
                   :title="post.title"
                   :description="post.description"
                   :date="post.post_time"
                   href="/"
-              />
+                />
 
-            </v-col>
+              </v-col>
 
-          </v-row>
+            </v-row>
+          </div>
+          <div v-else class="text-center">
+            <p>
+              خبری نیست :(
+            </p>
+          </div>
         </div>
       </box>
 
