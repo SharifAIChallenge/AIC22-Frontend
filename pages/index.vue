@@ -8,6 +8,7 @@
     <sponsor/>
     <Staff/>
     <CallToAction/>
+    <Tweets/>
     <Blog/>
   </div>
 </template>
@@ -30,9 +31,11 @@ import EmaliCallToAction from '~/components/EmailCallToAction.vue';
 import Blog from "~/components/landing/Blog";
 import Statics from "~/components/landing/Statics";
 import axios from "~/plugins/axios";
+import Tweets from "~/components/landing/tweets";
 
 export default {
   components: {
+    Tweets,
     Blog,
     Header,
     Video,
