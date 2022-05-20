@@ -1,31 +1,34 @@
 <template>
   <v-app class="dashboardMenu">
-    <v-app-bar app clipped-right :hide-on-scroll="mobile" style="left: unset; overflow: hidden" height="90" class="dashbordNav">
+    <v-app-bar app clipped-right :hide-on-scroll="mobile" style="left: unset; overflow: hidden" height="90" class="dashbordNav"
+    elevation="0"
+    >
       <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer" />
       <v-row class="justify-center logo">
-        <nuxt-link to="/" class="white--text" style="width: 100%; height: 100%">
-          <img src="../assets/images/logo/logo__primary.svg" alt="" height="80px" class="nav_logo mt-2" />
+        <nuxt-link to="/" class="white--text text-center py-5" style="width: 100%; height: 100%">
+          <img src="../assets/images/logo/dashboard-icon.svg" alt="" height="80px" class=" mt-2" />
         </nuxt-link>
       </v-row>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right clipped class="pt-6" color="primary">
-      <v-list class="py-0">
+    <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right clipped class="pt-6" color="bg">
+      <v-list class="py-5">
         <template v-for="item in routes">
           <v-list-item
             :key="item.title"
             class="py-md-4 py-lg-5 py-xl-6 pr-9"
             active-class="font-weight-bold"
             @click="activeLink = item.title"
-            style="min-height:36px;height:36px;font-weight-bold"
+            style="min-height:36px;height:36px;font-weight:bold"
             :disabled="item.disabled || !profile || (item.gard && !profile.is_complete)"
             :to="item.link"
             exact
             nuxt
           >
-            <span class="white" style="width: 6px; height: 100%; position: absolute; right: 0" v-show="activeLink == item.title">I</span>
-            <v-list-item-icon class="py-1 my-0" style="transform: translateY(-17px)">
-              <v-icon v-if="activeLink != item.title">{{ item.icon }}</v-icon>
-              <v-icon v-else>{{ item.hover }}</v-icon>
+            <span class="primary right-span" style="width: 6px; height: 100%; position: absolute; right: 0" v-show="activeLink == item.title"></span>
+            <v-list-item-icon class="py-1 my-0" style="transform: translateY(-17px)"
+            >
+              <v-icon v-if="activeLink != item.title" >{{ item.icon }}</v-icon>
+              <v-icon v-else color="primary">{{ item.hover }}</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title class="mr-6">{{ item.title }}</v-list-item-title>
@@ -33,14 +36,13 @@
           </v-list-item>
           <v-divider v-if="item.divider" :key="`+${item.title}`" />
         </template>
-        <div class="d-flex justify-center mt-auto" style="position: absolute; left: 0; width: 100%; bottom: 0">
-          <v-list class="pa-2 d-flex">
-            <v-list-item :to="bottomRoute.settings.link" class="ma-2" @click="activeLink = bottomRoute.settings.title">
-              <v-icon v-if="activeLink != bottomRoute.settings.title">{{ bottomRoute.settings.icon }}</v-icon>
-              <v-icon v-else>{{ bottomRoute.settings.hover }}</v-icon>
-            </v-list-item>
+        <div class="mt-auto" style="position: absolute; left: 0; width: 100%; bottom: 0">
+          <v-list class="pa-2">
             <v-list-item @click="logout" style="cursor: pointer" class="ma-2">
               <v-icon>{{ bottomRoute.logout.icon }}</v-icon>
+              <v-list-item-content>
+                <v-list-item-title class="mr-6">خروج</v-list-item-title>
+              </v-list-item-content>
             </v-list-item>
           </v-list>
         </div>
@@ -171,15 +173,15 @@ export default {
       },
     };
   },
-  computed: {
-    mobile() {
-      return this.$vuetify.breakpoint.smAndDown;
-    },
-    ...mapState({
-      token: state => state.auth.token,
-      profile: state => state.auth.user,
-    }),
-  },
+  // computed: {
+  //   mobile() {
+  //     return this.$vuetify.breakpoint.smAndDown;
+  //   },
+  //   ...mapState({
+  //     token: state => state.auth.token,
+  //     profile: state => state.auth.user,
+  //   }),
+  // },
   watch: {
     profile(now, old) {
       if (now) {
@@ -216,8 +218,8 @@ export default {
     },
   },
   beforeMount() {
-    this.$axios.setToken(this.token, 'token');
-    this.$store.dispatch('auth/getUser');
+    // this.$axios.setToken(this.token, 'token');
+    // this.$store.dispatch('auth/getUser');
   },
 };
 </script>
@@ -231,17 +233,22 @@ export default {
 .dashboardMenu {
   .v-navigation-drawer {
     width: 265px !important;
+    border-left: 2px solid #1f2f42 !important;
+
   }
 }
 .v-list-item--link::before {
   background-color: transparent !important;
 }
+.v-list-item--active{
+  .right-span{
+    -webkit-box-shadow: -1px 0px 25px 5px #0071e3;
+    box-shadow: -1px 0px 25px 5px #0071e3;
+  }
+}
 .dashbordNav {
   width: 265px;
-  background: #141432 !important;
-  &:hover .nav_logo {
-    transform: scale(1);
-  }
+  border-left: 2px solid #1f2f42 !important;
   @include v-not-md {
     width: 100%;
     position: relative;
@@ -259,11 +266,7 @@ export default {
     padding-right: 265px !important;
   }
 }
-.nav_logo {
-  transform: scale(3.3) translateY(-1px);
-  width: 100%;
-  transition: 0.4s;
-}
+
 .v-app-bar__nav-icon {
   position: relative;
   z-index: 2000;
