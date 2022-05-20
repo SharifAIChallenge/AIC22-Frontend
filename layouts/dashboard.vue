@@ -27,7 +27,7 @@
             <span class="primary right-span" style="width: 6px; height: 100%; position: absolute; right: 0" v-show="activeLink == item.title"></span>
             <v-list-item-icon class="py-1 my-0" style="transform: translateY(-17px)"
             >
-              <v-icon v-if="activeLink != item.title" >{{ item.icon }}</v-icon>
+              <v-icon v-if="activeLink != item.title">{{ item.icon }}</v-icon>
               <v-icon v-else color="primary">{{ item.hover }}</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
@@ -50,6 +50,9 @@
     </v-navigation-drawer>
     <v-main style="padding: 0px">
       <v-container class="dashboard pl-0 pt-md-0 pb-0" fluid>
+        <v-container class="py-10  head">
+        {{activeLink}}
+        </v-container>
         <nuxt />
       </v-container>
     </v-main>
@@ -270,5 +273,9 @@ export default {
 .v-app-bar__nav-icon {
   position: relative;
   z-index: 2000;
+}
+.head{
+  border-bottom: 2px solid #1f2f42 !important;
+
 }
 </style>
