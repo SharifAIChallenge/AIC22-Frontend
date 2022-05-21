@@ -123,33 +123,37 @@ export default {
         return;
       }
       this.loading = true;
-      let data = await signup(this.$axios, this.form);
-      this.loading = false;
-      if (data.status_code) {
-        if (data.status_code === 200) {
-          this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
-          this.result.type = 'success';
-          this.result.value = true;
-          this.$refs.form.reset();
-        } else {
-          this.errors = {};
-          this.errors = Object.keys(data.detail).forEach(x => {
-            if (x === 'profile') {
-              Object.keys(data.detail.profile).forEach(y => this.$set(this.result.errors, y, true));
-            } else {
-              this.$set(this.result.errors, x, true);
-            }
+      signup(this.$axios, this.form).then(resp=>{
+        this.loading = false;
+        this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
+        this.result.type = 'success';
+        this.result.value = true;
+        this.$refs.form.reset();
+      }).catch(e=>{
+        this.loading = false;
+        if(e.response)
+          if (e.response.statusCode === 500)
+            this.$toast.error('سرور با مشکل رو به رو شده است, لطفا بعدا تلاش کنید');
+          else{
+            this.errors = {};
+            this.errors = Object.keys(e.response.data).map(x => {
+              if (x === 'profile') {
+                Object.keys(e.response.data.profile).forEach(y => this.$set(this.result.errors, y, true));
+              } else {
+                this.$set(this.result.errors, x, true);
+              }
 
-            if (x === 'email') {
-              if (data.detail[x][0] === 'This field must be unique.') this.result.message = 'ایمیل تکراری است';
-              else if (data.detail[x][0] === 'Enter a valid email address.') this.result.message = 'فرمت ایمیل معتبر نمی‌باشد';
-            }
-          });
-
-          this.result.type = 'error';
-          this.result.value = true;
-        }
-      }
+              if (x === 'email') {
+                if (e.response.data[x][0] === 'This field must be unique.') this.result.message = 'ایمیل تکراری است';
+                else if (e.response.data[x][0] === 'Enter a valid email address.') this.result.message = 'فرمت ایمیل معتبر نمی‌باشد';
+              }
+            });
+            this.result.type = 'error';
+            this.result.value = true;
+          }
+        else
+          this.$toast.error('لطفا اتصال اینترنتی خود را بررسی کنید')
+      })
     },
     async loginWithGoogle() {
       const googleUser = await this.$gAuth.signIn();
