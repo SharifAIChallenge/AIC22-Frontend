@@ -4,7 +4,7 @@
       <TitleContainer title="جوایز"/>
     </div>
     <div class="flex justify-center row">
-      <div class="prize">
+      <div class="prize third--prize">
         <span class="text-h3">4</span>
         <span class="text-h5">میلیون تومان</span>
         <span class=" prize__team">تیم سوم</span>
@@ -14,8 +14,8 @@
         <span class="text-h5">میلیون تومان</span>
         <span class=" prize__team">تیم اول</span>
       </div>
-      <div class="prize">
-        <span class="text-h3">8</span>
+      <div class="prize second--prize">
+        <span class="text-h3 ">8</span>
         <span class="text-h5">میلیون تومان</span>
         <span class=" prize__team">تیم دوم</span>
       </div>
@@ -60,11 +60,29 @@ export default {
 
 .first--prize {
   transform: translateY(-70px);
+  .prize__team {
+    border-color: #FFD700FF;
+  }
 }
 
 @media screen and (max-width: 980px) {
   .first--prize {
     transform: translateY(0px);
+    order: -2;
+  }
+  .second--prize{
+    order: -1;
+  }
+}
+
+.second--prize{
+  .prize__team {
+    border-color: #C0C0C0FF;
+  }
+}
+.third--prize{
+  .prize__team {
+    border-color: #CD7F32;
   }
 }
 
@@ -94,7 +112,7 @@ export default {
   }
 
   &__team {
-    border: gold solid 3px;
+    border: solid 3px;
     margin: 20px 0;
     padding: 5px 20px;
     border-radius: 30px;
