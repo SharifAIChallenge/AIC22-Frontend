@@ -36,20 +36,13 @@ import TitleContainer from '~/components/TitleContainer';
 export default {
   name: 'FAQ',
   components: { Box, TitleContainer },
-  data() {
-    return {};
-  },
   props: {
     onIntersect: Function,
-  },
-  methods: {
-    clickMenu(event) {},
   },
 };
 </script>
 
 <style scoped lang="scss">
-@import '../../assets/mixins';
 
 .faq {
 
