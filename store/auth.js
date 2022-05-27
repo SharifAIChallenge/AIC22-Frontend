@@ -1,52 +1,52 @@
-import { login, getUser, logout, isAccountActivated } from '~/api/auth';
+import { login, getUser, logout, isAccountActivated } from "~/api/auth";
 
 export const state = () => ({
   token: null,
   isAuthenticated: false,
   isLoading: false,
-  user: null,
+  user: null
 });
 
 export const actions = {
   async getUser({ commit, state }) {
     let res = await getUser(this.$axios);
-    commit('setUser', res);
+    commit("setUser", res);
     return res;
   },
   async login({ commit, dispatch }, payload) {
-    commit('loading');
+    commit("loading");
     let res = await login(this.$axios, payload).catch(e => {
-      isAccountActivated(this.$axios, payload.username).then(res => {
-        if (res.status_code === 200) {
-          if (!res.is_active) this.$toast.error('قبل از ورود باید حساب‌کاربری خود را فعال کنید');
-          else this.$toast.error('رمز اشتباه است');
-        } else if (res.status_code === 404) {
-          this.$toast.error('ایمیل موردنظر یافت نشد');
-        }
-      });
+      // isAccountActivated(this.$axios, payload.username).then(res => {
+      if (e.response)
+        if (e.response.status_code === 404) {
+          this.$toast.error("ایمیل موردنظر یافت نشد");
+        }else
+          this.$toast.error("درصورتی که حساب کاربری دارید لطفا حساب خود را فعال کنید یا ثبت نام کنید");
+
+      // });
     });
-    commit('loaded');
+    commit("loaded");
     if (res.token) {
-      commit('setToken', res);
-      dispatch('getUser');
-      commit('formStatus/toggleShow', {}, { root: true });
-      this.$router.push('/dashboard');
-      this.$cookies.set('token', res.token, {
+      commit("setToken", res);
+      dispatch("getUser");
+      commit("formStatus/toggleShow", {}, { root: true });
+      this.$router.push("/dashboard");
+      this.$cookies.set("token", res.token, {
         maxAge: 60 * 60 * 24 * 7,
-        path: '/',
+        path: "/"
       });
     }
   },
   loadUser({ commit, dispatch }, token) {
-    commit('setToken', token);
-    dispatch('getUser');
+    commit("setToken", token);
+    dispatch("getUser");
   },
   async logout({ commit }) {
-    this.$cookies.remove('token');
+    this.$cookies.remove("token");
     let res = await logout(this.$axios).catch(e => console.log(e));
-    commit('removeToken');
-    this.$router.push('/');
-  },
+    commit("removeToken");
+    this.$router.push("/");
+  }
 };
 
 export const mutations = {
@@ -57,7 +57,7 @@ export const mutations = {
     state.token = token;
     state.isAuthenticated = true;
     // console.log(token, 'setToken');
-    this.$axios.setToken(token, 'token');
+    this.$axios.setToken(token, "token");
   },
   removeToken(state) {
     state.isAuthenticated = false;
@@ -70,5 +70,5 @@ export const mutations = {
   },
   loaded(state) {
     state.isLoading = false;
-  },
+  }
 };
