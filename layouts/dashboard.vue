@@ -6,7 +6,7 @@
       <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer" />
       <v-row class="justify-center logo">
         <nuxt-link to="/" class="white--text text-center py-5" style="width: 100%; height: 100%">
-          <img src="../assets/images/logo/dashboard-icon.svg" alt="" height="80px" class=" mt-2" />
+          <img src="../assets/images/logo/dashboard-icon.svg" alt="" height="70px" class=" mt-2" />
         </nuxt-link>
       </v-row>
     </v-app-bar>
