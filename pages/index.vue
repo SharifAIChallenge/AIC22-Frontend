@@ -5,6 +5,7 @@
     <About/>
     <Statics/>
     <TimeLine/>
+    <Prize/>
     <sponsor/>
     <Staff/>
     <CallToAction/>
@@ -29,9 +30,12 @@ import Staff from '~/components/landing/Staff';
 import EmaliCallToAction from '~/components/EmailCallToAction.vue';
 import Blog from "~/components/landing/Blog";
 import Statics from "~/components/landing/Statics";
+import axios from "~/plugins/axios";
+import Prize from "~/components/landing/Prize";
 
 export default {
   components: {
+    Prize,
     Blog,
     Header,
     Video,
@@ -81,6 +85,8 @@ export default {
     this.width = window.innerWidth;
     for (let item = 0; item < 6; item++) {
     }
+    //todo delete this part as it is for testing backend
+    this.$axios.get('faqs/').then(resp=>console.log(resp)).catch(err=>console.log(err))
   },
 };
 </script>

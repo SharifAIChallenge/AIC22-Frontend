@@ -106,7 +106,6 @@ export default {
 }
 .dashbordNav {
   width: 265px;
-  background: #141432 !important;
   &:hover .nav_logo {
     transform: scale(1);
   }
