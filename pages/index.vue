@@ -89,7 +89,7 @@ export default {
     for (let item = 0; item < 6; item++) {
     }
     //todo delete this part as it is for testing backend
-    this.$axios.get('faqs/').then(resp=>console.log(resp)).catch(err=>console.log(err))
+    this.$axios.get('/tweets/').then(resp=>console.log(resp)).catch(err=>console.log(err))
   },
 };
 </script>

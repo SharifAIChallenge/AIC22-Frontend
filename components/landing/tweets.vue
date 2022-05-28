@@ -1,65 +1,66 @@
-<template v-if="!tweets">
+<template>
 
-  <v-responsive class="" style="margin-bottom: 120px">
+  <v-responsive v-if="tweets" class="" style="margin-bottom: 120px">
     <TitleContainer :title="$t('landing.tweets')"/>
-
-    <div  class="container">
-      <input @click type="radio" name="slider" id="item-1" >
-      <input type="radio" name="slider" id="item-2">
-      <input type="radio" name="slider" id="item-3">
+    <div class="container">
+      <input @click="tweetCardClick(1)" type="radio" name="slider" id="item-1" checked>
+      <input @click="tweetCardClick(2)" type="radio" name="slider" id="item-2">
+      <input @click="tweetCardClick(3)" type="radio" name="slider" id="item-3">
       <div class="cards">
-        <label class="card" for="item-1" id="song-1">
+<!--        <label class="card" for="item-1" id="song-1">
           <img
-              src="https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80"
-              alt="song">
+              class="card__userIcon"
+              :src="selectedCardIndex % 3 === 0 ? selectedCard.image : (selectedCardIndex % 3 === 1 ? previousCard.image : nextCard.image)"
+          >
+          <div class="card__user">
+            {{
+              selectedCardIndex % 3 === 0 ? selectedCard.author : (selectedCardIndex % 3 === 1 ? previousCard.author : nextCard.author)
+            }}
+          </div>
+
+          <div class="card__body">
+            {{
+              selectedCardIndex % 3 === 0 ? selectedCard.text : (selectedCardIndex % 3 === 1 ? previousCard.text : nextCard.text)
+            }}
+          </div>
         </label>
         <label class="card" for="item-2" id="song-2">
           <img
-              src="https://images.unsplash.com/photo-1559386484-97dfc0e15539?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80"
-              alt="song">
+              class="card__userIcon"
+              :src="selectedCardIndex % 3 === 0 ? nextCard.image : (selectedCardIndex % 3 === 1 ? selectedCard.image : previousCard.image)"
+
+          >
+          <div class="card__user">
+            {{
+              selectedCardIndex % 3 === 0 ? nextCard.author : (selectedCardIndex % 3 === 1 ? selectedCard.author : previousCard.author)
+            }}
+          </div>
+
+          <div class="card__body">
+            {{
+              selectedCardIndex % 3 === 0 ? nextCard.text : (selectedCardIndex % 3 === 1 ? selectedCard.text : previousCard.text)
+            }}
+
+          </div>
         </label>
         <label class="card" for="item-3" id="song-3">
           <img
-              src="https://images.unsplash.com/photo-1533461502717-83546f485d24?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60"
-              alt="song">
-        </label>
-      </div>
-      <div class="player">
-        <div class="upper-part">
-          <div class="play-icon">
-            <svg width="20" height="20" fill="#2992dc" stroke="#2992dc" stroke-linecap="round" stroke-linejoin="round"
-                 stroke-width="2" class="feather feather-play" viewBox="0 0 24 24">
-              <defs/>
-              <path d="M5 3l14 9-14 9V3z"/>
-            </svg>
+              class="card__userIcon"
+              :src="selectedCardIndex % 3 === 0 ? previousCard.author : (selectedCardIndex % 3 === 1 ? nextCard.author : selectedCard.author)"
+          >
+          <div class="card__user">
+            {{
+              selectedCardIndex % 3 === 0 ? previousCard.author : (selectedCardIndex % 3 === 1 ? nextCard.author : selectedCard.author)
+            }}
           </div>
-          <div class="info-area" id="test">
-            <label class="song-info" id="song-info-1">
-              <div class="title">Bunker</div>
-              <div class="sub-line">
-                <div class="subtitle">Balthazar</div>
-                <div class="time">4.05</div>
-              </div>
-            </label>
-            <label class="song-info" id="song-info-2">
-              <div class="title">Words Remain</div>
-              <div class="sub-line">
-                <div class="subtitle">Moderator</div>
-                <div class="time">4.05</div>
-              </div>
-            </label>
-            <label class="song-info" id="song-info-3">
-              <div class="title">Falling Out</div>
-              <div class="sub-line">
-                <div class="subtitle">Otzeki</div>
-                <div class="time">4.05</div>
-              </div>
-            </label>
+
+          <div class="card__body">
+            {{
+              selectedCardIndex % 3 === 0 ? previousCard.text : (selectedCardIndex % 3 === 1 ? nextCard.text : selectedCard.text)
+            }}
+
           </div>
-        </div>
-        <div class="progress-bar">
-          <span class="progress"></span>
-        </div>
+        </label>-->
       </div>
     </div>
 
@@ -74,24 +75,108 @@ export default {
   components: {TitleContainer},
   data() {
     return {
-      selectedCard: 0,
-      tweets:[
-
+      selectedCardIndex: 0,
+      tweets: [
+        // {
+        //   author: "صفر",
+        //   text: 'خیلی خوبه aiChallenge ' +
+        //       'loremLorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
+        //   image: 'https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80',
+        //   post_time: Date.now(),
+        //   url: 'https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80'
+        // },
+        // {
+        //   author: "یک",
+        //   text: 'خیلی خوبه aiChallenge ' +
+        //       'loremLorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
+        //   image: 'https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80',
+        //   post_time: Date.now(),
+        //   url: 'https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80'
+        // }, {
+        //   author: "دو",
+        //   text: 'خیلی خوبه aiChallenge ' +
+        //       'loremLorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
+        //   image: 'https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80',
+        //   post_time: Date.now(),
+        //   url: 'https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80'
+        // }, {
+        //   author: "سه",
+        //   text: 'خیلی خوبه aiChallenge ' +
+        //       'loremLorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
+        //   image: 'https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80',
+        //   post_time: Date.now(),
+        //   url: 'https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80'
+        // }, {
+        //   author: "چهار",
+        //   text: 'خیلی خوبه aiChallenge ' +
+        //       'loremLorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
+        //   image: 'https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80',
+        //   post_time: Date.now(),
+        //   url: 'https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80'
+        // },
       ]
     }
   },
-  methods(){
+  computed: {
+    previousCard: function () {
+      return this.tweets[((this.selectedCardIndex - 1) % this.tweets.length + this.tweets.length) % this.tweets.length]
+    },
+    nextCard: function () {
+      return this.tweets[((this.selectedCardIndex + 1) % this.tweets.length + this.tweets.length) % this.tweets.length]
+    },
+    selectedCard: function () {
+      return this.tweets[((this.selectedCardIndex) % this.tweets.length + this.tweets.length) % this.tweets.length]
+    }
+  },
+  methods: {
+    tweetCardClick(id) {
+      if (id === 1) {
+        if (this.selectedCardIndex % 3 === 0) {
+          this.goToTweet();
+        } else if (this.selectedCardIndex % 3 === 1) {
+          this.selectedCardIndex -= 1;
+        } else {
+          this.selectedCardIndex += 1;
+        }
+      } else if (id === 2) {
+        if (this.selectedCardIndex % 3 === 0) {
+          this.selectedCardIndex += 1;
+        } else if (this.selectedCardIndex % 3 === 1) {
+          this.goToTweet();
+        } else {
+          this.selectedCardIndex -= 1;
+        }
+      } else {
+        if (this.selectedCardIndex % 3 === 0) {
+          this.selectedCardIndex -= 1;
+        } else if (this.selectedCardIndex % 3 === 1) {
+          this.selectedCardIndex += 1;
+        } else {
+          this.goToTweet();
+        }
+      }
+      console.log('this.selecetedCard', this.selectedCardIndex)
+      console.log('this.tweets.length', this.tweets.length)
+    },
+    goToTweet() {
+      if (this.tweets[this.selectedCard].url)
+        window.location.href = this.tweets[this.selectedCard].url
+    },
 
   },
   async mounted() {
-    const tweets = await this.$axios.$get('tweets');
-    if (tweets.data)
-      this.tweets = tweets.data;
+    const tweets = await this.$axios.$get('/tweets/');
+    console.log('tweets', tweets.length)
+    if (tweets.length > 0){
+      this.tweets = tweets;
+      this.selectedCardIndex = 0;
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
+
 @import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap");
 
 * {
@@ -124,6 +209,10 @@ input[type=radio] {
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  min-width: 230px;
+  background-color: map-get($material-dark-elevation-colors, '32');
   position: absolute;
   width: 60%;
   height: 100%;
@@ -132,6 +221,32 @@ input[type=radio] {
   margin: auto;
   transition: transform .4s ease;
   cursor: pointer;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+    text-align: center;
+  }
+
+  &__user {
+    display: flex;
+    position: relative;
+    margin: 50px auto 8px;
+    text-align: center;
+  }
+
+  &__userIcon {
+    display: flex;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: -40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
 }
 
 .container {
@@ -147,18 +262,12 @@ input[type=radio] {
 }
 
 .cards {
+  height: 240px !important;
   position: relative;
   width: 100%;
-  height: 100%;
   margin-bottom: 20px;
 }
 
-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-}
 
 #item-1:checked ~ .cards #song-3, #item-2:checked ~ .cards #song-1, #item-3:checked ~ .cards #song-2 {
   transform: translatex(-40%) scale(.8);
