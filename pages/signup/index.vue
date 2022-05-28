@@ -13,7 +13,7 @@
             حساب کاربری دارید؟
           </p>
           <v-btn
-            to="/register"
+            to="/login"
             rounded
             class="px-6 v-button--secondary"
           >

@@ -1,29 +1,18 @@
-FROM node:lts as builder
+FROM reg.aichallenge.ir/node:16.15.0 as builder
 
 WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install 
 
 COPY . .
 
-RUN yarn install \
-  --prefer-offline \
-  --frozen-lockfile \
-  --non-interactive \
-  --production=false
+RUN npm run generate
 
-RUN yarn build
+FROM reg.aichallenge.ir/nginx:1.17.6 as production-stage
 
-RUN rm -rf node_modules && \
-  NODE_ENV=production yarn install \
-  --prefer-offline \
-  --pure-lockfile \
-  --non-interactive \
-  --production=true
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-FROM node:lts
-
-WORKDIR /app
-
-COPY --from=builder /app  .
-ENV HOST 0.0.0.0
-
-CMD [ "yarn", "start" ]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

@@ -17,11 +17,9 @@ variables:
 
 build:
   stage: build
-  # Use the official docker image.
   image: reg.aichallenge.ir/docker:19.03.12
   tags:
     - docker
-
   script:
     - docker build . -t $IMAGE_URL
     - docker push $IMAGE_URL
@@ -30,8 +28,7 @@ build:
 deploy-production:
   stage: deploy-production
   image: kroniak/ssh-client:latest
-
   before_script:
     - chmod -R 700 $SSH_PRIVATE_KEY
   script:
-    - ssh -i $SSH_PRIVATE_KEY -o "StrictHostKeyChecking=no" ubuntu@188.121.111.163 -t "docker rm -f frontend && docker pull $IMAGE_URL && docker run -d -p 127.0.0.1:3000:3000 --network=host --name=frontend $IMAGE_URL"
+    - ssh -i $SSH_PRIVATE_KEY -o "StrictHostKeyChecking=no" ubuntu@188.121.111.163 -t "docker rm -f aic_frontend && docker pull $IMAGE_URL && docker run -d -p 127.0.0.1:3001:80 --name=aic_frontend $IMAGE_URL"

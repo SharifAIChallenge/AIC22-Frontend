@@ -5,6 +5,7 @@
     <About/>
     <Statics/>
     <TimeLine/>
+    <Prize/>
     <sponsor/>
     <Staff/>
     <CallToAction/>
@@ -31,11 +32,13 @@ import EmaliCallToAction from '~/components/EmailCallToAction.vue';
 import Blog from "~/components/landing/Blog";
 import Statics from "~/components/landing/Statics";
 import axios from "~/plugins/axios";
+import Prize from "~/components/landing/Prize";
 import Tweets from "~/components/landing/tweets";
 
 export default {
   components: {
     Tweets,
+    Prize,
     Blog,
     Header,
     Video,

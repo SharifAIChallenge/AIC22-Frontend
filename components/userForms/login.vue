@@ -76,28 +76,29 @@ export default {
       this.$store.commit("formStatus/changeStatus", form);
     },
     login() {
-      // this.loading = true;
+      this.loading = true;
       this.$store.dispatch("auth/login", {
         username: this.email,
         password: this.password
       });
     },
     async loginWithGoogle() {
-      const googleUser = await this.$gAuth.signIn();
-      const googleData = googleUser.getAuthResponse();
-      const { id_token, access_token, scope, expires_in, expires_at } = googleData;
-      let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
-      if (res.status_code === 400) {
-        this.$toast.error("لاگین با خطا مواجه شد");
-      } else {
-        this.$store.commit("auth/setToken", res);
-        this.$router.push("/dashboard");
-        this.$store.commit("formStatus/toggleShow");
-        this.$cookies.set("token", res.token, {
-          maxAge: 60 * 60 * 24 * 7,
-          path: "/"
-        });
-      }
+      console.log(await this.$gAuth.signIn());
+      // const googleUser = await this.$gAuth.signIn();
+      // const googleData = googleUser.getAuthResponse();
+      // const { id_token, access_token, scope, expires_in, expires_at } = googleData;
+      // let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
+      // if (res.status_code === 400) {
+      //   this.$toast.error("لاگین با خطا مواجه شد");
+      // } else {
+      //   this.$store.commit("auth/setToken", res);
+      //   this.$router.push("/dashboard");
+      //   this.$store.commit("formStatus/toggleShow");
+      //   this.$cookies.set("token", res.token, {
+      //     maxAge: 60 * 60 * 24 * 7,
+      //     path: "/"
+      //   });
+      // }
     }
   },
   computed: {

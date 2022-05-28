@@ -35,7 +35,8 @@ export default {
 
 #HeadTop {
   height: 100vh;
-  transition: 0.4s;
+  //transition: 0.4s;
+  -webkit-transition: 0.4s;
   position: relative;
   display: flex;
   justify-content: center;
