@@ -1,63 +1,59 @@
 <template>
-  <v-container
-    id="faq"
-    class="my-15"
-    v-intersect="{
-      handler: onIntersect,
-      options: {
-        threshold: 0.3,
-      },
-    }"
-  >
+  <v-container id="faq" class="my-15">
     <TitleContainer title="سوالات متداول" />
-    <box>
-      <v-expansion-panels class="faq__wrapper" accordion>
-        <v-expansion-panel class="faq__item" v-for="(item, i) in 5" :key="i">
-          <v-expansion-panel-header class="faq__item__header">
-            چطور می‌تونم توی مسابقه شرکت کنم؟
-          </v-expansion-panel-header>
-          <v-expansion-panel-content class="faq__item__content">
-            شرکت تو مسابقه این‌شکلیه که اول وارد سایت می‌شی و بعد یه‌سری اطلاعات لازم رو پر می‌کنی. در ادامه هم متخصصین ما با بررسی رزومه
-            حرفه‌ای شما، برای مصاحبه باهاتون تماس می‌گیرن.
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </box>
-    <v-btn color="primary" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary" style="width: 186px">
+    <v-expansion-panels class="faq__wrapper" accordion multiple>
+      <v-expansion-panel class="faq__item" v-for="(faq, i) in this.faqs" :key="i">
+        <v-expansion-panel-header class="faq__item__header">
+          {{ faq.question_fa }}
+        </v-expansion-panel-header>
+        <v-expansion-panel-content class="faq__item__content">
+          {{ faq.answer_fa }}
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+    <v-btn color="primary" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary goto-faq-button" style="width: 186px">
       {{ $t('form.goToFAQ') }}
     </v-btn>
   </v-container>
 </template>
 
 <script>
-import Box from '~/components/utilities/Box';
 import TitleContainer from '~/components/TitleContainer';
 
 export default {
   name: 'FAQ',
-  components: { Box, TitleContainer },
-  props: {
-    onIntersect: Function,
-  },
+  components: { TitleContainer },
+  async mounted() {
+    this.faqs = await this.$axios.get('faqs/');
+  }
 };
 </script>
 
 <style scoped lang="scss">
+@import 'assets/mixins.scss';
 
 .faq {
-
   &__wrapper {
-    padding: 0 5em;
+    background-color: var(--v-bg_secondary-base) !important;
+    border-radius: 1.5em;
   }
 
   &__item {
+    padding: 0 1em;
+    background-color: inherit !important;
 
     &__header {
+      text-align: right;
     }
 
     &__content {
+      text-align: right;
     }
   }
+}
+
+.goto-faq-button {
+  align-self: center;
 }
 
 #faq {
