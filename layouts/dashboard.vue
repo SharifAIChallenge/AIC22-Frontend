@@ -4,11 +4,11 @@
     elevation="0"
     >
       <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer" />
-      <v-row class="justify-center logo">
+      <div class="text-center w-full">
         <nuxt-link to="/" class="white--text text-center py-5" style="width: 100%; height: 100%">
-          <img src="../assets/images/logo/dashboard-icon.svg" alt="" height="70px" class=" mt-2" />
+          <img src="../assets/images/logo/dashboard-icon.svg" alt="" height="70px" width="70px" class=" mt-2" />
         </nuxt-link>
-      </v-row>
+      </div>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right clipped class="pt-6" color="bg">
       <v-list class="py-5">
@@ -277,5 +277,10 @@ export default {
 .head{
   border-bottom: 2px solid #1f2f42 !important;
 
+}
+@media screen and (max-width: 960px) {
+  .dashbordNav .v-toolbar__content{
+    display: flex;
+  }
 }
 </style>
