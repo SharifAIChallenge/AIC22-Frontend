@@ -7,7 +7,7 @@
       <input @click="tweetCardClick(2)" type="radio" name="slider" id="item-2">
       <input @click="tweetCardClick(3)" type="radio" name="slider" id="item-3">
       <div class="cards">
-<!--        <label class="card" for="item-1" id="song-1">
+        <label class="card" for="item-1" id="song-1">
           <img
               class="card__userIcon"
               :src="selectedCardIndex % 3 === 0 ? selectedCard.image : (selectedCardIndex % 3 === 1 ? previousCard.image : nextCard.image)"
@@ -60,7 +60,7 @@
             }}
 
           </div>
-        </label>-->
+        </label>
       </div>
     </div>
 
@@ -164,14 +164,15 @@ export default {
     },
 
   },
-  async mounted() {
+
+  async fetch() {
     const tweets = await this.$axios.$get('/tweets/');
     console.log('tweets', tweets.length)
     if (tweets.length > 0){
       this.tweets = tweets;
       this.selectedCardIndex = 0;
     }
-  }
+  },
 }
 </script>
 
