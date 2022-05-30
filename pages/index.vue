@@ -7,6 +7,7 @@
     <TimeLine/>
     <Prize/>
     <sponsor/>
+    <FAQ/>
     <Staff/>
     <CallToAction/>
     <Tweets/>
@@ -28,15 +29,17 @@ import Sponsor from '~/components/landing/Sponsor.vue';
 import HeadTop from '~/components/landing/HeadTop.vue';
 import CallToAction from '~/components/CallToAction.vue';
 import Staff from '~/components/landing/Staff';
-import EmaliCallToAction from '~/components/EmailCallToAction.vue';
+import EmailCallToAction from '~/components/EmailCallToAction.vue';
 import Blog from "~/components/landing/Blog";
 import Statics from "~/components/landing/Statics";
 import axios from "~/plugins/axios";
 import Prize from "~/components/landing/Prize";
+import FAQ from "~/components/landing/FAQ"
 import Tweets from "~/components/landing/tweets";
 
 export default {
   components: {
+    FAQ,
     Tweets,
     Prize,
     Blog,
@@ -53,28 +56,17 @@ export default {
     HeadTop,
     Staff,
     CallToAction,
-    EmaliCallToAction,
+    EmailCallToAction,
     Statics
   },
   layout: 'landing',
-  EmaliCallToActionh: false,
+  EmailCallToAction: false,
   data: () => ({
-    isIntersec: {
-      About: false,
-      Timeline: false,
-      Sponser: false,
-      Video: false,
-      Staff: false,
-      Trophy: false,
-    },
     width: 0,
     height: 0,
     scrollItem: 0,
-    trophies: [],
   }),
   async fetch() {
-    const trophies = await this.$axios.$get('homepage/prizes');
-    this.trophies = trophies.data;
   },
 
   methods: {
@@ -88,8 +80,6 @@ export default {
     this.width = window.innerWidth;
     for (let item = 0; item < 6; item++) {
     }
-    //todo delete this part as it is for testing backend
-    this.$axios.get('/tweets/').then(resp=>console.log(resp)).catch(err=>console.log(err))
   },
 };
 </script>
