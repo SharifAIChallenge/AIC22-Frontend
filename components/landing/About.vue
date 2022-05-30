@@ -34,8 +34,6 @@ export default {
     onIntersecAbout: Function,
   },
   async fetch() {
-    let description = await this.$axios.$get('homepage/motto');
-    this.post = description.data[0];
   },
 };
 </script>
