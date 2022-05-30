@@ -10,6 +10,7 @@
     <FAQ/>
     <Staff/>
     <CallToAction/>
+    <Tweets/>
     <Blog/>
   </div>
 </template>
@@ -34,10 +35,12 @@ import Statics from "~/components/landing/Statics";
 import axios from "~/plugins/axios";
 import Prize from "~/components/landing/Prize";
 import FAQ from "~/components/landing/FAQ"
+import Tweets from "~/components/landing/tweets";
 
 export default {
   components: {
     FAQ,
+    Tweets,
     Prize,
     Blog,
     Header,

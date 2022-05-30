@@ -47,6 +47,9 @@
     "goToFAQ": "بیشتر...",
     "scheduling": "زمان بندی"
   },
+  "landing": {
+    "tweets": "توییت\u200Cها"
+  },
   "validation": {
     "email": "ایمیل معتبر نیست",
     "phoneNumber": "شماره تفلن معتبر نیست. باید شامل ۱۱ عدد باشد",
