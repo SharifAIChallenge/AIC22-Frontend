@@ -7,6 +7,7 @@
     <TimeLine/>
     <Prize/>
     <sponsor/>
+    <FAQ/>
     <Staff/>
     <CallToAction/>
     <Blog/>
@@ -32,9 +33,11 @@ import Blog from "~/components/landing/Blog";
 import Statics from "~/components/landing/Statics";
 import axios from "~/plugins/axios";
 import Prize from "~/components/landing/Prize";
+import FAQ from "~/components/landing/FAQ"
 
 export default {
   components: {
+    FAQ,
     Prize,
     Blog,
     Header,
@@ -86,7 +89,7 @@ export default {
     for (let item = 0; item < 6; item++) {
     }
     //todo delete this part as it is for testing backend
-    this.$axios.get('faqs/').then(resp=>console.log(resp)).catch(err=>console.log(err))
+    // this.$axios.get('faqs/').then(resp=>console.log(resp)).catch(err=>console.log(err))
   },
 };
 </script>
