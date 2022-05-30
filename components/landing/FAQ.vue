@@ -2,7 +2,7 @@
   <v-container id="faq" class="my-15">
     <TitleContainer title="سوالات متداول" />
     <v-expansion-panels class="faq__wrapper" accordion multiple>
-      <v-expansion-panel class="faq__item" v-for="(faq, i) in this.faqs" :key="i">
+      <v-expansion-panel class="faq__item" v-for="(faq, i) in faqs" :key="i">
         <v-expansion-panel-header class="faq__item__header">
           {{ faq.question_fa }}
         </v-expansion-panel-header>
@@ -23,8 +23,15 @@ import TitleContainer from '~/components/TitleContainer';
 export default {
   name: 'FAQ',
   components: { TitleContainer },
-  async mounted() {
-    this.faqs = await this.$axios.get('faqs/');
+  data: () =>({
+    faqs:[]
+  }),
+  async fetch() {
+    this.faqs = await this.$axios.get('faqs/')
+        .then(resp=> this.faqs = resp.data).catch(err=>console.log(err))
+  },
+  mounted() {
+    console.log(this.faqs)
   }
 };
 </script>
