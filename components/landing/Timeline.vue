@@ -4,7 +4,7 @@
 
     <v-responsive class="d-flex align-center text-center">
       <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
-        <v-timeline-item v-for="(item, i) in timelineArrey" :key="i" small fill-dot color="transparent" class="timelineItem">
+        <v-timeline-item v-for="(item, i) in timelineArray" :key="i" small fill-dot color="transparent" class="timelineItem">
           <template v-slot:icon>
             <div class="timelineItem__icon"></div>
           </template>
@@ -21,10 +21,10 @@
               </div>
               <div class="d-flex flex-row justify-end">
                 <v-card-title class="timelineCard__title">
-                  {{ item.title }}
+                  {{ item.title_fa }}
                 </v-card-title>
                 <v-card-text class="timelineCard__text">
-                  <p>{{ item.des }}</p>
+                  <p>{{ item.text_fa }}</p>
                 </v-card-text>
               </div>
             </v-card>
@@ -44,13 +44,14 @@ export default {
   components: { TitleContainer },
   data() {
     return {
-      timelineArrey: [
-        { title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت' },
-        { title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت' },
-        { title: 'عنوان ؛', des: 'توضیحات کوتاهی  در قالب یک جمله قرار بگیرد .', month: 'اردیبهشت' },
-      ],
+      timelineArray: [],
       calendarLink: '',
     };
+  },
+  async fetch() {
+    const timelineAr = await this.$axios.$get('/timelineevents/');
+    if (timelineAr.length > 0)
+      this.timelineArray = timelineAr;
   },
   props: {
     onIntersecTimeline: Function,
