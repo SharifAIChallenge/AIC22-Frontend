@@ -1,7 +1,7 @@
 <template>
   <v-container
-      class="my-5"
-      v-intersect="{
+    class="my-5"
+    v-intersect="{
       handler: onIntersecAbout,
       options: {
         threshold: 0.3,
@@ -66,15 +66,15 @@
 
 <script>
 import Box from "~/components/utilities/Box";
-import Brackets from "~/assets/images/brackets.svg"
-import Swords from "~/assets/images/swords.svg"
-import Member from "~/assets/images/member.svg"
-import Team from "~/assets/images/team.svg"
+import Brackets from "~/assets/images/brackets.svg";
+import Swords from "~/assets/images/swords.svg";
+import Member from "~/assets/images/member.svg";
+import Team from "~/assets/images/team.svg";
 
 export default {
   name: "Statics",
   props: {
-    onIntersecAbout: Function,
+    onIntersecAbout: Function
   },
   data() {
     return {
@@ -82,10 +82,10 @@ export default {
       Swords,
       Member,
       Team
-    }
+    };
   },
-  components: {Box}
-}
+  components: { Box }
+};
 </script>
 
 <style scoped>

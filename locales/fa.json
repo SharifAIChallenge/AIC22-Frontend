@@ -44,7 +44,11 @@
     "inviteAs": "دعوت به عنوان",
     "optional": "اختیاری",
     "addToCalendar": "افزودن به تقویم",
+    "goToFAQ": "بیشتر...",
     "scheduling": "زمان بندی"
+  },
+  "landing": {
+    "tweets": "توییت\u200Cها"
   },
   "validation": {
     "email": "ایمیل معتبر نیست",
