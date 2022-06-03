@@ -1,48 +1,42 @@
 <template>
   <div>
-    <SectionHeader title="ساختن تیم" icon="mdi-account-multiple-plus-outline" />
-    <SectionContainer>
-      <div class="create-team">
-        <v-alert icon="mdi-information">
-          پس ازاینکه همه ی اعضای تیم در سایت ثبت ‌نام کردند،کافی است یک نفر تیم بسازد و بقیه اعضا را به آن دعوت کند.
-        </v-alert>
-        <div class="d-flex justify-center my-8 my-md-16">
-          <div class="secondary fileInput" @click="getImage">
+    <!-- <SectionHeader title="ساختن تیم" icon="mdi-account-multiple-plus-outline" /> -->
+    <Section-container>
+      <div class="d-flex flex-column justify-content-between">
+        <div class="text-center create-team-notice">
+          پس از آنکه همه اعضا ثبت نام کردند کافی است یک نفر تیم بسازد و باقی اعضا را به تیم دعوت کند.
+        </div>
+      
+      
+      <Box class="create-team-form mt-10 py-2 px-4 d-flex flex-column justify-content-center">
+          <div class="fileInput rounded-circle mb-4" @click="getImage">
             <v-file-input
               ref="file"
               hide-input
-              v-model="image"
               :label="$t('form.file')"
-              prepend-icon="mdi-image-plus"
               show-size
-            ></v-file-input>
+              prepend-icon="mdi-image-plus"
+            >
+            </v-file-input>
           </div>
-        </div>
-        <!-- <input type="file" id="file" @change="handleFileUpload" accept="image/*" /> -->
-        <v-text-field label="نام تیم" outlined v-model="name"></v-text-field>
+          <v-text-field class="create-team-form-input" v-model="name" outlined rounded label="نام تیم"></v-text-field>
+          <v-btn :loading="loading" class="v-btn--primary" @click="submitTeam()">ساخت تیم</v-btn>
+      </Box>
+
       </div>
-      <div class="d-flex">
-        <div style="flex: 0 1 93px; margin-left: 24px">
-          <v-btn block class="black" @click="forfiet()">لغو</v-btn>
-        </div>
-        <div style="flex: 1">
-          <v-btn block :loading="loading" @click="submitTeam()" color="primary" class="">
-            <v-icon class="ml-3">mdi-plus-circle-outline</v-icon>
-            تیمم را بساز
-          </v-btn>
-        </div>
-      </div>
-    </SectionContainer>
+    </Section-container>
   </div>
 </template>
 <script>
+import SectionContainer from '~/components/SectionContainer.vue';
 import SectionHeader from '~/components/SectionHeader';
-import SectionContainer from '~/components/SectionContainer';
+import Box from '~/components/utilities/Box.vue';
 
 export default {
   props: ['toggleHaveTeam'],
-  components: { SectionHeader, SectionContainer },
-  data() {
+  components: { SectionHeader, SectionContainer, Box},
+ 
+    data() {
     return {
       name: '',
       image: null,
@@ -57,9 +51,9 @@ export default {
       }
       const formData = new FormData();
       formData.append('name', this.name);
-      if (this.image != null) {
-        formData.append('image', this.image);
-      }
+      // if (this.image != null) {
+      //   formData.append('image', this.image);
+      // }
       this.loading = true;
       this.$axios.$post('team/', formData, { headers: { 'content-type': 'multipart/form-data' } }).then(res => {
         this.loading = false;
@@ -91,7 +85,18 @@ export default {
 .team{
   margin: 0 !important;
 }
-.create-team {
+.create-team-notice{
+  max-width: 50%;
+  margin: auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 0.25rem dashed;
+}
+.create-team-form{
+  width: 50%;
+  margin: auto;
+}
+
   .v-input {
     width: 100%;
     height: 100%;
@@ -112,12 +117,11 @@ export default {
     }
   }
   .fileInput {
-    width: 15vh;
-    height: 15vh;
-    .v-file-input {
-      display: flex;
-      justify-content: center;
-    }
+    margin: auto;
+    width: 16rem;
+    height: 16rem;
+    border: .2rem dashed #1f2f42;
+    background-color:var(--v-bg-base);
   }
-}
+
 </style>
