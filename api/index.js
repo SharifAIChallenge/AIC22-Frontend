@@ -168,5 +168,5 @@ export const FAQ = axios => {
 };
 
 export const PastAi = axios => {
-  return axios.$get('/past/');
+  return axios.$get('/pastaics/');
 };

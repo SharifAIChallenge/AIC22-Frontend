@@ -70,42 +70,16 @@
           style='background:transparent'
           class='carousel'
         >
-          <!--          <template v-slot:prev='{ on, attrs }'>-->
-          <!--            <v-btn v-bind='attrs' color='black' v-on='on' class='arrow-btn '>-->
-          <!--              <v-icon class='ml-2'>-->
-          <!--                mdi-arrow-right-->
-          <!--              </v-icon>-->
-          <!--              <span>سال قبل</span>-->
-          <!--            </v-btn>-->
-          <!--          </template>-->
-          <!--          <template v-slot:next='{ on, attrs }'>-->
-          <!--            <v-btn v-bind='attrs' color='black' v-on='on' class='arrow-btn '>-->
-          <!--              <span>سال بعد</span>-->
-          <!--              <v-icon class='mr-2'>-->
-          <!--                mdi-arrow-left-->
-          <!--              </v-icon>-->
-          <!--            </v-btn>-->
-          <!--          </template>-->
           <v-carousel-item v-for='(history, index) in histories' :key='index' >
             <v-sheet height='100%' tile>
               <v-row class='pb-8' style='background:#182636;border-radius:20px;border:1px' >
                 <v-col cols='6' md='4'>
                   <div class='image-year'>
-                    <!--                    aaaaaaa-->
-                    <!--                    <img :src='`${history.image}`' :alt='`${history.title_fa}`' width='100%' height='280px' />-->
-                    <!--                    ${history}-->
-                    hello there mite
+                    {{ history.description_en }}
                   </div>
                 </v-col>
                 <v-col cols='2' md='auto' class='mr-auto ml-5'>
-<!--                  <div class='history-date text-h5 text-sm-h4 px-3 justify-start'>-->
-                    <!--                    aaaaaaa-->
-                    <!--                    {{ history.title_fa }}-->
-                    <!-- {{ history.event_year }} -->
-                    <!--                    ${index}-->
-                    <img src='~/assets/images/history/Group539.png' class='pt-5'  alt='' style='padding-top:4%;'>
-<!--                  </div>-->
-<!--                  <p class='history-detail px-3'>{{ a }}</p>-->
+                    <img src=history.image class='pt-5'  alt='' style='padding-top:4%;'>
                 </v-col>
               </v-row>
             </v-sheet>
@@ -120,31 +94,51 @@
 <script>
 import { PastAi } from '~/api/index';
 import Header from '~/components/landing/Header.vue';
-// import history_curver from '~/assets/images/history_curver.png';
-let histories = ['a', 'b', 'c'];
+import TitleContainer from "~/components/TitleContainer";
 
+
+let histories;
+let years;
+let images;
+let description;
 export default {
-  layout: 'landing',
-  auth: false,
+  name: 'history',
   components: { Header },
-  // async asyncData({ $axios }) {
-  //   let data = await PastAi($axios);
-  //   let histories = data.data.sort((a, b) => a.event_year - b.event_year);
-  //   let years = histories.map(el => {
-  //     return el.event_year;
-  //   });
-  //   return {
-  //     histories,
-  //     years,
-  //   };
-  // },
-  data() {
+  data: () =>({
+    histories,
+    years,
+    images,
+    description
+  }),
+  async fetch() {
+    let pastAic = await this.$axios.get('pastaics/')
+        .then(resp=> this.pastAic = resp.data).catch(err=>console.log(err))
+    console.log("past aic",pastAic)
+    let histories = pastAic.sort((a, b) => a.event_year - b.event_year);
+
+    let years = histories.map(el => {
+      return el.event_year;
+    })
+    let images = histories.map(el=>{
+      return el.image;
+    })
+    let description = histories.map(el=>{
+      return el.description;
+    })
+    console.log("histo------>",histories)
     return {
       histories,
-      model: 0,
+      years,
+      images,
+      description
     };
   },
+  mounted() {
+    console.log(this.pastAic)
+  }
 };
+
+
 </script>
 
 <style lang='scss'>
