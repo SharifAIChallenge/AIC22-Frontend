@@ -1,52 +1,85 @@
 <template>
-  <div>
-    <SectionHeader title="اطلاعات شخصی" icon="mdi-account-circle-outline" />
+  <div class="edit-profile">
+    <div class="profile-picture">
+      <img
+        v-if="information.avatar"
+        :src="information.avatar"
+        class="rounded-circle"
+      />
+      <img
+        v-else
+        class="rounded-circle"
+        src="~/assets/images/avatar-sample.svg" alt="">
+      <div class="upload-avatar">
+        <v-file-input
+          :rules="avatarRules"
+          accept="image/png, image/jpeg, image/bmp"
+          placeholder="تصویر جدید"
+          prepend-icon="mdi-camera"
+          label="افزودن تصویر جدید"
+        ></v-file-input>
+      </div>
+    </div>
+
     <SectionContainer>
       <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
         <v-row>
-          <v-col class="py-0 mb-3" cols="12">
-            <v-text-field v-model="information.firstname_fa" :label="$t('form.nameInPersian')" required :rules="requiredRules" outlined />
+          <v-col class="py-0 mb-3" cols="6">
+            <v-text-field
+              v-model="information.firstname_fa"
+              :label="$t('form.nameInPersian')"
+              required
+              :rules="requiredRules"
+              outlined
+              rounded
+            />
           </v-col>
-          <v-col class="py-0 mb-3" cols="12">
+          <v-col class="py-0 mb-3" cols="6">
             <v-text-field
               v-model="information.lastname_fa"
               :label="$t('form.lastNameInPersian')"
               required
               :rules="requiredRules"
               v-bind="filedProps"
+              rounded
             />
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="py-0 mb-3" cols="12">
-            <v-text-field v-model="information.email" label="ایمیل" readonly v-bind="filedProps" :rules="emailRules"></v-text-field>
+          <v-col class="py-0 mb-3" cols="6">
+            <v-text-field v-model="information.email"
+                          label="ایمیل"
+                          readonly
+                          v-bind="filedProps"
+                          :rules="emailRules"
+                          rounded
+            ></v-text-field>
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="py-0 mb-3" cols="12">
+          <v-col class="py-0 mb-3" cols="6">
             <v-text-field
               v-model="information.phone_number"
               required
               label="شماره تماس"
               v-bind="filedProps"
               :rules="phoneRules"
+              rounded
             ></v-text-field>
           </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col class="py-0 mb-3" cols="12">
+          <v-col class="py-0 mb-3" cols="6">
+            <v-select v-model="information.university_degree" :items="degreeItem" required label="مقطع تحصیلی"
+                      outlined
+                      rounded
+            ></v-select>
+          </v-col>
+          <v-col class="py-0 mb-3" cols="6">
             <v-text-field
               v-model="information.university"
               :label="$t('form.educationPlace')"
               required
               :rules="requiredRules"
               v-bind="filedProps"
+              rounded
             />
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="py-0 mb-3" cols="12">
+          <v-col class="py-0 mb-3" cols="6">
             <v-text-field
               type="int"
               v-model="information.birth_date"
@@ -54,17 +87,59 @@
               required
               :rules="requiredRules"
               label="سال ورودی"
+              rounded
             />
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="py-0 mb-3" cols="12">
-            <v-text-field v-model="information.major" :rules="requiredRules" outlined required label="رشته"></v-text-field>
+          <v-col class="py-0 mb-3" cols="6">
+            <v-text-field v-model="information.major" :rules="requiredRules" outlined required
+                          label="رشته"
+                          rounded></v-text-field>
           </v-col>
-        </v-row>
-        <v-row>
+          <v-col class="py-0 mb-3" cols="6">
+            <v-text-field
+              v-model="information.province"
+              v-bind="filedProps"
+              required
+              :rules="requiredRules"
+              label="استان"
+              rounded
+            />
+          </v-col>
+          <v-col class="py-0 mb-3" cols="6">
+            <v-text-field
+              v-model="information.city"
+              v-bind="filedProps"
+              required
+              :rules="requiredRules"
+              label="شهر"
+              rounded
+            />
+          </v-col>
           <v-col class="py-0 mb-3" cols="12">
-            <v-select v-model="information.university_degree" :items="degreeItem" required label="مقطع تحصیلی" outlined></v-select>
+            <v-text-field
+              v-model="information.address"
+              v-bind="filedProps"
+              required
+              :rules="requiredRules"
+              label="آدرس"
+              rounded
+            />
+          </v-col>
+          <v-col class="py-0 mb-3" cols="6">
+            <v-text-field
+              v-model="information.linkedin"
+              v-bind="filedProps"
+              label="آیدی لینکدین"
+              rounded
+            />
+          </v-col>
+          <v-col class="py-0 mb-3" cols="6">
+            <v-text-field
+              v-model="information.github"
+              v-bind="filedProps"
+              label="آیدی گیتهاب"
+              rounded
+            />
           </v-col>
         </v-row>
 
@@ -105,12 +180,12 @@
 </template>
 
 <script>
-import { emailRules, requiredRules, phoneRules } from '../../../mixins/formValidations';
-import { primaryButtonProps } from '../../../mixins/buttonProps';
-import { fieldProps } from '../../../mixins/fieldProps';
-import SectionHeader from '~/components/SectionHeader';
-import SectionContainer from '~/components/SectionContainer';
-import { mapState } from 'vuex';
+import { emailRules, requiredRules, phoneRules } from "../../../mixins/formValidations";
+import { primaryButtonProps } from "../../../mixins/buttonProps";
+import { fieldProps } from "../../../mixins/fieldProps";
+import SectionHeader from "~/components/SectionHeader";
+import SectionContainer from "~/components/SectionContainer";
+import { mapState } from "vuex";
 
 export default {
   mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps, phoneRules],
@@ -119,49 +194,81 @@ export default {
     information: Object,
     loading: Boolean,
     signUp: Function,
-    resetForm: Function,
+    resetForm: Function
   },
   data() {
     return {
+      avatarRules: [
+        value => !value || value.size < 2000000 || "حجم تصویر باید کمتر از 2 مگابایت باشد"
+      ],
       valid: false,
       isLoading: false,
       languageSelectItem: [
         {
-          text: 'Java',
-          value: 'java',
+          text: "Java",
+          value: "java"
         },
         {
-          text: '++C',
-          value: 'cpp',
+          text: "++C",
+          value: "cpp"
         },
         {
-          text: 'Python',
-          value: 'py3',
-        },
+          text: "Python",
+          value: "py3"
+        }
       ],
       degreeItem: [
         {
-          text: 'دانش آموز',
-          value: 'ST',
+          text: "دانش آموز",
+          value: "ST"
         },
         {
-          text: 'کارشناسی',
-          value: 'BA',
+          text: "کارشناسی",
+          value: "BA"
         },
         {
-          text: 'کارشناسی ارشد',
-          value: 'MA',
+          text: "کارشناسی ارشد",
+          value: "MA"
         },
         {
-          text: 'دکترا',
-          value: 'DO',
-        },
+          text: "دکترا",
+          value: "DO"
+        }
       ],
-      universityItems: [],
+      universityItems: []
     };
-  },
+  }
   // async fetch() {
 
   // },
 };
 </script>
+
+<style lang="scss">
+.edit-profile {
+  margin-top: 8rem;
+}
+
+.profile-picture {
+  position: relative;
+  display: flex;
+  top: -5rem;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .upload-avatar {
+    width: 12rem;
+  }
+
+  img {
+    width: 10rem;
+    height: 10rem;
+    border: 0.5rem solid #13202E;
+  }
+}
+
+.theme--dark.v-text-field > .v-input__control > .v-input__slot:before {
+  border: none;
+}
+</style>
