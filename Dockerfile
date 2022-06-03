@@ -1,12 +1,18 @@
-FROM reg.aichallenge.ir/front:16.52.75
+FROM reg.aichallenge.ir/node:16.15.0 as builder
 
-ENV APP_ROOT /src
+WORKDIR /app
 
-RUN mkdir -p ${APP_ROOT}
-WORKDIR ${APP_ROOT}
-ADD . ${APP_ROOT}
+COPY package*.json ./
 
-RUN npm install
-RUN npm run build
+RUN npm install 
 
-ENV HOST 0.0.0.0
+COPY . .
+
+RUN npm run generate
+
+FROM reg.aichallenge.ir/nginx:1.17.6 as production-stage
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

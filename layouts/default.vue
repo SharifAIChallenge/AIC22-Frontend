@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Header color="transparent" />
+    <Header/>
     <v-main>
       <nuxt />
     </v-main>
@@ -10,7 +10,7 @@
 
 <script>
 import MyFooter from '../components/MyFooter';
-import Header from '~/components/landing/old/Header.vue';
+import Header from '~/components/landing/Header.vue';
 export default {
   components: { MyFooter, Header },
 };

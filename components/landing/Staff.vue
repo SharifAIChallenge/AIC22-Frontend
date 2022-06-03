@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="our-team">
-      <div class="our-team__header">تیم ما</div>
+      <TitleContainer title="تیم ما"/>
       <div class="our-team__names">
         <div v-for="menu in staffMenu" :id="menu.id" v-bind:key="staffMenu.id"
              v-bind:class="{'clicked': clickedStaffMenuId == menu.id }" @click="clickMenu($event)">
@@ -17,10 +17,11 @@
 
 <script>
 import StaffCard from "~/components/landing/StaffCard";
+import TitleContainer from '~/components/TitleContainer';
 
 export default {
   name: "Staff",
-  components: {StaffCard},
+  components: {TitleContainer, StaffCard},
   data() {
     return {
       clickedStaffMenuId: 1,
