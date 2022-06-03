@@ -53,9 +53,6 @@
     </v-navigation-drawer>
     <v-main style="padding: 0px">
       <v-container class="dashboard pl-0 pt-md-0 pb-0" fluid>
-        <v-container class="py-10  head">
-          {{ activeLink }}
-        </v-container>
         <nuxt />
       </v-container>
     </v-main>
@@ -185,15 +182,15 @@ export default {
         this.activeLink = this.routes[key].title;
     });
   },
-  // computed: {
-  //   mobile() {
-  //     return this.$vuetify.breakpoint.smAndDown;
-  //   },
-  //   ...mapState({
-  //     token: state => state.auth.token,
-  //     profile: state => state.auth.user,
-  //   }),
-  // },
+  computed: {
+    mobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+    ...mapState({
+      token: state => state.auth.token,
+      profile: state => state.auth.user,
+    }),
+  },
   watch: {
     profile(now, old) {
       if (now) {
@@ -232,7 +229,7 @@ export default {
   beforeMount() {
     // let data = this.routes.find(item => item.link === this.$route.path);
     // this.$axios.setToken(this.token, 'token');
-    // this.$store.dispatch('auth/getUser');
+    this.$store.dispatch('auth/getUser');
   }
 };
 </script>
