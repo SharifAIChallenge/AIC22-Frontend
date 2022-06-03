@@ -1,6 +1,5 @@
 <template>
   <div>
-    <SectionHeader title="رزومه" icon="mdi-badge-account-horizontal-outline" />
     <SectionContainer>
       <v-form ref="editProfile" onSubmit="return false;" @submit="signUp">
         <v-row v-if="information.image_link">

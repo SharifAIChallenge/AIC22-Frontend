@@ -33,19 +33,25 @@
         </v-tab-item>
         <v-tab-item>
           <v-card-text class="settingWraper">
-            <Resume
-              :deleteResume="deleteResume"
-              :signUp="signUp"
-              :information="this.information"
-              :loading="loading"
-              :deleteImage="deleteImage"
-              :resetForm="resetForm"
-            />
+            <Box classes="ma-10 elevation-20 small-box mx-auto">
+              <Resume
+                :deleteResume="deleteResume"
+                :signUp="signUp"
+                :information="this.information"
+                :loading="loading"
+                :deleteImage="deleteImage"
+                :resetForm="resetForm"
+              />
+            </Box>
+
           </v-card-text>
         </v-tab-item>
         <v-tab-item>
           <v-card-text class="settingWraper">
-            <ChangePassword />
+            <Box classes="ma-10 elevation-20 small-box mx-auto">
+              <ChangePassword />
+            </Box>
+
           </v-card-text>
         </v-tab-item>
       </v-tabs-items>
@@ -197,5 +203,8 @@ export default {
 
 .v-tab.v-tab--active {
   background-image: linear-gradient(to top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+}
+.small-box{
+  width: 25rem;
 }
 </style>
