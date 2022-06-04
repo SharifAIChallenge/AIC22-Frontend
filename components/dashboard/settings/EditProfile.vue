@@ -145,7 +145,7 @@
         </v-row>
 
         <v-row>
-          <v-col class="py-0 mb-3" cols="12">
+          <v-col class="py-0 mb-3" cols="6">
             <v-select
               v-model="information.programming_language"
               :rules="requiredRules"
@@ -153,6 +153,14 @@
               label="زبان برنامه نویسی"
               outlined
             ></v-select>
+          </v-col>
+          <v-col class="py-0 mb-3" cols="6">
+            <v-text-field
+              v-model="information.national_code"
+              v-bind="filedProps"
+              label="کد ملی"
+              rounded
+            />
           </v-col>
         </v-row>
 
