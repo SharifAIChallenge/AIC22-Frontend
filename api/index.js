@@ -29,7 +29,7 @@ export const changePassword = (axios, data) => {
 };
 
 export const editProfile = (axios, data) => {
-  return axios.$put('/accounts/profile', data, { headers: { 'content-type': 'multipart/form-data' } });
+  return axios.$put('/account/profile', data, { headers: { 'content-type': 'multipart/form-data' } });
 };
 
 export const createTeam = axios => {

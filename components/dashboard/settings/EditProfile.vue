@@ -2,8 +2,8 @@
   <div class="edit-profile">
     <div class="profile-picture">
       <img
-        v-if="information.avatar"
-        :src="information.avatar"
+        v-if="information.image"
+        :src="information.image"
         class="rounded-circle"
       />
       <img
@@ -17,6 +17,7 @@
           placeholder="تصویر جدید"
           prepend-icon="mdi-camera"
           label="افزودن تصویر جدید"
+          v-model="information.image"
         ></v-file-input>
       </div>
     </div>
@@ -163,17 +164,21 @@
           ></v-checkbox>
         </v-row>
 
-        <div class="d-flex mt-8">
-          <div style="flex: 0 1 93px; margin-left: 24px">
-            <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
-          </div>
-          <div style="flex: 1">
-            <v-btn block :loading="loading" type="submit" :disabled="!valid" color="primary" style="flex-basis: 75%">
-              <v-icon left>mdi-content-save-outline</v-icon>
-              ذخیره اطلاعات
-            </v-btn>
-          </div>
-        </div>
+        <v-row class="mt-8">
+          <v-col cols="6">
+            <div>
+              <v-btn block :loading="loading" class="py-5" type="submit" :disabled="!valid" color="primary" rounded>
+                <v-icon left>mdi-content-save-outline</v-icon>
+                ذخیره اطلاعات
+              </v-btn>
+            </div>
+          </v-col>
+          <v-col cols="6">
+            <div style="flex: 0 1 93px; margin-left: 24px">
+              <v-btn block color="secondary" class="py-5" @click="resetForm" rounded>لغو</v-btn>
+            </div>
+          </v-col>
+        </v-row>
       </v-form>
     </SectionContainer>
   </div>

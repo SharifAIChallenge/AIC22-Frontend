@@ -170,9 +170,11 @@ export default {
   },
   watch: {
     profile(newProfile, oldProfile) {
-      const skills = this.profile.skills.map(item => item.skill.split(","))[0];
-      const jobs = this.profile.jobs.map(item => item.position.split(","))[0];
-      this.information = { ...newProfile, skills, jobs };
+      if (newProfile) {
+        const skills = newProfile.skills.map(item => item.skill.split(","))[0];
+        const jobs = newProfile.jobs.map(item => item.position.split(","))[0];
+        this.information = { ...newProfile };
+      }
     }
   },
   computed: {
@@ -181,9 +183,8 @@ export default {
     })
   },
   mounted() {
-    console.log(this.profile);
     if (this.profile) {
-      const skills = this.profile.skills.map(item => item.skill.split(","))[0];
+      const skills = this.profile.skills.map(item => item.skills.split(","))[0];
       const jobs = this.profile.jobs.map(item => item.position.split(","))[0];
       this.information = { ...this.profile, skills, jobs };
     }
@@ -210,7 +211,8 @@ export default {
 .v-tab.v-tab--active {
   background-image: linear-gradient(to top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
 }
-.small-box{
+
+.small-box {
   width: 25rem;
 }
 </style>
