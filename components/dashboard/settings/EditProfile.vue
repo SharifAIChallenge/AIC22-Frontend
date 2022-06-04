@@ -83,11 +83,11 @@
           <v-col class="py-0 mb-3" cols="6">
             <v-text-field
               type="int"
-              v-model="information.birth_date"
+              v-model="information.university_term"
               v-bind="filedProps"
               required
               :rules="requiredRules"
-              label="سال ورودی"
+              label="ترم دانشگاه"
               rounded
             />
           </v-col>
@@ -95,6 +95,17 @@
             <v-text-field v-model="information.major" :rules="requiredRules" outlined required
                           label="رشته"
                           rounded></v-text-field>
+          </v-col>
+          <v-col class="py-0 mb-3" cols="6">
+            <client-only placeholder="loading">
+              <VuePersianDatetimePicker
+                inputFormat="jYYYY-jMM-jDD"
+                format="jYYYY-jMM-jDD"
+                altFormat="jYYYY-jMM-jDD"
+                v-model="information.birth_date"
+              />
+            </client-only>
+
           </v-col>
           <v-col class="py-0 mb-3" cols="6">
             <v-text-field
@@ -193,16 +204,15 @@
 </template>
 
 <script>
-import { emailRules, requiredRules, phoneRules } from "../../../mixins/formValidations";
-import { primaryButtonProps } from "../../../mixins/buttonProps";
-import { fieldProps } from "../../../mixins/fieldProps";
+import { emailRules, requiredRules, phoneRules } from "~/mixins/formValidations";
+import { primaryButtonProps } from "~/mixins/buttonProps";
+import { fieldProps } from "~/mixins/fieldProps";
 import SectionHeader from "~/components/SectionHeader";
 import SectionContainer from "~/components/SectionContainer";
-import { mapState } from "vuex";
 
 export default {
   mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps, phoneRules],
-  components: { SectionHeader, SectionContainer },
+  components: { SectionHeader, SectionContainer, VuePersianDatetimePicker: ()=> import("vue-persian-datetime-picker")},
   props: {
     information: Object,
     loading: Boolean,
@@ -283,5 +293,20 @@ export default {
 
 .theme--dark.v-text-field > .v-input__control > .v-input__slot:before {
   border: none;
+}
+.vpd-day{
+  color: #13202E!important;
+}
+.vpd-main{
+  .form-control{
+    height: 3rem;
+    border-radius: 999px 0 0 999px;
+    border: 1px solid #4e5863;
+    color: #fff;
+  }
+  .vpd-icon-btn{
+    background-color: rgb(65, 125, 244);
+    border-radius: 0 999px 999px 0;
+  }
 }
 </style>
