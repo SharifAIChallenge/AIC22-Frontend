@@ -17,7 +17,7 @@
           />
 
           <v-btn block :disabled="!valid || passes.newPassword1 !== passes.newPassword2"
-                 :loading="loading" type="submit">
+                 :loading="loading" type="submit" rounded color="py-5">
             <v-icon left>mdi-shield-edit-outline</v-icon>
             {{ $t('form.changePassword') }}
           </v-btn>

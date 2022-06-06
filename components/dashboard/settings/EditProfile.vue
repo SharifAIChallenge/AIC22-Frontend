@@ -117,7 +117,7 @@
               rounded
             />
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12">
             <v-text-field
               v-model="information.city"
               v-bind="filedProps"
@@ -158,9 +158,10 @@
         <v-row>
           <v-col class="py-0 mb-3" cols="6">
             <v-select
-              v-model="information.programming_language"
+              v-model="information.programming_languages"
               :rules="requiredRules"
               :items="languageSelectItem"
+              multiple
               label="زبان برنامه نویسی"
               outlined
             ></v-select>
@@ -229,15 +230,15 @@ export default {
       languageSelectItem: [
         {
           text: "Java",
-          value: "java"
+          value: "Java"
         },
         {
           text: "++C",
-          value: "cpp"
+          value: "C++"
         },
         {
           text: "Python",
-          value: "py3"
+          value: "Python 3"
         }
       ],
       degreeItem: [

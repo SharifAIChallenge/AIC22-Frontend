@@ -2,17 +2,18 @@
   <div>
     <SectionContainer>
       <v-form ref="editProfile" onSubmit="return false;" @submit="signUp">
-        <div class="resume-file">
+        <input class="fileInput" type="file" ref="fileRef" @change="fileInputChanged">
+        <div class="resume-file" @click="fileInputClicked">
           <div>
             <v-icon size="112">mdi-file-plus-outline</v-icon>
           </div>
         </div>
         <div class="d-flex mt-8">
           <div style="flex: 0 1 93px; margin-left: 24px">
-            <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
+            <v-btn block color="black" style="flex-basis: 20%" @click="resetForm" rounded class="py-5">لغو</v-btn>
           </div>
           <div style="flex: 1">
-            <v-btn block :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
+            <v-btn block :loading="loading" type="submit" class="py-5" color="primary" style="flex-basis: 75%" rounded>
               <v-icon left>mdi-content-save-v-bind="filedProps"</v-icon>
               ذخیره اطلاعات
             </v-btn>
@@ -24,10 +25,10 @@
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../../../mixins/formValidations';
-import { fieldProps } from '../../../mixins/fieldProps';
-import SectionHeader from '~/components/SectionHeader';
-import SectionContainer from '~/components/SectionContainer';
+import { emailRules, requiredRules } from "../../../mixins/formValidations";
+import { fieldProps } from "../../../mixins/fieldProps";
+import SectionHeader from "~/components/SectionHeader";
+import SectionContainer from "~/components/SectionContainer";
 
 export default {
   mixins: [requiredRules, emailRules, fieldProps],
@@ -43,9 +44,19 @@ export default {
     signUp: Function,
     deleteResume: Function,
     deleteImage: Function,
-    resetForm: Function,
+    resetForm: Function
   },
-  methods: {},
+  methods: {
+    fileInputClicked() {
+      this.$refs.fileRef.click();
+    },
+    fileInputChanged(e) {
+      const file = e.target.files[0];
+      if (file) {
+        this.information.resume = file;
+      }
+    }
+  }
 };
 </script>
 <style lang="scss">
@@ -53,24 +64,30 @@ export default {
   .v-text-field--outlined .v-input__prepend-outer {
     margin-top: 10px !important;
   }
+
   .v-input__prepend-outer {
     position: absolute;
     left: 3px;
     top: 3px;
   }
+
   .v-input__append-inner {
     display: none;
   }
 }
+
 .marginTop {
   margin-top: 100px !important;
 }
+
 .skill,
 .job {
   position: relative;
+
   .v-text-field__details {
     display: none;
   }
+
   .mdi-check {
     position: absolute !important;
     left: 19px;
@@ -78,17 +95,23 @@ export default {
     top: 7px;
   }
 }
-.resume-file{
+
+.resume-file {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  div{
+
+  div {
     background-color: #13202E;
     border-radius: 9999px;
     padding: 2rem 2.3rem;
   }
+}
+
+.fileInput {
+  visibility: hidden;
 }
 </style>

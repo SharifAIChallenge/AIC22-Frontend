@@ -94,7 +94,7 @@ export default {
         linkedin: "",
         phone_number: "",
         major: "",
-        programming_language: "",
+        programming_languages: [],
         province: "",
         degree: "",
         term: "",
@@ -129,9 +129,9 @@ export default {
       let isFormValid = false;
       for (const key in this.information) {
         if (this.information[key] !== this.profile[key]) {
-          if (key === "jobs" || key === "skills") {
+          if (key === "jobs" || key === "skills" || key === "programming_languages") {
             if (this.information[key]) {
-              formData.append(key + "_list", this.information[key]);
+              formData.append(key, JSON.stringify(this.information[key]));
             }
           } else {
             formData.append(key, this.information[key]);
