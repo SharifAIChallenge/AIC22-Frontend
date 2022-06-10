@@ -92,17 +92,17 @@ export default {
     };
   },
 
-  async asyncData({ $axios, redirect }) {
-    // redirect('/dashboard');
-    let res = await $axios.$get('team');
-    let haveTeam = false;
-    let isPayed = res.final_payed;
-    if (res.status_code === 403) haveTeam = false;
-    else {
-      haveTeam = true;
-    }
-    return { haveTeam, isPayed };
-  },
+  // async asyncData({ $axios, redirect }) {
+  //   // redirect('/dashboard');
+  //   let res = await $axios.$get('team');
+  //   let haveTeam = false;
+  //   let isPayed = res.final_payed;
+  //   if (res.status_code === 403) haveTeam = false;
+  //   else {
+  //     haveTeam = true;
+  //   }
+  //   return { haveTeam, isPayed };
+  // },
   methods: {
     toggleHaveTeam() {
       this.haveTeam = !this.haveTeam;
