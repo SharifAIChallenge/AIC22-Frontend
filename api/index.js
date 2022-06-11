@@ -25,7 +25,7 @@ export const resetPasswordConfirm = (axios, data) => {
 };
 
 export const changePassword = (axios, data) => {
-  return axios.$post('/accounts/password/change', data);
+  return axios.$post('/account/password/change', data);
 };
 
 export const editProfile = (axios, data) => {

@@ -12,6 +12,7 @@
             :type="show ? 'text' : 'password'"
             :rules="requiredRules"
             required
+            rounded
             v-bind="filedProps"
             dir="ltr"
           />
@@ -40,7 +41,7 @@ export default {
   data() {
     return {
       valid: false,
-      passes: { oldPassword: '', newPassword1: '', newPassword2: '' },
+      passes: { old_password: '', new_password1: '', new_password2: '' },
       show: false,
       loading: false,
     };

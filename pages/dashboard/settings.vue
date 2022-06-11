@@ -129,9 +129,9 @@ export default {
       let isFormValid = false;
       for (const key in this.information) {
         if (this.information[key] !== this.profile[key]) {
-          if (key === "jobs" || key === "skills" || key === "programming_languages") {
+          if (key === "jobs" || key === "skills" || key === 'programming_languages') {
             if (this.information[key]) {
-              formData.append(key, JSON.stringify(this.information[key]));
+              formData.append(`${key}_list`,this.information[key].join(','));
             }
           } else {
             formData.append(key, this.information[key]);
