@@ -10,7 +10,6 @@ export const state = () => ({
 export const actions = {
   async getUser({ commit, state }) {
     let res = await getUser(this.$axios);
-    console.log("getUser", res);
     commit("setUser", res);
     return res;
   },
@@ -53,12 +52,10 @@ export const actions = {
 export const mutations = {
   setUser(state,data) {
     state.user = data;
-    console.log("setUser",  data );
   },
   setToken(state, { token }) {
     state.token = token;
     state.isAuthenticated = true;
-    // console.log(token, 'setToken');
     this.$axios.setToken(token, "token");
   },
   removeToken(state) {

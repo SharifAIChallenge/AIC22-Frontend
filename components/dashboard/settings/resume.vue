@@ -13,7 +13,9 @@
             <v-btn block color="black" style="flex-basis: 20%" @click="resetForm" rounded class="py-5">لغو</v-btn>
           </div>
           <div style="flex: 1">
-            <v-btn block :loading="loading" type="submit" class="py-5" color="primary" style="flex-basis: 75%" rounded>
+            <v-btn block :loading="loading" type="submit" class="py-5" color="primary" style="flex-basis: 75%" rounded
+            :disabled="!onChangeCalled"
+            >
               <v-icon left>mdi-content-save-v-bind="filedProps"</v-icon>
               ذخیره اطلاعات
             </v-btn>
@@ -34,7 +36,9 @@ export default {
   mixins: [requiredRules, emailRules, fieldProps],
   components: { SectionHeader, SectionContainer },
   data() {
-    return {};
+    return {
+      onChangeCalled:false
+    };
   },
 
   props: {
@@ -53,6 +57,7 @@ export default {
     fileInputChanged(e) {
       const file = e.target.files[0];
       if (file) {
+        this.onChangeCalled = true
         this.information.resume = file;
       }
     }

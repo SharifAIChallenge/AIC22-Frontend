@@ -193,7 +193,6 @@ export default {
   },
   watch: {
     profile(now, old) {
-      console.log(this.profile);
       if (now) {
         // this.routes.team.disabled = !this.profile.is_complete;
         if (!this.profile.is_complete && this.$route.path !== "/dashboard/settings") {

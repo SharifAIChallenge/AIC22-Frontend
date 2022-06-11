@@ -162,6 +162,8 @@
               :rules="requiredRules"
               :items="languageSelectItem"
               multiple
+              rounded
+              color="bg"
               label="زبان برنامه نویسی"
               outlined
             ></v-select>
@@ -230,7 +232,7 @@ export default {
       languageSelectItem: [
         {
           text: "Java",
-          value: "Java"
+          value: "JAVA"
         },
         {
           text: "++C",
@@ -238,7 +240,7 @@ export default {
         },
         {
           text: "Python",
-          value: "Python 3"
+          value: "PYTHON3"
         }
       ],
       degreeItem: [
