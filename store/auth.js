@@ -55,7 +55,7 @@ export const mutations = {
   },
   setToken(state, { token }) {
     state.token = token;
-    state.isAuthenticated = true;
+    if (token) state.isAuthenticated = true;
     this.$axios.setToken(token, "token");
   },
   removeToken(state) {
