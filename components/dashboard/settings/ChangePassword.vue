@@ -1,28 +1,27 @@
 <template>
   <div>
-    <SectionHeader title="تغییر رمز عبور" icon="mdi-form-textbox-password" />
-    <SectionContainer>
-      <v-form ref="changePassword" v-model="valid" @submit.prevent="resetPasswordConfirm">
-        <password-input v-model="passes.oldPassword" label="form.currentPassword" />
+      <SectionContainer>
+        <v-form ref="changePassword" v-model="valid" @submit.prevent="resetPasswordConfirm">
+          <password-input v-model="passes.oldPassword" label="form.currentPassword" />
 
-        <password-input v-model="passes.newPassword1" label="form.newPassword" @vis-change="val => (show = val)" />
+          <password-input v-model="passes.newPassword1" label="form.newPassword" @vis-change="val => (show = val)" />
 
-        <v-text-field
-          v-model="passes.newPassword2"
-          :label="$t('form.confirmNewPassword')"
-          :type="show ? 'text' : 'password'"
-          :rules="requiredRules"
-          required
-          v-bind="filedProps"
-          dir="ltr"
-        />
+          <v-text-field
+            v-model="passes.newPassword2"
+            :label="$t('form.confirmNewPassword')"
+            :type="show ? 'text' : 'password'"
+            :rules="requiredRules"
+            required
+            v-bind="filedProps"
+            dir="ltr"
+          />
 
-        <v-btn block :disabled="!valid || passes.newPassword1 !== passes.newPassword2" :loading="loading" type="submit">
-          <v-icon left>mdi-shield-edit-outline</v-icon>
-          {{ $t('form.changePassword') }}
-        </v-btn>
-      </v-form>
-    </SectionContainer>
+          <v-btn block :disabled="!valid || passes.newPassword1 !== passes.newPassword2" :loading="loading" type="submit">
+            <v-icon left>mdi-shield-edit-outline</v-icon>
+            {{ $t('form.changePassword') }}
+          </v-btn>
+        </v-form>
+      </SectionContainer>
   </div>
 </template>
 
