@@ -46,7 +46,7 @@
         <label class="card" for="item-3" id="song-3">
           <img
               class="card__userIcon"
-              :src="selectedCardIndex % 3 === 0 ? previousCard.author : (selectedCardIndex % 3 === 1 ? nextCard.author : selectedCard.author)"
+              :src="selectedCardIndex % 3 === 0 ? previousCard.image : (selectedCardIndex % 3 === 1 ? nextCard.image : selectedCard.image)"
           >
           <div class="card__user">
             {{
