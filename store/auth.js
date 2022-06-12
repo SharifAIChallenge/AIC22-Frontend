@@ -38,8 +38,8 @@ export const actions = {
     }
   },
   loadUser({ commit, dispatch }, token) {
-    commit("setToken", token);
-    dispatch("getUser");
+      commit("setToken", token);
+      dispatch("getUser");
   },
   async logout({ commit }) {
     this.$cookies.remove("token");

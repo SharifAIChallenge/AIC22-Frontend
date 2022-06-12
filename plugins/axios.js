@@ -1,7 +1,7 @@
 export default function({ $axios, redirect, store, app, route }) {
   // console.log('middle');
   const token = app.$cookies.get('token');
-  if (token || !store.state.auth.token) {
+  if (token) {
     store.dispatch('auth/loadUser', { token });
   }
   // if (route.path.includes('dashboard') && !store.state.auth.isAuthenticated) {

@@ -49,10 +49,6 @@ export default {
       ],
     };
   },
-  async fetch() {
-    let data = await this.$axios.$get('homepage/socials');
-    this.socials = data.socials;
-  },
 };
 </script>
 
