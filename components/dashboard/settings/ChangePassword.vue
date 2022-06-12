@@ -12,11 +12,13 @@
             :type="show ? 'text' : 'password'"
             :rules="requiredRules"
             required
+            rounded
             v-bind="filedProps"
             dir="ltr"
           />
 
-          <v-btn block :disabled="!valid || passes.newPassword1 !== passes.newPassword2" :loading="loading" type="submit">
+          <v-btn block :disabled="!valid || passes.newPassword1 !== passes.newPassword2"
+                 :loading="loading" type="submit" rounded color="py-5">
             <v-icon left>mdi-shield-edit-outline</v-icon>
             {{ $t('form.changePassword') }}
           </v-btn>
@@ -39,7 +41,7 @@ export default {
   data() {
     return {
       valid: false,
-      passes: { oldPassword: '', newPassword1: '', newPassword2: '' },
+      passes: { old_password: '', new_password1: '', new_password2: '' },
       show: false,
       loading: false,
     };

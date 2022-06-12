@@ -21,7 +21,7 @@
             active-class="font-weight-bold"
             @click="activeLink = item.title"
             style="min-height:36px;height:36px;font-weight:bold"
-            :disabled="item.disabled || !profile || (item.gard && !profile.is_complete)"
+            :disabled="!profile"
             :to="item.link"
             exact
             nuxt

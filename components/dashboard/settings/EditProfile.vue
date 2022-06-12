@@ -2,8 +2,8 @@
   <div class="edit-profile">
     <div class="profile-picture">
       <img
-        v-if="information.avatar"
-        :src="information.avatar"
+        v-if="information.image"
+        :src="information.image"
         class="rounded-circle"
       />
       <img
@@ -17,6 +17,7 @@
           placeholder="تصویر جدید"
           prepend-icon="mdi-camera"
           label="افزودن تصویر جدید"
+          v-model="information.image"
         ></v-file-input>
       </div>
     </div>
@@ -82,11 +83,11 @@
           <v-col class="py-0 mb-3" cols="6">
             <v-text-field
               type="int"
-              v-model="information.birth_date"
+              v-model="information.university_term"
               v-bind="filedProps"
               required
               :rules="requiredRules"
-              label="سال ورودی"
+              label="ترم دانشگاه"
               rounded
             />
           </v-col>
@@ -94,6 +95,17 @@
             <v-text-field v-model="information.major" :rules="requiredRules" outlined required
                           label="رشته"
                           rounded></v-text-field>
+          </v-col>
+          <v-col class="py-0 mb-3" cols="6">
+            <client-only placeholder="loading">
+              <VuePersianDatetimePicker
+                inputFormat="jYYYY-jMM-jDD"
+                format="jYYYY-jMM-jDD"
+                altFormat="jYYYY-jMM-jDD"
+                v-model="information.birth_date"
+              />
+            </client-only>
+
           </v-col>
           <v-col class="py-0 mb-3" cols="6">
             <v-text-field
@@ -105,7 +117,7 @@
               rounded
             />
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12">
             <v-text-field
               v-model="information.city"
               v-bind="filedProps"
@@ -144,14 +156,25 @@
         </v-row>
 
         <v-row>
-          <v-col class="py-0 mb-3" cols="12">
+          <v-col class="py-0 mb-3" cols="6">
             <v-select
-              v-model="information.programming_language"
+              v-model="information.programming_languages"
               :rules="requiredRules"
               :items="languageSelectItem"
+              multiple
+              rounded
+              color="bg"
               label="زبان برنامه نویسی"
               outlined
             ></v-select>
+          </v-col>
+          <v-col class="py-0 mb-3" cols="6">
+            <v-text-field
+              v-model="information.national_code"
+              v-bind="filedProps"
+              label="کد ملی"
+              rounded
+            />
           </v-col>
         </v-row>
 
@@ -163,33 +186,36 @@
           ></v-checkbox>
         </v-row>
 
-        <div class="d-flex mt-8">
-          <div style="flex: 0 1 93px; margin-left: 24px">
-            <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
-          </div>
-          <div style="flex: 1">
-            <v-btn block :loading="loading" type="submit" :disabled="!valid" color="primary" style="flex-basis: 75%">
-              <v-icon left>mdi-content-save-outline</v-icon>
-              ذخیره اطلاعات
-            </v-btn>
-          </div>
-        </div>
+        <v-row class="mt-8">
+          <v-col cols="6">
+            <div>
+              <v-btn block :loading="loading" class="py-5" type="submit" :disabled="!valid" color="primary" rounded>
+                <v-icon left>mdi-content-save-outline</v-icon>
+                ذخیره اطلاعات
+              </v-btn>
+            </div>
+          </v-col>
+          <v-col cols="6">
+            <div style="flex: 0 1 93px; margin-left: 24px">
+              <v-btn block color="secondary" class="py-5" @click="resetForm" rounded>لغو</v-btn>
+            </div>
+          </v-col>
+        </v-row>
       </v-form>
     </SectionContainer>
   </div>
 </template>
 
 <script>
-import { emailRules, requiredRules, phoneRules } from "../../../mixins/formValidations";
-import { primaryButtonProps } from "../../../mixins/buttonProps";
-import { fieldProps } from "../../../mixins/fieldProps";
+import { emailRules, requiredRules, phoneRules } from "~/mixins/formValidations";
+import { primaryButtonProps } from "~/mixins/buttonProps";
+import { fieldProps } from "~/mixins/fieldProps";
 import SectionHeader from "~/components/SectionHeader";
 import SectionContainer from "~/components/SectionContainer";
-import { mapState } from "vuex";
 
 export default {
   mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps, phoneRules],
-  components: { SectionHeader, SectionContainer },
+  components: { SectionHeader, SectionContainer, VuePersianDatetimePicker: ()=> import("vue-persian-datetime-picker")},
   props: {
     information: Object,
     loading: Boolean,
@@ -206,15 +232,15 @@ export default {
       languageSelectItem: [
         {
           text: "Java",
-          value: "java"
+          value: "JAVA"
         },
         {
           text: "++C",
-          value: "cpp"
+          value: "C++"
         },
         {
           text: "Python",
-          value: "py3"
+          value: "PYTHON3"
         }
       ],
       degreeItem: [
@@ -270,5 +296,20 @@ export default {
 
 .theme--dark.v-text-field > .v-input__control > .v-input__slot:before {
   border: none;
+}
+.vpd-day{
+  color: #13202E!important;
+}
+.vpd-main{
+  .form-control{
+    height: 3rem;
+    border-radius: 999px 0 0 999px;
+    border: 1px solid #4e5863;
+    color: #fff;
+  }
+  .vpd-icon-btn{
+    background-color: rgb(65, 125, 244);
+    border-radius: 0 999px 999px 0;
+  }
 }
 </style>
