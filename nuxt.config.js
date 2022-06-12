@@ -39,7 +39,7 @@ export default {
       { rel: 'icon', type: 'image/png', sizes: '36x36', href: '/fav-icon/android-icon-36x36.png' },
       { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/fav-icon/android-icon-96x96.png' },
       { rel: 'icon', type: 'image/png', sizes: '72x72', href: '/fav-icon/android-icon-72x72.png' },
-      { rel: 'manifest', type: 'image/png', href: '/fav-icon/manifest.json' },
+      // { rel: 'manifest', type: 'image/png', href: '/fav-icon/manifest.json' },
       { rel: 'icon', type: 'image/x-icon', href: '/icon.png' },
     ],
   },
@@ -112,7 +112,7 @@ export default {
           permalinkBefore: true,
         },
       ],
-      'markdown-it-toc-done-right',
+      'markdown-it-toc-done-right', 
     ],
   },
   /*
@@ -161,10 +161,10 @@ export default {
           shades: '#090c18',
           error: '#ffb300',
           success: '#00c853',
-          info: '#0091ea',
-        },
-      },
-    },
+          info: '#0091ea'
+        }
+      }
+    }
   },
   /*
    ** Build configuration
