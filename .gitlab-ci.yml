@@ -20,7 +20,7 @@ stages:
 
 .build:
   stage: build
-  image: ${DOCKER_REGISTRY}/docker:20.10.3-dind
+  image: ${DOCKER_REGISTRY}/docker:19.03.12
   tags:
     - docker
   script:
