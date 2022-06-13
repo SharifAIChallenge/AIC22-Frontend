@@ -8,7 +8,7 @@ stages:
     IMAGE_URL: ${DOCKER_REGISTRY}/aic22-frontend:stg
     SWARM_MASTER_NODE: ${STG_SWARM_MASTER_NODE}
   rules:
-    - if: '$CI_COMMIT_BRANCH == "add-production-deployment"'
+    - if: '$CI_COMMIT_BRANCH == "dev"'
 
 .production-vars:
   variables:
