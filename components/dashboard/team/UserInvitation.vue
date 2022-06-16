@@ -5,7 +5,7 @@
       <v-alert icon="mdi-information" class="mb-8">
         ایجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
       </v-alert>
-      <div v-if="this.pending.length === 0" class="mb-10">
+      <div v-if="this.pending && this.pending.length === 0" class="mb-10">
         لیست دعوتنامه های شما خالی است
       </div>
       <div v-else class="mb-10">
