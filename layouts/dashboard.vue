@@ -193,12 +193,14 @@ export default {
   },
   watch: {
     profile(now, old) {
+      console.log(this.profile)
       if (now) {
         // this.routes.team.disabled = !this.profile.is_complete;
-        if (!this.profile.is_complete && this.$route.path !== "/dashboard/settings") {
-          this.$router.push("/dashboard/settings");
-          this.$toast.error("لطفا ابتدا اطلاعات شخصی را کامل کنید");
-        }
+        // if (!this.profile.is_complete && this.$route.path !== "/dashboard/settings") {
+        //   console.log("in")
+        //   this.$router.push("/dashboard/settings");
+        //   this.$toast.error("لطفا ابتدا اطلاعات شخصی را کامل کنید");
+        // }
         if (this.profile.has_team) {
           this.openDialog();
         } else {
