@@ -25,11 +25,11 @@ export const resetPasswordConfirm = (axios, data) => {
 };
 
 export const changePassword = (axios, data) => {
-  return axios.$post('/accounts/password/change', data);
+  return axios.$post('/account/password/change', data);
 };
 
 export const editProfile = (axios, data) => {
-  return axios.$put('/accounts/profile', data, { headers: { 'content-type': 'multipart/form-data' } });
+  return axios.$put('/account/profile', data, { headers: { 'content-type': 'multipart/form-data' } });
 };
 
 export const createTeam = axios => {
@@ -168,5 +168,5 @@ export const FAQ = axios => {
 };
 
 export const PastAi = axios => {
-  return axios.$get('/past/');
+  return axios.$get('/pastaics/');
 };

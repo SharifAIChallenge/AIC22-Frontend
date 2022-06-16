@@ -38,8 +38,8 @@ export const actions = {
     }
   },
   loadUser({ commit, dispatch }, token) {
-    commit("setToken", token);
-    dispatch("getUser");
+      commit("setToken", token);
+      dispatch("getUser");
   },
   async logout({ commit }) {
     this.$cookies.remove("token");
@@ -50,13 +50,12 @@ export const actions = {
 };
 
 export const mutations = {
-  setUser(state, { data }) {
+  setUser(state,data) {
     state.user = data;
   },
   setToken(state, { token }) {
     state.token = token;
-    state.isAuthenticated = true;
-    // console.log(token, 'setToken');
+    if (token) state.isAuthenticated = true;
     this.$axios.setToken(token, "token");
   },
   removeToken(state) {
