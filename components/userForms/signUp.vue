@@ -3,11 +3,6 @@
     <div class="container">
       <v-row justify="center" align="center">
         <v-col cols="12">
-          <v-alert :type="result.type" :value="result.value" text outlined>
-            {{ result.message }}
-          </v-alert>
-        </v-col>
-        <v-col cols="12">
           <v-form ref="form" v-model="valid" @submit.prevent="signUp">
             <v-text-field
               rounded
@@ -128,6 +123,7 @@ export default {
         this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
         this.result.type = 'success';
         this.result.value = true;
+        this.$toast.success(this.result.message)
         this.$refs.form.reset();
       }).catch(e=>{
         this.loading = false;
