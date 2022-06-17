@@ -24,7 +24,7 @@
             <v-col class="col-12 col-md-4">
               <Card
                   title="افتتاحیه"
-                  description="یھ سری اخبار مروط بھ رویداد یھ سری اخبار مروط بھ رویداد یھ سری اخبار مروط ب"
+                  description="یھ سری اخبار مربوط بھ رویداد یھ سری اخبار مروط بھ رویداد یھ سری اخبار مروط ب"
                   date="فروردین"
                   href="https://google.com"
               />
@@ -35,6 +35,7 @@
                 color="primary"
                 class="px-8"
                 rounded
+                to="/blog"
             >
               بیشتر...
             </v-btn>

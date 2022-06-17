@@ -157,7 +157,6 @@ export default {
   methods: {
     clickMenu(event) {
       this.clickedStaffMenuId = event.target.id
-      console.log(event)
     }
   }
 }

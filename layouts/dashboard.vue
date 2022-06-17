@@ -194,25 +194,26 @@ export default {
   watch: {
     profile(now, old) {
       if (now) {
+        // console.log(this.profile)
         // this.routes.team.disabled = !this.profile.is_complete;
         if (!this.profile.is_complete && this.$route.path !== "/dashboard/settings") {
           this.$router.push("/dashboard/settings");
           this.$toast.error("لطفا ابتدا اطلاعات شخصی را کامل کنید");
         }
-        if (this.profile.has_team) {
-          this.openDialog();
-        } else {
-          this.routes.games.disabled = true;
-          // this.routes.tournaments.disabled = true;
-          this.routes.submissions.disabled = true;
-        }
-        if (this.profile.is_finalist) {
-          this.routes.team.disabled = false;
-          this.routes.games.disabled = false;
-        }
-        if (this.$route.path === "/dashboard/team" && !this.profile.is_finalist) {
-          this.$router.push("/dashboard");
-        }
+        // if (this.profile.has_team) {
+        //   this.openDialog();
+        // } else {
+        //   this.routes.games.disabled = true;
+        //   // this.routes.tournaments.disabled = true;
+        //   this.routes.submissions.disabled = true;
+        // }
+        // if (this.profile.is_finalist) {
+        //   this.routes.team.disabled = false;
+        //   this.routes.games.disabled = false;
+        // }
+        // if (this.$route.path === "/dashboard/team" && !this.profile.is_finalist) {
+        //   this.$router.push("/dashboard");
+        // }
       }
     }
   },

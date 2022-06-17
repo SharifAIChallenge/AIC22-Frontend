@@ -74,7 +74,7 @@ export default {
       posts = await $axios.$get('news')
 
     }catch (e) {
-      console.log(e);
+      // console.log(e);
     }
     return { posts };
   },

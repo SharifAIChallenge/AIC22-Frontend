@@ -9,7 +9,7 @@
       },
     }"
   >
-    <TitleContainer title="درباره رویداد هوش مصنوعی شریف"/>
+    <TitleContainer title="درباره رویداد هوش مصنوعی"/>
     <p class="description mt-16 pt-8">
       {{
         post && post.motto

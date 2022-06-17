@@ -5,17 +5,17 @@
     </div>
     <div class="flex justify-center row">
       <div class="prize third--prize">
-        <span class="text-h3">4</span>
+        <span class="text-h3">10</span>
         <span class="text-h5">میلیون تومان</span>
         <span class=" prize__team">تیم سوم</span>
       </div>
       <div class="prize first--prize">
-        <span class="text-h2 font-weight-bold">12</span>
+        <span class="text-h2 font-weight-bold">20</span>
         <span class="text-h5">میلیون تومان</span>
         <span class=" prize__team">تیم اول</span>
       </div>
       <div class="prize second--prize">
-        <span class="text-h3 ">8</span>
+        <span class="text-h3 ">15</span>
         <span class="text-h5">میلیون تومان</span>
         <span class=" prize__team">تیم دوم</span>
       </div>
@@ -31,9 +31,8 @@
           </v-icon>
         </div>
         <span class="text-h6 mx-8 text-center text-md-right">
-            دو جایزه رندوم برای تیم‌های چهارم تا بیستم
-            <br/>
-            دو جایزه  ویژه برای مینی‌گیم‌ها
+            15 میلیون تومان
+            جوایز فرعی
           </span>
       </v-row>
     </div>

@@ -76,7 +76,6 @@ export default {
     },
     setUserInchat() {},
     definder(name) {
-        console.log(name)
       this.namee = name;
     },
   },

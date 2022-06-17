@@ -117,11 +117,11 @@ export default {
           icon: 'mdi-history',
           href: '/history'
         },
-        {
-          text: 'لایو',
-          icon: 'mdi-play',
-          href: '/live'
-        },
+        // {
+        //   text: 'لایو',
+        //   icon: 'mdi-play',
+        //   href: '/live'
+        // },
       ]
     };
   },
