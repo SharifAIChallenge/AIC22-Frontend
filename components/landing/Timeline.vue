@@ -62,17 +62,20 @@ export default {
 <style scoped lang="scss">
 @import '../../assets/mixins';
 @import '../../assets/variables';
-
+/*
 @property --rotate {
   syntax: '<angle>';
   initial-value: 132deg;
   inherits: false;
-}
+}*/
 #timeline {
   background-color: #0e1224;
   position: relative;
 }
 
+
+//TODO : make fix animation
+/*
 @-moz-keyframes spin {
   100% {
     -moz-transform: rotate(360deg);
@@ -83,14 +86,8 @@ export default {
   100% {
     -webkit-transform: rotate(360deg);
   }
-}
+}*/
 
-@keyframes spin {
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
 
 .timelineCard {
   justify-content: center;
@@ -106,13 +103,73 @@ export default {
     border-radius: 16px !important;
     max-width: 260px;
     padding: 2px !important;
+    -webkit-animation: gradient-light 5s linear infinite;
+    -moz-animation: gradient-light 5s linear infinite;
+    animation: gradient-light 5s linear infinite;
     z-index: 0;
-    background-image: linear-gradient(var(--rotate), #fc147f, #480ac2, #e08250, #3ae4f6) !important;
+    background-image: linear-gradient(0, #fc147f, #480ac2, #e08250, #3ae4f6) !important;
     opacity: 1;
-    transition: opacity 0.5s;
-    animation: roods 5s linear infinite;
+    //animation: roods 5s linear infinite;
+  }
+/*
+  &__container::before{
+    position: absolute;
+    width: 104%;
+    height: 104%;
+    content: "";
+    //z-index: -1;
+    filter: blur(20px);
+
+  }*/
+
+
+  @keyframes gradient-light {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @-moz-keyframes gradient-light {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 
+  @-webkit-keyframes gradient-light {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes gradient-light {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  /*
   @keyframes roods {
     0% {
       --rotate: 0deg;
@@ -121,7 +178,7 @@ export default {
       --rotate: 360deg;
     }
   }
-
+*/
   &__date {
     flex: 1 0 100%;
     padding: 8px 12px;
