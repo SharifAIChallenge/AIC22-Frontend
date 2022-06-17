@@ -47,7 +47,7 @@ export default {
           icon: 'mdi-twitter',
         },
         {
-          url: 'https://www.linkedin.com/in/aichallenge2022/',
+          url: 'https://www.linkedin.com/company/ai-challenge2022/',
           icon: 'mdi-linkedin',
         }
       ],
