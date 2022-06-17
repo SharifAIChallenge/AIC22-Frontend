@@ -108,7 +108,6 @@
               v-model="information.province"
               v-bind="filedProps"
               :items="provinces"
-              :item-value="provinces"
               required
               :rules="requiredRules"
               label="استان"
@@ -202,7 +201,7 @@ export default {
       languageSelectItem: [
         {
           text: "Java",
-          value: "JAVA"
+          value: "Java"
         },
         {
           text: "++C",
@@ -210,7 +209,7 @@ export default {
         },
         {
           text: "Python",
-          value: "PYTHON3"
+          value: "Python 3"
         }
       ],
       degreeItem: [

@@ -117,8 +117,6 @@ export default {
           this.goToTweet();
         }
       }
-      console.log('this.selecetedCard', this.selectedCardIndex)
-      console.log('this.tweets.length', this.tweets.length)
     },
     goToTweet() {
       if (this.tweets[this.selectedCard].url)
@@ -129,7 +127,6 @@ export default {
 
   async fetch() {
     const tweets = await this.$axios.$get('/tweets/');
-    console.log('tweets', tweets.length)
     if (tweets.length > 0){
       this.tweets = tweets;
       this.selectedCardIndex = 0;

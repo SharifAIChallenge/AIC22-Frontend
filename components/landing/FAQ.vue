@@ -11,7 +11,7 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-    <v-btn color="primary" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary goto-faq-button" style="width: 186px">
+    <v-btn color="primary" to="\faq" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary goto-faq-button" style="width: 186px">
       {{ $t('form.goToFAQ') }}
     </v-btn>
   </v-container>
@@ -31,7 +31,6 @@ export default {
         .then(resp=> this.faqs = resp.data).catch(err=>console.log(err))
   },
   mounted() {
-    console.log(this.faqs)
   }
 };
 </script>

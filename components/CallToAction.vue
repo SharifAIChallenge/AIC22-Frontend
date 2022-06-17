@@ -16,6 +16,7 @@
           <v-btn
               block
               color='primary'
+              to="/signup"
               class='mt-4 ml-4 px-6 v-btn--primary'
           >
             {{ $t('form.register')}}

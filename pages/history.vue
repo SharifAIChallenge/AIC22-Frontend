@@ -112,8 +112,6 @@ export default {
   }),
   async fetch() {
     let pastAic = await this.$axios.get('pastaics/')
-        .then(resp=> this.pastAic = resp.data).catch(err=>console.log(err))
-    console.log("past aic",pastAic)
     let histories = pastAic.sort((a, b) => a.event_year - b.event_year);
 
     let years = histories.map(el => {
@@ -125,7 +123,6 @@ export default {
     let description = histories.map(el=>{
       return el.description;
     })
-    console.log("histo------>",histories)
     return {
       histories,
       years,
@@ -134,7 +131,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.pastAic)
   }
 };
 

@@ -22,7 +22,7 @@
         </v-col>
         <v-col class="col-12 caption col-md-6 text-center text-md-right">
             <v-icon right small>mdi-copyright</v-icon>
-            تمامی حقوق متعلق به تیم برندینگ رویداد میباشد
+            تمامی حقوق متعلق به رویداد هوش مصنوعی میباشد
         </v-col>
 
       </v-row>
@@ -39,12 +39,16 @@ export default {
     return {
       socials: [
         {
-          url: 'https://www.instagram.com/barnig.ir/',
+          url: 'https://www.instagram.com/aichallenge/',
           icon: 'mdi-instagram',
         },
         {
-          url: 'https://www.instagram.com/barnig.ir/',
-          icon: 'mdi-instagram',
+          url: 'https://twitter.com/AIchallenge2022',
+          icon: 'mdi-twitter',
+        },
+        {
+          url: 'https://www.linkedin.com/in/aichallenge2022/',
+          icon: 'mdi-linkedin',
         }
       ],
     };

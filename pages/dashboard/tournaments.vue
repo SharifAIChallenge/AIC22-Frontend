@@ -72,13 +72,13 @@ export default {
   async asyncData({ $axios }) {
     let res = await $axios.get('challenge/tournament');
     let data = res.data.data;
-    console.log(data);
+    // console.log(data);
     let tournaments = data.filter(t => t.type !== 'final');
     let finalTournaments = data.filter(t => t.type === 'final');
 
     res = await $axios.get('challenge/tournament/next');
     let header = res.data.data;
-    console.log(res.data.data);
+    // console.log(res.data.data);
     return { tournaments, header, finalTournaments };
   },
   data() {
