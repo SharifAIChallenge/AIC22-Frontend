@@ -91,7 +91,6 @@ export default {
         '@nuxtjs/toast',
         '@nuxtjs/markdownit',
         '@nuxtjs/svg',
-        '@nuxtjs/auth-next'
     ],
     auth: {
         strategies: {
@@ -99,7 +98,6 @@ export default {
                 clientId: '366828355085-pdam0sqbsvrpm4bcodkbhkg51mlg56am.apps.googleusercontent.com',
                 codeChallengeMethod: '',
                 responseType: 'token id_token',
-
             },
         }
     },
