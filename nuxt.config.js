@@ -96,7 +96,7 @@ export default {
     auth: {
         strategies: {
             google: {
-                clientId: '366828355085-pdam0sqbsvrpm4bcodkbhkg51mlg56am.apps.googleusercontent.com',
+                clientId: '366828355085-pdam0sqbsvrpm4bcodkbhkg51mlg56am',
                 codeChallengeMethod: '',
                 responseType: 'token id_token',
                 endpoints: {
