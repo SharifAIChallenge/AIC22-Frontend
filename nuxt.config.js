@@ -99,9 +99,7 @@ export default {
                 clientId: '366828355085-pdam0sqbsvrpm4bcodkbhkg51mlg56am.apps.googleusercontent.com',
                 codeChallengeMethod: '',
                 responseType: 'token id_token',
-                endpoints: {
-                    token: 'http://localhost:8000/social-login/google/',
-                },
+
             },
         }
     },
