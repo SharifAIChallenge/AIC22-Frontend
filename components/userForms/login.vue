@@ -83,6 +83,8 @@ export default {
       });
     },
     async loginWithGoogle() {
+      this.$auth.loginWith("google");
+
       // console.log(await this.$gAuth.signIn());
       // const googleUser = await this.$gAuth.signIn();
       // const googleData = googleUser.getAuthResponse();
