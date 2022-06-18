@@ -1,77 +1,125 @@
 <template>
-  <div>
-    <Header color="primary" />
-    <div class="first-slider" style="position: relative;">
-      <div class="slider-text">
-        <div style="margin-top: 20vh;" class="font-weight-bold text-h3 text-sm-h1">
-          سوالات متداول
-        </div>
-        <div style="font-size: 50px;">
-          <span class="text-h3 text-sm-h1" style="color: transparent; border: white; -webkit-text-stroke: 2px white;">و</span>
-          <span class="font-weight-bold text-h3 text-sm-h1">قوانین</span>
-        </div>
-        <p class="mt-10 text-h6">
-          این مجموعه برای پاسخگویی به سوالات رایج در مورد نبرد هوش مصنوعی شریف
-          <br />
-          و قوانین آن طراحی شده است
-        </p>
-      </div>
-      <div class="vl"></div>
-    </div>
-    <div class="faq-titles">
-      <div class="title" v-for="(title, index) in titles" :key="index">
-        {{ title }}
+  <v-container class="faq">
+    <TitleContainer title="سوالات متداول" />
+    <div class="faq__titles">
+      <div
+        v-for="title in this.titles"
+        :id="title.id"
+        :key="title.id"
+        :class="{ clicked: clickedTitleId === title.id }"
+        @click="clickTitle($event)"
+      >
+        {{ title.name }}
       </div>
     </div>
-    <v-container>
-      <div v-for="(subject, index) in faq" :key="index">
-        <div class="fag-title-for-show">{{ subject.title }}</div>
-        <v-row class="mb-10">
-          <v-col v-for="(question, index) in subject.faqs" :key="index" cols="12" sm="6" lg="4" xl="3">
-            <div class="faq-card pa-12">
-              <div class="faq-card-title">
-                <v-icon right color="primary" class="faq-icon" size="55">
-                  mdi-calendar
-                </v-icon>
-                <div>
-                  {{ question.question_fa }}
-                </div>
-              </div>
-              <p class="faq-card-text py-8">
-                {{ question.answer_fa }}
-              </p>
-            </div>
-          </v-col>
-        </v-row>
-      </div>
-    </v-container>
-    <CallToAction />
-  </div>
+    <v-expansion-panels class="faq__wrapper" accordion multiple>
+      <v-expansion-panel class="faq__item" v-for="faq in this.shownFaqs" :key="faq.question_fa">
+        <v-expansion-panel-header class="faq__item__header">
+          {{ faq.question_fa }}
+        </v-expansion-panel-header>
+        <v-expansion-panel-content class="faq__item__content">
+          {{ faq.answer_fa }}
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+  </v-container>
 </template>
 
 <script>
-import Header from '~/components/landing/old/Header.vue';
-import { FAQ } from '~/api/index';
-import CallToAction from '~/components/CallToAction.vue';
+import { getFrequentlyAskedQuestions } from '~/api';
+import { groupBy } from '~/mixins/utils';
+import TitleContainer from '~/components/TitleContainer';
 
 export default {
   auth: false,
   layout: 'landing',
-  components: { Header, CallToAction },
+  components: { TitleContainer },
   async asyncData({ $axios }) {
-    let data = await FAQ($axios);
-    const titles = data.data.map(item => item.title);
-    let faq = data.data;
+    const faqData = await getFrequentlyAskedQuestions($axios, false);
+    const faqs = groupBy(faqData, faq => faq.title);
+    const titles = [...faqs.keys()].map((value, index) => ({ name: value, id: index }));
+    const shownFaqs = faqs[titles[0].name];
     return {
-      faq,
+      clickedTitleId: 0,
       titles,
+      faqs,
+      shownFaqs,
     };
+  },
+  methods: {
+    clickTitle(event) {
+      this.clickedTitleId = event.target.id;
+      this.shownFaqs = this.faqs.get(this.titles[this.clickedTitleId].name);
+    },
   },
 };
 </script>
 
 <style lang="scss">
 @import 'assets/variables.scss';
+@import 'assets/mixins.scss';
+.faq {
+  margin-top: 100px;
+
+  &__titles {
+    display: flex;
+    background-color: #1F2F43;
+    border: solid 2px #2A3D53;
+    border-radius: 30px;
+    padding: 10px 20px;
+    overflow-x: auto;
+    font-size: 1.2rem;
+    @include not-md {
+      font-size: 2vw;
+    }
+    @include not-sm {
+      max-font-size: 1.2rem;
+      font-size: 4vw;
+    }
+    max-width: 90vw;
+
+    div {
+      margin: 0 5px;
+      padding: 10px 30px;
+
+      .clicked {
+        background-color: var(--v-primary-base);
+        border-radius: 30px;
+        cursor: pointer;
+      }
+
+      &:hover {
+        background-color: var(--v-primary-base);
+        border-radius: 30px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__wrapper {
+    background-color: var(--v-bg_secondary-base) !important;
+    opacity: 0.5;
+    border-radius: 1.5em;
+  }
+
+  &__item {
+    padding: 0 1em;
+    background-color: inherit !important;
+    opacity: 0.75;
+
+    &__header {
+      text-align: right;
+    }
+
+    &__content {
+      text-align: right;
+    }
+  }
+}
+
+.goto-faq-button {
+  align-self: center;
+}
 .faq-icon {
   transform: translateX(10px);
 }
