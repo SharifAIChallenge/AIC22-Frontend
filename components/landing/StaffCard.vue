@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="card mt-14">
-      <img class="card__avatar" src="../../assets/images/avatar-sample.svg" width="150" height="150" alt="staff avatar">
-      <div class="card__name">{{staff.name}}</div>
-      <div class="card__position">{{staff.position}}</div>
+      <img class="card__avatar" :src="staff.image" width="150" height="150" alt="staff avatar">
+      <div class="card__name">{{staff.first_name_fa}} {{staff.last_name_fa}}</div>
+      <div class="card__position">{{staff.role}}</div>
       <div class="card__social-icons mt-4">
-        <a :href="staff.linkedin"><v-icon class="icon"> mdi-linkedin</v-icon></a>
-        <a :href="staff.at"><v-icon class="icon"> mdi-at</v-icon></a>
-        <a :href="staff.github"><v-icon class="icon"> mdi-github</v-icon></a>
+        <a :href="staff.url"><v-icon class="icon"> mdi-linkedin</v-icon></a>
+<!--        <a :href="staff.at"><v-icon class="icon"> mdi-at</v-icon></a>-->
+<!--        <a :href="staff.github"><v-icon class="icon"> mdi-github</v-icon></a>-->
       </div>
     </div>
   </div>

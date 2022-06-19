@@ -170,3 +170,15 @@ export const FAQ = axios => {
 export const PastAi = axios => {
   return axios.$get('/pastaics/');
 };
+
+export const StaffGroups = axios => {
+  return axios.$get('/staffs/groups/');
+};
+
+export const Staffs = axios => {
+  return axios.$get('/staffs/');
+};
+
+export const StaffTeam = (axios, teamNo) => {
+  return axios.$get(`/staffs/teams/${teamNo}/`);
+};
