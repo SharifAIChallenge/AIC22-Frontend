@@ -6,6 +6,8 @@
       </v-btn>
       <div class="d-flex flex-column align-center justify-center" style="height: 85%">
         <v-btn v-if="isAuthenticated" plain text tile to="/dashboard">داشبورد</v-btn>
+        <v-btn v-if="!isAuthenticated" plain text tile to="/signup">ثبت‌نام</v-btn>
+        <v-btn v-if="!isAuthenticated" plain text tile to="/login">ورود</v-btn>
         <v-btn
             v-for="(item,index) in items"
             :key="index"
@@ -117,11 +119,11 @@ export default {
           icon: 'mdi-history',
           href: '/history'
         },
-        {
-          text: 'لایو',
-          icon: 'mdi-play',
-          href: '/live'
-        },
+        // {
+        //   text: 'لایو',
+        //   icon: 'mdi-play',
+        //   href: '/live'
+        // },
       ]
     };
   },

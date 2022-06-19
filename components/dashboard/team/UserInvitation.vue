@@ -99,7 +99,7 @@ export default {
     acceptRequest(id) {
       this.loading = true;
       this.$axios.$put(`team/invitations/user_pending/${id}?answer=1`).then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.status_code === 200) {
           this.$toast.success('دعوت با موفقیت پذیرفته شد.');
           this.toggleHaveTeam();

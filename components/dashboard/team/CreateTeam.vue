@@ -77,7 +77,7 @@ export default {
       this.image = null;
     },
     getImage() {
-      console.log(this.$refs.file);
+      // console.log(this.$refs.file);
     },
   },
   mounted() {

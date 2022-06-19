@@ -35,7 +35,6 @@
 export default {
   props: ['comments'],
   data() {
-    console.log(this.comments);
     return {
       replyInput: false,
       reply: '',

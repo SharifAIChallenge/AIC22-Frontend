@@ -14,6 +14,7 @@
         <v-file-input
           :rules="avatarRules"
           accept="image/png, image/jpeg, image/bmp"
+          hide-input
           placeholder="تصویر جدید"
           prepend-icon="mdi-camera"
           label="افزودن تصویر جدید"
@@ -85,9 +86,8 @@
               type="int"
               v-model="information.university_term"
               v-bind="filedProps"
-              required
               :rules="requiredRules"
-              label="ترم دانشگاه"
+              label="سال ورود"
               rounded
             />
           </v-col>
@@ -97,43 +97,20 @@
                           rounded></v-text-field>
           </v-col>
           <v-col class="py-0 mb-3" cols="6">
-            <client-only placeholder="loading">
-              <VuePersianDatetimePicker
-                inputFormat="jYYYY-jMM-jDD"
-                format="jYYYY-jMM-jDD"
-                altFormat="jYYYY-jMM-jDD"
-                v-model="information.birth_date"
-              />
-            </client-only>
-
+            <v-text-field
+            label="سال تولد"
+            v-model="information.birth_date"
+            outlined
+            rounded></v-text-field>
           </v-col>
           <v-col class="py-0 mb-3" cols="6">
-            <v-text-field
+            <v-select
               v-model="information.province"
               v-bind="filedProps"
+              :items="provinces"
               required
               :rules="requiredRules"
               label="استان"
-              rounded
-            />
-          </v-col>
-          <v-col class="py-0 mb-3" cols="12">
-            <v-text-field
-              v-model="information.city"
-              v-bind="filedProps"
-              required
-              :rules="requiredRules"
-              label="شهر"
-              rounded
-            />
-          </v-col>
-          <v-col class="py-0 mb-3" cols="12">
-            <v-text-field
-              v-model="information.address"
-              v-bind="filedProps"
-              required
-              :rules="requiredRules"
-              label="آدرس"
               rounded
             />
           </v-col>
@@ -141,7 +118,7 @@
             <v-text-field
               v-model="information.linkedin"
               v-bind="filedProps"
-              label="آیدی لینکدین"
+              label="لینک اکانت لینکدین"
               rounded
             />
           </v-col>
@@ -167,14 +144,6 @@
               label="زبان برنامه نویسی"
               outlined
             ></v-select>
-          </v-col>
-          <v-col class="py-0 mb-3" cols="6">
-            <v-text-field
-              v-model="information.national_code"
-              v-bind="filedProps"
-              label="کد ملی"
-              rounded
-            />
           </v-col>
         </v-row>
 
@@ -232,7 +201,7 @@ export default {
       languageSelectItem: [
         {
           text: "Java",
-          value: "JAVA"
+          value: "Java"
         },
         {
           text: "++C",
@@ -240,7 +209,7 @@ export default {
         },
         {
           text: "Python",
-          value: "PYTHON3"
+          value: "Python 3"
         }
       ],
       degreeItem: [
@@ -261,7 +230,40 @@ export default {
           value: "DO"
         }
       ],
-      universityItems: []
+      universityItems: [],
+      provinces: [
+        "آذربایجان شرقی",
+        "آذربایجان غربی",
+        "اردبیل",
+        "اصفهان",
+        "البرز",
+        "ایلام",
+        "بوشهر",
+        "تهران",
+        "چهارمحال و بختیاری",
+        "خراسان جنوبی",
+        "خراسان رضوی",
+        "خراسان شمالی",
+        "خوزستان",
+        "زنجان",
+        "سمنان",
+        "سیستان و بلوچستان",
+        "فارس",
+        "قزوین",
+        "قم",
+        "كردستان",
+        "كرمان",
+        "كرمانشاه",
+        "کهگیلویه و بویراحمد",
+        "گلستان",
+        "گیلان",
+        "لرستان",
+        "مازندران",
+        "مركزی",
+        "هرمزگان",
+        "همدان",
+        "یزد"
+      ],
     };
   }
   // async fetch() {
