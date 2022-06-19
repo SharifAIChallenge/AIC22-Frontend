@@ -5,8 +5,8 @@
       <div
         v-for="title in this.titles"
         :id="title.id"
-        :key="title.id"
-        :class="{ clicked: clickedTitleId === title.id }"
+        :key="title.name"
+        :class="{ clicked: clickedTitleId == title.id }"
         @click="clickTitle($event)"
       >
         {{ title.name }}
@@ -35,14 +35,15 @@ export default {
   layout: 'landing',
   components: { TitleContainer },
   async asyncData({ $axios }) {
+    const clickedTitleId = 0;
     const faqData = await getFrequentlyAskedQuestions($axios, false);
     const faqs = groupBy(faqData, faq => faq.title);
     const titles = [...faqs.keys()].map((value, index) => ({ name: value, id: index }));
-    const shownFaqs = faqs[titles[0].name];
+    const shownFaqs = faqs.get(titles[0].name);
     return {
-      clickedTitleId: 0,
-      titles,
+      clickedTitleId,
       faqs,
+      titles,
       shownFaqs,
     };
   },
@@ -60,11 +61,16 @@ export default {
 @import 'assets/mixins.scss';
 .faq {
   margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   &__titles {
     display: flex;
-    background-color: #1F2F43;
-    border: solid 2px #2A3D53;
+    margin: 15px 0;
+    background-color: #1f2f43;
+    border: solid 2px #2a3d53;
     border-radius: 30px;
     padding: 10px 20px;
     overflow-x: auto;
@@ -78,15 +84,15 @@ export default {
     }
     max-width: 90vw;
 
+    .clicked {
+      background-color: var(--v-primary-base);
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
     div {
       margin: 0 5px;
       padding: 10px 30px;
-
-      .clicked {
-        background-color: var(--v-primary-base);
-        border-radius: 30px;
-        cursor: pointer;
-      }
 
       &:hover {
         background-color: var(--v-primary-base);
@@ -97,6 +103,7 @@ export default {
   }
 
   &__wrapper {
+    margin: 15px 0;
     background-color: var(--v-bg_secondary-base) !important;
     opacity: 0.5;
     border-radius: 1.5em;
@@ -115,78 +122,5 @@ export default {
       text-align: right;
     }
   }
-}
-
-.goto-faq-button {
-  align-self: center;
-}
-.faq-icon {
-  transform: translateX(10px);
-}
-.first-slider {
-  background-color: var(--v-primary-base);
-  height: 100vh;
-  display: flex;
-  align-items: center;
-}
-.slider-text {
-  margin-right: 50px;
-  position: absolute;
-}
-.vl {
-  display: block;
-  width: 2px;
-  height: 30px;
-  background-color: white;
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  animation: ScrollAnimate 2s infinite;
-  @keyframes ScrollAnimate {
-    0% {
-      opacity: 1;
-      height: 0;
-      bottom: 30px;
-    }
-    50% {
-      opacity: 1;
-      height: 50px;
-      bottom: 30px;
-    }
-    100% {
-      opacity: 0;
-      bottom: 80px;
-      height: 0;
-    }
-  }
-}
-.faq-titles {
-  position: sticky;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  background-color: map-get($map: $material-dark, $key: 'background');
-  z-index: 2;
-}
-.title {
-  margin: auto 50px;
-  padding: 20px 0px;
-}
-.fag-title-for-show {
-  font-size: 4rem;
-  color: var(--v-primary-base);
-  margin-bottom: 40px;
-  font-weight: bold;
-}
-
-.faq-card {
-  border: 3px solid var(--v-primary-base);
-  padding: 20px;
-  height: 100%;
-}
-.faq-card-title {
-  display: flex;
-  font-size: 1.5rem;
-  font-weight: bold;
 }
 </style>
