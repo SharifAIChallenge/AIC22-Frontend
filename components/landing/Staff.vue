@@ -1,16 +1,18 @@
 <template>
   <div>
     <div class="our-team">
-      <TitleContainer title="تیم ما"/>
+      <TitleContainer title="تیم های ما"/>
       <div class="our-team__names">
-        <div v-for="menu in staffMenu" :id="menu.id" v-bind:key="staffMenu.id"
-             v-bind:class="{'clicked': clickedStaffMenuId == menu.id }" @click="clickMenu($event)">
-          {{ menu.name }}
+        <div v-for="menu in staffMenu" :id="menu.id" v-bind:key="staffMenu.id">
+          {{ menu.title }}
         </div>
       </div>
       <div class="our-team__cards">
         <StaffCard v-for="staff in staffs" :staff="staff"></StaffCard>
       </div>
+      <v-btn color="primary" to="staffs" class="px-6 mx-2 v-btn--primary" style="width: 186px">
+        دیدن همه اعضا
+      </v-btn>
     </div>
   </div>
 </template>
@@ -22,58 +24,20 @@ import TitleContainer from '~/components/TitleContainer';
 export default {
   name: "Staff",
   components: {TitleContainer, StaffCard},
+  async fetch() {
+    await this.$axios.get('staffs/groups/')
+        .then(resp => this.staffMenu = resp.data).catch(err => console.log(err))
+    await this.$axios.get('staffs/random/4/')
+        .then(resp => this.staffs = resp.data).catch(err => console.log(err))
+  },
   data() {
     return {
       clickedStaffMenuId: 1,
-      staffMenu: [
-        {
-          id: 1,
-          name: 'تیم برندینگ'
-        }, {
-          id: 2,
-          name: 'تیم محتوا'
-        }, {
-          id: 3,
-          name: 'تیم منابع انسانی'
-        }, {
-          id: 4,
-          name: 'تیم طراحی'
-        },
-      ],
-      staffs: [
-        {
-          name: 'رویداد هوش مصنوعی شریف',
-          position: 'رویداد',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شریف1',
-          position: 'رویداد1',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شریف2',
-          position: 'رویداد2',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شری3',
-          position: 'رویداد3',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }
-      ],
+      staffMenu: [],
+      staffs: [],
     };
   },
   methods: {
-    clickMenu(event) {
-      this.clickedStaffMenuId = event.target.id
-      console.log(event)
-    }
   },
 };
 </script>
@@ -119,12 +83,13 @@ export default {
     div {
       margin: 0 5px;
       padding: 10px 30px;
-
-      &:hover {
-        background-color: var(--v-primary-base);
-        border-radius: 30px;
-        cursor: pointer;
-      }
+      background-color: var(--v-primary-base);
+      border-radius: 30px;
+      //&:hover {
+      //  background-color: var(--v-primary-base);
+      //  border-radius: 30px;
+      //  cursor: pointer;
+      //}
     }
   }
 

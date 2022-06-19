@@ -9,9 +9,9 @@
     <sponsor/>
     <FAQ/>
     <Staff/>
-    <CallToAction/>
-    <Tweets/>
+<!--    <Tweets/>-->
     <Blog/>
+    <CallToAction/>
   </div>
 </template>
 
@@ -19,11 +19,6 @@
 import Header from '~/components/landing/Header.vue';
 import Intersection from '~/components/landing/old/Intersection.vue';
 import TimeLine from '~/components/landing/Timeline';
-import Video from '~/components/landing/old/video.vue';
-import Statistics from '~/components/landing/old/Statistics';
-import TrophyDesktop from '~/components/landing/old/TrophyDesktop';
-import TrophyMobile from '~/components/landing/old/TrophyMobile';
-import Social from '~/components/landing/old/Social.vue';
 import About from '~/components/landing/About.vue';
 import Sponsor from '~/components/landing/Sponsor.vue';
 import HeadTop from '~/components/landing/HeadTop.vue';
@@ -32,7 +27,6 @@ import Staff from '~/components/landing/Staff';
 import EmailCallToAction from '~/components/EmailCallToAction.vue';
 import Blog from "~/components/landing/Blog";
 import Statics from "~/components/landing/Statics";
-import axios from "~/plugins/axios";
 import Prize from "~/components/landing/Prize";
 import FAQ from "~/components/landing/FAQ"
 import Tweets from "~/components/landing/tweets";
@@ -44,13 +38,8 @@ export default {
     Prize,
     Blog,
     Header,
-    Video,
-    Statistics,
     Intersection,
     TimeLine,
-    TrophyDesktop,
-    TrophyMobile,
-    Social,
     About,
     Sponsor,
     HeadTop,

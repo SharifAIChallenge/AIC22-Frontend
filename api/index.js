@@ -23,11 +23,11 @@ export const resetPasswordConfirm = (axios, data) => {
 };
 
 export const changePassword = (axios, data) => {
-  return axios.$post('/accounts/password/change', data);
+  return axios.$post('/account/password/change', data);
 };
 
 export const editProfile = (axios, data) => {
-  return axios.$put('/accounts/profile', data, { headers: { 'content-type': 'multipart/form-data' } });
+  return axios.$put('/account/profile', data, { headers: { 'content-type': 'multipart/form-data' } });
 };
 
 export const createTeam = axios => {
@@ -164,5 +164,17 @@ export const getFrequentlyAskedQuestions = (axios, landingPage) => {
 };
 
 export const PastAi = axios => {
-  return axios.$get('/past/');
+  return axios.$get('/pastaics/');
+};
+
+export const StaffGroups = axios => {
+  return axios.$get('/staffs/groups/');
+};
+
+export const Staffs = axios => {
+  return axios.$get('/staffs/');
+};
+
+export const StaffTeam = (axios, teamNo) => {
+  return axios.$get(`/staffs/teams/${teamNo}/`);
 };

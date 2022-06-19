@@ -33,16 +33,22 @@
         </v-tab-item>
         <v-tab-item>
           <v-card-text class="settingWraper">
-            <Box classes="ma-10 elevation-20 small-box mx-auto">
-              <Resume
-                :deleteResume="deleteResume"
-                :signUp="signUp"
-                :information="this.information"
-                :loading="loading"
-                :deleteImage="deleteImage"
-                :resetForm="resetForm"
-              />
-            </Box>
+            <div class="small-box mx-auto">
+              <div class="notice-box my-10">
+                درصورت تمایل میتوانید رزومه خود را در این بخش بارگذاری نمایید تا برای کارفرمایان قابل رویت باشد
+              </div>
+              <Box classes="elevation-20 ">
+                <Resume
+                  :deleteResume="deleteResume"
+                  :signUp="signUp"
+                  :information="this.information"
+                  :loading="loading"
+                  :deleteImage="deleteImage"
+                  :resetForm="resetForm"
+                />
+              </Box>
+            </div>
+
 
           </v-card-text>
         </v-tab-item>
@@ -88,7 +94,7 @@ export default {
         linkedin: "",
         phone_number: "",
         major: "",
-        programming_language: "",
+        programming_languages: [],
         province: "",
         degree: "",
         term: "",
@@ -123,9 +129,9 @@ export default {
       let isFormValid = false;
       for (const key in this.information) {
         if (this.information[key] !== this.profile[key]) {
-          if (key === "jobs" || key === "skills") {
+          if (key === "jobs" || key === "skills" || key === 'programming_languages') {
             if (this.information[key]) {
-              formData.append(key + "_list", this.information[key]);
+              formData.append(`${key}`,this.information[key].join(','));
             }
           } else {
             formData.append(key, this.information[key]);
@@ -155,18 +161,20 @@ export default {
     },
     deleteResume() {
       this.information.resume = null;
-      this.$axios.delete("/accounts/profile?file=resume").then(res => console.log(res));
+      this.$axios.delete("/accounts/profile?file=resume");
     },
     deleteImage() {
       this.information.image = null;
-      this.$axios.delete("/accounts/profile?file=image").then(res => console.log(res));
+      this.$axios.delete("/accounts/profile?file=image");
     }
   },
   watch: {
     profile(newProfile, oldProfile) {
-      const skills = this.profile.skills.map(item => item.skill.split(","))[0];
-      const jobs = this.profile.jobs.map(item => item.position.split(","))[0];
-      this.information = { ...newProfile, skills, jobs };
+      if (newProfile) {
+        const skills = newProfile.skills.map(item => item.skill.split(","))[0];
+        const jobs = newProfile.jobs.map(item => item.position.split(","))[0];
+        this.information = { ...newProfile };
+      }
     }
   },
   computed: {
@@ -175,9 +183,8 @@ export default {
     })
   },
   mounted() {
-    console.log(this.profile);
     if (this.profile) {
-      const skills = this.profile.skills.map(item => item.skill.split(","))[0];
+      const skills = this.profile.skills.map(item => item.skills.split(","))[0];
       const jobs = this.profile.jobs.map(item => item.position.split(","))[0];
       this.information = { ...this.profile, skills, jobs };
     }
@@ -204,7 +211,8 @@ export default {
 .v-tab.v-tab--active {
   background-image: linear-gradient(to top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
 }
-.small-box{
+
+.small-box {
   width: 25rem;
 }
 </style>

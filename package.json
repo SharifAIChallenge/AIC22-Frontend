@@ -29,9 +29,10 @@
     "markdown-it-div": "^1.1.0",
     "markdown-it-toc-done-right": "^4.2.0",
     "nuxt": "^v2.15.3",
-    "vue-google-oauth2": "^1.5.8",
+    "vue-google-oauth2": "^1.5.5",
     "vue-i18n": "^8.24.0",
     "vue-loading-overlay": "^3.4.2",
+    "vue-persian-datetime-picker": "^2.10.4",
     "vue-quill-editor": "^3.0.6",
     "vuetify": "^2.6.4"
   },

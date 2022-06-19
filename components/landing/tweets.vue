@@ -7,60 +7,60 @@
       <input @click="tweetCardClick(2)" type="radio" name="slider" id="item-2">
       <input @click="tweetCardClick(3)" type="radio" name="slider" id="item-3">
       <div class="cards">
-        <label class="card" for="item-1" id="song-1">
-          <img
-              class="card__userIcon"
-              :src="selectedCardIndex % 3 === 0 ? selectedCard.image : (selectedCardIndex % 3 === 1 ? previousCard.image : nextCard.image)"
-          >
-          <div class="card__user">
-            {{
-              selectedCardIndex % 3 === 0 ? selectedCard.author : (selectedCardIndex % 3 === 1 ? previousCard.author : nextCard.author)
-            }}
-          </div>
+<!--        <label class="card" for="item-1" id="song-1">-->
+<!--          <img-->
+<!--              class="card__userIcon"-->
+<!--              :src="selectedCardIndex % 3 === 0 ? selectedCard.image : (selectedCardIndex % 3 === 1 ? previousCard.image : nextCard.image)"-->
+<!--          >-->
+<!--          <div class="card__user">-->
+<!--            {{-->
+<!--              selectedCardIndex % 3 === 0 ? selectedCard.author : (selectedCardIndex % 3 === 1 ? previousCard.author : nextCard.author)-->
+<!--            }}-->
+<!--          </div>-->
 
-          <div class="card__body">
-            {{
-              selectedCardIndex % 3 === 0 ? selectedCard.text : (selectedCardIndex % 3 === 1 ? previousCard.text : nextCard.text)
-            }}
-          </div>
-        </label>
-        <label class="card" for="item-2" id="song-2">
-          <img
-              class="card__userIcon"
-              :src="selectedCardIndex % 3 === 0 ? nextCard.image : (selectedCardIndex % 3 === 1 ? selectedCard.image : previousCard.image)"
+<!--          <div class="card__body">-->
+<!--            {{-->
+<!--              selectedCardIndex % 3 === 0 ? selectedCard.text : (selectedCardIndex % 3 === 1 ? previousCard.text : nextCard.text)-->
+<!--            }}-->
+<!--          </div>-->
+<!--        </label>-->
+<!--        <label class="card" for="item-2" id="song-2">-->
+<!--          <img-->
+<!--              class="card__userIcon"-->
+<!--              :src="selectedCardIndex % 3 === 0 ? nextCard.image : (selectedCardIndex % 3 === 1 ? selectedCard.image : previousCard.image)"-->
 
-          >
-          <div class="card__user">
-            {{
-              selectedCardIndex % 3 === 0 ? nextCard.author : (selectedCardIndex % 3 === 1 ? selectedCard.author : previousCard.author)
-            }}
-          </div>
+<!--          >-->
+<!--          <div class="card__user">-->
+<!--            {{-->
+<!--              selectedCardIndex % 3 === 0 ? nextCard.author : (selectedCardIndex % 3 === 1 ? selectedCard.author : previousCard.author)-->
+<!--            }}-->
+<!--          </div>-->
 
-          <div class="card__body">
-            {{
-              selectedCardIndex % 3 === 0 ? nextCard.text : (selectedCardIndex % 3 === 1 ? selectedCard.text : previousCard.text)
-            }}
+<!--          <div class="card__body">-->
+<!--            {{-->
+<!--              selectedCardIndex % 3 === 0 ? nextCard.text : (selectedCardIndex % 3 === 1 ? selectedCard.text : previousCard.text)-->
+<!--            }}-->
 
-          </div>
-        </label>
-        <label class="card" for="item-3" id="song-3">
-          <img
-              class="card__userIcon"
-              :src="selectedCardIndex % 3 === 0 ? previousCard.author : (selectedCardIndex % 3 === 1 ? nextCard.author : selectedCard.author)"
-          >
-          <div class="card__user">
-            {{
-              selectedCardIndex % 3 === 0 ? previousCard.author : (selectedCardIndex % 3 === 1 ? nextCard.author : selectedCard.author)
-            }}
-          </div>
+<!--          </div>-->
+<!--        </label>-->
+<!--        <label class="card" for="item-3" id="song-3">-->
+<!--          <img-->
+<!--              class="card__userIcon"-->
+<!--              :src="selectedCardIndex % 3 === 0 ? previousCard.image : (selectedCardIndex % 3 === 1 ? nextCard.image : selectedCard.image)"-->
+<!--          >-->
+<!--          <div class="card__user">-->
+<!--            {{-->
+<!--              selectedCardIndex % 3 === 0 ? previousCard.author : (selectedCardIndex % 3 === 1 ? nextCard.author : selectedCard.author)-->
+<!--            }}-->
+<!--          </div>-->
 
-          <div class="card__body">
-            {{
-              selectedCardIndex % 3 === 0 ? previousCard.text : (selectedCardIndex % 3 === 1 ? nextCard.text : selectedCard.text)
-            }}
+<!--          <div class="card__body">-->
+<!--            {{-->
+<!--              selectedCardIndex % 3 === 0 ? previousCard.text : (selectedCardIndex % 3 === 1 ? nextCard.text : selectedCard.text)-->
+<!--            }}-->
 
-          </div>
-        </label>
+<!--          </div>-->
+<!--        </label>-->
       </div>
     </div>
 
@@ -117,8 +117,6 @@ export default {
           this.goToTweet();
         }
       }
-      console.log('this.selecetedCard', this.selectedCardIndex)
-      console.log('this.tweets.length', this.tweets.length)
     },
     goToTweet() {
       if (this.tweets[this.selectedCard].url)
@@ -129,7 +127,6 @@ export default {
 
   async fetch() {
     const tweets = await this.$axios.$get('/tweets/');
-    console.log('tweets', tweets.length)
     if (tweets.length > 0){
       this.tweets = tweets;
       this.selectedCardIndex = 0;

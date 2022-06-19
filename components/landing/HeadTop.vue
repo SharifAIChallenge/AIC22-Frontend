@@ -2,7 +2,7 @@
   <div>
     <div id="HeadTop">
       <div class="container">
-        <div>
+        <div class="ai-text">
           <h2>CHALLENGE</h2>
           <h3>2022</h3>
         </div>
@@ -78,6 +78,22 @@ export default {
     bottom: 200px;
     left: 50%;
     animation: ScrollAnimate 2s infinite;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .container{
+    display: flex;
+    flex-direction: column-reverse;
+    .ai-text{
+      margin-top: 1rem;
+      h2{
+        font-size: 2rem !important;
+      }
+      h3{
+        font-size: 2rem !important;
+      }
+    }
   }
 }
 
