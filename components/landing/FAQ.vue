@@ -2,7 +2,7 @@
   <v-container id="faq" class="my-15">
     <TitleContainer title="سوالات متداول" />
     <v-expansion-panels class="faq__wrapper" accordion multiple>
-      <v-expansion-panel class="faq__item" v-for="(faq, i) in faqs" :key="i">
+      <v-expansion-panel class="faq__item" v-for="faq in this.faqs" :key="faq.question_fa">
         <v-expansion-panel-header class="faq__item__header">
           {{ faq.question_fa }}
         </v-expansion-panel-header>
@@ -11,7 +11,7 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-    <v-btn color="primary" to="\faq" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary goto-faq-button" style="width: 186px">
+    <v-btn color="primary" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary goto-faq-button" style="width: 186px" to="/faq">
       {{ $t('form.goToFAQ') }}
     </v-btn>
   </v-container>
@@ -19,18 +19,16 @@
 
 <script>
 import TitleContainer from '~/components/TitleContainer';
+import { getFrequentlyAskedQuestions } from '~/api';
 
 export default {
   name: 'FAQ',
   components: { TitleContainer },
-  data: () =>({
-    faqs:[]
+  data: () => ({
+    faqs: [],
   }),
   async fetch() {
-    this.faqs = await this.$axios.get('faqs/')
-        .then(resp=> this.faqs = resp.data).catch(err=>console.log(err))
-  },
-  mounted() {
+    this.faqs = await getFrequentlyAskedQuestions(this.$axios, true);
   }
 };
 </script>
@@ -41,12 +39,14 @@ export default {
 .faq {
   &__wrapper {
     background-color: var(--v-bg_secondary-base) !important;
+    opacity: 0.5;
     border-radius: 1.5em;
   }
 
   &__item {
     padding: 0 1em;
     background-color: inherit !important;
+    opacity: 0.75;
 
     &__header {
       text-align: right;
