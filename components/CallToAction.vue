@@ -11,30 +11,54 @@
           <div class='font-weight-bold text-sm-h4 text-h6 mt-4 mb-1'>{{ $t('form.registerNow') }}!</div>
         </div>
       </v-row>
-      <v-row sm='5' class='align-start justify-center px-5'>
-        <v-col cols='4'>
+<!--      <v-row sm='5' class='justify-center'>-->
+<!--        <v-col cols='4'>-->
+<!--          <v-btn-->
+<!--              block-->
+<!--              color='primary'-->
+<!--              class='mt-4 ml-4 px-6 v-btn&#45;&#45;primary'-->
+<!--          >-->
+<!--            ثبت‌نام با ایمیل-->
+<!--            <v-icon class="mr-2">mdi-gmail</v-icon>-->
+<!--          </v-btn>-->
+<!--        </v-col>-->
+<!--      </v-row>-->
+<!--      <v-row sm='5' class='justify-center'>-->
+<!--        <v-col cols='4'>-->
+<!--          <v-btn-->
+<!--              block-->
+<!--              color='secondary'-->
+<!--              class='mt-0 ml-4 px-6 v-btn&#45;&#45;primary'-->
+<!--          >-->
+
+<!--            ثبت نام با گوگل-->
+<!--            <v-icon class="mr-2">mdi-google</v-icon>-->
+<!--          </v-btn>-->
+<!--        </v-col>-->
+<!--      </v-row>-->
+
+      <div class="mt-8 buttons">
+        <div class="mb-3">
           <v-btn
               block
               color='primary'
               class='mt-4 ml-4 px-6 v-btn--primary'
           >
-            {{ $t('form.register')}}
+            ثبت‌نام با ایمیل
+            <v-icon class="mr-2">mdi-gmail</v-icon>
           </v-btn>
-        </v-col>
-      </v-row>
-      <v-row sm='5' class='align-start justify-center px-5'>
-        <v-col cols='4'>
+        </div>
+        <div>
           <v-btn
-              block
-              color='secondary'
-              class='mt-0 ml-4 px-6 v-btn--primary'
-          >
-
+          block
+          color='secondary'
+          class='mt-0 ml-4 px-6 v-btn--primary'
+        >
             ثبت نام با گوگل
             <v-icon class="mr-2">mdi-google</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
+            </v-btn>
+        </div>
+      </div>
     </div>
     <!--        <v-btn @click="loginWithGoogle" block tile x-large :disabled="true" class="primary my-3 text-center" style="width:12px">-->
     <!--          <v-icon>mdi-google</v-icon>-->
@@ -87,6 +111,17 @@ export default {
   top: 0;
   opacity: 0.15;
   z-index: 0;
+}
+.buttons{
+  margin: 0 auto;
+  text-align: center;
+  max-width: 10rem;
+}
+@media screen  and (max-width:780px){
+  .buttons{
+    margin:0 auto;
+    max-width: 50vw;
+  }
 }
 
 .call_to_action {

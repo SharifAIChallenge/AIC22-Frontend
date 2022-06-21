@@ -1,163 +1,69 @@
 <template>
   <v-container class="main">
     <div>
-      <img class="bg--img" style="right: -100px;top: -100px;" width="600" src="../assets/images/curve0.svg">
-      <img class="bg--img" style="left: -100px;bottom: -100px;" width="400" src="../assets/images/curve0.svg">
+      <img class="bg--img" style="right: -100px;top: -100px;" width="600" src="../assets/images/curve0.svg" alt="bg">
+      <img class="bg--img" style="left: -100px;bottom: -100px;" width="400" src="../assets/images/curve0.svg" alt="bg">
       <div class="our-team">
         <div class="our-team__header">تیم ما</div>
         <div class="our-team__names">
           <div v-for="menu in staffMenu" :id="menu.id" v-bind:key="staffMenu.id"
-               v-bind:class="{'clicked': clickedStaffMenuId == menu.id }" @click="clickMenu($event)">
-            {{ menu.name }}
+               v-bind:class="{'clicked': clickedStaffMenuId === menu.id }" @click="clickMenu($event)">
+            {{ menu.title }}
           </div>
         </div>
         <div class="mt-8 our-team__subNames">
           <div v-for="subMenu in staffSubTeams" :id="subMenu.id" v-bind:key="staffSubTeams.id"
-               v-if="clickedStaffMenuId == subMenu.teamID">
-            {{ subMenu.name }}
+               v-if="clickedStaffMenuId === subMenu.group">
+            {{ subMenu.title }}
           </div>
         </div>
         <div class="our-team__cards">
-          <StaffCard v-for="staff in staffs" :staff="staff"></StaffCard>
+          <StaffCard v-for="staff in staffs" :staff="staff" v-if="staff.team === clickedStaffMenuId"></StaffCard>
         </div>
       </div>
     </div>
+    <v-overlay :value="overlay">
+      <v-progress-circular
+          indeterminate
+          size="64"
+      ></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 
 <script>
 import StaffCard from "~/components/landing/StaffCard";
+import {StaffGroups, Staffs, StaffTeam} from "~/api";
 
 export default {
   auth: false,
   name: "staffs",
   components: {StaffCard},
+  async asyncData({$axios}) {
+    let staffMenu = await StaffGroups($axios);
+    let staffSubTeams = await StaffTeam($axios, 1);
+    let staffs = await Staffs($axios);
+    console.log(staffMenu)
+    console.log(staffSubTeams)
+    console.log(staffs)
+    return {
+      staffMenu,
+      staffSubTeams,
+      staffs,
+    };
+  },
   data() {
     return {
       clickedStaffMenuId: 1,
-      staffMenu: [
-        {
-          id: 1,
-          name: 'تیم برندینگ'
-        }, {
-          id: 2,
-          name: 'تیم محتوا'
-        }, {
-          id: 3,
-          name: 'تیم منابع انسانی'
-        }, {
-          id: 4,
-          name: 'تیم طراحی'
-        },
-      ],
-      staffSubTeams: [
-        {
-          id: 1,
-          teamID: 1,
-          name: 'زیرتیم 1'
-        }, {
-          id: 2,
-          teamID: 1,
-          name: 'زیرتیم 2'
-        }, {
-          id: 3,
-          teamID: 1,
-          name: 'زیرتیم 3'
-        }, {
-          id: 1,
-          teamID: 2,
-          name: 'زیرتیم 3'
-        }, {
-          id: 2,
-          teamID: 2,
-          name: 'زیرتیم3 '
-        }, {
-          id: 3,
-          teamID: 2,
-          name: 'زیرتیم 4'
-        },
-      ],
-      staffs: [
-        {
-          name: 'رویداد هوش مصنوعی شریف',
-          position: 'رویداد',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شریف1',
-          position: 'رویداد1',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شریف2',
-          position: 'رویداد2',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شری3',
-          position: 'رویداد3',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شری3',
-          position: 'رویداد3',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شری3',
-          position: 'رویداد3',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شری3',
-          position: 'رویداد3',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شری3',
-          position: 'رویداد3',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شری3',
-          position: 'رویداد3',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شری3',
-          position: 'رویداد3',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شری3',
-          position: 'رویداد3',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }, {
-          name: 'رویداد هوش مصنوعی شری3',
-          position: 'رویداد3',
-          linkedin: '#',
-          at: '#',
-          github: '#'
-        }
-      ],
+      overlay: false,
     };
   },
   methods: {
-    clickMenu(event) {
-      this.clickedStaffMenuId = event.target.id
-      console.log(event)
+    async clickMenu(event) {
+      this.overlay = true;
+      this.clickedStaffMenuId = parseInt(event.target.id);
+      this.staffSubTeams = await StaffTeam(this.$axios, this.clickedStaffMenuId);
+      this.overlay = false;
     }
   }
 }
@@ -242,11 +148,11 @@ export default {
       border-radius: 30px;
       padding: 10px 25px;
 
-      &:hover {
-        color: var(--v-primary-base);
-        border-color: var(--v-primary-base);
-        cursor: pointer;
-      }
+      //&:hover {
+      //  color: var(--v-primary-base);
+      //  border-color: var(--v-primary-base);
+      //  cursor: pointer;
+      //}
     }
   }
 

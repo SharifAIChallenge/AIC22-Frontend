@@ -3,11 +3,6 @@
     <div class="container">
       <v-row justify="center" align="center">
         <v-col cols="12">
-          <v-alert :type="result.type" :value="result.value" text outlined>
-            {{ result.message }}
-          </v-alert>
-        </v-col>
-        <v-col cols="12">
           <v-form ref="form" v-model="valid" @submit.prevent="signUp">
             <v-text-field
               rounded
@@ -128,6 +123,7 @@ export default {
         this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
         this.result.type = 'success';
         this.result.value = true;
+        this.$toast.success(this.result.message)
         this.$refs.form.reset();
       }).catch(e=>{
         this.loading = false;
@@ -156,22 +152,22 @@ export default {
       })
     },
     async loginWithGoogle() {
-      const googleUser = await this.$gAuth.signIn();
-      const googleData = googleUser.getAuthResponse();
-      const { id_token, access_token, scope, expires_in, expires_at } = googleData;
-      let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
-      if (res.status_code === 400) {
-        this.$toast.error('لاگین با خطا مواجه شد');
-      } else {
-        this.$store.commit('auth/setToken', res);
-        this.$router.push('/dashboard');
-        this.$store.commit('formStatus/toggleShow');
-        this.$cookies.set('token', res.token, {
-          maxAge: 60 * 60 * 24 * 7,
-          path: '/',
-        });
-      }
-      this.$store.commit('formStatus/toggleShow');
+      this.$auth.loginWith("google");
+      // const googleData = googleUser.getAuthResponse();
+      // const { id_token, access_token, scope, expires_in, expires_at } = googleData;
+      // let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
+      // if (res.status_code === 400) {
+      //   this.$toast.error('لاگین با خطا مواجه شد');
+      // } else {
+      //   this.$store.commit('auth/setToken', res);
+      //   this.$router.push('/dashboard');
+      //   this.$store.commit('formStatus/toggleShow');
+      //   this.$cookies.set('token', res.token, {
+      //     maxAge: 60 * 60 * 24 * 7,
+      //     path: '/',
+      //   });
+      // }
+      // this.$store.commit('formStatus/toggleShow');
     },
     clearError(field) {
       if (this.result.errors[field]) {

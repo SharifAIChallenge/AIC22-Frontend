@@ -9,7 +9,7 @@
       },
     }"
   >
-    <TitleContainer title="درباره رویداد هوش مصنوعی شریف"/>
+    <TitleContainer title="درباره رویداد هوش مصنوعی"/>
     <p class="description mt-16 pt-8">
       {{
         post && post.motto
@@ -34,8 +34,6 @@ export default {
     onIntersecAbout: Function,
   },
   async fetch() {
-    let description = await this.$axios.$get('homepage/motto');
-    this.post = description.data[0];
   },
 };
 </script>

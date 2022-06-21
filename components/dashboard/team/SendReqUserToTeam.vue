@@ -7,9 +7,9 @@
 export default {
     props:['team'],
     async fetch(){
-        console.log(this.team)
+        // console.log(this.team)
         await this.$axios.$get(`team/${this.team.id}`).then(res =>{
-            console.log(res)
+            // console.log(res)
         })
     }
 }

@@ -17,7 +17,6 @@ export default {
   methods:{
       mergeStaffs(teams){
           for (let team in teams){
-              console.log(this.staffs[team])
               this.allStaffs.push(this.staffs[team])
           }
       }

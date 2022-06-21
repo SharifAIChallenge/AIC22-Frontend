@@ -14,7 +14,7 @@ export const actions = {
 export const mutations = {
   set(state, content) {
     // console.log(content);
-    console.log('bbbbbbbbbb');
+    // console.log('bbbbbbbbbb');
     state.content = content;
   },
 };
