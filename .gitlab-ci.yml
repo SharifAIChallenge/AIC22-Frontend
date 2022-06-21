@@ -12,7 +12,7 @@ stages:
 
 .production-vars:
   variables:
-    ENVIRONMENT: production
+    ENVIRONMENT: prod
     IMAGE_URL: ${DOCKER_REGISTRY}/aic22-frontend:${CI_COMMIT_SHORT_SHA}
     SWARM_MASTER_NODE: ${PRD_SWARM_MASTER_NODE}
   rules:
