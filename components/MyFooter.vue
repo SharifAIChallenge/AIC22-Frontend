@@ -2,7 +2,6 @@
   <v-footer dark padless class="footer" color="bg_secondary">
     <v-container>
       <v-row dir="ltr" align="center">
-
         <v-col class="text-center-sm-and-down col-12 col-md-6 social_box mx-auto">
           <div class="d-flex justify-center justify-md-start">
             <v-btn
@@ -17,14 +16,6 @@
               <v-icon size="30px">
                 {{ social.icon }}
               </v-icon>
-            </v-btn>
-            <v-btn
-            href="https://t.me/AIChallenge2022"
-            class="mx-1 transparent"
-            target="_blank"
-            icon
-            large>
-              <img src="../assets/images/telegram.png" alt="aic-telegram" height="30px" width="30px">
             </v-btn>
           </div>
         </v-col>
@@ -56,7 +47,11 @@ export default {
         {
           url: 'https://www.linkedin.com/company/ai-challenge2022/',
           icon: 'mdi-linkedin',
-        }
+        },
+        {
+          url: 'https://t.me/AIChallenge2022',
+          icon: 'mdi-send',
+        },
       ],
     };
   },
