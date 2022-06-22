@@ -137,7 +137,7 @@ export default {
         // baseURL: 'https://aichallenge.sharif.edu/api',
         // baseURL: 'http://172.17.0.1:8000/api'
         baseURL: 'https://api.aichallenge.ir/api/v1',
-        browserBaseURL: 'http://api.aichallenge.ir/api/v1'
+        browserBaseURL: 'https://api.aichallenge.ir/api/v1'
     },
 
     /*
