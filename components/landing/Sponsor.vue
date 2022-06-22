@@ -10,7 +10,7 @@
     }"
   >
     <div class="w-full">
-      <TitleContainer title="حامیان" />
+      <TitleContainer title="حامی مالی" />
       <v-row class="mt-16 pt-16 justify-space-around ma-4">
         <v-col class="align-center justify-center text-center col-3 col-md-2" v-for="n in 4" :key="n">
           <img src="~assets/images/logo/azki.com.png" alt="img" width="60" height="60"/>
