@@ -12,13 +12,15 @@
           </div>
         </div>
         <div class="mt-8 our-team__subNames">
-          <div v-for="subMenu in staffSubTeams" :id="subMenu.id" v-bind:key="staffSubTeams.id"
-               v-if="clickedStaffMenuId === subMenu.group">
-            {{ subMenu.title }}
-          </div>
+<!--          <div v-for="subMenu in staffSubTeams" :id="subMenu.id" v-bind:key="staffSubTeams.id"-->
+<!--               v-if="clickedStaffMenuId === subMenu.group"-->
+<!--               class="clicked-sub"-->
+<!--              >-->
+<!--            {{ subMenu.title }}-->
+<!--          </div>-->
         </div>
         <div class="our-team__cards">
-          <StaffCard v-for="staff in staffs" :staff="staff" v-if="staff.team === clickedStaffMenuId"></StaffCard>
+          <StaffCard v-for="staff in staffs" :staff="staff" v-if="checkStaffPermission(staff.team)"></StaffCard>
         </div>
       </div>
     </div>
@@ -42,10 +44,7 @@ export default {
   async asyncData({$axios}) {
     let staffMenu = await StaffGroups($axios);
     let staffSubTeams = await StaffTeam($axios, 1);
-    let staffs = await Staffs($axios);
-    console.log(staffMenu)
-    console.log(staffSubTeams)
-    console.log(staffs)
+    let staffs = await Staffs($axios, 1);
     return {
       staffMenu,
       staffSubTeams,
@@ -55,16 +54,24 @@ export default {
   data() {
     return {
       clickedStaffMenuId: 1,
+      sub: [],
       overlay: false,
+      selectSubs:[],
     };
   },
   methods: {
     async clickMenu(event) {
       this.overlay = true;
       this.clickedStaffMenuId = parseInt(event.target.id);
+      this.staffs = await Staffs(this.$axios, this.clickedStaffMenuId);
       this.staffSubTeams = await StaffTeam(this.$axios, this.clickedStaffMenuId);
       this.overlay = false;
-    }
+    },
+    checkStaffPermission(No) {
+      return this.staffSubTeams.filter((x) => {
+        return x.id === No;
+      });
+    },
   }
 }
 </script>
@@ -111,7 +118,8 @@ export default {
     }
     max-width: 90vw;
 
-    .clicked {
+
+    .clicked-sub {
       background-color: var(--v-primary-base);
       border-radius: 30px;
       cursor: pointer;
@@ -141,6 +149,14 @@ export default {
       font-size: 3vw;
     }
     max-width: 90vw;
+
+
+    .clicked-sub {
+      color: var(--v-primary-base);
+      border-color: var(--v-primary-base);
+      border-radius: 30px;
+      cursor: pointer;
+    }
 
     div {
       margin: 0 10px;
