@@ -1,10 +1,11 @@
 <template>
   <v-responsive class="overflow-y-auto" style="margin-bottom: 120px">
-    <TitleContainer :title="$t('form.scheduling')" />
+    <TitleContainer :title="$t('form.scheduling')"/>
 
     <v-responsive class="d-flex align-center text-center">
       <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
-        <v-timeline-item v-for="(item, i) in timelineArray" :key="i" small fill-dot color="transparent" class="timelineItem">
+        <v-timeline-item v-for="(item, i) in timelineArray" :key="i" small fill-dot color="transparent"
+                         class="timelineItem">
           <template v-slot:icon>
             <div class="timelineItem__icon"></div>
           </template>
@@ -30,9 +31,14 @@
             </v-card>
           </div>
         </v-timeline-item>
-        <v-btn color="primary" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary" style="width: 186px">
-          {{ $t('form.addToCalendar') }}
-        </v-btn>
+        <a href="https://calendar.google.com/calendar/u/0/r/eventedit?text=%DA%A9%D8%A7%D8%B1%D8%A8%D8%B1%D8%AF+%D8%AF%DB%8C%D8%AA%D8%A7+%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%DB%8C%D9%88+%D8%AF%D8%B1+%D9%85%D8%AF%DB%8C%D8%B1%DB%8C%D8%AA+%DA%A9%D9%85%D9%BE%DB%8C%D9%86+%D9%87%D8%A7%DB%8C+%DA%AF%D9%88%DA%AF%D9%84+%D8%A7%D8%AF%D8%B2&dates=20220622T133000Z/20220622T133000Z&details=%DA%A9%D8%A7%D8%B1%D8%A8%D8%B1%D8%AF+%D8%AF%DB%8C%D8%AA%D8%A7+%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%DB%8C%D9%88+%D8%AF%D8%B1+%D9%85%D8%AF%DB%8C%D8%B1%DB%8C%D8%AA+%DA%A9%D9%85%D9%BE%DB%8C%D9%86+%D9%87%D8%A7%DB%8C+%DA%AF%D9%88%DA%AF%D9%84+%D8%A7%D8%AF%D8%B2&location=%D8%A2%D9%86%D9%84%D8%A7%DB%8C%D9%86&sf=true"
+           target="_blank">
+          <v-btn color="primary" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary" style="width: 186px">
+            {{ $
+              t('form.addToCalendar') }}
+          </v-btn>
+        </a>
+
       </v-timeline>
     </v-responsive>
   </v-responsive>
@@ -41,7 +47,7 @@
 import TitleContainer from '~/components/TitleContainer';
 
 export default {
-  components: { TitleContainer },
+  components: {TitleContainer},
   data() {
     return {
       timelineArray: [],
@@ -183,6 +189,7 @@ export default {
     flex: 1 0 100%;
     padding: 8px 12px;
     height: 28px;
+
     > p {
       top: -20px;
       border-radius: 8px !important;
@@ -201,6 +208,7 @@ export default {
     padding-left: 0;
     padding-bottom: 12px;
   }
+
   &__text {
     padding-bottom: 12px;
   }
