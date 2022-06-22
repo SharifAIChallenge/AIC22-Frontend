@@ -10,12 +10,24 @@
     }"
   >
     <div class="w-full">
-      <TitleContainer title="حامیان" />
-      <v-row class="mt-16 pt-16 justify-space-around ma-4">
-        <v-col class="align-center justify-center text-center col-3 col-md-2" v-for="n in 4" :key="n">
-          <img src="~assets/images/logo/azki.com.png" alt="img" width="60" height="60"/>
-        </v-col>
-      </v-row>
+      <TitleContainer title="حامی مالی" />
+      <div class="d-flex flex-row flex-wrap">
+        <div class="align-center justify-center text-center col-md-6 col-sm-12 col-lg-6">
+          <img class="mt-10" src="../../assets/images/logo/logo-sefid-aic.png" alt="img" width="240" height="60"/>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6">
+          <div>
+            ازکی یه شرکت بیمه نیست بلکه یه واسطه ست که مثل یه دوست اگاه و دانا و معتمد، به مردم کمک میکنه بهترین انتخاب
+            بیمه ای خودشون رو داشته باشن و اما در اینده تبدیل میشه به یه دوست باحال و خفن که کمک میکنه مردم بهترین انتخاب
+            رو در زمینه های مختلف هم داشته باشن.
+            یه سری باور هم داریم که همیشه به اون‌ها پایبندیم:
+            کار نشد نداره و ما به هرهدفی که بخوایم با تلاش می‌تونیم برسیم.
+            در هر شرایطی از هم حمایت می‌کنیم.
+            ما یک تیم پرانرژی هستیم و شادی یکی از بارزترین خصوصیت‌های ماست.
+            ما با هم پیشرفت می‌کنیم و به پیشرفت همدیگه کمک می‌کنیم.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -3,14 +3,14 @@
     <Header/>
     <HeadTop/>
     <About/>
-    <Statics/>
+<!--    <Statics/>-->
     <TimeLine/>
     <Prize/>
     <sponsor/>
     <FAQ/>
     <Staff/>
 <!--    <Tweets/>-->
-    <Blog/>
+<!--    <Blog/>-->
     <CallToAction/>
   </div>
 </template>

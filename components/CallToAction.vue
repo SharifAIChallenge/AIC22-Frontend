@@ -43,21 +43,23 @@
               block
               color='primary'
               class='mt-4 ml-4 px-6 v-btn--primary'
+              link
+              to="/signup"
           >
             ثبت‌نام با ایمیل
             <v-icon class="mr-2">mdi-gmail</v-icon>
           </v-btn>
         </div>
-        <div>
-          <v-btn
-          block
-          color='secondary'
-          class='mt-0 ml-4 px-6 v-btn--primary'
-        >
-            ثبت نام با گوگل
-            <v-icon class="mr-2">mdi-google</v-icon>
-            </v-btn>
-        </div>
+<!--        <div>-->
+<!--          <v-btn-->
+<!--          block-->
+<!--          color='secondary'-->
+<!--          class='mt-0 ml-4 px-6 v-btn&#45;&#45;primary'-->
+<!--        >-->
+<!--            ثبت نام با گوگل-->
+<!--            <v-icon class="mr-2">mdi-google</v-icon>-->
+<!--            </v-btn>-->
+<!--        </div>-->
       </div>
     </div>
     <!--        <v-btn @click="loginWithGoogle" block tile x-large :disabled="true" class="primary my-3 text-center" style="width:12px">-->
