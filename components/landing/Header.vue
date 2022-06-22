@@ -104,11 +104,11 @@ export default {
           icon: 'mdi-home',
           href: '/'
         },
-        {
-          text: 'اخبار',
-          icon: 'mdi-newspaper',
-          href: '/blog'
-        },
+        // {
+        //   text: 'اخبار',
+        //   icon: 'mdi-newspaper',
+        //   href: '/blog'
+        // },
         {
           text: 'سوالات متداول',
           icon: 'mdi-help-circle',
