@@ -38,7 +38,7 @@ export default {
 
   &__name {
     width: 190px;
-    overflow: hidden;
+    //overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }

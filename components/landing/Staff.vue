@@ -1,20 +1,31 @@
 <template>
-  <div>
-    <div class="our-team">
-      <TitleContainer title="تیم های ما"/>
-      <div class="our-team__names">
-        <div v-for="menu in staffMenu" :id="menu.id" v-bind:key="staffMenu.id">
-          {{ menu.title }}
+  <v-container>
+
+    <div>
+      <div class="our-team">
+        <TitleContainer title="تیم های ما"/>
+        <div class="our-team__names">
+          <div v-for="menu in staffMenu" :id="menu.id" v-bind:key="staffMenu.id"
+               v-bind:class="{'clicked': clickedStaffMenuId === menu.id }" @click="updateTeam($event)">
+            {{ menu.title }}
+          </div>
         </div>
+        <div class="our-team__cards">
+          <StaffCard v-for="staff in staffs" :staff="staff"></StaffCard>
+        </div>
+        <v-btn color="primary" to="staffs" class="px-6 mx-2 v-btn--primary" style="width: 186px">
+          دیدن همه اعضا
+        </v-btn>
       </div>
-      <div class="our-team__cards">
-        <StaffCard v-for="staff in staffs" :staff="staff"></StaffCard>
-      </div>
-      <v-btn color="primary" to="staffs" class="px-6 mx-2 v-btn--primary" style="width: 186px">
-        دیدن همه اعضا
-      </v-btn>
     </div>
-  </div>
+    <v-overlay :value="overlay">
+      <v-progress-circular
+          indeterminate
+          size="64"
+      ></v-progress-circular>
+    </v-overlay>
+  </v-container>
+
 </template>
 
 <script>
@@ -32,12 +43,24 @@ export default {
   },
   data() {
     return {
+      overlay: false,
       clickedStaffMenuId: 1,
       staffMenu: [],
       staffs: [],
     };
   },
   methods: {
+    async updateTeam(event) {
+      this.overlay = true;
+
+      this.clickedStaffMenuId = parseInt(event.target.id);
+      await this.$axios
+          .get(`staffs/random/4/?team__group=${this.clickedStaffMenuId}`)
+          .then(resp => (this.staffs = resp.data))
+          .catch(err => console.log(err));
+      this.overlay = false;
+
+    },
   },
 };
 </script>
@@ -83,13 +106,12 @@ export default {
     div {
       margin: 0 5px;
       padding: 10px 30px;
-      background-color: var(--v-primary-base);
-      border-radius: 30px;
-      //&:hover {
-      //  background-color: var(--v-primary-base);
-      //  border-radius: 30px;
-      //  cursor: pointer;
-      //}
+
+      &:hover {
+        background-color: var(--v-primary-base);
+        border-radius: 30px;
+        cursor: pointer;
+      }
     }
   }
 
