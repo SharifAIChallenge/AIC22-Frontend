@@ -37,7 +37,7 @@ export default {
   }
 
   &__name {
-    width: 190px;
+    //width: 190px;
     //overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
