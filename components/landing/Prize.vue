@@ -32,7 +32,7 @@
         </div>
         <span class="text-h6 mx-8 text-center text-md-right">
             15 میلیون تومان
-            جوایز فرعی
+            جوایز مینی گیم، بات و رندوم
           </span>
       </v-row>
     </div>
