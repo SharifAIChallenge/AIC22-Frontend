@@ -7,10 +7,11 @@
 
 <script>
 import AzkiOpenPositions from '~/components/sponsors/azkiOpenPositions.vue';
+import Sponsor from "~/components/landing/Sponsor";
 
 export default {
     name: "azki",
-    components: { AzkiOpenPositions }
+    components: { AzkiOpenPositions,Sponsor }
 }
 </script>
 
