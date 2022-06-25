@@ -1,21 +1,12 @@
 <template>
-  <div
-    class="mt-2 h-screen d-flex flex-column align-center justify-center"
-    id="sponser"
-    v-intersect="{
-      handler: onIntersecSponser,
-      options: {
-        threshold: 0.3,
-      },
-    }"
-  >
-    <div class="w-full">
+  
+    <v-container>
       <TitleContainer title="حامی مالی" />
-      <div class="d-flex flex-row flex-wrap">
-        <div class="align-center justify-center text-center col-md-6 col-sm-12 col-lg-6">
-          <img class="mt-10" src="../../assets/images/logo/logo-sefid-aic.png" alt="img" width="240" height="60"/>
-        </div>
-        <div class="col-md-6 col-sm-12 col-lg-6">
+      <v-row>
+        <v-col cols="12" md="4" class="text-center" align-self="center">
+          <img src="../../assets/images/logo/azki-sefid.svg" alt="azki.com" width="240" height="120"/>
+        </v-col>
+        <v-col class="text-justify"  cols="12" md="8" >
           <div>
             ازکی یه شرکت بیمه نیست بلکه یه واسطه ست که مثل یه دوست اگاه و دانا و معتمد، به مردم کمک میکنه بهترین انتخاب
             بیمه ای خودشون رو داشته باشن و اما در اینده تبدیل میشه به یه دوست باحال و خفن که کمک میکنه مردم بهترین انتخاب
@@ -26,10 +17,9 @@
             ما یک تیم پرانرژی هستیم و شادی یکی از بارزترین خصوصیت‌های ماست.
             ما با هم پیشرفت می‌کنیم و به پیشرفت همدیگه کمک می‌کنیم.
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        </v-col>
+      </v-row>
+    </v-container>
 </template>
 
 <script>

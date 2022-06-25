@@ -2,7 +2,7 @@
   <div>
     <div class="card mt-14">
       <img class="card__avatar" :src="staff.image" width="150" height="150" alt="staff avatar">
-      <div class="card__name">{{staff.first_name_fa}} {{staff.last_name_fa}}</div>
+      <div class="card__name text-center">{{staff.first_name_fa}} {{staff.last_name_fa}}</div>
       <div class="card__position">{{staff.role}}</div>
       <div class="card__social-icons mt-4">
         <a :href="staff.url"><v-icon class="icon"> mdi-linkedin</v-icon></a>
@@ -37,7 +37,7 @@ export default {
   }
 
   &__name {
-    width: 190px;
+    //width: 190px;
     //overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

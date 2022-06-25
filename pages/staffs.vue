@@ -124,6 +124,11 @@ export default {
       border-radius: 30px;
       cursor: pointer;
     }
+    .clicked {
+      background-color: var(--v-primary-base);
+      border-radius: 30px;
+      cursor: pointer;
+    }
 
     div {
       margin: 0 5px;
@@ -164,11 +169,11 @@ export default {
       border-radius: 30px;
       padding: 10px 25px;
 
-      //&:hover {
-      //  color: var(--v-primary-base);
-      //  border-color: var(--v-primary-base);
-      //  cursor: pointer;
-      //}
+      &:hover {
+        color: var(--v-primary-base);
+        border-color: var(--v-primary-base);
+        cursor: pointer;
+      }
     }
   }
 

@@ -7,15 +7,9 @@
       </v-btn>
     </template>
     <v-list class="sponsor-dropdown">
-      <v-list-item link :to="items[0].to" target="_blank">
+      <v-list-item link target="_blank" :to="items[0].to">
         <v-list-item-title>{{ items[0].title }}</v-list-item-title>
       </v-list-item>
-<!--      <v-list-item link :to="items[1].to" class="aparat">-->
-<!--        <v-list-item-title>-->
-<!--          {{ items[1].title }}-->
-<!--          <span>(حامی رسانه‌ای)</span>-->
-<!--        </v-list-item-title>-->
-<!--      </v-list-item>-->
     </v-list>
   </v-menu>
 </template>
