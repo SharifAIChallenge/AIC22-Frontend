@@ -4,7 +4,7 @@
       <TitleContainer title="حامی مالی" />
       <v-row>
         <v-col cols="12" md="4" class="text-center" align-self="center">
-          <img src="../../assets/images/logo/logo-sefid-aic.png" alt="img" width="240" height="60"/>
+          <img src="../../assets/images/logo/azki-sefid.svg" alt="azki.com" width="240" height="120"/>
         </v-col>
         <v-col class="text-justify"  cols="12" md="8" >
           <div>
