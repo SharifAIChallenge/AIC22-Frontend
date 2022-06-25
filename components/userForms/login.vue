@@ -103,9 +103,6 @@ export default {
       // }
     }
   },
-  beforeCreate() {
-    this.$router.push("/")
-  },
   computed: {
     ...mapState({
       loading: state => state.auth.isLoading

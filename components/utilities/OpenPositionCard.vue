@@ -1,5 +1,5 @@
 <template>
-    <v-row class="d-flex position-card mb-5">
+    <v-row class="d-flex position-card mb-1">
       <v-col cols="8" class="d-flex align-center">{{title}}</v-col>
       <v-col cols="4" class="d-flex justify-end">
         <v-btn class="v-btn--primary" link :href="link" target="_blank">
