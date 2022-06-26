@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       overlay: false,
-      clickedStaffMenuId: 1,
+      clickedStaffMenuId: 0,
       staffMenu: [],
       staffs: [],
     };
