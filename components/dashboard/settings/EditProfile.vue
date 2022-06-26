@@ -4,6 +4,7 @@
       <img
         v-if="information.image"
         :src="information.image"
+        :alt="information.image"
         class="rounded-circle"
       />
       <img
@@ -26,7 +27,7 @@
     <SectionContainer>
       <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
         <v-row>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
               v-model="information.firstname_fa"
               :label="$t('form.nameInPersian')"
@@ -36,7 +37,7 @@
               rounded
             />
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
               v-model="information.lastname_fa"
               :label="$t('form.lastNameInPersian')"
@@ -46,7 +47,7 @@
               rounded
             />
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field v-model="information.email"
                           label="ایمیل"
                           readonly
@@ -55,7 +56,7 @@
                           rounded
             ></v-text-field>
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
               v-model="information.phone_number"
               required
@@ -65,13 +66,13 @@
               rounded
             ></v-text-field>
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-select v-model="information.university_degree" :items="degreeItem" required label="مقطع تحصیلی"
                       outlined
                       rounded
             ></v-select>
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
               v-model="information.university"
               :label="$t('form.educationPlace')"
@@ -81,7 +82,7 @@
               rounded
             />
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
               type="int"
               v-model="information.university_term"
@@ -91,19 +92,19 @@
               rounded
             />
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field v-model="information.major" :rules="requiredRules" outlined required
                           label="رشته"
                           rounded></v-text-field>
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
             label="سال تولد"
             v-model="information.birth_date"
             outlined
             rounded></v-text-field>
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-select
               v-model="information.province"
               v-bind="filedProps"
@@ -114,7 +115,7 @@
               rounded
             />
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
               v-model="information.linkedin"
               v-bind="filedProps"
@@ -122,7 +123,7 @@
               rounded
             />
           </v-col>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
               v-model="information.github"
               v-bind="filedProps"
@@ -133,7 +134,7 @@
         </v-row>
 
         <v-row>
-          <v-col class="py-0 mb-3" cols="6">
+          <v-col class="py-0 mb-3" cols="12" md="6">
             <v-select
               v-model="information.programming_languages"
               :rules="requiredRules"
@@ -147,7 +148,7 @@
           </v-col>
         </v-row>
 
-        <v-row class="px-3">
+        <v-row class="px-3 text-justify">
           <v-checkbox
             v-model="information.hide_profile_info"
             required
@@ -156,7 +157,7 @@
         </v-row>
 
         <v-row class="mt-8">
-          <v-col cols="6">
+          <v-col cols="12" md="6">
             <div>
               <v-btn block :loading="loading" class="py-5" type="submit" :disabled="!valid" color="primary" rounded>
                 <v-icon left>mdi-content-save-outline</v-icon>
@@ -164,7 +165,7 @@
               </v-btn>
             </div>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" md="6">
             <div style="flex: 0 1 93px; margin-left: 24px">
               <v-btn block color="secondary" class="py-5" @click="resetForm" rounded>لغو</v-btn>
             </div>
