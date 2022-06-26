@@ -85,7 +85,7 @@ export default {
           icon: "mdi-file-document-outline",
           hover: "mdi-file-document",
           link: "/dashboard/doc/Game-Doc",
-          disabled: false,
+          disabled: true,
           gard: true
         },
         doc: {
@@ -93,7 +93,7 @@ export default {
           icon: "mdi-source-fork",
           hover: "mdi-source-repository",
           link: "/dashboard/terms",
-          disabled: false,
+          disabled: true,
           gard: true
         },
         tournaments: {
@@ -101,7 +101,7 @@ export default {
           icon: "mdi-tournament",
           hover: "mdi-tournament",
           link: "/dashboard/tournaments",
-          disabled: false,
+          disabled: true,
           gard: true
         },
         scoreboard: {
@@ -109,7 +109,7 @@ export default {
           icon: "mdi-scoreboard-outline",
           hover: "mdi-scoreboard",
           link: "/dashboard/scoreboard",
-          disabled: false,
+          disabled: true,
           gard: true
         },
         team: {
@@ -125,7 +125,7 @@ export default {
           icon: "mdi-filmstrip-box-multiple",
           hover: "mdi-filmstrip-box-multiple",
           link: "/dashboard/ticket",
-          disabled: false,
+          disabled: true,
           gard: true
         },
         submissions: {
@@ -133,7 +133,7 @@ export default {
           icon: "mdi-code-braces",
           hover: "mdi-code-braces-box",
           link: "/dashboard/submissions",
-          disabled: false,
+          disabled: true,
           gard: true
         },
         games: {
@@ -141,7 +141,7 @@ export default {
           icon: "mdi-sword",
           hover: "mdi-sword-cross",
           link: "/dashboard/games",
-          disabled: false,
+          disabled: true,
           gard: true
         },
         final: {
@@ -149,7 +149,7 @@ export default {
           icon: "mdi-trophy-award",
           hover: "mdi-trophy-award",
           link: "/final",
-          disabled: false,
+          disabled: true,
           gard: false
         },
         live: {
@@ -157,7 +157,7 @@ export default {
           icon: "mdi-presentation-play",
           hover: "mdi-presentation-play",
           link: "/live",
-          disabled: false,
+          disabled: true,
           gard: false
         }
       },
@@ -196,6 +196,7 @@ export default {
       if (now) {
         // console.log(this.profile)
         // this.routes.team.disabled = !this.profile.is_complete;
+        console.log(this.profile)
         if (!this.profile.is_complete && this.$route.path !== "/dashboard/settings") {
           this.$router.push("/dashboard/settings");
           this.$toast.error("لطفا ابتدا اطلاعات شخصی را کامل کنید");
