@@ -7,7 +7,7 @@
       <div class="d-flex flex-column align-center justify-center" style="height: 85%">
         <v-btn v-if="isAuthenticated" plain text tile to="/dashboard">داشبورد</v-btn>
         <v-btn v-if="!isAuthenticated" plain text tile to="/signup">ثبت‌نام</v-btn>
-<!--        <v-btn v-if="!isAuthenticated" plain text tile to="/login">ورود</v-btn>-->
+        <v-btn v-if="!isAuthenticated" plain text tile to="/login">ورود</v-btn>
         <v-btn
             v-for="(item,index) in items"
             :key="index"
@@ -45,13 +45,13 @@
                 >
                   ثبت‌نام
                 </v-btn>
-<!--                <v-btn v-if="!isAuthenticated"-->
-<!--                       rounded-->
-<!--                       class="px-6 v-button&#45;&#45;secondary"-->
-<!--                       to="/login"-->
-<!--                >-->
-<!--                  <span class="font-weight-bold">ورود</span>-->
-<!--                </v-btn>-->
+                <v-btn v-if="!isAuthenticated"
+                       rounded
+                       class="px-6 v-button--secondary"
+                       to="/login"
+                >
+                  <span class="font-weight-bold">ورود</span>
+                </v-btn>
               </div>
               <div v-else>
                 <v-btn v-if="isAuthenticated" plain text :ripple="false" tile to="/dashboard">
