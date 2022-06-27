@@ -3,7 +3,7 @@
     <Header/>
     <HeadTop/>
     <About/>
-<!--    <Statics/>-->
+    <Statics/>
     <TimeLine/>
     <Prize/>
     <sponsor/>
