@@ -1,11 +1,11 @@
 <template>
   <div>
     <v-row
-      v-if="activated"
-      justify="center"
-      align="center"
-      style="height: 100vh"
-      class="ma-n3 flex-column"
+        v-if="activated"
+        justify="center"
+        align="center"
+        style="height: 100vh"
+        class="ma-n3 flex-column"
     >
       <glow>
         <div class="text-center">
@@ -49,18 +49,24 @@
 import Glow from '../../components/Glow'
 
 export default {
-  auth: 'guest',
   layout: 'form',
-  components: { Glow },
-  async asyncData({ query, $axios }) {
-    return await $axios.$get(`/accounts/activate/${query.eid}/${query.token}`)
+  components: {Glow},
+  async asyncData({query, $axios}) {
+    try {
+      const resp = await $axios.$get(`/accounts/activate/${query.eid}/${query.token}`)
+      return resp
+    } catch (e) {
+      return {
+        activated: false
+      }
+    }
   },
   data() {
     return {
       status_code: false,
     }
   },
-  validate({ query }) {
+  validate({query}) {
     return query.eid && query.token
   },
   computed: {

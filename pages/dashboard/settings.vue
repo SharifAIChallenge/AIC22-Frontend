@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container class="pa-0 d-flex align-center justify-space-between">
-      <p class="headline py-5 ma-0">
+      <p class="headline py-5 ma-0 mr-5">
         حساب کاربری
       </p>
       <div>
@@ -131,7 +131,7 @@ export default {
         if (this.information[key] !== this.profile[key]) {
           if (key === "jobs" || key === "skills" || key === 'programming_languages') {
             if (this.information[key]) {
-              formData.append(`${key}`,this.information[key].join(','));
+              formData.append(`${key}_list`,this.information[key].join(','));
             }
           } else {
             formData.append(key, this.information[key]);

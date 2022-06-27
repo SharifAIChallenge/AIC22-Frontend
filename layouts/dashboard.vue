@@ -4,27 +4,27 @@
                class="dashbordNav"
                elevation="0"
     >
-      <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer"/>
       <div class="text-center w-full">
         <nuxt-link to="/" class="white--text text-center py-5" style="width: 100%; height: 100%">
-          <img src="../assets/images/logo/dashboard-icon.svg" alt="" height="70px" width="70px" class=" mt-2" />
+          <img src="../assets/images/logo/dashboard-icon.svg" alt="" height="70px" width="70px" class=" mt-2"/>
         </nuxt-link>
       </div>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right clipped
                          class="pt-6" color="bg">
-      <v-list class="py-5">
+      <v-list class="py-5 menu" style="background-color: transparent !important; ">
         <template v-for="item in routes">
           <v-list-item
-            :key="item.title"
-            class="py-md-4 py-lg-5 py-xl-6 pr-9"
-            active-class="font-weight-bold"
-            @click="activeLink = item.title"
-            style="min-height:36px;height:36px;font-weight:bold"
-            :disabled="!profile"
-            :to="item.link"
-            exact
-            nuxt
+              :key="item.title"
+              class="py-md-4 py-lg-5 py-xl-6 pr-9 menu-item"
+              active-class="font-weight-bold"
+              @click="activeLink = item.title"
+              style="min-height:36px;height:36px;font-weight:bold"
+              :disabled="!profile"
+              :to="item.link"
+              exact
+              nuxt
           >
             <span class="primary right-span" style="width: 6px; height: 100%; position: absolute; right: 0"
                   v-show="activeLink == item.title"></span>
@@ -37,10 +37,39 @@
               <v-list-item-title class="mr-6">{{ item.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-divider v-if="item.divider" :key="`+${item.title}`" />
+          <v-divider v-if="item.divider" :key="`+${item.title}`"/>
+        </template>
+        <v-divider class="mt-2"></v-divider>
+        <template v-for="item in middleRoute ">
+          <v-list-item
+              :key="item.title"
+              class="py-md-4 py-lg-5 py-xl-6 pr-9 menu-item"
+              active-class="font-weight-bold"
+              @click="activeLink = item.title"
+              style="min-height:36px;height:36px;font-weight:bold"
+              :disabled="!profile"
+              :to="item.link"
+              exact
+              nuxt
+          >
+            <span class="primary right-span" style="width: 6px; height: 100%; position: absolute; right: 0"
+                  v-show="activeLink == item.title"></span>
+            <v-list-item-icon class="py-1 my-0" style="transform: translateY(-17px)"
+            >
+              <v-icon v-if="activeLink != item.title">{{ item.icon }}</v-icon>
+              <v-icon v-else color="primary">{{ item.hover }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <div style="display: flex;justify-content: space-around; align-items: center">
+                <v-list-item-title class="mr-6">{{ item.title }}</v-list-item-title>
+                <div v-if="item.numberShow" class="pa-1 primary" style="border-radius: 5px; font-weight: normal; font-size: 0.8rem  ">{{ updateDataWithApi(item.api) }}</div>
+              </div>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider v-if="item.divider" :key="`+${item.title}`"/>
         </template>
         <div class="mt-auto" style="position: absolute; left: 0; width: 100%; bottom: 0">
-          <v-list class="pa-2">
+          <v-list class="pa-2" style="background-color: transparent !important;">
             <v-list-item @click="logout" style="cursor: pointer" class="ma-2">
               <v-icon>{{ bottomRoute.logout.icon }}</v-icon>
               <v-list-item-content>
@@ -53,19 +82,19 @@
     </v-navigation-drawer>
     <v-main style="padding: 0px">
       <v-container class="dashboard pl-0 pt-md-0 pb-0" fluid>
-        <nuxt />
+        <nuxt/>
       </v-container>
     </v-main>
-    <PaymentDialog :dialog="payDialog" @close="payDialog = false" />
+    <PaymentDialog :dialog="payDialog" @close="payDialog = false"/>
   </v-app>
 </template>
 
 <script>
 import PaymentDialog from "~/components/dashboard/PaymentDialog";
-import { mapState } from "vuex";
+import {mapState} from "vuex";
 
 export default {
-  components: { PaymentDialog },
+  components: {PaymentDialog},
   data() {
     return {
       drawer: null,
@@ -80,38 +109,38 @@ export default {
           disabled: false,
           gard: false
         },
-        terms: {
-          title: "مستندات",
-          icon: "mdi-file-document-outline",
-          hover: "mdi-file-document",
-          link: "/dashboard/doc/Game-Doc",
-          disabled: false,
-          gard: true
-        },
-        doc: {
-          title: "منابع",
-          icon: "mdi-source-fork",
-          hover: "mdi-source-repository",
-          link: "/dashboard/terms",
-          disabled: false,
-          gard: true
-        },
-        tournaments: {
-          title: "تورنومنت ها",
-          icon: "mdi-tournament",
-          hover: "mdi-tournament",
-          link: "/dashboard/tournaments",
-          disabled: false,
-          gard: true
-        },
-        scoreboard: {
-          title: "جدول امتیازات",
-          icon: "mdi-scoreboard-outline",
-          hover: "mdi-scoreboard",
-          link: "/dashboard/scoreboard",
-          disabled: false,
-          gard: true
-        },
+        // terms: {
+        //   title: "مستندات",
+        //   icon: "mdi-file-document-outline",
+        //   hover: "mdi-file-document",
+        //   link: "/dashboard/doc/Game-Doc",
+        //   disabled: true,
+        //   gard: true
+        // },
+        // doc: {
+        //   title: "منابع",
+        //   icon: "mdi-source-fork",
+        //   hover: "mdi-source-repository",
+        //   link: "/dashboard/terms",
+        //   disabled: true,
+        //   gard: true
+        // },
+        // tournaments: {
+        //   title: "تورنومنت ها",
+        //   icon: "mdi-tournament",
+        //   hover: "mdi-tournament",
+        //   link: "/dashboard/tournaments",
+        //   disabled: true,
+        //   gard: true
+        // },
+        // scoreboard: {
+        //   title: "جدول امتیازات",
+        //   icon: "mdi-scoreboard-outline",
+        //   hover: "mdi-scoreboard",
+        //   link: "/dashboard/scoreboard",
+        //   disabled: true,
+        //   gard: true
+        // },
         team: {
           title: "تیم",
           icon: "mdi-account-group-outline",
@@ -120,47 +149,72 @@ export default {
           disabled: true,
           gard: true
         },
-        ticket: {
-          title: "تیکت",
-          icon: "mdi-filmstrip-box-multiple",
-          hover: "mdi-filmstrip-box-multiple",
-          link: "/dashboard/ticket",
-          disabled: false,
-          gard: true
-        },
-        submissions: {
-          title: "ارسال کد",
-          icon: "mdi-code-braces",
-          hover: "mdi-code-braces-box",
-          link: "/dashboard/submissions",
-          disabled: false,
-          gard: true
-        },
-        games: {
-          title: "بازی ها",
-          icon: "mdi-sword",
-          hover: "mdi-sword-cross",
-          link: "/dashboard/games",
-          disabled: false,
-          gard: true
-        },
-        final: {
-          title: "فینال",
-          icon: "mdi-trophy-award",
-          hover: "mdi-trophy-award",
-          link: "/final",
-          disabled: false,
-          gard: false
-        },
-        live: {
-          title: "لایو",
-          icon: "mdi-presentation-play",
-          hover: "mdi-presentation-play",
-          link: "/live",
-          disabled: false,
-          gard: false
-        }
+        // submissions: {
+        //   title: "ارسال کد",
+        //   icon: "mdi-code-braces",
+        //   hover: "mdi-code-braces-box",
+        //   link: "/dashboard/submissions",
+        //   disabled: true,
+        //   gard: true
+        // },
+        // games: {
+        //   title: "بازی ها",
+        //   icon: "mdi-sword",
+        //   hover: "mdi-sword-cross",
+        //   link: "/dashboard/games",
+        //   disabled: true,
+        //   gard: true
+        // },
+        // final: {
+        //   title: "فینال",
+        //   icon: "mdi-trophy-award",
+        //   hover: "mdi-trophy-award",
+        //   link: "/final",
+        //   disabled: true,
+        //   gard: false
+        // },
+        // live: {
+        //   title: "لایو",
+        //   icon: "mdi-presentation-play",
+        //   hover: "mdi-presentation-play",
+        //   link: "/live",
+        //   disabled: true,
+        //   gard: false
+        // }
       },
+      middleRoute: {
+        // ticket: {
+        //   title: "تیکت",
+        //   icon: "mdi-filmstrip-box-multiple",
+        //   hover: "mdi-filmstrip-box-multiple",
+        //   link: "/dashboard/ticket",
+        //   api: '#',
+        //   numberShow: true,
+        //   disabled: true,
+        //   gard: true
+        // },
+        // notification: {
+        //   title: "اعلان",
+        //   icon: "mdi-bell",
+        //   hover: "mdi-bell",
+        //   link: "/dashboard/notification",
+        //   api: '#',
+        //   numberShow: true,
+        //   disabled: true,
+        //   gard: true
+        // },
+        settings: {
+          title: "تنظیمات",
+          icon: "mdi-cog-outline",
+          hover: "mdi-cog-outline",
+          link: "/dashboard/settings",
+          api: '#',
+          numberShow: false,
+          disabled: true,
+          gard: true
+        },
+      },
+
       bottomRoute: {
         settings: {
           title: "تنظیمات",
@@ -222,6 +276,22 @@ export default {
     logout() {
       this.$store.dispatch("auth/logout");
     },
+    updateDataWithApi(api) {
+      if (api === '#') {
+        return Math.floor(Math.random() * 10);
+      }
+
+      let number
+
+      this.$axios.get(api)
+          .then(resp => number = resp.data).catch(err => console.log(err))
+
+      if (!!number) {
+        return number;
+      } else {
+        Math.floor(Math.random() * 10);
+      }
+    },
     openDialog() {
       if (!localStorage.getItem("isSawDialog")) {
         this.payDialog = true;
@@ -241,6 +311,15 @@ export default {
 
 #__nuxt {
   overflow: hidden;
+}
+
+.menu {
+  background-color: transparent !important;;
+}
+
+.menu-item:hover {
+  background-color: rgba(148, 144, 144, 0.4);
+
 }
 
 .dashboardMenu {

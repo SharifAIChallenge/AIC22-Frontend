@@ -110,6 +110,11 @@ export default {
     background-image: linear-gradient(0, #fc147f, #480ac2, #e08250, #3ae4f6) !important;
     opacity: 1;
     //animation: roods 5s linear infinite;
+    @media screen and (max-width: 960px) {
+      margin: auto -15px auto auto;
+
+    }
+
   }
 /*
   &__container::before{

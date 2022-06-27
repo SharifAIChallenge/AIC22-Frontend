@@ -7,15 +7,9 @@
       </v-btn>
     </template>
     <v-list class="sponsor-dropdown">
-      <v-list-item>
+      <v-list-item link target="_blank" :to="items[0].to">
         <v-list-item-title>{{ items[0].title }}</v-list-item-title>
       </v-list-item>
-<!--      <v-list-item link :to="items[1].to" class="aparat">-->
-<!--        <v-list-item-title>-->
-<!--          {{ items[1].title }}-->
-<!--          <span>(حامی رسانه‌ای)</span>-->
-<!--        </v-list-item-title>-->
-<!--      </v-list-item>-->
     </v-list>
   </v-menu>
 </template>
@@ -24,7 +18,7 @@
 export default {
   data: () => ({
     items: [
-      { title: 'ازکی', to: '/sponsors/digikala' },
+      { title: 'ازکی', to: '/sponsors/azki' },
     ],
   }),
   methods: {
@@ -42,6 +36,7 @@ export default {
     //border-bottom: 1px solid var(--v-primary-base);
     &:hover {
       background-color: var(--bg-base);
+      cursor: pointer;
       .v-list-item__title {
         color: var(--v-primary-base);
         transition: all 0.5s;
@@ -53,11 +48,6 @@ export default {
     font-family: Estedad,serif;
     font-weight: lighter;
     font-size: .75rem;
-  }
-  .aparat {
-    span {
-      font-size: 13px;
-    }
   }
 }
 // .hover_white {

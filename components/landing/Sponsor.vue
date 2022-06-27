@@ -1,23 +1,25 @@
 <template>
-  <div
-    class="mt-2 h-screen d-flex flex-column align-center justify-center"
-    id="sponser"
-    v-intersect="{
-      handler: onIntersecSponser,
-      options: {
-        threshold: 0.3,
-      },
-    }"
-  >
-    <div class="w-full">
-      <TitleContainer title="حامیان" />
-      <v-row class="mt-16 pt-16 justify-space-around ma-4">
-        <v-col class="align-center justify-center text-center col-3 col-md-2" v-for="n in 4" :key="n">
-          <img src="~assets/images/logo/azki.com.png" alt="img" width="60" height="60"/>
+  
+    <v-container>
+      <TitleContainer title="حامی مالی" />
+      <v-row>
+        <v-col cols="12" md="4" class="text-center" align-self="center">
+          <img src="../../assets/images/logo/azki-sefid.svg" alt="azki.com" width="240" height="120"/>
+        </v-col>
+        <v-col class="text-justify"  cols="12" md="8" >
+          <div>
+            ازکی یه شرکت بیمه نیست بلکه یه واسطه ست که مثل یه دوست اگاه و دانا و معتمد، به مردم کمک میکنه بهترین انتخاب
+            بیمه ای خودشون رو داشته باشن و اما در اینده تبدیل میشه به یه دوست باحال و خفن که کمک میکنه مردم بهترین انتخاب
+            رو در زمینه های مختلف هم داشته باشن.
+            یه سری باور هم داریم که همیشه به اون‌ها پایبندیم:
+            کار نشد نداره و ما به هرهدفی که بخوایم با تلاش می‌تونیم برسیم.
+            در هر شرایطی از هم حمایت می‌کنیم.
+            ما یک تیم پرانرژی هستیم و شادی یکی از بارزترین خصوصیت‌های ماست.
+            ما با هم پیشرفت می‌کنیم و به پیشرفت همدیگه کمک می‌کنیم.
+          </div>
         </v-col>
       </v-row>
-    </div>
-  </div>
+    </v-container>
 </template>
 
 <script>

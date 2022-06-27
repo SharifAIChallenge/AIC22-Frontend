@@ -9,51 +9,64 @@
     }">
     <box>
       <div class="pa-8">
-        <v-row>
-          <v-col class="col-12 col-md-3">
-            <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
-                    :style="{
-                    backgroundImage:`url(${Brackets})`
-            }"
-            >
-              <v-card-title class="justify-center text-h2">
-                1334
-              </v-card-title>
-              <v-card-text>
-                نبرد
-              </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col class="col-12 col-md-3">
-            <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
-                    :style="{backgroundImage:`url(${Team})`}">
-              <v-card-title class="justify-center text-h2">
-                1334
-              </v-card-title>
-              <v-card-text>
-                نبرد
-              </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col class="col-12 col-md-3">
-            <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
-                    :style="{backgroundImage:`url(${Swords})`}">
-              <v-card-title class="justify-center text-h2">
-                1334
-              </v-card-title>
-              <v-card-text>
-                نبرد
-              </v-card-text>
-            </v-card>
-          </v-col>
+<!--        <v-row>-->
+<!--          <v-col class="col-12 col-md-3">-->
+<!--            <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"-->
+<!--                    :style="{-->
+<!--                    backgroundImage:`url(${Brackets})`-->
+<!--            }"-->
+<!--            >-->
+<!--              <v-card-title class="justify-center text-h2">-->
+<!--                1334-->
+<!--              </v-card-title>-->
+<!--              <v-card-text>-->
+<!--                نبرد-->
+<!--              </v-card-text>-->
+<!--            </v-card>-->
+<!--          </v-col>-->
+<!--          <v-col class="col-12 col-md-3">-->
+<!--            <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"-->
+<!--                    :style="{backgroundImage:`url(${Team})`}">-->
+<!--              <v-card-title class="justify-center text-h2">-->
+<!--                1334-->
+<!--              </v-card-title>-->
+<!--              <v-card-text>-->
+<!--                نبرد-->
+<!--              </v-card-text>-->
+<!--            </v-card>-->
+<!--          </v-col>-->
+<!--          <v-col class="col-12 col-md-3">-->
+<!--            <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"-->
+<!--                    :style="{backgroundImage:`url(${Swords})`}">-->
+<!--              <v-card-title class="justify-center text-h2">-->
+<!--                1334-->
+<!--              </v-card-title>-->
+<!--              <v-card-text>-->
+<!--                نبرد-->
+<!--              </v-card-text>-->
+<!--            </v-card>-->
+<!--          </v-col>-->
+<!--          <v-col class="col-12 col-md-3">-->
+<!--            <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"-->
+<!--                    :style="{backgroundImage:`url(${Member})`}">-->
+<!--              <v-card-title class="justify-center text-h2">-->
+<!--                1334-->
+<!--              </v-card-title>-->
+<!--              <v-card-text>-->
+<!--                نبرد-->
+<!--              </v-card-text>-->
+<!--            </v-card>-->
+<!--          </v-col>-->
+<!--        </v-row>-->
+        <v-row class="justify-center">
           <v-col class="col-12 col-md-3">
             <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
                     :style="{backgroundImage:`url(${Member})`}">
               <v-card-title class="justify-center text-h2">
-                1334
+                {{ registerNumber }}
               </v-card-title>
               <v-card-text>
-                نبرد
+                تعداد ثبت نام
               </v-card-text>
             </v-card>
           </v-col>
@@ -76,13 +89,19 @@ export default {
   props: {
     onIntersecAbout: Function
   },
+  stats : [],
   data() {
     return {
       Brackets,
       Swords,
       Member,
-      Team
+      Team,
+      registerNumber : 0,
     };
+  },
+  async fetch(){
+    this.stats = await this.$axios.$get('statistic/')
+    this.registerNumber = this.stats[0].value
   },
   components: { Box }
 };

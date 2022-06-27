@@ -3,11 +3,11 @@
     <TitleContainer title="سوالات متداول" />
     <div class="faq__titles">
       <div
-        v-for="title in this.titles"
-        :id="title.id"
-        :key="title.name"
-        :class="{ clicked: clickedTitleId == title.id }"
-        @click="clickTitle($event)"
+          v-for="title in this.titles"
+          :id="title.id"
+          :key="title.name"
+          :class="{ clicked: clickedTitleId == title.id }"
+          @click="clickTitle($event)"
       >
         {{ title.name }}
       </div>
@@ -29,17 +29,21 @@
 import { getFrequentlyAskedQuestions } from '~/api';
 import { groupBy } from '~/mixins/utils';
 import TitleContainer from '~/components/TitleContainer';
-
 export default {
+  name: "faq",
   auth: false,
-  layout: 'landing',
+  // layout: 'landing',
   components: { TitleContainer },
   async asyncData({ $axios }) {
-    const clickedTitleId = 0;
-    const faqData = await getFrequentlyAskedQuestions($axios, false);
-    const faqs = groupBy(faqData, faq => faq.title);
-    const titles = [...faqs.keys()].map((value, index) => ({ name: value, id: index }));
-    const shownFaqs = faqs.get(titles[0].name);
+    let clickedTitleId = 0;
+    let faqData = await getFrequentlyAskedQuestions($axios, false);
+    let faqs = groupBy(faqData, faq => faq.title);
+    let titles = [...faqs.keys()].map((value, index) => ({ name: value, id: index }));
+    let shownFaqs = []
+    if (faqs.get(titles[0]?.name)){
+      shownFaqs = faqs.get(titles[0].name);
+    }
+
     return {
       clickedTitleId,
       faqs,
@@ -50,15 +54,15 @@ export default {
   methods: {
     clickTitle(event) {
       this.clickedTitleId = event.target.id;
-      this.shownFaqs = this.faqs.get(this.titles[this.clickedTitleId].name);
+      this.shownFaqs = this.faqs.get(this.titles[this.clickedTitleId].name) ?? [];
     },
   },
-};
+}
 </script>
 
-<style lang="scss">
-@import 'assets/variables.scss';
-@import 'assets/mixins.scss';
+<style lang="scss" scoped >
+@import '../assets/variables';
+@import '../assets/mixins';
 .faq {
   margin-top: 100px;
   display: flex;
