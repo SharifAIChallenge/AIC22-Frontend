@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import { emailRules, requiredRules } from "../../../mixins/formValidations";
-import { fieldProps } from "../../../mixins/fieldProps";
+import { emailRules, requiredRules } from "~/mixins/formValidations";
+import { fieldProps } from "~/mixins/fieldProps";
 import SectionHeader from "~/components/SectionHeader";
 import SectionContainer from "~/components/SectionContainer";
 

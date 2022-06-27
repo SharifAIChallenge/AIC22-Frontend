@@ -10,7 +10,7 @@
     <FAQ/>
     <Staff/>
 <!--    <Tweets/>-->
-    <Blog/>
+<!--    <Blog/>-->
     <CallToAction/>
   </div>
 </template>
@@ -58,17 +58,7 @@ export default {
   async fetch() {
   },
 
-  methods: {
-    reSize() {
-      this.width = window.innerWidth;
-      this.height = window.innerHeight;
-    },
-  },
   mounted() {
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
-    for (let item = 0; item < 6; item++) {
-    }
   },
 };
 </script>

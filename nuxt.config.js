@@ -4,8 +4,8 @@ import fa from 'vuetify/es5/locale/fa';
 require('dotenv').config();
 
 // const [MODE, a] = process.env.TOF_MODE;
-
-// console.log(MODE);
+const MODE = process.env.MODE;
+console.log(MODE);
 export default {
     mode: 'universal',
     /*
@@ -76,7 +76,7 @@ export default {
     /*
      ** Nuxt.js dev-modules
      */
-    buildModules: ['@nuxtjs/vuetify', '@nuxt/typescript-build'],
+    buildModules: ['@nuxtjs/vuetify', '@nuxt/typescript-build','@nuxtjs/dotenv'],
     /*
      ** Nuxt.js modules
      */
@@ -136,8 +136,11 @@ export default {
         // baseURL: process.env.baseURL,
         // baseURL: 'https://aichallenge.sharif.edu/api',
         // baseURL: 'http://172.17.0.1:8000/api'
-        baseURL: 'https://stg.aichallenge.ir/api/v1',
-        browserBaseURL: 'https://stg.aichallenge.ir/api/v1'
+        // baseURL: 'https://stg.aichallenge.ir/api/v1',
+        // browserBaseURL: 'https://stg.aichallenge.ir/api/v1'
+
+        baseURL : MODE == 's' ? 'https://stg.aichallenge.ir/api/v1' : 'https://api.aichallenge.ir/api/v1',
+        browserBaseURL : MODE == 's' ? 'https://stg.aichallenge.ir/api/v1' : 'https://api.aichallenge.ir/api/v1',
     },
 
     /*
