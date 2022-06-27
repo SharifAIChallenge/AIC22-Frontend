@@ -109,38 +109,38 @@ export default {
           disabled: false,
           gard: false
         },
-        terms: {
-          title: "مستندات",
-          icon: "mdi-file-document-outline",
-          hover: "mdi-file-document",
-          link: "/dashboard/doc/Game-Doc",
-          disabled: true,
-          gard: true
-        },
-        doc: {
-          title: "منابع",
-          icon: "mdi-source-fork",
-          hover: "mdi-source-repository",
-          link: "/dashboard/terms",
-          disabled: true,
-          gard: true
-        },
-        tournaments: {
-          title: "تورنومنت ها",
-          icon: "mdi-tournament",
-          hover: "mdi-tournament",
-          link: "/dashboard/tournaments",
-          disabled: true,
-          gard: true
-        },
-        scoreboard: {
-          title: "جدول امتیازات",
-          icon: "mdi-scoreboard-outline",
-          hover: "mdi-scoreboard",
-          link: "/dashboard/scoreboard",
-          disabled: true,
-          gard: true
-        },
+        // terms: {
+        //   title: "مستندات",
+        //   icon: "mdi-file-document-outline",
+        //   hover: "mdi-file-document",
+        //   link: "/dashboard/doc/Game-Doc",
+        //   disabled: true,
+        //   gard: true
+        // },
+        // doc: {
+        //   title: "منابع",
+        //   icon: "mdi-source-fork",
+        //   hover: "mdi-source-repository",
+        //   link: "/dashboard/terms",
+        //   disabled: true,
+        //   gard: true
+        // },
+        // tournaments: {
+        //   title: "تورنومنت ها",
+        //   icon: "mdi-tournament",
+        //   hover: "mdi-tournament",
+        //   link: "/dashboard/tournaments",
+        //   disabled: true,
+        //   gard: true
+        // },
+        // scoreboard: {
+        //   title: "جدول امتیازات",
+        //   icon: "mdi-scoreboard-outline",
+        //   hover: "mdi-scoreboard",
+        //   link: "/dashboard/scoreboard",
+        //   disabled: true,
+        //   gard: true
+        // },
         team: {
           title: "تیم",
           icon: "mdi-account-group-outline",
@@ -149,60 +149,60 @@ export default {
           disabled: true,
           gard: true
         },
-        submissions: {
-          title: "ارسال کد",
-          icon: "mdi-code-braces",
-          hover: "mdi-code-braces-box",
-          link: "/dashboard/submissions",
-          disabled: true,
-          gard: true
-        },
-        games: {
-          title: "بازی ها",
-          icon: "mdi-sword",
-          hover: "mdi-sword-cross",
-          link: "/dashboard/games",
-          disabled: true,
-          gard: true
-        },
-        final: {
-          title: "فینال",
-          icon: "mdi-trophy-award",
-          hover: "mdi-trophy-award",
-          link: "/final",
-          disabled: true,
-          gard: false
-        },
-        live: {
-          title: "لایو",
-          icon: "mdi-presentation-play",
-          hover: "mdi-presentation-play",
-          link: "/live",
-          disabled: true,
-          gard: false
-        }
+        // submissions: {
+        //   title: "ارسال کد",
+        //   icon: "mdi-code-braces",
+        //   hover: "mdi-code-braces-box",
+        //   link: "/dashboard/submissions",
+        //   disabled: true,
+        //   gard: true
+        // },
+        // games: {
+        //   title: "بازی ها",
+        //   icon: "mdi-sword",
+        //   hover: "mdi-sword-cross",
+        //   link: "/dashboard/games",
+        //   disabled: true,
+        //   gard: true
+        // },
+        // final: {
+        //   title: "فینال",
+        //   icon: "mdi-trophy-award",
+        //   hover: "mdi-trophy-award",
+        //   link: "/final",
+        //   disabled: true,
+        //   gard: false
+        // },
+        // live: {
+        //   title: "لایو",
+        //   icon: "mdi-presentation-play",
+        //   hover: "mdi-presentation-play",
+        //   link: "/live",
+        //   disabled: true,
+        //   gard: false
+        // }
       },
       middleRoute: {
-        ticket: {
-          title: "تیکت",
-          icon: "mdi-filmstrip-box-multiple",
-          hover: "mdi-filmstrip-box-multiple",
-          link: "/dashboard/ticket",
-          api: '#',
-          numberShow: true,
-          disabled: true,
-          gard: true
-        },
-        notification: {
-          title: "اعلان",
-          icon: "mdi-bell",
-          hover: "mdi-bell",
-          link: "/dashboard/notification",
-          api: '#',
-          numberShow: true,
-          disabled: true,
-          gard: true
-        },
+        // ticket: {
+        //   title: "تیکت",
+        //   icon: "mdi-filmstrip-box-multiple",
+        //   hover: "mdi-filmstrip-box-multiple",
+        //   link: "/dashboard/ticket",
+        //   api: '#',
+        //   numberShow: true,
+        //   disabled: true,
+        //   gard: true
+        // },
+        // notification: {
+        //   title: "اعلان",
+        //   icon: "mdi-bell",
+        //   hover: "mdi-bell",
+        //   link: "/dashboard/notification",
+        //   api: '#',
+        //   numberShow: true,
+        //   disabled: true,
+        //   gard: true
+        // },
         settings: {
           title: "تنظیمات",
           icon: "mdi-cog-outline",
@@ -250,7 +250,6 @@ export default {
       if (now) {
         // console.log(this.profile)
         // this.routes.team.disabled = !this.profile.is_complete;
-        console.log(this.profile)
         if (!this.profile.is_complete && this.$route.path !== "/dashboard/settings") {
           this.$router.push("/dashboard/settings");
           this.$toast.error("لطفا ابتدا اطلاعات شخصی را کامل کنید");
