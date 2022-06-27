@@ -131,7 +131,7 @@ export default {
         if (this.information[key] !== this.profile[key]) {
           if (key === "jobs" || key === "skills" || key === 'programming_languages') {
             if (this.information[key]) {
-              formData.append(`${key}`,this.information[key].join(','));
+              formData.append(`${key}_list`,this.information[key].join(','));
             }
           } else {
             formData.append(key, this.information[key]);
