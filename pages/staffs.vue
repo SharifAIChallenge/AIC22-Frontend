@@ -1,12 +1,13 @@
 <template>
   <v-container class="main">
+    <TitleContainer title="تیم ما"></TitleContainer>
     <div>
       <img class="bg--img" style="right: -100px;top: -100px;" width="600" src="../assets/images/curve0.svg" alt="bg">
       <img class="bg--img" style="left: -100px;bottom: -100px;" width="400" src="../assets/images/curve0.svg" alt="bg">
       <div class="our-team">
-        <div class="our-team__header">تیم ما</div>
+<!--        <div class="our-team__header">تیم ما</div>-->
         <div class="our-team__names">
-          <div v-for="menu in staffMenu" :id="menu.id" v-bind:key="staffMenu.id"
+          <div v-for="menu in staffMenu" :id="menu.id" v-bind:key="staffMenu.id" style="z-index: 1;"
                v-bind:class="{'clicked': clickedStaffMenuId === menu.id }" @click="clickMenu($event)">
             {{ menu.title }}
           </div>
@@ -36,11 +37,12 @@
 <script>
 import StaffCard from "~/components/landing/StaffCard";
 import {StaffGroups, Staffs, StaffTeam} from "~/api";
+import TitleContainer from "~/components/TitleContainer";
 
 export default {
   auth: false,
   name: "staffs",
-  components: {StaffCard},
+  components: {TitleContainer, StaffCard},
   async asyncData({$axios}) {
     let staffMenu = await StaffGroups($axios);
     let staffSubTeams = await StaffTeam($axios, 1);
