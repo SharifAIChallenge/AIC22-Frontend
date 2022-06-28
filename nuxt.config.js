@@ -8,6 +8,7 @@ const MODE = process.env.MODE;
 console.log(MODE);
 export default {
     mode: 'universal',
+    generate : {fallback:'404.html'},
     /*
      ** Headers of the page
      */
