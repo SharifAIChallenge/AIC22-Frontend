@@ -7,7 +7,7 @@
     <!--           alt=''-->
     <!--           style='margin-top:auto;position:absolute;bottom: 87px !important;'/>-->
     <!--      </div>-->
-    <v-container>
+    <v-container style="border-radius: 2rem !important;">
       <v-carousel
           hide-delimiter-background
           :cycle='false'
@@ -20,13 +20,13 @@
         <v-carousel-item v-for='history in histories'>
           <v-sheet height='100%' tile >
             <v-row class='pb-8' style='background:#182636;border-radius:20px;border:1px'>
-              <v-col cols='6' md='7'>
-                <div class='image-year'>
+              <v-col cols='12' md='7'>
+                <div class='image-year pa-10 text-justify'>
                   {{ history.description_fa }}
                 </div>
               </v-col>
-              <v-col cols='2' md='4' class='mr-auto  ml-5'>
-                <img :src=history.image_url class='pt-5 img' alt='' style='padding-top:4%;'>
+              <v-col cols='12' md='5'>
+                <img :src=history.image_url class='mt-5 img pa-2 pl-4' alt='' style='padding-top:4%; height: 45vh;width: 100%;'>
               </v-col>
             </v-row>
           </v-sheet>
@@ -61,7 +61,7 @@ export default {
 
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 @import '../assets/style.scss';
 .img{
   object-fit: cover;
