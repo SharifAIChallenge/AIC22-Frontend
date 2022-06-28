@@ -18,15 +18,15 @@
           class='carousel mb-10 mt-3 '
       >
         <v-carousel-item v-for='history in histories'>
-          <v-sheet height='100%' tile>
+          <v-sheet height='100%' tile >
             <v-row class='pb-8' style='background:#182636;border-radius:20px;border:1px'>
-              <v-col cols='6' md='4'>
+              <v-col cols='6' md='7'>
                 <div class='image-year'>
                   {{ history.description_fa }}
                 </div>
               </v-col>
-              <v-col cols='2' md='auto' class='mr-auto ml-5'>
-                <img :src=history.image_url class='pt-5' alt='' style='padding-top:4%;'>
+              <v-col cols='2' md='4' class='mr-auto  ml-5'>
+                <img :src=history.image_url class='pt-5 img' alt='' style='padding-top:4%;'>
               </v-col>
             </v-row>
           </v-sheet>
@@ -63,7 +63,10 @@ export default {
 
 <style lang='scss'>
 @import '../assets/style.scss';
-
+.img{
+  object-fit: cover;
+  height: 400px;
+}
 .history {
   min-height: 100vh;
 

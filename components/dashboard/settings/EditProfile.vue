@@ -2,24 +2,24 @@
   <div class="edit-profile">
     <div class="profile-picture">
       <img
-        v-if="information.image"
-        :src="information.image"
-        :alt="information.image"
-        class="rounded-circle"
+          v-if="information.image"
+          :src="image_display ? image_display :information.image"
+          class="rounded-circle"
       />
       <img
-        v-else
-        class="rounded-circle"
-        src="~/assets/images/avatar-sample.svg" alt="">
+          v-else
+          class="rounded-circle"
+          src="~/assets/images/avatar-sample.svg" alt="">
       <div class="upload-avatar">
         <v-file-input
-          :rules="avatarRules"
-          accept="image/png, image/jpeg, image/bmp"
-          hide-input
-          placeholder="تصویر جدید"
-          prepend-icon="mdi-camera"
-          label="افزودن تصویر جدید"
-          v-model="information.image"
+            :rules="avatarRules"
+            class="profile-input"
+            accept="image/png, image/jpeg, image/bmp"
+            hide-input
+            placeholder="تصویر جدید"
+            prepend-icon="mdi-camera"
+            label="افزودن تصویر جدید"
+            v-on:change="onProfileImageChange"
         ></v-file-input>
       </div>
     </div>
@@ -29,22 +29,22 @@
         <v-row>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
-              v-model="information.firstname_fa"
-              :label="$t('form.nameInPersian')"
-              required
-              :rules="requiredRules"
-              outlined
-              rounded
+                v-model="information.firstname_fa"
+                :label="$t('form.nameInPersian')"
+                required
+                :rules="requiredRules"
+                outlined
+                rounded
             />
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
-              v-model="information.lastname_fa"
-              :label="$t('form.lastNameInPersian')"
-              required
-              :rules="requiredRules"
-              v-bind="filedProps"
-              rounded
+                v-model="information.lastname_fa"
+                :label="$t('form.lastNameInPersian')"
+                required
+                :rules="requiredRules"
+                v-bind="filedProps"
+                rounded
             />
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
@@ -58,12 +58,12 @@
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
-              v-model="information.phone_number"
-              required
-              label="شماره تماس"
-              v-bind="filedProps"
-              :rules="phoneRules"
-              rounded
+                v-model="information.phone_number"
+                required
+                label="شماره تماس"
+                v-bind="filedProps"
+                :rules="phoneRules"
+                rounded
             ></v-text-field>
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
@@ -74,22 +74,22 @@
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
-              v-model="information.university"
-              :label="$t('form.educationPlace')"
-              required
-              :rules="requiredRules"
-              v-bind="filedProps"
-              rounded
+                v-model="information.university"
+                :label="$t('form.educationPlace')"
+                required
+                :rules="requiredRules"
+                v-bind="filedProps"
+                rounded
             />
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
-              type="int"
-              v-model="information.university_term"
-              v-bind="filedProps"
-              :rules="requiredRules"
-              label="سال ورود"
-              rounded
+                type="int"
+                v-model="information.university_term"
+                v-bind="filedProps"
+                :rules="requiredRules"
+                label="سال ورود"
+                rounded
             />
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
@@ -99,36 +99,36 @@
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
-            label="سال تولد"
-            v-model="information.birth_date"
-            outlined
-            rounded></v-text-field>
+                label="سال تولد"
+                v-model="information.birth_date"
+                outlined
+                rounded></v-text-field>
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-select
-              v-model="information.province"
-              v-bind="filedProps"
-              :items="provinces"
-              required
-              :rules="requiredRules"
-              label="استان"
-              rounded
+                v-model="information.province"
+                v-bind="filedProps"
+                :items="provinces"
+                required
+                :rules="requiredRules"
+                label="استان"
+                rounded
             />
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
-              v-model="information.linkedin"
-              v-bind="filedProps"
-              label="لینک اکانت لینکدین"
-              rounded
+                v-model="information.linkedin"
+                v-bind="filedProps"
+                label="لینک اکانت لینکدین"
+                rounded
             />
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
-              v-model="information.github"
-              v-bind="filedProps"
-              label="آیدی گیتهاب"
-              rounded
+                v-model="information.github"
+                v-bind="filedProps"
+                label="آیدی گیتهاب"
+                rounded
             />
           </v-col>
         </v-row>
@@ -136,23 +136,23 @@
         <v-row>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-select
-              v-model="information.programming_languages"
-              :rules="requiredRules"
-              :items="languageSelectItem"
-              multiple
-              rounded
-              color="bg"
-              label="زبان برنامه نویسی"
-              outlined
+                v-model="information.programming_languages"
+                :rules="requiredRules"
+                :items="languageSelectItem"
+                multiple
+                rounded
+                color="bg"
+                label="زبان برنامه نویسی"
+                outlined
             ></v-select>
           </v-col>
         </v-row>
 
         <v-row class="px-3 text-justify">
           <v-checkbox
-            v-model="information.hide_profile_info"
-            required
-            label="اطلاعاتم برای سایر شرکت کننده ها قابل جستجو نباشد."
+              v-model="information.hide_profile_info"
+              required
+              label="اطلاعاتم برای سایر شرکت کننده ها قابل جستجو نباشد."
           ></v-checkbox>
         </v-row>
 
@@ -177,15 +177,15 @@
 </template>
 
 <script>
-import { emailRules, requiredRules, phoneRules } from "~/mixins/formValidations";
-import { primaryButtonProps } from "~/mixins/buttonProps";
-import { fieldProps } from "~/mixins/fieldProps";
+import {emailRules, requiredRules, phoneRules} from "~/mixins/formValidations";
+import {primaryButtonProps} from "~/mixins/buttonProps";
+import {fieldProps} from "~/mixins/fieldProps";
 import SectionHeader from "~/components/SectionHeader";
 import SectionContainer from "~/components/SectionContainer";
 
 export default {
   mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps, phoneRules],
-  components: { SectionHeader, SectionContainer, VuePersianDatetimePicker: ()=> import("vue-persian-datetime-picker")},
+  components: {SectionHeader, SectionContainer, VuePersianDatetimePicker: () => import("vue-persian-datetime-picker")},
   props: {
     information: Object,
     loading: Boolean,
@@ -194,6 +194,7 @@ export default {
   },
   data() {
     return {
+      image_display: "",
       avatarRules: [
         value => !value || value.size < 2000000 || "حجم تصویر باید کمتر از 2 مگابایت باشد"
       ],
@@ -266,6 +267,12 @@ export default {
         "یزد"
       ],
     };
+  },
+  methods: {
+    onProfileImageChange(e) {
+      this.image_display = URL.createObjectURL(e)
+      this.information.image = e;
+    }
   }
   // async fetch() {
 
@@ -300,19 +307,28 @@ export default {
 .theme--dark.v-text-field > .v-input__control > .v-input__slot:before {
   border: none;
 }
-.vpd-day{
-  color: #13202E!important;
+
+.vpd-day {
+  color: #13202E !important;
 }
-.vpd-main{
-  .form-control{
+
+.vpd-main {
+  .form-control {
     height: 3rem;
     border-radius: 999px 0 0 999px;
     border: 1px solid #4e5863;
     color: #fff;
   }
-  .vpd-icon-btn{
+
+  .vpd-icon-btn {
     background-color: rgb(65, 125, 244);
     border-radius: 0 999px 999px 0;
   }
+}
+.upload-avatar > div{
+  margin-right: auto;
+  margin-left: auto;
+  align-items: center;
+  justify-content: center;
 }
 </style>
