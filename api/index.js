@@ -159,8 +159,8 @@ export const gameStats = axios => {
     return axios.$get(config.url);
 };
 
-export const getFrequentlyAskedQuestions = (axios, landingPage) => {
-    return axios.$get('/faqs', {params: {show_on_landing_page: landingPage ? 'true' : 'false'}});
+export const getFrequentlyAskedQuestions = (axios) => {
+    return axios.$get('/faqs');
 };
 
 export const PastAi = axios => {
