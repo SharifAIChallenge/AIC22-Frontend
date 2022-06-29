@@ -1,145 +1,72 @@
 <template>
   <div class='history'>
-    <Header color='transparent' />
-    <div class='wrapper '>
-<!--      <v-img-->
-<!--        lazy-src='~/assets/images/history/history_curve.png'-->
-<!--        max-height='150'-->
-<!--        max-width='250'-->
-<!--        src='~/assets/images/history/history_curve.png'-->
-<!--        alt=''-->
-<!--        aspect-ratio='1'-->
-<!--        style='position:absolute;'-->
-<!--      />-->
-      <div style=''>
-      <img src='~/assets/images/history/history_curve.png'
-           alt=''
-           style='margin-top:auto;position:absolute;bottom: 87px !important;'/>
-      </div>
-      <v-container
-        class='pb-10 ml-11 justify-center align-center text-center align-content-center'
-        style='
-      position:relative;
-      opacity:0.8;
-      border-radius:10px;
-      top:100px'>
-
-        <div
-          class='d-flex justify-center '
-          style='
-          position: absolute;
-          bottom: 30px;
-          z-index: 10;
-          width:100%;
-          '
-        >
-<!--          <div-->
-<!--            class='white d-inline-block '-->
-<!--            style='width: 44%;-->
-<!--                   height: 3px;-->
-<!--                   position: absolute;-->
-<!--                   right: 28%;-->
-<!--                   margin-top: 4px;-->
-<!--                   z-index: -1;'-->
-<!--          ></div>-->
-<!--          <div-->
-<!--            class='d-inline-block px-5'-->
-<!--            v-for='(year, index) in years'-->
-<!--            :key='index'-->
-<!--            :class="index == model ? 'font-weight-black' : ''"-->
-<!--            @click='model = index'-->
-<!--            style='cursor:pointer'-->
-<!--          >-->
-<!--            <div-->
-<!--              class='white mx-auto'-->
-<!--              :style="index == model ? 'height:13px;width:13px;margin-bottom:17px' : 'height:10px;width:10px;margin-bottom:20px'"-->
-<!--              style='border-radius:50%'-->
-<!--            ></div>-->
-<!--            <span :style="index == model ? '' : 'opacity:0.6'">-->
-<!--&lt;!&ndash;              {{ year }}&ndash;&gt;-->
-<!--            </span>-->
-<!--          </div>-->
-        </div>
-        <v-carousel
+    <TitleContainer title="تاریخچه" style="margin-top: 5rem;"/>
+    <!--    <Header color='transparent'/>-->
+    <!--    <div class='wrapper '>-->
+    <!--      <img src='~/assets/images/history/history_curve.png'-->
+    <!--           alt=''-->
+    <!--           style='margin-top:auto;position:absolute;bottom: 87px !important;'/>-->
+    <!--      </div>-->
+    <v-container style="border-radius: 2rem !important;">
+      <v-carousel
           hide-delimiter-background
           :cycle='false'
           :continuous='false'
           :show-arrows='false'
-          v-model='model'
           height='100%'
           style='background:transparent'
-          class='carousel'
-        >
-          <v-carousel-item v-for='(history, index) in histories' :key='index' >
-            <v-sheet height='100%' tile>
-              <v-row class='pb-8' style='background:#182636;border-radius:20px;border:1px' >
-                <v-col cols='6' md='4'>
-                  <div class='image-year'>
-                    {{ history.description_en }}
-                  </div>
-                </v-col>
-                <v-col cols='2' md='auto' class='mr-auto ml-5'>
-                    <img src=history.image class='pt-5'  alt='' style='padding-top:4%;'>
-                </v-col>
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-        </v-carousel>
-      </v-container>
+          class='carousel mb-10 mt-3 '
+      >
+        <v-carousel-item v-for='history in histories'>
+          <v-sheet height='100%' tile >
+            <v-row class='pb-8' style='background:#182636;border-radius:20px;border:1px'>
+              <v-col cols='12' md='7'>
+                <div class='image-year pa-10 text-justify'>
+                  {{ history.description_fa }}
+                </div>
+              </v-col>
+              <v-col cols='12' md='5'>
+                <img :src=history.image_url class='mt-5 img pa-2 pl-4' alt='' style='padding-top:4%; height: 45vh;width: 100%;'>
+              </v-col>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+    </v-container>
 
-    </div>
   </div>
 </template>
 
 <script>
-import { PastAi } from '~/api/index';
+
 import Header from '~/components/landing/Header.vue';
 import TitleContainer from "~/components/TitleContainer";
 
 
-let histories;
-let years;
-let images;
-let description;
 export default {
   name: 'history',
-  components: { Header },
-  data: () =>({
-    histories,
-    years,
-    images,
-    description
-  }),
-  async fetch() {
-    let pastAic = await this.$axios.get('pastaics/')
-    let histories = pastAic.sort((a, b) => a.event_year - b.event_year);
-
-    let years = histories.map(el => {
-      return el.event_year;
-    })
-    let images = histories.map(el=>{
-      return el.image;
-    })
-    let description = histories.map(el=>{
-      return el.description;
-    })
+  components: {TitleContainer, Header},
+  data() {
     return {
-      histories,
-      years,
-      images,
-      description
-    };
+      histories: []
+    }
   },
   mounted() {
+    this.$axios.$get('pastaics/').then(res => {
+      this.histories = res
+    })
   }
 };
 
 
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 @import '../assets/style.scss';
-
+.img{
+  object-fit: cover;
+  height: 400px;
+}
 .history {
   min-height: 100vh;
 

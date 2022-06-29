@@ -54,13 +54,13 @@
                 >
                   {{ $t('form.signUp') }}
                 </v-btn>
-<!--                <div class="my-6">-->
-<!--                  <div class="or-separator"><span class="px-3">یا</span></div>-->
-<!--                </div>-->
-<!--                <v-btn @click="loginWithGoogle" block color="secondary" rounded>-->
-<!--                  <v-icon style="margin: 5px" size="25px">mdi-google</v-icon>-->
-<!--                  {{ $t('form.signUpWithGoogle') }}-->
-<!--                </v-btn>-->
+                <div class="my-6">
+                  <div class="or-separator"><span class="px-3">یا</span></div>
+                </div>
+                <v-btn @click="loginWithGoogle" block color="secondary" rounded>
+                  <v-icon style="margin: 5px" size="25px">mdi-google</v-icon>
+                  {{ $t('form.signUpWithGoogle') }}
+                </v-btn>
               </v-col>
             </v-row>
           </v-form>
@@ -152,22 +152,22 @@ export default {
       })
     },
     async loginWithGoogle() {
-      this.$auth.loginWith("google");
-      // const googleData = googleUser.getAuthResponse();
-      // const { id_token, access_token, scope, expires_in, expires_at } = googleData;
-      // let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
-      // if (res.status_code === 400) {
-      //   this.$toast.error('لاگین با خطا مواجه شد');
-      // } else {
-      //   this.$store.commit('auth/setToken', res);
-      //   this.$router.push('/dashboard');
-      //   this.$store.commit('formStatus/toggleShow');
-      //   this.$cookies.set('token', res.token, {
-      //     maxAge: 60 * 60 * 24 * 7,
-      //     path: '/',
-      //   });
-      // }
-      // this.$store.commit('formStatus/toggleShow');
+      const googleUser = await this.$gAuth.signIn();
+      const googleData = googleUser.getAuthResponse();
+      const { id_token, access_token, scope, expires_in, expires_at } = googleData;
+      let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
+      if (res.status_code === 400) {
+        this.$toast.error('لاگین با خطا مواجه شد');
+      } else {
+        this.$store.commit('auth/setToken', res);
+        this.$router.push('/dashboard');
+        this.$store.commit('formStatus/toggleShow');
+        this.$cookies.set('token', res.token, {
+          maxAge: 60 * 60 * 24 * 7,
+          path: '/',
+        });
+      }
+      this.$store.commit('formStatus/toggleShow');
     },
     clearError(field) {
       if (this.result.errors[field]) {

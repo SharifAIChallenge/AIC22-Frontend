@@ -36,7 +36,7 @@ export default {
   components: { TitleContainer },
   async asyncData({ $axios }) {
     let clickedTitleId = 0;
-    let faqData = await getFrequentlyAskedQuestions($axios, false);
+    let faqData = await getFrequentlyAskedQuestions($axios);
     let faqs = groupBy(faqData, faq => faq.title);
     let titles = [...faqs.keys()].map((value, index) => ({ name: value, id: index }));
     let shownFaqs = []

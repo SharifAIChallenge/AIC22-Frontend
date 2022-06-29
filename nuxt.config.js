@@ -5,9 +5,11 @@ require('dotenv').config();
 
 // const [MODE, a] = process.env.TOF_MODE;
 const MODE = process.env.MODE;
-// console.log(MODE);
+
+console.log(MODE);
 export default {
     mode: 'universal',
+    generate : {fallback:'404.html'},
     /*
      ** Headers of the page
      */

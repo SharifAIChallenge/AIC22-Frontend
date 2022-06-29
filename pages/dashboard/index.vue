@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Notification class="pb-3 notif" style="margin-right: auto; min-height: 100vh" />
+<!--    <Notification class="pb-3 notif" style="margin-right: auto; min-height: 100vh" />-->
   </div>
 </template>
 

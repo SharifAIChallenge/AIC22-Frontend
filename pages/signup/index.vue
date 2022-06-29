@@ -16,7 +16,6 @@
             to="/login"
             rounded
             class="px-6 v-button--secondary"
-            disabled="true"
           >
             <span class="font-weight-bold">ورود</span>
           </v-btn>
