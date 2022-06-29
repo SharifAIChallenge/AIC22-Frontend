@@ -147,7 +147,7 @@ export default {
       editProfile(this.$axios, formData)
         .then(res => {
           this.loading = false;
-          this.$store.commit("auth/setUser", res);
+          this.$store.commit("authentication.js/setUser", res);
           this.resetForm();
           this.$toast.success("تغییرات با موفقیت دخیره شد.");
         })
@@ -179,7 +179,7 @@ export default {
   },
   computed: {
     ...mapState({
-      profile: state => state.auth.user
+      profile: state => state.authentication.user
     })
   },
   mounted() {

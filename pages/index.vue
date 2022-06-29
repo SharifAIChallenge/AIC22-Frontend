@@ -32,6 +32,7 @@ import FAQ from "~/components/landing/FAQ"
 import Tweets from "~/components/landing/tweets";
 
 export default {
+  auth: false,
   components: {
     FAQ,
     Tweets,

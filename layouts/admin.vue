@@ -69,8 +69,8 @@ export default {
       return this.$vuetify.breakpoint.smAndDown;
     },
     ...mapState({
-      token: state => state.auth.token,
-      profile: state => state.auth.user,
+      token: state => state.authentication.token,
+      profile: state => state.authentication.user,
     }),
   },
   watch: {
@@ -87,7 +87,7 @@ export default {
   methods: {},
   beforeMount() {
     this.$axios.setToken(this.token, 'token');
-    this.$store.dispatch('auth/getUser');
+    this.$store.dispatch('authentication.js/getUser');
   },
 };
 </script>

@@ -2,7 +2,7 @@ export default function({ $axios, redirect, store, app, route }) {
   // console.log('middle');
   const token = app.$cookies.get('token');
   if (token) {
-    store.dispatch('auth/loadUser', { token });
+    store.dispatch('authentication.js/loadUser', { token });
   }
   // if (route.path.includes('dashboard') && !store.state.auth.isAuthenticated) {
   //   console.log('auth 401');
@@ -13,7 +13,7 @@ export default function({ $axios, redirect, store, app, route }) {
     const code = parseInt(error.response && error.response.status);
     if (code === 401) {
       // console.log('axios 401');
-      store.commit('auth/removeToken');
+      store.commit('authentication.js/removeToken');
       app.$cookies.remove('token');
       redirect('/login');
     }

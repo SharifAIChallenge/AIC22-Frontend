@@ -77,7 +77,7 @@ export default {
     },
     login() {
       this.loading = true;
-      this.$store.dispatch("auth/login", {
+      this.$store.dispatch("authentication.js/login", {
         username: this.email,
         password: this.password
       });
@@ -105,7 +105,7 @@ export default {
   },
   computed: {
     ...mapState({
-      loading: state => state.auth.isLoading
+      loading: state => state.authentication.isLoading
     })
   }
 };

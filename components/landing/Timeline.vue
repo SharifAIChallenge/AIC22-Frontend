@@ -31,11 +31,14 @@
             </v-card>
           </div>
         </v-timeline-item>
-        <a href="https://calendar.google.com/calendar/u/0/r/eventedit?text=%DA%A9%D8%A7%D8%B1%D8%A8%D8%B1%D8%AF+%D8%AF%DB%8C%D8%AA%D8%A7+%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%DB%8C%D9%88+%D8%AF%D8%B1+%D9%85%D8%AF%DB%8C%D8%B1%DB%8C%D8%AA+%DA%A9%D9%85%D9%BE%DB%8C%D9%86+%D9%87%D8%A7%DB%8C+%DA%AF%D9%88%DA%AF%D9%84+%D8%A7%D8%AF%D8%B2&dates=20220622T133000Z/20220622T133000Z&details=%DA%A9%D8%A7%D8%B1%D8%A8%D8%B1%D8%AF+%D8%AF%DB%8C%D8%AA%D8%A7+%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%DB%8C%D9%88+%D8%AF%D8%B1+%D9%85%D8%AF%DB%8C%D8%B1%DB%8C%D8%AA+%DA%A9%D9%85%D9%BE%DB%8C%D9%86+%D9%87%D8%A7%DB%8C+%DA%AF%D9%88%DA%AF%D9%84+%D8%A7%D8%AF%D8%B2&location=%D8%A2%D9%86%D9%84%D8%A7%DB%8C%D9%86&sf=true"
+        <a href="https://calendar.google.com/calendar/u/0?cid=czB1YmRqbmptcWl0NHM3OTl0dDUydDk2cjhAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ"
            target="_blank">
-          <v-btn color="primary" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary" style="width: 186px">
-            {{ $
-              t('form.addToCalendar') }}
+          <v-btn link
+                 color="primary"
+                 class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary"
+                 style="width: 186px"
+          >
+            {{ $t('form.addToCalendar') }}
           </v-btn>
         </a>
 

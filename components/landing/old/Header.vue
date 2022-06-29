@@ -79,7 +79,7 @@ export default {
   computed: {
     ...mapState({
       show: state => state.formStatus.show,
-      isAuthenticated: state => state.auth.isAuthenticated,
+      isAuthenticated: state => state.authentication.isAuthenticated,
     }),
   },
   methods: {

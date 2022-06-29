@@ -83,7 +83,7 @@ export default {
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
-        // '@nuxtjs/auth-next',
+        '@nuxtjs/auth-next',
         'cookie-universal-nuxt',
         '@nuxtjs/pwa',
         // Doc: https://github.com/nuxt-community/dotenv-module
@@ -95,7 +95,7 @@ export default {
     auth: {
         strategies: {
             google: {
-                clientId: '366828355085-pdam0sqbsvrpm4bcodkbhkg51mlg56am.apps.googleusercontent.com',
+                clientId: '647322404090-kfk97r3lbea4q92pcnu2mf35jjc224df.apps.googleusercontent.com',
                 codeChallengeMethod: '',
                 responseType: 'token id_token',
             },

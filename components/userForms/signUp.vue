@@ -159,7 +159,7 @@ export default {
       if (res.status_code === 400) {
         this.$toast.error('لاگین با خطا مواجه شد');
       } else {
-        this.$store.commit('auth/setToken', res);
+        this.$store.commit('authentication.js/setToken', res);
         this.$router.push('/dashboard');
         this.$store.commit('formStatus/toggleShow');
         this.$cookies.set('token', res.token, {

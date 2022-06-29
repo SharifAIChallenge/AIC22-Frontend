@@ -96,7 +96,7 @@ export default {
   },
   computed: {
     ...mapState({
-      profile: state => state.auth.user,
+      profile: state => state.authentication.user,
     }),
   },
   methods: {

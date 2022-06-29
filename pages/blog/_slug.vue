@@ -124,7 +124,7 @@ export default {
   },
   computed: {
     ...mapState({
-      isAuthenticated: state => state.auth.isAuthenticated,
+      isAuthenticated: state => state.authentication.isAuthenticated,
     }),
   },
 };
