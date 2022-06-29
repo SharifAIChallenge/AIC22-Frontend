@@ -59,6 +59,7 @@ export default {
       if (file) {
         this.onChangeCalled = true
         this.information.resume = file;
+        this.$toast.success("رزومه شما به روز رسانی شد برای ادامه بر روی دکمه ذخیره اطلاعات کلیک کنید.")
       }
     }
   }
