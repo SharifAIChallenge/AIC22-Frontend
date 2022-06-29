@@ -18,18 +18,21 @@
           class='carousel mb-10 mt-3 '
       >
         <v-carousel-item v-for='history in histories'>
-          <v-sheet height='100%' tile >
+          <v-card class="rounded">
             <v-row class='pb-8' style='background:#182636;border-radius:20px;border:1px'>
               <v-col cols='12' md='7'>
+                <div class="event_year">
+                  {{history.event_year}}
+                </div>
                 <div class='image-year pa-10 text-justify'>
                   {{ history.description_fa }}
                 </div>
               </v-col>
               <v-col cols='12' md='5'>
-                <img :src=history.image_url class='mt-5 img pa-2 pl-4' alt='' style='padding-top:4%; height: 45vh;width: 100%;'>
+                <img :src=history.image_url class='mt-5 img pa-2 pl-4' alt='' style='height: 50vh;width: 100%;'>
               </v-col>
             </v-row>
-          </v-sheet>
+          </v-card>
         </v-carousel-item>
       </v-carousel>
     </v-container>
@@ -54,6 +57,8 @@ export default {
   mounted() {
     this.$axios.$get('pastaics/').then(res => {
       this.histories = res
+      console.log(res)
+      this.$toast.success(res)
     })
   }
 };
@@ -65,7 +70,7 @@ export default {
 @import '../assets/style.scss';
 .img{
   object-fit: cover;
-  height: 400px;
+  //height: 400px;
 }
 .history {
   min-height: 100vh;
@@ -120,6 +125,15 @@ export default {
 .history-team {
   margin-top: 10px;
   margin-bottom: 20px;
+}
+
+.event_year{
+    position: absolute;
+    font-size: 5rem;
+    bottom: 13rem;
+    left: 50rem;
+    color: #0ac6ff;
+    opacity: 0.3;
 }
 
 li {

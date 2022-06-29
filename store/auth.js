@@ -45,7 +45,7 @@ export const actions = {
     this.$cookies.remove("token");
     let res = await logout(this.$axios).catch(e => console.log(e));
     commit("removeToken");
-    this.$router.push("/");
+    await this.$router.push("/");
   }
 };
 

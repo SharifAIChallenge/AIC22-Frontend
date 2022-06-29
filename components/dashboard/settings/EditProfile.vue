@@ -30,7 +30,7 @@
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
                 v-model="information.firstname_fa"
-                :label="$t('form.nameInPersian')"
+                :label="$t('form.nameInPersian')+'*'"
                 required
                 :rules="requiredRules"
                 outlined
@@ -40,7 +40,7 @@
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
                 v-model="information.lastname_fa"
-                :label="$t('form.lastNameInPersian')"
+                :label="$t('form.lastNameInPersian')+'*'"
                 required
                 :rules="requiredRules"
                 v-bind="filedProps"
@@ -49,7 +49,7 @@
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field v-model="information.email"
-                          label="ایمیل"
+                          label="ایمیل*"
                           readonly
                           v-bind="filedProps"
                           :rules="emailRules"
@@ -60,7 +60,7 @@
             <v-text-field
                 v-model="information.phone_number"
                 required
-                label="شماره تماس"
+                label="شماره تماس*"
                 v-bind="filedProps"
                 :rules="phoneRules"
                 rounded
@@ -142,7 +142,7 @@
                 multiple
                 rounded
                 color="bg"
-                label="زبان برنامه نویسی"
+                label="زبان برنامه نویسی*"
                 outlined
             ></v-select>
           </v-col>
