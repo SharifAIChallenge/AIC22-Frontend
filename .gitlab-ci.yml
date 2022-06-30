@@ -26,7 +26,7 @@ stages:
   tags:
     - docker
   script:
-    - docker build . --build-args MODE=${MODE} -t ${IMAGE_URL}
+    - docker build . --build-arg MODE=${MODE} -t ${IMAGE_URL}
     - docker push ${IMAGE_URL}
 
 .deploy:
