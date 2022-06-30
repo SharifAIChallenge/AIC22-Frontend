@@ -1,6 +1,7 @@
 FROM reg.aichallenge.ir/node:16.15.0 as builder
 
 WORKDIR /app
+ARG MODE = s
 
 COPY package*.json ./
 
