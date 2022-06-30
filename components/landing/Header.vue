@@ -86,7 +86,7 @@
 
       </div>
     </v-app-bar>
-    <formManager :isPage="false"/>
+<!--    <formManager :isPage="false"/>-->
   </div>
 </template>
 <script>

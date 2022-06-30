@@ -6,10 +6,10 @@ export default {
   name: "utm",
 
   mounted() {
-    console.log("in")
     let id = this.$route.query.id
+    let redir = this.$route.query.redir
     this.$axios.$get(`utm-tracker/${id}`)
-    this.$router.push('/')
+    this.$router.push(`${redir}`)
   }
 }
 </script>
