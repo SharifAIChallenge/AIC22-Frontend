@@ -1,25 +1,19 @@
 <template>
   <div class='history'>
     <TitleContainer title="تاریخچه" style="margin-top: 5rem;"/>
-    <!--    <Header color='transparent'/>-->
-    <!--    <div class='wrapper '>-->
-    <!--      <img src='~/assets/images/history/history_curve.png'-->
-    <!--           alt=''-->
-    <!--           style='margin-top:auto;position:absolute;bottom: 87px !important;'/>-->
-    <!--      </div>-->
     <v-container style="border-radius: 2rem !important;">
       <v-carousel
           hide-delimiter-background
           :cycle='false'
           :continuous='false'
           :show-arrows='false'
-          height='100%'
+          height='600px'
           style='background:transparent'
           class='carousel mb-10 mt-3 '
       >
         <v-carousel-item v-for='history in histories'>
-          <v-card class="rounded">
-            <v-row class='pb-8' style='background:#182636;border-radius:20px;border:1px'>
+          <v-card class="rounded" height="500px" style="background-color:#182636 ">
+            <v-row class='pb-8' style='background:#182636;border-radius:20px;border:1px; height: 100%'>
               <v-col cols='12' md='7'>
                 <div class="event_year">
                   {{history.event_year}}
@@ -28,8 +22,8 @@
                   {{ history.description_fa }}
                 </div>
               </v-col>
-              <v-col cols='12' md='5'>
-                <img :src=history.image_url class='mt-5 img pa-2 pl-4' alt='' style='height: 50vh;width: 100%;'>
+              <v-col class="d-flex justify-center align-center" cols='12' md='5'>
+                <img :src=history.image_url class='mt-5 img pa-2 pl-4' :alt='history.evet_year' style='height: auto;max-width: 100%;'>
               </v-col>
             </v-row>
           </v-card>
@@ -57,8 +51,6 @@ export default {
   mounted() {
     this.$axios.$get('pastaics/').then(res => {
       this.histories = res
-      console.log(res)
-      this.$toast.success(res)
     })
   }
 };
@@ -130,8 +122,8 @@ export default {
 .event_year{
     position: absolute;
     font-size: 5rem;
-    bottom: 13rem;
-    left: 50rem;
+    bottom: 24rem;
+    left: 60rem;
     color: #0ac6ff;
     opacity: 0.3;
 }

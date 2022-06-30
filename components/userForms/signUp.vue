@@ -142,10 +142,11 @@ export default {
                 if (e.response.data[x][0] === 'This field must be unique.') this.result.message = 'ایمیل تکراری است';
                 else if (e.response.data[x][0] === 'Enter a valid email address.') this.result.message = 'فرمت ایمیل معتبر نمی‌باشد';
               }
+              this.$toast.error(this.result.message)
             });
             this.result.type = 'error';
             this.result.value = true;
-            this.$toast.error(this.result.message)
+
           }
         else
           this.$toast.error('لطفا اتصال اینترنتی خود را بررسی کنید')
