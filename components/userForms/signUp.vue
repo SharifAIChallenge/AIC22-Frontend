@@ -20,18 +20,18 @@
               @focus="clearError('email')"
             ></v-text-field>
 
-            <v-text-field
-              rounded
-              label="شماره تلفن"
-              v-model="form.phone_number"
-              required
-              outlined
-              dir="ltr"
-              class="autofill-bg"
-              height="36px"
-              :rules="phoneRules"
-              validate-on-blur
-            ></v-text-field>
+<!--            <v-text-field-->
+<!--              rounded-->
+<!--              label="شماره تلفن"-->
+<!--              v-model="form.phone_number"-->
+<!--              required-->
+<!--              outlined-->
+<!--              dir="ltr"-->
+<!--              class="autofill-bg"-->
+<!--              height="36px"-->
+<!--              :rules="phoneRules"-->
+<!--              validate-on-blur-->
+<!--            ></v-text-field>-->
 
             <password-input v-model="form.password_1" />
             <password-input v-model="form.password_2" label="form.passwordRepeat" />
@@ -88,7 +88,6 @@ export default {
         email: '',
         password_1: '',
         password_2: '',
-        phone_number: '',
       },
       result: {
         value: false,
@@ -146,6 +145,7 @@ export default {
             });
             this.result.type = 'error';
             this.result.value = true;
+            this.$toast.error(this.result.message)
           }
         else
           this.$toast.error('لطفا اتصال اینترنتی خود را بررسی کنید')
