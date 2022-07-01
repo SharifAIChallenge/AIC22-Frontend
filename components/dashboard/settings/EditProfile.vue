@@ -100,7 +100,7 @@
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-text-field
                 label="سال تولد"
-                v-model="information.birth_date"
+                v-model="information.birth_year"
                 outlined
                 rounded></v-text-field>
           </v-col>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="align-center h-full mt-15">
     <div class="text-center notice-box mt-7" style="max-width: fit-content;">
       <!--    <Notification class="pb-3 notif" style="margin-right: auto; min-height: 100vh" />-->
       <div>
@@ -14,7 +14,7 @@
         mdi-check
       </v-icon>
     </div>
-      <div class="d-flex justify-center mt-10">
+      <div class="d-flex justify-center mt-15">
         <v-btn
             v-for="social in socials"
             :key="social.icon"
