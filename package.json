@@ -21,6 +21,7 @@
     "@nuxtjs/svg": "^0.1.12",
     "@nuxtjs/toast": "^3.3.0",
     "@nuxtjs/vuetify": "^1.11.3",
+    "@vue/shared": "^3.2.37",
     "cookie-universal-nuxt": "^2.1.4",
     "dotenv": "^16.0.1",
     "front-matter": "^4.0.2",
