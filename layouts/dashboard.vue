@@ -141,14 +141,14 @@ export default {
         //   disabled: true,
         //   gard: true
         // },
-        team: {
-          title: "تیم",
-          icon: "mdi-account-group-outline",
-          hover: "mdi-account-group",
-          link: "/dashboard/team",
-          disabled: true,
-          gard: true
-        },
+        // team: {
+        //   title: "تیم",
+        //   icon: "mdi-account-group-outline",
+        //   hover: "mdi-account-group",
+        //   link: "/dashboard/team",
+        //   disabled: true,
+        //   gard: true
+        // },
         // submissions: {
         //   title: "ارسال کد",
         //   icon: "mdi-code-braces",

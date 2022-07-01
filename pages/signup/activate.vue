@@ -53,13 +53,16 @@ export default {
   components: {Glow},
   async asyncData({query, $axios}) {
     try {
-      const resp = await $axios.$get(`/accounts/activate/${query.eid}/${query.token}`)
+      const resp = await $axios.$get(`/account/activate/${query.eid}/${query.token}`)
+      this.$toast.success("اکانت شما با موفقیت فعال شد.")
+      await this.$router.push('/login')
       return resp
     } catch (e) {
       return {
         activated: false
       }
     }
+
   },
   data() {
     return {
