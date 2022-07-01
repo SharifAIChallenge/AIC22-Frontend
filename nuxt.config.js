@@ -73,6 +73,7 @@ export default {
         '~/plugins/axios.js',
         {src: '~/plugins/vue-google-oauth2', ssr: false},
         {src: '~plugins/nuxt-quill-plugin', ssr: false},
+        {src:'~/plugins/vue-gtag',mode:'client'}
         // {src: '~plugins/crisp.js', mode: 'client'},
     ],
     /*

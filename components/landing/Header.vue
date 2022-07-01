@@ -86,11 +86,10 @@
 
       </div>
     </v-app-bar>
-    <formManager :isPage="false"/>
+<!--    <formManager :isPage="false"/>-->
   </div>
 </template>
 <script>
-import formManager from '~/components/userForms/formManager';
 import SponsersDropdown from './old/SponserDropdown';
 import {mapState} from 'vuex';
 
@@ -115,6 +114,11 @@ export default {
           href: '/faq'
         },
         {
+          text: 'تیم‌ما',
+          icon: 'mdi-team',
+          href: '/staffs'
+        },
+        {
           text: 'تاریخچه',
           icon: 'mdi-history',
           href: '/history'
@@ -128,7 +132,6 @@ export default {
     };
   },
   components: {
-    formManager,
     'sponsers-dropdown': SponsersDropdown,
   },
   computed: {
