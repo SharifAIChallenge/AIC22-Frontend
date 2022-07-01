@@ -30,9 +30,16 @@
             </v-card>
           </div>
         </v-timeline-item>
-        <v-btn color="primary" class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary" style="width: 186px">
-          {{ $t('form.addToCalendar') }}
-        </v-btn>
+        <a href="https://calendar.google.com/calendar/u/0?cid=czB1YmRqbmptcWl0NHM3OTl0dDUydDk2cjhAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ"
+           target="_blank">
+          <v-btn link
+                 color="primary"
+                 class="pl-6 pr-6 mr-2 ml-2 mt-6 v-btn--primary"
+                 style="width: 186px"
+          >
+            {{ $t('form.addToCalendar') }}
+          </v-btn>
+        </a>
       </v-timeline>
     </v-responsive>
   </v-responsive>

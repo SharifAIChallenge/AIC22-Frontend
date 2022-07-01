@@ -61,7 +61,7 @@
   </div>
 </template>
 <script>
-import formManager from '~/components/userForms/formManager';
+
 import SponsersDropdown from './SponserDropdown';
 import { mapState } from 'vuex';
 
@@ -73,7 +73,6 @@ export default {
     };
   },
   components: {
-    formManager,
     'sponsers-dropdown': SponsersDropdown,
   },
   computed: {

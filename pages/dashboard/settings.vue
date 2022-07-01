@@ -85,7 +85,7 @@ export default {
       information: {
         firstname_fa: "",
         lastname_fa: "",
-        birth_date: "",
+        birth_year: "",
         university: "",
         hide_profile_info: "",
         can_sponsors_see: "",
