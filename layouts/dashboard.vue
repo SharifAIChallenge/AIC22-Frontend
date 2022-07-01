@@ -141,14 +141,14 @@ export default {
         //   disabled: true,
         //   gard: true
         // },
-        // team: {
-        //   title: "تیم",
-        //   icon: "mdi-account-group-outline",
-        //   hover: "mdi-account-group",
-        //   link: "/dashboard/team",
-        //   disabled: true,
-        //   gard: true
-        // },
+        team: {
+          title: "تیم",
+          icon: "mdi-account-group-outline",
+          hover: "mdi-account-group",
+          link: "/dashboard/team",
+          disabled: true,
+          gard: true
+        },
         // submissions: {
         //   title: "ارسال کد",
         //   icon: "mdi-code-braces",
@@ -251,13 +251,13 @@ export default {
       if (now) {
         this.routes.team.disabled = !this.profile.is_complete;
         if (!this.profile.is_complete && this.$route.path !== "/dashboard/settings") {
-          console.log("in")
           this.$router.push("/dashboard/settings");
           this.$toast.error("لطفا ابتدا اطلاعات شخصی را کامل کنید");
         }
-        // if (this.profile.has_team) {
-        //   this.openDialog();
-        // } else {
+        if (this.profile.has_team) {
+          this.openDialog();
+        }
+        // else {
         //   this.routes.games.disabled = true;
         //   // this.routes.tournaments.disabled = true;
         //   this.routes.submissions.disabled = true;
