@@ -5,6 +5,7 @@ require('dotenv').config();
 
 // const [MODE, a] = process.env.TOF_MODE;
 const MODE = process.env.MODE;
+
 console.log(MODE);
 export default {
     mode: 'universal',
