@@ -91,7 +91,7 @@ export default {
     plugins: [
         '~/plugins/i18n.js',
         '~/plugins/axios.js',
-        {src: '~/plugins/vue-google-oauth2', ssr: false},
+        // {src: '~/plugins/vue-google-oauth2', ssr: false},
         {src: '~plugins/nuxt-quill-plugin', ssr: false},
         {src:'~/plugins/vue-gtag',ssr:false},
         {src:'~/plugins/vue-jalali-moment'}
@@ -116,15 +116,15 @@ export default {
         '@nuxtjs/markdownit',
         '@nuxtjs/svg',
     ],
-    auth: {
-        strategies: {
-            google: {
-                clientId: '366828355085-pdam0sqbsvrpm4bcodkbhkg51mlg56am.apps.googleusercontent.com',
-                codeChallengeMethod: '',
-                responseType: 'token id_token',
-            },
-        }
-    },
+    // auth: {
+    //     strategies: {
+    //         google: {
+    //             clientId: '366828355085-pdam0sqbsvrpm4bcodkbhkg51mlg56am.apps.googleusercontent.com',
+    //             codeChallengeMethod: '',
+    //             responseType: 'token id_token',
+    //         },
+    //     }
+    // },
     markdownit: {
         preset: 'default',
         linkify: true,
