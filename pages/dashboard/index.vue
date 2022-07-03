@@ -1,18 +1,18 @@
 <template>
-  <div class="align-center h-full mt-15">
-    <div class="text-center notice-box mt-7" style="max-width: fit-content;">
-      <!--    <Notification class="pb-3 notif" style="margin-right: auto; min-height: 100vh" />-->
-      <div>
-        ثبتنام شما در مرحله اول با موفقیت انجام شد.
-      </div>
-      <div>
-        منتظر اتفاقات جذاب رویداد امسال باشید و اخبار رویداد را از شبکه های اجتماعی ما دنبال کنید.
-      </div>
-    </div>
+  <div class="align-center h-full" style="margin-top: 15%">
     <div class="text-center mt-6">
       <v-icon size="200px" color="success">
         mdi-check
       </v-icon>
+    </div>
+    <div class="text-center notice-box my-7" style="max-width: fit-content;">
+      <!--    <Notification class="pb-3 notif" style="margin-right: auto; min-height: 100vh" />-->
+      <div>
+        ثبت نام شما در مرحله اول با موفقیت به اتمام رسید.
+      </div>
+      <div>
+        کلی اتفاقات جذاب قراره رخ بده پس اخبار رویداد رو از شبکه های اجتماعی زیر دنبال کنید.😎
+      </div>
     </div>
       <div class="d-flex justify-center mt-15">
         <v-btn
@@ -67,6 +67,13 @@ export default {
 
 <style scoped lang="scss">
 @import '~/assets/mixins.scss';
+.father {
+  display: grid;
+}
+.child {
+  align-self: center;
+  justify-self: center;
+}
 .notif {
   width: 33.333%;
   @include v-not-md {

@@ -8,7 +8,7 @@ export const signup = (axios, data) => {
 
 export const resetPassword = (axios, email) => {
     return axios.$post(
-        '/accounts/password/reset',
+        '/account/password/reset',
         {email},
         {
             headers: {
@@ -19,7 +19,7 @@ export const resetPassword = (axios, email) => {
 };
 
 export const resetPasswordConfirm = (axios, data) => {
-    return axios.$post('/accounts/password/reset/confirm', data);
+    return axios.$post('/account/password/reset/confirm', data);
 };
 
 export const changePassword = (axios, data) => {
