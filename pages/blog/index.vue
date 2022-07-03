@@ -8,22 +8,22 @@
           <div
             v-if="posts && posts.length > 0"
           >
-            <div class="mb-6 ">
-              <CardWithThumbnail
-                v-if="posts.length > 0"
-                :title="posts[0].title"
-                :description="posts[0].description"
-                :date="posts[0].post_time"
-                href="/"/>
-            </div>
+<!--            <div class="mb-6 ">-->
+<!--              <CardWithThumbnail-->
+<!--                v-if="posts.length > 0"-->
+<!--                :title="posts[0].title"-->
+<!--                :description="posts[0].description"-->
+<!--                :date="posts[0].post_time"-->
+<!--                href="/blog/id"/>-->
+<!--            </div>-->
             <v-row >
 
-              <v-col sm="12" md="6" lg="4" xl="3" v-for="(post,index) in posts.slice(1, posts.length)" :key="index">
+              <v-col sm="12" md="6" lg="4" xl="3" v-for="(post,index) in posts" :key="index">
                 <Card
                   :title="post.title"
-                  :description="post.description"
+                  :description="post.preview"
                   :date="post.post_time"
-                  href="/"
+                  :href="'/blog/' + post.id"
                 />
 
               </v-col>
@@ -71,7 +71,23 @@ export default {
   async asyncData({$axios}) {
     let posts = [];
     try{
-      posts = await $axios.$get('news')
+      await $axios.$get('news').then(res => {
+        res.map(post => {
+          let date = post.post_time.split('T')[0]
+          let today = new Date()
+          let post_date = new Date(date).toLocaleDateString()
+          let timeDifference = Math.abs(new Date(today.toLocaleDateString()) - new Date(post_date))
+          let daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
+          if (daysDifference === 0){
+            post.post_time = 'امروز'
+          }else if (daysDifference === 1){
+            post.post_time = 'دیروز'
+          }else {
+            post.post_time = `${daysDifference} روز قبل `
+          }
+        })
+        posts = res
+      })
 
     }catch (e) {
       // console.log(e);

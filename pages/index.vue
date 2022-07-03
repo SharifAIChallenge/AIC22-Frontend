@@ -10,7 +10,7 @@
     <FAQ/>
     <Staff/>
 <!--    <Tweets/>-->
-<!--    <Blog/>-->
+    <Blog :posts="posts" title="آخرین اخبار" number="3"/>
     <CallToAction/>
   </div>
 </template>
@@ -25,11 +25,12 @@ import HeadTop from '~/components/landing/HeadTop.vue';
 import CallToAction from '~/components/CallToAction.vue';
 import Staff from '~/components/landing/Staff';
 import EmailCallToAction from '~/components/EmailCallToAction.vue';
-import Blog from "~/components/landing/Blog";
+import Blog from "~/components/utilities/Blog";
 import Statics from "~/components/landing/Statics";
 import Prize from "~/components/landing/Prize";
 import FAQ from "~/components/landing/FAQ"
 import Tweets from "~/components/landing/tweets";
+// import {getPosts} from "~/api/blog";
 
 export default {
   components: {
@@ -51,11 +52,30 @@ export default {
   layout: 'landing',
   EmailCallToAction: false,
   data: () => ({
-    width: 0,
-    height: 0,
-    scrollItem: 0,
+    // width: 0,
+    // height: 0,
+    // scrollItem: 0,
+    posts :[]
   }),
   async fetch() {
+    await this.$axios.$get('/news').then(res => {
+      console.log(res)
+      res.map(post => {
+        let date = post.post_time.split('T')[0]
+        let today = new Date()
+        let post_date = new Date(date).toLocaleDateString()
+        let timeDifference = Math.abs(new Date(today.toLocaleDateString()) - new Date(post_date))
+        let daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
+        if (daysDifference === 0){
+          post.post_time = 'امروز'
+        }else if (daysDifference === 1){
+          post.post_time = 'دیروز'
+        }else {
+          post.post_time = `${daysDifference} روز قبل `
+        }
+      })
+      this.posts = res
+    })
   },
 
   mounted() {

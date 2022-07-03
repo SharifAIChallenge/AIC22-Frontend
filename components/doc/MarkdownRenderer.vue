@@ -17,7 +17,7 @@ export default {
 @import 'assets/variables.scss';
 
 .markdown {
-  padding: 100px 0px 100px;
+  //padding: 100px 0px 100px;
   h1,
   h2,
   h3 {
