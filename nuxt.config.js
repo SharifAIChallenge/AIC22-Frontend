@@ -3,8 +3,10 @@ import fa from 'vuetify/es5/locale/fa';
 
 require('dotenv').config();
 
+
 // const [MODE, a] = process.env.TOF_MODE;
 const MODE = process.env.MODE;
+
 console.log(MODE);
 export default {
     mode: 'universal',
@@ -72,7 +74,8 @@ export default {
         '~/plugins/axios.js',
         {src: '~/plugins/vue-google-oauth2', ssr: false},
         {src: '~plugins/nuxt-quill-plugin', ssr: false},
-        {src:'~/plugins/vue-gtag',mode:'client'}
+        {src:'~/plugins/vue-gtag',ssr:false},
+        {src:'~/plugins/vue-jalali-moment'}
         // {src: '~plugins/crisp.js', mode: 'client'},
     ],
     /*

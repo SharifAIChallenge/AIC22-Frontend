@@ -21,7 +21,7 @@
     </div>
     <v-flex class="more-data d-flex px-4 px-sm-6 align-end justify-space-between pt-8 mt-auto">
       <v-card-text class="caption ma-0 pa-0 pb-1">
-        {{ date }}
+        {{ date  }}
       </v-card-text>
       <v-btn
           class="read-more"
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+
 export default {
   props: {
     title: String,
@@ -50,6 +51,7 @@ export default {
   },
   name: "Card"
 }
+// | moment("jdddd, jMMMM Do jYYYY")
 </script>
 
 <style scoped lang="scss">
