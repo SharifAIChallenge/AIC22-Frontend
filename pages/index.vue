@@ -59,7 +59,6 @@ export default {
   }),
   async fetch() {
     await this.$axios.$get('/news').then(res => {
-      console.log(res)
       res.map(post => {
         let date = post.post_time.split('T')[0]
         let today = new Date()
