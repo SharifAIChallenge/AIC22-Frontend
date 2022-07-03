@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row
-        v-if="activated"
+        v-if="isActivated"
         justify="center"
         align="center"
         style="height: 100vh"
@@ -51,32 +51,20 @@ import Glow from '../../components/Glow'
 export default {
   layout: 'form',
   components: {Glow},
-  async asyncData({query, $axios}) {
-    try {
-      const resp = await $axios.$get(`/account/activate/${query.eid}/${query.token}`)
-      this.$toast.success("اکانت شما با موفقیت فعال شد.")
-      await this.$router.push('/login')
-      return resp
-    } catch (e) {
-      return {
-        activated: false
-      }
-    }
 
-  },
   data() {
-    return {
-      status_code: false,
+    return{
+      isActivated : false
     }
   },
-  validate({query}) {
-    return query.eid && query.token
-  },
-  computed: {
-    activated() {
-      return this.status_code ? this.status_code === 200 : false
-    },
-  },
+  mounted() {
+    let eid = this.$route.query.eid
+    let token = this.$route.query.token
+    this.$axios.$get(`/account/activate/${eid}/${token}`).then(res => {
+      console.log(res)
+      if (res.detail === 'Account Activated') this.isActivated = true
+    })
+  }
 }
 </script>
 
