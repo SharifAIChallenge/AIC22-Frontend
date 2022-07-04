@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row
-        v-if="isActivated"
+        v-if="isActivated && !loading"
         justify="center"
         align="center"
         style="height: 100vh"
@@ -24,7 +24,7 @@
         {{ $t('form.signIn') }}
       </v-btn>
     </v-row>
-    <v-row v-else justify="center" align="center" style="height: 100vh" class="ma-n3 flex-column">
+    <v-row v-else-if="!isActivated && !loading" justify="center" align="center" style="height: 100vh" class="ma-n3 flex-column">
       <glow>
         <div class="text-center">
           <v-icon size="200" color="error">
@@ -54,15 +54,17 @@ export default {
 
   data() {
     return{
-      isActivated : false
+      isActivated : false,
+      loading : true
     }
   },
   mounted() {
     let eid = this.$route.query.eid
     let token = this.$route.query.token
     this.$axios.$get(`/account/activate/${eid}/${token}`).then(res => {
-      console.log(res)
+      this.loading = true
       if (res.detail === 'Account Activated') this.isActivated = true
+      this.loading = false
     })
   }
 }
