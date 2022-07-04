@@ -86,6 +86,8 @@ export default {
       }else {
         res.post_time = `${daysDifference} روز قبل `
       }
+      res.body.replace('&gt;','>')
+      res.body.replace('&lt;','<')
       post = res
     })
     // });
