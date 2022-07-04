@@ -1,21 +1,15 @@
 <template>
-  <div class="main">
-    <div class="main-forgot-form container">
+  <div class="main pa-5">
+    <div class="container">
       <v-row justify="center" align="center">
         <v-col cols="12">
-          <div class="forgot-title">
-            <v-icon right size="45px" color="wihte">
-              mdi-shield-sync-outline
-            </v-icon>
-            {{ $t('form.changePassword') }}
-          </div>
           <form ref="form" @submit.prevent="resetPasswordConfirm">
             <password-input v-model="passes.newPassword1" label="form.newPassword" />
             <password-input v-model="passes.newPassword2" label="form.confirmNewPassword" />
 
             <v-row>
               <v-col>
-                <v-btn block :loading="loading" type="submit" color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
+                <v-btn block rounded :loading="loading" type="submit" color="primary" height="50px" style="font-weight: normal;">
                   {{ $t('form.changePassword') }}
                 </v-btn>
               </v-col>
@@ -24,10 +18,6 @@
         </v-col>
       </v-row>
     </div>
-    <v-btn width="100%" color="secondary" class="login-btn" height="50px" @click="changeStatus('login')">
-      <v-icon style="margin:5px" size="25px">mdi-shield-star</v-icon>
-      {{ $t('form.signIn') }}
-    </v-btn>
   </div>
 </template>
 
@@ -66,10 +56,10 @@ export default {
       this.loading = true;
       let data = await resetPasswordConfirm(this.$axios, this.passes);
       this.loading = false;
-      if (data.status_code) {
-        if (data.status_code === 200) {
+      if (data.detail) {
+        if (data.detail === "Successfully Changed Password") {
           this.$toast.success('رمز عبور با موفقیت تغییر یافت.');
-          this.$router.push('/login');
+          await this.$router.push('/login');
         } else {
           this.$toast.error('خطا در تغییر رمز عبور.');
         }

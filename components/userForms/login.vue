@@ -74,6 +74,7 @@ export default {
   methods: {
     changeStatus(form) {
       this.$store.commit("formStatus/changeStatus", form);
+      this.$router.push('/forgot_password')
     },
     login() {
       this.loading = true;

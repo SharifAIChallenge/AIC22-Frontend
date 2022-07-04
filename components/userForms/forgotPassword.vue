@@ -1,40 +1,41 @@
 <template>
-  <div class="main">
-    <div class="main-forgot-form container">
+  <div class="main pa-5">
+    <div class="container">
       <v-row justify="center" align="center">
         <v-col cols="12">
-          <div class="forgot-title">
-            <v-icon right size="45px" color="wihte">mdi-shield-sync-outline</v-icon>
-            {{ $t('form.forgotPassword') }}
-          </div>
-          <form ref="form" @submit.prevent="resetPassword">
+          <v-form ref="form" v-model="valid" @submit.prevent="resetPassword">
             <v-text-field
-              :label="$t('form.email')"
-              v-model="email"
-              type="email"
-              :rules="emailRules"
-              required
-              outlined
-              dir="ltr"
-              height="36px"
-              autofocus
+                rounded
+                :label="$t('form.email')"
+                type="email"
+                v-model="email"
+                :rules="emailRules"
+                required
+                outlined
+                dir="ltr"
+                height="36px"
+                validate-on-blur
+                class="autofill-bg"
             ></v-text-field>
 
             <v-row>
               <v-col>
-                <v-btn block :loading="loading" type="submit" color="primary" height="50px" style="border-radius: 0; font-weight: normal">
-                  {{ $t('form.sendResetInstructions') }}
+                <v-btn
+                    block
+                    rounded
+                    :disabled="!valid"
+                    :loading="loading"
+                    type="submit"
+                    color="primary"
+                >
+                  ارسال لینک تغییر رمز عبور
                 </v-btn>
               </v-col>
             </v-row>
-          </form>
+          </v-form>
         </v-col>
       </v-row>
     </div>
-    <v-btn width="100%" color="secondary" class="login-btn" height="50px" @click="changeStatus('login')">
-      <v-icon style="margin: 5px" size="25px">mdi-shield-star</v-icon>
-      {{ $t('form.signIn') }}
-    </v-btn>
   </div>
 </template>
 
@@ -60,10 +61,10 @@ export default {
     },
     async resetPassword() {
       this.loading = true;
-      let data = await resetPassword(this.$axios, this.email);
+      let data = await resetPassword(this.$axios,this.email)
       this.loading = false;
-      if (data.status_code) {
-        if (data.status_code === 200) {
+      if (data.detail) {
+        if (data.detail === 'Successfully Sent Reset Password Email') {
           this.$toast.success('لینک تغییر رمز عبور به ایمیل شما ارسال شد.');
           this.$refs.form.reset();
         } else {
