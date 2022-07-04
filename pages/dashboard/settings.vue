@@ -34,7 +34,7 @@
         <v-tab-item>
           <v-card-text class="settingWraper">
             <div class="small-box mx-auto">
-              <div class="notice-box my-10">
+              <div class="notice-box my-10 text-center">
                 درصورت تمایل میتوانید رزومه خود را در این بخش بارگذاری نمایید تا برای کارفرمایان قابل رویت باشد
               </div>
               <Box classes="elevation-20 ">
@@ -131,7 +131,10 @@ export default {
         if (this.information[key] !== this.profile[key]) {
           if (key === "jobs" || key === "skills" || key === 'programming_languages') {
             if (this.information[key]) {
-              formData.append(`${key}_list`,this.information[key].join(','));
+              // console.log(`${key}_list`,this.information[key].join(','))
+              // formData.append(`${key}_list`,this.information[key].join(','));
+              formData.append("programming_languages_list",this.information[key].join(','))
+              // console.log(formData.get("programming_languages_list"))
             }
           } else {
             formData.append(key, this.information[key]);
@@ -171,9 +174,13 @@ export default {
   watch: {
     profile(newProfile, oldProfile) {
       if (newProfile) {
+        const programming_languages = []
+        this.profile.programming_languages.forEach(x=>{
+          programming_languages.push(x.programming_language_title)
+        })
         const skills = newProfile.skills.map(item => item.skill.split(","))[0];
         const jobs = newProfile.jobs.map(item => item.position.split(","))[0];
-        this.information = { ...newProfile };
+        this.information = { ...newProfile, programming_languages };
       }
     }
   },
@@ -184,9 +191,13 @@ export default {
   },
   mounted() {
     if (this.profile) {
+      const programming_languages = []
+      this.profile.programming_languages.forEach(x=>{
+        programming_languages.push(x.programming_language_title)
+      })
       const skills = this.profile.skills.map(item => item.skills.split(","))[0];
       const jobs = this.profile.jobs.map(item => item.position.split(","))[0];
-      this.information = { ...this.profile, skills, jobs };
+      this.information = { ...this.profile, skills, jobs,programming_languages };
     }
   }
 };
