@@ -24,7 +24,7 @@
           <v-icon v-if="staff.linkedin_url" class="icon"> mdi-linkedin</v-icon>
         </a>
         <!--        <a :href="staff.at"><v-icon class="icon"> mdi-at</v-icon></a>-->
-        <a v-if="staff.github.url" :href="staff.github_url"><v-icon class="icon"> mdi-github</v-icon></a>
+        <a v-if="staff.github_url" :href="staff.github_url"><v-icon class="icon"> mdi-github</v-icon></a>
       </div>
     </div>
   </div>
