@@ -125,11 +125,9 @@ export default {
         if (res.detail === 'Account Activated'){
           this.isActivated = true
           this.$toast.success("اکانت شما با موفقیت فعال شد.")
+          this.loading = false
         }
-        this.loading = false
       })
-    this.loading = false
-    if (!this.isActivated) this.$toast.error(" در روند فعال سازی اکانت شما مشکلی پیش آمده است.")
   }
 }
 </script>
