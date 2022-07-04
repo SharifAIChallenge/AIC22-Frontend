@@ -3,7 +3,7 @@
     <SectionContainer>
       <div v-if="hasResume" class="notice-box text-center" style="color: #00c853">رزومه‌ی شما ذخیره شده‌است. برای تغییر فایل رزومه روی تیک سبز رنگ کلیک کنید.</div>
       <v-form ref="editProfile" onSubmit="return false;" @submit="signUp">
-        <input class="fileInput" type="file" ref="fileRef" @change="fileInputChanged">
+        <input class="fileInput" type="file" ref="fileRef" @change="fileInputChanged" >
         <div class="resume-file" @click="fileInputClicked">
           <div>
             <v-icon size="112" :color=" icon ==='mdi-check' ? 'success' : ''  ">{{icon}}</v-icon>
