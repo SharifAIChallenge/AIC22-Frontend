@@ -121,19 +121,15 @@ export default {
     let eid = this.$route.query.eid
     let token = this.$route.query.token
     this.loading = true
-    try {
       this.$axios.$get(`/account/activate/${eid}/${token}`).then(res => {
-        if (res.detail === 'Account Activated') this.isActivated = true
+        if (res.detail === 'Account Activated'){
+          this.isActivated = true
+          this.$toast.success("اکانت شما با موفقیت فعال شد.")
+        }
         this.loading = false
       })
-    }catch (e) {
-      console.log("in")
-      console.log("in",e)
-      this.isActivated = false
-    }
     this.loading = false
-    if (this.isActivated) this.$toast.success("اکانت شما با موفقیت فعال شد.")
-    else this.$toast.error(" در روند فعال سازی اکانت شما مشکلی پیش آمده است.")
+    if (!this.isActivated) this.$toast.error(" در روند فعال سازی اکانت شما مشکلی پیش آمده است.")
   }
 }
 </script>
