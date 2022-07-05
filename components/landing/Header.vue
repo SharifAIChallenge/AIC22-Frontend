@@ -1,24 +1,26 @@
 <template>
   <div id="header">
     <v-dialog fullscreen v-model="showMenu" transition="fade-transition">
-      <v-btn icon @click="showMenu = !showMenu" class="ma-3">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
-      <div class="d-flex flex-column align-center justify-center" style="height: 85%">
-        <v-btn v-if="isAuthenticated" plain text tile to="/dashboard">داشبورد</v-btn>
-        <v-btn v-if="!isAuthenticated" plain text tile to="/signup">ثبت‌نام</v-btn>
-        <v-btn v-if="!isAuthenticated" plain text tile to="/login">ورود</v-btn>
-        <v-btn
-            v-for="(item,index) in items"
-            :key="index"
-            plain
-            text
-            rounded
-            :to="item.href"
-        >
-          {{ item.text }}
+      <v-card style="background-color: #0e1224">
+        <v-btn icon @click="showMenu = !showMenu" class="ma-3">
+          <v-icon>mdi-close</v-icon>
         </v-btn>
-      </div>
+        <div class="d-flex flex-column align-center justify-center" style="height: 85%">
+          <v-btn v-if="isAuthenticated" plain text tile to="/dashboard">داشبورد</v-btn>
+          <v-btn v-if="!isAuthenticated" plain text tile to="/signup">ثبت‌نام</v-btn>
+          <v-btn v-if="!isAuthenticated" plain text tile to="/login">ورود</v-btn>
+          <v-btn
+              v-for="(item,index) in items"
+              :key="index"
+              plain
+              text
+              rounded
+              :to="item.href"
+          >
+            {{ item.text }}
+          </v-btn>
+        </div>
+      </v-card>
     </v-dialog>
     <v-app-bar
         fixed
@@ -162,6 +164,12 @@ export default {
 
   .col {
     padding: 0;
+  }
+}
+
+v-dialog{
+  ::v-deep .v-dialog__content{
+    background-color: #0e1224 !important;
   }
 }
 
