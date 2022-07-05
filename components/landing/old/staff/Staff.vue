@@ -9,7 +9,7 @@
       },
     }"
   >
-    <div class="mb-12" width="100%">
+    <div class="mb-12" >
       <div class="text-center white--text text-h2 font-weight-bold">
         تیم ما
       </div>
@@ -42,10 +42,10 @@ export default {
   components: {
     StaffCard,
   },
-  async fetch() {
-    let data = await this.$axios.$get('homepage/staffs');
-    this.staffs = data.data;
-  },
+  // async fetch() {
+  //   let data = await this.$axios.$get('homepage/staffs');
+  //   this.staffs = data.data;
+  // },
   data() {
     return {
       staffs: [],
@@ -73,7 +73,7 @@ export default {
   .scroller {
     overflow-x: auto;
     -ms-overflow-style: none;
-    scrollbar-width: none;
+    //scrollbar-width: none;
     &::-webkit-scrollbar {
       display: none;
     }
