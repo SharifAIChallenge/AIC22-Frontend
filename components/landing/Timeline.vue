@@ -69,6 +69,9 @@ export default {
 <style scoped lang="scss">
 @import '../../assets/mixins';
 @import '../../assets/variables';
+*{
+  font-family: Estedad, serif;
+}
 /*
 @property --rotate {
   syntax: '<angle>';

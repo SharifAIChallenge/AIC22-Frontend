@@ -1,11 +1,12 @@
 <template>
   <div>
     <SectionContainer>
+      <div v-if="hasResume" class="notice-box text-center" style="color: #00c853">رزومه‌ی شما ذخیره شده‌است. برای تغییر فایل رزومه روی تیک سبز رنگ کلیک کنید.</div>
       <v-form ref="editProfile" onSubmit="return false;" @submit="signUp">
-        <input class="fileInput" type="file" ref="fileRef" @change="fileInputChanged">
+        <input class="fileInput" type="file" ref="fileRef" @change="fileInputChanged" >
         <div class="resume-file" @click="fileInputClicked">
           <div>
-            <v-icon size="112">mdi-file-plus-outline</v-icon>
+            <v-icon size="112" :color=" icon ==='mdi-check' ? 'success' : ''  ">{{icon}}</v-icon>
           </div>
         </div>
         <div class="d-flex mt-8">
@@ -37,7 +38,9 @@ export default {
   components: { SectionHeader, SectionContainer },
   data() {
     return {
-      onChangeCalled:false
+      onChangeCalled:false,
+      hasResume : !!this.information.resume_url,
+      icon: !!this.information.resume_url ? 'mdi-check' : 'mdi-file-plus-outline'
     };
   },
 

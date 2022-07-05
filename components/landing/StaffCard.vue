@@ -20,11 +20,11 @@
       <div class="card__name text-center">{{ staff.first_name_fa }} {{ staff.last_name_fa }}</div>
       <div class="card__position">{{ staff.role }}</div>
       <div class="card__social-icons mt-4">
-        <a :href="staff.url">
-          <v-icon class="icon"> mdi-linkedin</v-icon>
+        <a :href="staff.linkedin_url">
+          <v-icon v-if="staff.linkedin_url" target="_blank" class="icon"> mdi-linkedin</v-icon>
         </a>
         <!--        <a :href="staff.at"><v-icon class="icon"> mdi-at</v-icon></a>-->
-        <!--        <a :href="staff.github"><v-icon class="icon"> mdi-github</v-icon></a>-->
+        <a v-if="staff.github_url" :href="staff.github_url" target="_blank"><v-icon class="icon"> mdi-github</v-icon></a>
       </div>
     </div>
   </div>

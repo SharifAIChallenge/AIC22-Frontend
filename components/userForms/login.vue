@@ -34,17 +34,17 @@
                 >
                   {{ $t("form.signIn") }}
                 </v-btn>
-                <div class="my-6">
-                  <div class="or-separator"><span class="px-3">یا</span></div>
-                </div>
-                <v-btn
-                  @click="loginWithGoogle"
-                  block
-                  color="secondary"
-                  rounded>
-                  {{ $t("form.signInWithGoogle") }}
-                  <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
-                </v-btn>
+<!--                <div class="my-6">-->
+<!--                  <div class="or-separator"><span class="px-3">یا</span></div>-->
+<!--                </div>-->
+<!--                <v-btn-->
+<!--                  @click="loginWithGoogle"-->
+<!--                  block-->
+<!--                  color="secondary"-->
+<!--                  rounded>-->
+<!--                  {{ $t("form.signInWithGoogle") }}-->
+<!--                  <v-icon style="margin:5px" size="25px">mdi-google</v-icon>-->
+<!--                </v-btn>-->
               </v-col>
             </v-row>
           </v-form>
@@ -74,6 +74,7 @@ export default {
   methods: {
     changeStatus(form) {
       this.$store.commit("formStatus/changeStatus", form);
+      this.$router.push('/forgot_password')
     },
     login() {
       this.loading = true;

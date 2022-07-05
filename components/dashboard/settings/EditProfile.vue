@@ -73,36 +73,36 @@
             ></v-select>
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
-            <v-text-field
-                v-model="information.university"
-                :label="$t('form.educationPlace')"
-                required
-                :rules="requiredRules"
-                v-bind="filedProps"
-                rounded
+            <v-select
+            v-model="information.university"
+            :label="$t('form.educationPlace')"
+            rounded
+            outlined
+            :items="universityItems"
             />
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
-            <v-text-field
-                type="int"
-                v-model="information.university_term"
-                v-bind="filedProps"
-                :rules="requiredRules"
-                label="سال ورود"
-                rounded
+            <v-select label="سال ورود به دانشگاه"
+                      v-model="information.university_term"
+                      outlined
+                      rounded
+                      :items="years"/>
+          </v-col>
+          <v-col class="py-0 mb-3" cols="12" md="6">
+            <v-select
+            label="رشته تحصیلی"
+            outlined
+            rounded
+            v-model="information.major"
+            :items="fields"
             />
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
-            <v-text-field v-model="information.major" :rules="requiredRules" outlined required
-                          label="رشته"
-                          rounded></v-text-field>
-          </v-col>
-          <v-col class="py-0 mb-3" cols="12" md="6">
-            <v-text-field
-                label="سال تولد"
-                v-model="information.birth_year"
-                outlined
-                rounded></v-text-field>
+            <v-select label="سال تولد"
+                      v-model="information.birth_year"
+                      outlined
+                      rounded
+                      :items="years"></v-select>
           </v-col>
           <v-col class="py-0 mb-3" cols="12" md="6">
             <v-select
@@ -232,7 +232,90 @@ export default {
           value: "DO"
         }
       ],
-      universityItems: [],
+      universityItems: [
+        "دانشگاه آزاد اسلامی (واحد علوم تحقیقات) ",
+        "دانشگاه آزاد اسلامی",
+        "دانشگاه اصفهان",
+        "دانشگاه الزهراء",
+        "دانشگاه تبریز",
+        "دانشگاه تربیت مدرس",
+        "دانشگاه تهران",
+        "دانشگاه جامع امام حسین(ع)",
+        "دانشگاه جامع علمی- کاربردی",
+        "دانشگاه خوارزمی",
+        "دانشگاه دامغان(علوم و پایه دامغان)",
+        "دانشگاه شاهد",
+        "دانشگاه شهید بهشتی",
+        "دانشگاه شهید رجایی",
+        "دانشگاه شیراز",
+        "دانشگاه صنایع و معادن ایران",
+        "دانشگاه صنعت نفت",
+        "دانشگاه صنعتی اصفهان",
+        "دانشگاه صنعتی امیرکبیر",
+        "دانشگاه صنعتی بیرجند",
+        "دانشگاه صنعتی خواجه نصیرالدین طوسی",
+        "دانشگاه صنعتی سیرجان",
+        "دانشگاه صنعتی شریف",
+        "دانشگاه علامه طباطبایی",
+        "دانشگاه علم و صنعت ایران",
+        "دانشگاه فردوسی",
+        "دانشگاه فنی و حرفه ای",
+        "دانشگاه پیام نور",
+        "مدرسه ابوعلی سینا",
+        "مدرسه البرز",
+        "مدرسه انرژی اتمی",
+        "مدرسه رشد",
+        "مدرسه روزبه",
+        "مدرسه سلام",
+        "مدرسه علامه حلی",
+        "مدرسه علامه طباطبایی",
+        "مدرسه علوی",
+        "مدرسه فرزانگان",
+        "مدرسه مفید",
+        "مدرسه نیکان",
+          "سایر"
+      ],
+      years: [1400,
+        1399,
+        1398,
+        1397,
+        1396,
+        1395,
+        1394,
+        1393,
+        1392,
+        1391,
+        1390,
+        1389,
+        1388,
+        1387,
+        1386,
+        1385,
+        1384,
+        1383,
+        1382,
+        1381,
+        1380,
+        1379,
+        1378,
+        1377,
+        1376,
+        1375,
+        1374,
+        1373,
+        1372,
+        1371,
+        1370,
+        1369,
+        1368,
+        1367,
+        1366,
+        1365,
+        1364,
+        1363,
+        1362,
+        1361,
+        1360],
       provinces: [
         "آذربایجان شرقی",
         "آذربایجان غربی",
@@ -266,6 +349,27 @@ export default {
         "همدان",
         "یزد"
       ],
+      fields:[
+        "مهندسی کامپیوتر",
+        "علوم کامپیوتر",
+        "مهندسی برق",
+        "مهندسی شیمی",
+        "مهندسی مکانیک",
+        "مهندسی عمران",
+        "مهندسی هوافضا",
+        "مهندسی صنایع",
+        "مهندسی پزشکی",
+        "مهندسی مواد",
+        "مهندسی نساجی",
+        "مهندسی نفت",
+        "مهندسی دریا",
+        "شیمی محض",
+        "علوم ریاضی",
+        "فیزیک",
+        "مدیریت",
+        "اقتصاد",
+        "سایر"
+      ]
     };
   },
   methods: {
@@ -325,7 +429,8 @@ export default {
     border-radius: 0 999px 999px 0;
   }
 }
-.upload-avatar > div{
+
+.upload-avatar > div {
   margin-right: auto;
   margin-left: auto;
   align-items: center;

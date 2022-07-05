@@ -54,13 +54,13 @@
                 >
                   {{ $t('form.signUp') }}
                 </v-btn>
-                <div class="my-6">
-                  <div class="or-separator"><span class="px-3">یا</span></div>
-                </div>
-                <v-btn @click="loginWithGoogle" block color="secondary" rounded>
-                  <v-icon style="margin: 5px" size="25px">mdi-google</v-icon>
-                  {{ $t('form.signUpWithGoogle') }}
-                </v-btn>
+<!--                <div class="my-6">-->
+<!--                  <div class="or-separator"><span class="px-3">یا</span></div>-->
+<!--                </div>-->
+<!--                <v-btn @click="loginWithGoogle" block color="secondary" rounded>-->
+<!--                  <v-icon style="margin: 5px" size="25px">mdi-google</v-icon>-->
+<!--                  {{ $t('form.signUpWithGoogle') }}-->
+<!--                </v-btn>-->
               </v-col>
             </v-row>
           </v-form>
@@ -88,6 +88,7 @@ export default {
         email: '',
         password_1: '',
         password_2: '',
+        utm_id : ''
       },
       result: {
         value: false,
@@ -98,6 +99,9 @@ export default {
       loading: false,
       termsAndConditions: false,
     };
+  },
+  mounted() {
+    this.form.utm_id = this.$store.state.utm.source
   },
   methods: {
     toggleShow() {
@@ -119,7 +123,7 @@ export default {
       this.loading = true;
       signup(this.$axios, this.form).then(resp=>{
         this.loading = false;
-        this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
+        this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل(به همراه پوشه اسپم) خود را چک کنید.';
         this.result.type = 'success';
         this.result.value = true;
         this.$toast.success(this.result.message)

@@ -3,8 +3,10 @@ import fa from 'vuetify/es5/locale/fa';
 
 require('dotenv').config();
 
+
 // const [MODE, a] = process.env.TOF_MODE;
 const MODE = process.env.MODE;
+
 console.log(MODE);
 export default {
     mode: 'universal',
@@ -14,18 +16,37 @@ export default {
      */
     head: {
         titleTemplate: '%s - ' + process.env.npm_package_name,
-        title: process.env.npm_package_name || '',
+        title: "AI Challenge" || '',
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
             {
                 hid: 'description',
                 name: 'description',
-                content: process.env.npm_package_description || '',
+                content: "ای آی چلنج، یک رویداد دانشجویی است که توسط جمعی از دانشجوهای برترین دانشگاه‌های کشور، به‌خصوص دانشگاه صنعتی شریف برگزار می‌شود. از این رویداد می‌توان به‌عنوان بزرگ‌ترین مسابقهٔ هوش مصنوعی کشور یاد کرد. رویداد هوش مصنوعی، چهاردهمین دورهٔ خود را تجربه می‌کند و اولین دورهٔ خود را در سال ۱۳۸۷ برگزار کرده‌است. رویداد هوش مصنوعی، به‌صورت گروهی برگزار می‌شود که مهارت و توانایی شرکت‌کنندگان را در استفاده از مفاهیم هوش مصنوعی، می‌سنجد و به چالش می‌کشد" || '',
             },
             {name: 'msapplication-TileColor', content: '#ffffff'},
             {name: 'msapplication-TileImage', content: '/fav-icon/ms-icon-144x144.png'},
             {name: 'theme-color', content: '#ffffff'},
+            {name : 'url' , content:"https://aichallenge.ir/"},
+            {name: "image", content:"https://aichallenge.ir/_nuxt/169e269c7eb94f882b6c0a1e79425e85.svg"},
+            {name: "@type", content:"event"},
+            {name:'offers' , content: [{
+                    "@type": "Offer",
+                    "price": "10 میلیون تومان تیم سوم"
+                },
+                {
+                    "@type": "Offer",
+                    "price": "20 میلیون تومان تیم اول"
+                },
+                {
+                    "@type": "Offer",
+                    "price": "15 میلیون تومان تیم دوم"
+                },
+                {
+                    "@type": "Offer",
+                    "price": "15 میلیون تومان جوایز مینی گیم، بات و رندوم"
+                }]}
         ],
         link: [
             {rel: 'apple-touch-icon', sizes: '57x57', href: '/fav-icon/apple-icon-57x57.png'},
@@ -70,9 +91,10 @@ export default {
     plugins: [
         '~/plugins/i18n.js',
         '~/plugins/axios.js',
-        {src: '~/plugins/vue-google-oauth2', ssr: false},
+        // {src: '~/plugins/vue-google-oauth2', ssr: false},
         {src: '~plugins/nuxt-quill-plugin', ssr: false},
-        {src:'~/plugins/vue-gtag',mode:'client'}
+        {src:'~/plugins/vue-gtag',ssr:false},
+        {src:'~/plugins/vue-jalali-moment'}
         // {src: '~plugins/crisp.js', mode: 'client'},
     ],
     /*
@@ -94,15 +116,15 @@ export default {
         '@nuxtjs/markdownit',
         '@nuxtjs/svg',
     ],
-    auth: {
-        strategies: {
-            google: {
-                clientId: '366828355085-pdam0sqbsvrpm4bcodkbhkg51mlg56am.apps.googleusercontent.com',
-                codeChallengeMethod: '',
-                responseType: 'token id_token',
-            },
-        }
-    },
+    // auth: {
+    //     strategies: {
+    //         google: {
+    //             clientId: '366828355085-pdam0sqbsvrpm4bcodkbhkg51mlg56am.apps.googleusercontent.com',
+    //             codeChallengeMethod: '',
+    //             responseType: 'token id_token',
+    //         },
+    //     }
+    // },
     markdownit: {
         preset: 'default',
         linkify: true,
@@ -138,8 +160,6 @@ export default {
         // baseURL: process.env.baseURL,
         // baseURL: 'https://aichallenge.sharif.edu/api',
         // baseURL: 'http://172.17.0.1:8000/api'
-        // baseURL: 'https://stg.aichallenge.ir/api/v1',
-        // browserBaseURL: 'https://stg.aichallenge.ir/api/v1'
 
         baseURL : MODE == 's' ? 'https://stg.aichallenge.ir/api/v1' : 'https://api.aichallenge.ir/api/v1',
         browserBaseURL : MODE == 's' ? 'https://stg.aichallenge.ir/api/v1' : 'https://api.aichallenge.ir/api/v1',
