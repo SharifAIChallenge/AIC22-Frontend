@@ -33,11 +33,11 @@
         </v-tab-item>
         <v-tab-item>
           <v-card-text class="settingWraper">
-            <div class="small-box mx-auto">
+            <div class="mx-auto" style="max-width: 25rem;">
               <div class="notice-box my-10 text-center">
                 درصورت تمایل میتوانید رزومه خود را در این بخش بارگذاری نمایید تا برای کارفرمایان قابل رویت باشد
               </div>
-              <Box classes="elevation-20 ">
+              <Box classes="ma-10 elevation-20 ">
                 <Resume
                   :deleteResume="deleteResume"
                   :signUp="signUp"
@@ -54,7 +54,7 @@
         </v-tab-item>
         <v-tab-item>
           <v-card-text class="settingWraper">
-            <Box classes="ma-10 elevation-20 small-box mx-auto">
+            <Box classes="ma-10 elevation-20 mx-auto" style="max-width: 25rem;">
               <ChangePassword />
             </Box>
 
