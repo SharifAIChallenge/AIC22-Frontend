@@ -88,7 +88,7 @@ export default {
         email: '',
         password_1: '',
         password_2: '',
-        utm_id : ''
+        utm_id : 'none'
       },
       result: {
         value: false,
@@ -101,7 +101,7 @@ export default {
     };
   },
   mounted() {
-    this.form.utm_id = this.$store.state.utm.source
+    if (this.$store.state.utm.source) this.form.utm_id = this.$store.state.utm.source
   },
   methods: {
     toggleShow() {
