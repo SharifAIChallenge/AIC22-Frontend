@@ -115,6 +115,7 @@ export default {
         '@nuxtjs/toast',
         '@nuxtjs/markdownit',
         '@nuxtjs/svg',
+        '@nuxtjs/sentry'
     ],
     // auth: {
     //     strategies: {
@@ -125,6 +126,9 @@ export default {
     //         },
     //     }
     // },
+    sentry:{
+        dsn:'https://ee318a70f3fd4c85bb5d95ffd687450e@sentry.aichallenge.ir/3',
+    },
     markdownit: {
         preset: 'default',
         linkify: true,
