@@ -127,7 +127,7 @@ export default {
     //     }
     // },
     sentry:{
-        dsn:'https://ee318a70f3fd4c85bb5d95ffd687450e@sentry.aichallenge.ir/3',
+        dsn:'https://e973427ed8c444f5a7c081b8135d90d0@sentry.aichallenge.ir/3',
     },
     markdownit: {
         preset: 'default',
