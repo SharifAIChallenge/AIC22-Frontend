@@ -8,20 +8,26 @@
       <div v-if="this.pending && this.pending.length === 0" class="mb-10">
         لیست دعوتنامه های شما خالی است
       </div>
-      <div v-else class="mb-10">
-        <v-layout row wrap>
-          <v-col v-for="(request, index) in pending" :key="index">
-            <v-card elevation='2' style='background:#182636'>
-              <div style="text-align: center;">
-                <v-col cols="3">
 
-                  <div class="d-flex align-end" style="height: 100%">
-                    <!--              <img :src="request.team.image" class="teamImg" />-->
-                    img
+      <div v-else class="mb-10">
+        <v-layout  row wrap>
+<!--          <v-row>-->
+          <v-col cols="4" class="mb-5 text-center align-center justify-content-center"  v-for="(request, index) in toBeShown" :key="index">
+
+            <v-card elevation='2' style='background:#182636'>
+<!--              <v-container text-xs-center>-->
+              <div class="text-center">
+                <v-row class=" text-center align-center">
+                  <v-col  cols="4">
+                  <div class="d-flex" style="height: 100%">
+                    <img src="https://lh3.googleusercontent.com/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc=w600" class="teamImg"  alt="i"/>
+<!--                    img-->
                   </div>
-                </v-col>
-                <v-col class="reqInfoAndButtons" cols="9">
-                  <div class="d-flex align-center mr-5" style="height: 100%">
+                  </v-col>
+                </v-row>
+                <v-row >
+                  <v-col cols="12" class="reqInfoAndButtons text-center align-center">
+                  <div class="d-flex align-center mr-5 text-center" style="height: 100%">
                     <h1>koookie</h1>
                   </div>
                   <div class="buttons mr-5">
@@ -34,12 +40,27 @@
                       </v-btn>
                     </div>
                   </div>
-                </v-col>
+                  </v-col>
+                </v-row>
               </div>
+<!--                          </v-container>-->
             </v-card>
 
+            <v-responsive
+                v-if="index === 2"
+                :key="`width-${index}`"
+                width="100%"
+            ></v-responsive>
+
           </v-col>
+<!--          </v-row>-->
+
         </v-layout>
+        <v-row class="justify-center">
+          <v-col  cols="3">
+            <v-btn elevation="2" rounded class="mt-4 mr-2 px-6" color="grey" block @click="nextPage" :disabled="currentPage === totalPages" :loading="loading"> نمایش بیشتر </v-btn>
+          </v-col>
+        </v-row>
       </div>
       <!--      <div class="invitesHistory">-->
       <!--        <div class="mb-10">-->
@@ -449,14 +470,30 @@ export default {
         "status": "pending",
         "id": 0
 
-      }];
+      },];
     return {
       loading: false,
       pending,
+      currentPage : 1,
       // reqHistory: [],
     };
   },
+  computed: {
+    toBeShown(){
+      return this.pending.slice(0, this.currentPage * 3);
+    },
+    totalPages(){
+      return Math.ceil( this.pending.length / 3);
+    }
+  },
   methods: {
+    nextPage() {
+      if(this.currentPage <  this.totalPages) this.currentPage++;
+    },
+    prevPage(){
+      this.currentPage = this.currentPage - 1 || 1;
+    },
+
     acceptRequest(id) {
       this.loading = true;
       this.$axios.$put(`team/invitations/team_pending/${id}?answer=1`).then(res => {
