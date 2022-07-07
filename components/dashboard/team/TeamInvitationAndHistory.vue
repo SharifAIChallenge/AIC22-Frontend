@@ -6,51 +6,11 @@
         در صورتی که تیم شما قابل جستجو باشد، لیست درخواست‌هایی را که افراد برای عضویت به شما ارسال کرده‌اند در اینجا می بینید!
       </v-alert>
       <div v-for="(list, index) in pendingList.data" :key="index">
-        <div v-if="list.user.profile.image !== null">
-          <div class="profile">
-            <div>
-              <img :src="list.user.profile.image" :alt="list.user.email" height="80px" class="ma-2" />
-            </div>
-            <div>
-              <h3>
-                <span>{{ list.user.profile.firstname_fa }} {{ list.user.profile.lastname_fa }}</span>
-              </h3>
-            </div>
-            <div class="pr-4">
-              <v-icon size="30px" dark @click="setCurrentUser(list.user.profile, list.user.email, list.user.id, false)" class="icon-hover">
-                mdi-card-account-details-outline
-              </v-icon>
-            </div>
-          </div>
-        </div>
-        <div v-else class="profile">
-          <div class="profile">
-            <div>
-              <v-icon size="80px">
-                mdi-alert-box
-              </v-icon>
-            </div>
-            <div>
-              <span>{{ list.user.profile.firstname_fa }} {{ list.user.profile.lastname_fa }}</span>
-            </div>
-            <div class="pr-4">
-              <v-icon size="30px" dark @click="setCurrentUser(list.user.profile, list.user.email, list.user.id, false)" class="icon-hover">
-                mdi-card-account-details-outline
-              </v-icon>
-            </div>
-          </div>
-        </div>
-        <div class="mr-16">
-          <v-btn height="50" class="ml-4" @click="rejectRequest(list.id)" :loading="loadingBtn">
-            رد کردن
-          </v-btn>
-          <v-btn color="primary" height="50" @click="acceptRequest(list.id)" :loading="loadingBtn">
-            <v-icon>
-              mdi-handshake
-            </v-icon>
-            افزودن به تیم
-          </v-btn>
-        </div>
+        <v-col cols="3">
+          <MyTeamInvitations :name="list.user.first_name + ' ' +list.user.last_name"
+                         :status="list.status"
+                         :accept="()=>acceptRequest(list.id)" :reject="()=>rejectRequest(list.id)"/>
+        </v-col>
       </div>
       <div>
         <div class="pt-14">
@@ -112,9 +72,10 @@
 import UserProfileForTeam from './UserProfileForTeam';
 import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
+import MyTeamInvitations from "~/components/dashboard/team/MyTeamInvitations";
 
 export default {
-  components: { UserProfileForTeam, SectionHeader, SectionContainer },
+  components: {MyTeamInvitations, UserProfileForTeam, SectionHeader, SectionContainer },
   async fetch() {
     await this.$axios.$get('team/invitations/team_sent').then(res => {
       if (res.status_code === 200) {
