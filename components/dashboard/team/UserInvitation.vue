@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionHeader title="دعوت نامه های من" icon="mdi-script-text-outline" />
+    <SectionHeader title="دعوت نامه های من" icon="mdi-script-text-outline"/>
     <SectionContainer>
       <v-alert icon="mdi-information" class="mb-8">
         ایجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
@@ -8,68 +8,63 @@
       <div v-if="this.pending && this.pending.length === 0" class="mb-10">
         لیست دعوتنامه های شما خالی است
       </div>
-      <div v-else class="mb-10">
-        <v-row v-for="(request, index) in pending" :key="index">
-          <v-col cols="3">
-            <div class="d-flex align-end" style="height: 100%">
-              <img :src="request.team.image" class="teamImg" />
-            </div>
-          </v-col>
-          <v-col class="reqInfoAndButtons" cols="9">
-            <div class="d-flex align-center mr-5" style="height: 100%">
-              <h1>{{ request.team.name }}</h1>
-            </div>
-            <div class="buttons mr-5">
-              <div>
-                <v-btn color="black" block @click="rejectRequest(request.id)" :loading="loading">رد کردن</v-btn>
-              </div>
-              <div>
-                <v-btn color="primary mr-5" block @click="acceptRequest(request.id)" :loading="loading">
-                  <v-icon class="ml-3">mdi-handshake</v-icon>
-                  پیوستن به تیم
-                </v-btn>
-              </div>
-            </div>
-          </v-col>
-        </v-row>
-      </div>
-      <div class="invitesHistory">
-        <div class="mb-10">
-          <h1>
-            <v-icon color="primary" x-large>mdi-script-outline</v-icon>
-            تاریخچه دعوت ها
-          </h1>
+      <div v-if="this.pending && this.pending.length !== 0 || this.reqHistory && this.reqHistory.length !== 0">
+        <div class="table">
+          <table class="w-full">
+            <thead>
+            <tr class="text-right">
+              <th class="pa-6 w-50">نام تیم</th>
+              <th>اطلاعات</th>
+              <th class="p-6 text-center">وضعیت عضویت</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="item in pending">
+              <td>
+                {{ item.team.name }}
+              </td>
+              <td>
+                <v-icon>mdi-account-box-outline</v-icon>
+              </td>
+              <td class="text-center">
+                <v-chip
+                    color="primary"
+                >
+                  <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+
+                  در انتظار تایید
+
+                </v-chip>
+              </td>
+            </tr>
+            <tr v-for="item in pending">
+              <td>
+                {{ item.team.name }}
+              </td>
+              <td>
+                <v-icon>mdi-account-box-outline</v-icon>
+              </td>
+              <td class="text-center">
+                <v-chip
+                    color="success"
+                    v-if="item.status === 'accepted'"
+                >
+                  <v-icon class="ml-2">mdi-check</v-icon>
+                  تایید شده
+                </v-chip>
+                <v-chip
+                    color="secondary"
+                    v-else
+                >
+                  <v-icon class="ml-2">mdi-close</v-icon>
+                  رد شده
+                </v-chip>
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
-        <v-alert icon="mdi-information" class="mb-8">
-          در این قسمت وضعیت دعوتنامه هایی را که به تیم ها برای عضویت در آن ها فرستاده اید مشاهده میکنید.
-        </v-alert>
-        <div v-for="(item, index) in reqHistory" :key="index" class="pb-4">
-          <div class="history">
-            <div class="d-flex flex-row">
-              {{ item.team.name }}
-            </div>
-            <div
-              v-bind:class="{
-                blueFont: item.status === 'pending',
-                orangeFont: item.status === 'rejected',
-                greenFont: item.status === 'accepted',
-              }"
-            >
-              <v-icon
-                v-bind:class="{
-                  blueFont: item.status === 'pending',
-                  orangeFont: item.status === 'rejected',
-                  greenFont: item.status === 'accepted',
-                }"
-                size="30px"
-                class="pl-4 "
-              >
-                {{ requestStatusIcon(item.status) }}
-              </v-icon>
-              {{ statusMessage(item.status) }}
-            </div>
-          </div>
-        </div>
+
       </div>
     </SectionContainer>
   </div>
@@ -79,7 +74,7 @@ import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
 
 export default {
-  components: { SectionHeader, SectionContainer },
+  components: {SectionHeader, SectionContainer},
   props: ['toggleHaveTeam'],
 
   async fetch() {
@@ -148,6 +143,7 @@ export default {
 .teamImg {
   max-width: 100%;
 }
+
 .reqInfoAndButtons {
   display: flex;
   flex-direction: column;
@@ -165,8 +161,13 @@ export default {
 .greenFont {
   color: green;
 }
+
 .history {
   display: flex;
   justify-content: space-between;
+}
+
+.w-50 {
+  width: 50%;
 }
 </style>
