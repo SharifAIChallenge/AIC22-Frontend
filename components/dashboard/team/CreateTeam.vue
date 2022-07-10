@@ -10,15 +10,29 @@
 
         <Box class="create-team-form mt-10 py-2 px-4 d-flex flex-column justify-content-center">
           <div class="fileInput rounded-circle mb-4">
-            <v-file-input
-                ref="file"
-                hide-input
-                :label="$t('form.file')"
-                show-size
-                prepend-icon="mdi-image-plus"
-                v-model="image"
-            >
-            </v-file-input>
+            <div class="profile-picture">
+              <img
+                  v-if="image"
+                  :src="image_display ? image_display :image"
+                  class="rounded-circle"
+              />
+              <img
+                  v-else
+                  class="rounded-circle"
+                  src="~/assets/images/avatar-sample.svg" alt="">
+              <div class="upload-avatar">
+                <v-file-input
+                    :rules="imgRules"
+                    class="profile-input"
+                    accept="image/png, image/jpeg, image/bmp"
+                    hide-input
+                    placeholder="تصویر جدید"
+                    prepend-icon="mdi-camera"
+                    label="افزودن تصویر جدید"
+                    v-on:change="onProfileImageChange"
+                ></v-file-input>
+              </div>
+            </div>
           </div>
           <v-text-field class="create-team-form-input" v-model="name" outlined rounded label="نام تیم"></v-text-field>
           <v-btn :loading="loading" class="v-btn--primary" @click="submitTeam()">ساخت تیم</v-btn>
@@ -41,10 +55,18 @@ export default {
     return {
       name: '',
       image: null,
+      image_display: null,
       loading: false,
+      imgRules: [
+        value => !value || value.size < 2000000 || "حجم تصویر باید کمتر از 2 مگابایت باشد"
+      ],
     };
   },
   methods: {
+    onProfileImageChange(e) {
+      this.image_display = URL.createObjectURL(e)
+      this.image = e;
+    },
     submitTeam() {
       if (!this.name) {
         this.$toast.error('اسم تیم نمی‌تواند خالی باشد');
@@ -126,11 +148,27 @@ export default {
 }
 
 .fileInput {
+  visibility: visible!important;
   margin: auto;
   width: 16rem;
   height: 16rem;
-  border: .2rem dashed #1f2f42;
-  background-color: var(--v-bg-base);
 }
 
+.profile-picture {
+  display: flex;
+  position: unset!important;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .upload-avatar {
+    width: auto!important;
+  }
+
+  img {
+    width: 10rem;
+    height: 10rem;
+    border: 0.5rem solid #13202E;
+  }
+}
 </style>
