@@ -42,7 +42,10 @@
                 {{ item.team.name }}
               </td>
               <td>
-                <v-icon>mdi-account-box-outline</v-icon>
+                <v-icon
+                    @click.stop="()=>{this.dialog_item = item;this.dialog = true;}"
+                >mdi-account-box-outline
+                </v-icon>
               </td>
               <td class="text-center">
                 <v-chip
@@ -64,9 +67,46 @@
             </tbody>
           </table>
         </div>
-
       </div>
     </SectionContainer>
+    <v-dialog
+        v-model="dialog"
+        max-width="290"
+
+    >
+      <v-card
+          rounded
+          class="modal-shadow"
+          color="bg_secondary">
+        <v-card-text
+            class="modal modal-shadow"
+        >
+          <div class="profile-picture">
+            <img
+                v-if="dialog_item && dialog_item.team.image"
+                :src="dialog_item.team.image"
+                class="rounded-circle"
+            />
+            <img
+                v-else
+                class="rounded-circle"
+                src="~/assets/images/avatar-sample.svg" alt="">
+          </div>
+          <div class="text-center">
+            <p v-if="dialog_item">
+              {{ dialog_item.team.name }}
+            </p>
+          </div>
+          <div v-if="dialog_item && dialog_item.team && dialog_item.team.members">
+            <div  v-for="(member,index) in dialog_item.team.members" :key="index">
+              <p>
+                {{ member.profile.first_name }} {{ member.profile.last_name }}
+              </p>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -86,6 +126,8 @@ export default {
   data() {
     return {
       loading: false,
+      dialog: false,
+      dialog_item: null,
       pending: [],
       reqHistory: [],
     };
@@ -169,5 +211,29 @@ export default {
 
 .w-50 {
   width: 50%;
+}
+
+.profile-picture {
+  position: relative !important;
+  display: flex;
+  top: -5rem;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .upload-avatar {
+    width: 12rem;
+  }
+
+  img {
+    width: 10rem;
+    height: 10rem;
+
+    border: 0.5rem solid #13202E;
+  }
+}
+
+.modal-shadow, .v-dialog.v-dialog--active, .modal {
+  border-radius: 10px !important;
 }
 </style>
