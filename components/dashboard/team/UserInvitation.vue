@@ -2,13 +2,28 @@
   <div>
     <SectionHeader title="دعوت نامه های من" icon="mdi-script-text-outline"/>
     <SectionContainer>
-      <v-alert icon="mdi-information" class="mb-8">
+      <div class="mb-10" v-if="pending && pending.length > 0">
+        <v-row>
+          <v-col class="col-3" v-for="(list, index) in pending" :key="index">
+            <MyTeamInvitations :name="list.team.name"
+                               :status="list.status"
+                               text="اطلاعات تیم"
+                               :textClick="()=>{dialog_item=list;dialog=true;}"
+                               :accept="()=>acceptRequest(list.id)" :reject="()=>rejectRequest(list.id)"/>
+          </v-col>
+        </v-row>
+      </div>
+      <div v-else class="text-center">
+        داده ای برای نمایش وجود ندارد
+      </div>
+
+      <div class="mb-8 notice-box text-center text-caption w-50">
         ایجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
-      </v-alert>
-      <div v-if="this.pending && this.pending.length === 0" class="mb-10">
+      </div>
+      <div v-if="reqHistory && reqHistory.length === 0" class="mb-10">
         لیست دعوتنامه های شما خالی است
       </div>
-      <div v-if="this.pending && this.pending.length !== 0 || this.reqHistory && this.reqHistory.length !== 0">
+      <div v-if="reqHistory && reqHistory.length !== 0">
         <div class="table">
           <table class="w-full">
             <thead>
@@ -19,33 +34,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in pending">
+            <tr v-if="reqHistory && reqHistory.length > 0" v-for="(item,index) in reqHistory" :key="index">
               <td>
                 {{ item.team.name }}
               </td>
-              <td>
-                <v-icon>mdi-account-box-outline</v-icon>
-              </td>
-              <td class="text-center">
-                <v-chip
-                    color="primary"
+              <td class="pa-0">
+                <v-btn
+                    class="pa-0"
+                    @click.stop="()=>{dialog_item = item;dialog = true;}"
+                    text plain
                 >
-                  <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+                  <v-icon
+                  >mdi-account-box-outline
+                  </v-icon>
+                </v-btn>
 
-                  در انتظار تایید
-
-                </v-chip>
-              </td>
-            </tr>
-            <tr v-for="item in pending">
-              <td>
-                {{ item.team.name }}
-              </td>
-              <td>
-                <v-icon
-                    @click.stop="()=>{this.dialog_item = item;this.dialog = true;}"
-                >mdi-account-box-outline
-                </v-icon>
               </td>
               <td class="text-center">
                 <v-chip
@@ -54,6 +57,13 @@
                 >
                   <v-icon class="ml-2">mdi-check</v-icon>
                   تایید شده
+                </v-chip>
+                <v-chip
+                    color="primary"
+                    v-else-if="item.status === 'pending'"
+                >
+                  <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+                  در انتظار تایید
                 </v-chip>
                 <v-chip
                     color="secondary"
@@ -92,19 +102,27 @@
                 class="rounded-circle"
                 src="~/assets/images/avatar-sample.svg" alt="">
           </div>
-          <div class="text-center">
+          <div class="text-center" style="margin-top: -4rem;">
             <p v-if="dialog_item">
               {{ dialog_item.team.name }}
             </p>
           </div>
-          <div v-if="dialog_item && dialog_item.team && dialog_item.team.members">
-            <div  v-for="(member,index) in dialog_item.team.members" :key="index">
-              <p>
-                {{ member.profile.first_name }} {{ member.profile.last_name }}
+          <div v-if="dialog_item && dialog_item.team && dialog_item.team.members" class="members">
+            <div v-for="(member,index) in dialog_item.team.members" :key="index">
+              <p class="ma-0">
+                {{ member.profile.firstname_fa }} {{ member.profile.lastname_fa }}
               </p>
             </div>
           </div>
+
         </v-card-text>
+<!--        <v-card-actions>-->
+<!--          <v-btn-->
+<!--              @click-->
+<!--          >-->
+<!--            عضویت-->
+<!--          </v-btn>-->
+<!--        </v-card-actions>-->
       </v-card>
     </v-dialog>
   </div>
@@ -112,15 +130,16 @@
 <script>
 import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
+import MyTeamInvitations from "~/components/dashboard/team/MyTeamInvitations";
 
 export default {
-  components: {SectionHeader, SectionContainer},
+  components: {MyTeamInvitations, SectionHeader, SectionContainer},
   props: ['toggleHaveTeam'],
 
   async fetch() {
     let res1 = await this.$axios.$get('team/invitations/user_pending');
     let res2 = await this.$axios.$get('team/invitations/user_sent');
-    this.pending = res1.data;
+    this.pending = res1;
     this.reqHistory = res2.data;
   },
   data() {
@@ -135,20 +154,21 @@ export default {
   methods: {
     acceptRequest(id) {
       this.loading = true;
-      this.$axios.$put(`team/invitations/user_pending/${id}?answer=1`).then(res => {
-        // console.log(res);
-        if (res.status_code === 200) {
-          this.$toast.success('دعوت با موفقیت پذیرفته شد.');
-          this.toggleHaveTeam();
-        } else {
-          this.$toast.error('مشکلی در قبول درخواست رخ داد لطفا دوباره امتحان کنید.');
-        }
+      this.$axios.$put(`team/invitations/user_pending/${id}`, {
+        status: 'accepted',
+      }).then(res => {
+        this.$toast.success('دعوت با موفقیت پذیرفته شد.');
+        this.toggleHaveTeam();
+      }).catch(() => {
+        this.$toast.error('مشکلی در قبول درخواست رخ داد لطفا دوباره امتحان کنید.');
       });
       this.loading = false;
     },
     rejectRequest(id) {
       this.loading = true;
-      this.$axios.$put(`team/invitations/user_pending/${id}?answer=0`).then(res => {
+      this.$axios.$put(`team/invitations/user_pending/${id}`, {
+        status: 'rejected',
+      }).then(res => {
         if (res.status_code === 200) {
           this.$toast.success('دعوت با موفقیت رد شد.');
           this.toggleHaveTeam();
@@ -236,4 +256,15 @@ export default {
 .modal-shadow, .v-dialog.v-dialog--active, .modal {
   border-radius: 10px !important;
 }
+
+.members{
+  border-top: 1px solid #13202E;
+}
+
+.members > div{
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  border-bottom: 1px solid #13202E;
+}
+
 </style>
