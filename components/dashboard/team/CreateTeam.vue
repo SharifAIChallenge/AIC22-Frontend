@@ -1,55 +1,72 @@
 <template>
   <div>
-    <SectionHeader title="ساختن تیم" icon="mdi-account-multiple-plus-outline" />
-    <SectionContainer>
-      <div class="create-team">
-        <v-alert icon="mdi-information">
-          پس ازاینکه همه ی اعضای تیم در سایت ثبت ‌نام کردند،کافی است یک نفر تیم بسازد و بقیه اعضا را به آن دعوت کند.
-        </v-alert>
-        <div class="d-flex justify-center my-8 my-md-16">
-          <div class="secondary fileInput" @click="getImage">
-            <v-file-input
-              ref="file"
-              hide-input
-              v-model="image"
-              :label="$t('form.file')"
-              prepend-icon="mdi-image-plus"
-              show-size
-            ></v-file-input>
+    <!-- <SectionHeader title="ساختن تیم" icon="mdi-account-multiple-plus-outline" /> -->
+    <Section-container>
+      <div class="d-flex flex-column justify-content-between">
+        <div class="text-center create-team-notice">
+          پس از آنکه همه اعضا ثبت نام کردند کافی است یک نفر تیم بسازد و باقی اعضا را به تیم دعوت کند.
+        </div>
+
+
+        <Box class="create-team-form mt-10 py-2 px-4 d-flex flex-column justify-content-center">
+          <div class="fileInput rounded-circle mb-4">
+            <div class="profile-picture">
+              <img
+                  v-if="image"
+                  :src="image_display ? image_display :image"
+                  class="rounded-circle"
+              />
+              <img
+                  v-else
+                  class="rounded-circle"
+                  src="~/assets/images/avatar-sample.svg" alt="">
+              <div class="upload-avatar">
+                <v-file-input
+                    :rules="imgRules"
+                    class="profile-input"
+                    accept="image/png, image/jpeg, image/bmp"
+                    hide-input
+                    placeholder="تصویر جدید"
+                    prepend-icon="mdi-camera"
+                    label="افزودن تصویر جدید"
+                    v-on:change="onProfileImageChange"
+                ></v-file-input>
+              </div>
+            </div>
           </div>
-        </div>
-        <!-- <input type="file" id="file" @change="handleFileUpload" accept="image/*" /> -->
-        <v-text-field label="نام تیم" outlined v-model="name"></v-text-field>
+          <v-text-field class="create-team-form-input" v-model="name" outlined rounded label="نام تیم"></v-text-field>
+          <v-btn :loading="loading" class="v-btn--primary" @click="submitTeam()">ساخت تیم</v-btn>
+        </Box>
+
       </div>
-      <div class="d-flex">
-        <div style="flex: 0 1 93px; margin-left: 24px">
-          <v-btn block class="black" @click="forfiet()">لغو</v-btn>
-        </div>
-        <div style="flex: 1">
-          <v-btn block :loading="loading" @click="submitTeam()" color="primary" class="">
-            <v-icon class="ml-3">mdi-plus-circle-outline</v-icon>
-            تیمم را بساز
-          </v-btn>
-        </div>
-      </div>
-    </SectionContainer>
+    </Section-container>
   </div>
 </template>
 <script>
+import SectionContainer from '~/components/SectionContainer.vue';
 import SectionHeader from '~/components/SectionHeader';
-import SectionContainer from '~/components/SectionContainer';
+import Box from '~/components/utilities/Box.vue';
 
 export default {
   props: ['toggleHaveTeam'],
-  components: { SectionHeader, SectionContainer },
+  components: {SectionHeader, SectionContainer, Box},
+
   data() {
     return {
       name: '',
       image: null,
+      image_display: null,
       loading: false,
+      imgRules: [
+        value => !value || value.size < 2000000 || "حجم تصویر باید کمتر از 2 مگابایت باشد"
+      ],
     };
   },
   methods: {
+    onProfileImageChange(e) {
+      this.image_display = URL.createObjectURL(e)
+      this.image = e;
+    },
     submitTeam() {
       if (!this.name) {
         this.$toast.error('اسم تیم نمی‌تواند خالی باشد');
@@ -61,9 +78,10 @@ export default {
         formData.append('image', this.image);
       }
       this.loading = true;
-      this.$axios.$post('team/', formData, { headers: { 'content-type': 'multipart/form-data' } }).then(res => {
+      this.$axios.$post('team/', formData, {headers: {'content-type': 'multipart/form-data'}}).then(res => {
         this.loading = false;
-        if (res.status_code === 200) {
+        console.log(res);
+        if (res.status_code === 200 || 201) {
           this.$toast.success('تیم شما با موفقیت ساخته‌شد');
           this.toggleHaveTeam();
         } else if (res.status_code === 400) {
@@ -84,40 +102,73 @@ export default {
       // console.log(this.$refs.file);
     },
   },
-  mounted() {},
+  mounted() {
+  },
 };
 </script>
 <style lang="scss">
-.team{
+.team {
   margin: 0 !important;
 }
-.create-team {
-  .v-input {
+
+.create-team-notice {
+  max-width: 50%;
+  margin: auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 0.25rem dashed;
+}
+
+.create-team-form {
+  width: 50%;
+  margin: auto;
+}
+
+.v-input {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  .v-input__prepend-outer {
+    margin: 0;
     width: 100%;
     height: 100%;
-    margin: 0;
-    padding: 0;
-    .v-input__prepend-outer {
-      margin: 0;
+
+    .v-input__icon {
       width: 100%;
       height: 100%;
-      .v-input__icon {
+
+      button {
         width: 100%;
         height: 100%;
-        button {
-          width: 100%;
-          height: 100%;
-        }
       }
     }
   }
-  .fileInput {
-    width: 15vh;
-    height: 15vh;
-    .v-file-input {
-      display: flex;
-      justify-content: center;
-    }
+}
+
+.fileInput {
+  visibility: visible!important;
+  margin: auto;
+  width: 16rem;
+  height: 16rem;
+}
+
+.profile-picture {
+  display: flex;
+  position: unset!important;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .upload-avatar {
+    width: auto!important;
+  }
+
+  img {
+    width: 10rem;
+    height: 10rem;
+    border: 0.5rem solid #13202E;
   }
 }
 </style>
