@@ -2,11 +2,12 @@
   <div>
     <SectionHeader title="دعوتنامه های من" icon="mdi-script-outline"/>
     <SectionContainer>
-      <div v-if="pendingList.data && pendingList.data.length > 0">
-        <div v-for="(list, index) in pendingList.data" :key="index">
+      <div v-if="pendingList && pendingList.length > 0">
+        <div v-for="(list, index) in pendingList" :key="index">
           <v-col cols="3">
-            <MyTeamInvitations :name="list.user.first_name + ' ' +list.user.last_name"
+            <MyTeamInvitations :name="list.user.profile.firstname_fa + ' ' +list.user.profile.lastname_fa"
                                :status="list.status"
+                               text="اطلاعات فرد"
                                :accept="()=>acceptRequest(list.id)" :reject="()=>rejectRequest(list.id)"/>
           </v-col>
         </div>
@@ -25,46 +26,103 @@
           </v-alert>
         </div>
         <div class="pr-10 history-List">
-          <div v-for="(list, index) in invitationsList.data" :key="index" class="pb-4">
-            <h3>
-              <div class="history">
-                <div>{{ list.user.profile.firstname_fa }} {{ list.user.profile.lastname_fa }}</div>
-                <div
-                    :class="{
-                    blueFont: list.status === 'pending',
-                    orangeFont: list.status === 'rejected',
-                    greenFont: list.status === 'accepted',
-                  }"
-                >
-                  <v-icon
-                      v-bind:class="{
-                      blueFont: list.status === 'pending',
-                      orangeFont: list.status === 'rejected',
-                      greenFont: list.status === 'accepted',
-                    }"
-                  >
-                    {{ statusIcon(list.status) }}
-                  </v-icon>
-                  {{ statusMessage(list.status) }}
-                </div>
-              </div>
-            </h3>
+          <div v-if="invitationsList.data && invitationsList.data.length !== 0">
+            <div class="table">
+              <table class="w-full">
+                <thead>
+                <tr class="text-right">
+                  <th class="pa-6 w-50">نام کاربر</th>
+                  <th>اطلاعات</th>
+                  <th class="p-6 text-center">وضعیت عضویت</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(item,index) in invitationsList.data" :key="index">
+                  <td>
+                    {{ item.user.profile.firstname_fa }} {{ item.user.profile.lastname_fa }}
+                  </td>
+                  <td class="pa-0">
+                    <v-btn
+                        class="pa-0"
+                        @click.stop="()=>{dialog_item = item;dialog = true;}"
+                        text plain
+                    >
+                      <v-icon
+                      >mdi-account-box-outline
+                      </v-icon>
+                    </v-btn>
+
+                  </td>
+                  <td class="text-center">
+                    <v-chip
+                        color="success"
+                        v-if="item.status === 'accepted'"
+                    >
+                      <v-icon class="ml-2">mdi-check</v-icon>
+                      تایید شده
+                    </v-chip>
+                    <v-chip
+                        color="primary"
+                        v-else-if="item.status === 'pending'"
+                    >
+                      <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+                      در انتظار تایید
+                    </v-chip>
+                    <v-chip
+                        color="secondary"
+                        v-else
+                    >
+                      <v-icon class="ml-2">mdi-close</v-icon>
+                      رد شده
+                    </v-chip>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
 
-      <v-dialog v-model="dialog" width="350">
-        <v-btn
-            class='ma-3'
-            icon
-            large
-            @click="dialog = false"
-        >
-          <v-icon>
-            mdi-close
-          </v-icon>
-        </v-btn>
-        <UserProfileForTeam :userData="currentUser"/>
+      <v-dialog
+          v-model="dialog"
+          max-width="290"
+
+      >
+        <v-card
+            rounded
+            class="modal-shadow"
+            color="bg_secondary">
+          <v-card-text
+              class="modal modal-shadow"
+          >
+            <div class="profile-picture">
+              <img
+                  v-if="dialog_item && dialog_item.user.profile.image_url"
+                  :src="dialog_item.user.profile.image_url"
+                  class="rounded-circle"
+              />
+              <img
+                  v-else
+                  class="rounded-circle"
+                  src="~/assets/images/avatar-sample.svg" alt="">
+            </div>
+            <div class="text-center">
+              <p v-if="dialog_item">
+                {{ dialog_item.user.profile.firstname_fa }} {{ dialog_item.user.profile.lastname_fa }}
+              </p>
+              <div
+              v-if="dialog_item && dialog_item.user.profile.programming_languages && dialog_item.user.profile.programming_languages.length > 0"
+              >
+                <v-chip
+                    v-for="(lang,index) in dialog_item.user.profile.programming_languages" :key="index"
+                >
+                  {{ lang }}
+                </v-chip>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
       </v-dialog>
     </SectionContainer>
   </div>
@@ -93,6 +151,7 @@ export default {
   },
   data() {
     return {
+      dialog_item: null,
       dialog: false,
       loadingBtn: false,
       invitationsList: {},
@@ -134,37 +193,28 @@ export default {
     },
     acceptRequest(id) {
       this.loadingBtn = true;
-      this.$axios.$put(`team/invitations/team_pending/${id}?answer=1`).then(res => {
-        if (res.status_code === 200) {
-          this.$toast.success('با موفقیت انجام شد!');
-        } else {
-          this.$toast.error('مشکلی رخ داده است!');
-        }
+      this.$axios.$put(`team/invitations/team_pending/${id}`, {
+        status: 'accepted',
+      }).then(res => {
+        this.$toast.success('با موفقیت انجام شد!');
+      }).catch(() => {
+        this.$toast.error('مشکلی رخ داده است!');
       });
-      // this.$axios.$get('team/invitations/team_sent').then(res => {
-      //   if (res.status_code === 200) {
-      //     this.invitationsList = res;
-      //   } else {
-      //     this.$toast.error('خطا در برقراری ارتباط!');
-      //   }
-      // });
       this.$axios.$get('team/invitations/team_pending').then(res => {
-        if (res.status_code === 200) {
-          this.pendingList = res;
-        } else {
-          this.$toast.error('خطا در برقراری ارتباط!');
-        }
+        this.pendingList = res;
+      }).catch(() => {
+        this.$toast.error('خطا در برقراری ارتباط!');
       });
       this.loadingBtn = false;
     },
     rejectRequest(id) {
       this.loadingBtn = true;
-      this.$axios.$put(`team/invitations/team_pending/${id}?answer=0`).then(res => {
-        if (res.status_code === 200) {
-          this.$toast.success('با موفقیت انجام شد!');
-        } else {
-          this.$toast.error('مشکلی رخ داده است!');
-        }
+      this.$axios.$put(`team/invitations/team_pending/${id}`, {
+        status: 'rejected',
+      }).then(res => {
+        this.$toast.success('با موفقیت انجام شد!');
+      }).catch(() => {
+        this.$toast.error('مشکلی رخ داده است!');
       });
       // this.$axios.$get('team/invitations/team_sent').then(res => {
       //   if (res.status_code === 200) {
@@ -186,7 +236,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .email-field {
   width: 50%;
 }
@@ -211,5 +261,29 @@ export default {
 .history {
   display: flex;
   justify-content: space-between;
+}
+
+.profile-picture {
+  position: relative !important;
+  display: flex;
+  top: -5rem;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .upload-avatar {
+    width: 12rem;
+  }
+
+  img {
+    width: 10rem;
+    height: 10rem;
+
+    border: 0.5rem solid #13202E;
+  }
+}
+
+.modal-shadow, .v-dialog.v-dialog--active, .modal {
+  border-radius: 10px !important;
 }
 </style>
