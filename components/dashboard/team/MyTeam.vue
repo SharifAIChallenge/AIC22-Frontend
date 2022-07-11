@@ -61,8 +61,8 @@
                 hide-input
               ></v-file-input>
             </div>
-            <v-form ref="editTeamName" v-model="valid" onSubmit="return false;" @submit="updateTeamName">
-              <v-text-field v-model="this.form.name" label="نام جدید تیم" required :rules="requiredRules" class="team-edit__name__field my-5" outlined rounded dense />
+            <v-form ref="editTeamName" onSubmit="return false;" @submit="updateTeamName">
+              <v-text-field v-model="form.name" label="نام جدید تیم" required :rules="requiredRules" class="team-edit__name__field my-5" outlined rounded dense />
               <div>
                 <v-btn block color="primary" type="submit" :disabled="!valid" rounded>
                   ویرایش نام تیم
@@ -89,7 +89,8 @@ export default {
   props: { toggleHaveTeam: Function },
   async fetch() {
     this.team = await this.$axios.$get('team');
-    console.log(JSON.stringify(this.team));
+    this.form = this.team;
+    this.form ={ name : this.form.name, image: this.form.image_url}
   },
   data() {
     return {
