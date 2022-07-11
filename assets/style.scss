@@ -102,6 +102,7 @@ p {
   font-family: LTZaridSans;
   font-size: 1.25rem;
 }
+
 a {
   text-decoration: none;
 }
@@ -121,6 +122,7 @@ strong {
 .bg-color-12 {
   background: map-get($material-dark-elevation-colors, '12');
 }
+
 .v-data-footer {
   justify-content: flex-start !important;
 }
@@ -128,6 +130,7 @@ strong {
 .rounded-0\.5 {
   border-radius: 0.5em !important;
 }
+
 .rounded-1\.5 {
   border-radius: 1.5em !important;
 }
@@ -135,9 +138,11 @@ strong {
 .h-full {
   height: 100%;
 }
+
 .w-full {
   width: 100%;
 }
+
 .v-input__append-inner {
   margin-top: 0.8rem !important;
 }
@@ -161,22 +166,30 @@ strong {
   }
 }
 
-.notice-box{
+.notice-box {
   margin: auto;
   padding: 1rem;
   border-radius: 1rem;
   border: 0.25rem dashed;
 }
 
-.theme--dark.v-list{
-background-color:#182636!important;
+.theme--dark.v-list {
+  background-color: #182636 !important;
 }
 
 .bg-transparent.pa-4.bg-fix.text-center.v-card.v-sheet.theme--dark.elevation-0 {
-  background-color: transparent!important;
+  background-color: transparent !important;
 }
 
 
-.table td{
+.table td {
   padding: 1rem;
+}
+
+
+.v-dialog.v-dialog--active {
+  border: 2px solid var(--v-primary-base);
+  border-radius: 10px;
+  overflow: unset;
+  box-shadow: 0px 11px 15px -7px rgb(0 113 227 / 20%), 0px 24px 38px 3px rgb(0 113 227 / 14%), 0px 9px 46px 8px rgb(0 113 227 / 12%) !important
 }
