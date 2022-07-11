@@ -6,7 +6,7 @@
           <div class="team-card__header px-4">
             <div class="team-card__picture">
               <img
-                v-if="this.team.image"
+                v-if="this.team.image_url"
                 :src="this.form.imageUrl ? this.form.imageUrl : this.team.image_url"
                 class="rounded-circle"
                 alt="team profile image"
@@ -122,7 +122,6 @@ export default {
   },
   methods: {
     onPictureChange(image) {
-      // TODO implement uploading the new image
       this.form.imageUrl = URL.createObjectURL(image);
       this.form.image = image;
 
@@ -298,9 +297,17 @@ export default {
 }
 
 .team-edit {
+
   &__name {
+
     &__field {
       height: 36px !important;
+    }
+  }
+
+  &__profile {
+
+    &__input {
     }
   }
 }
