@@ -39,8 +39,8 @@ export default {
   }
 }
 .staff_img img {
-  filter: grayscale();
-  transition: filter 0.7s;
+  /*filter: grayscale();*/
+  /*transition: filter 0.7s;*/
 }
 .staff_img img:hover {
   filter: none;

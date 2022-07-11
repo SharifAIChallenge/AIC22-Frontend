@@ -17,7 +17,7 @@
         <v-expansion-panel-header class="faq__item__header">
           {{ faq.question_fa }}
         </v-expansion-panel-header>
-        <v-expansion-panel-content class="faq__item__content">
+        <v-expansion-panel-content class="faq__item__content text-justify">
           {{ faq.answer_fa }}
         </v-expansion-panel-content>
       </v-expansion-panel>
