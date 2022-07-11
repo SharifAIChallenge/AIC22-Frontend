@@ -1,83 +1,192 @@
 <template>
   <div>
-    <SectionHeader title="تیم من" icon="mdi-account-group-outline" />
     <SectionContainer>
-      <div class="myTeam">
-        <div class="d-flex justify-center ">
-          <img class="rounded-circle" :src="team.image" :alt="team.name" />
-        </div>
-        <div>
-          <div>
-            <div class="text-h4 mb-4 mt-4">
-              {{ team.name }}
-              <v-icon color="blue">mdi-check-decagram</v-icon>
+      <div class="my-team pt-8">
+        <Box class="team-card mt-16 px-4 d-flex flex-column justify-content-center">
+          <div class="team-card__header px-4">
+            <div class="team-card__picture">
+              <img
+                v-if="this.team.image_url"
+                :src="this.form.imageUrl ? this.form.imageUrl : this.team.image_url"
+                class="rounded-circle"
+                alt="team profile image"
+                width="150"
+                height="150"
+              />
+              <img v-else class="rounded-circle" src="~/assets/images/avatar-sample.svg" alt="default team profile image" />
             </div>
-
-            <div class="pr-8 pr-md-14">
-              <div class="text-h5 my-2" v-for="(member, index) in team.members" :key="index">
-                {{ member.profile.firstname_fa }} {{ member.profile.lastname_fa }}
-              </div>
+            <div v-if="!isEditing" class="team-card__edit">
+              <v-icon right class="team-card__edit__icon" color="rgba(255, 255, 255, 0.12)" @click="toggleIsEditing">
+                mdi-pencil
+              </v-icon>
             </div>
           </div>
-        </div>
-<!--        <Payment :payed="team.final_payed || isPayed" />-->
-        <div class="mt-4 mt-md-12">
-          <v-btn block :loading="loading" color="black" class="text-h6" @click="getOutFromTeam()">
-            <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-exit-run</v-icon>
-            ترک تیم
-          </v-btn>
-        </div>
+          <div v-if="!isEditing" class="team-card__content">
+            <div class="team-card__name">
+              <p class="headline py-5 ma-0">
+                {{ this.team.name }}
+              </p>
+            </div>
+            <v-list class="team-card__members inherit-bg-color">
+              <v-list-item class="team-card__member inherit-bg-color" v-for="(member, i) in this.team.members" :key="i">
+                <div class="team-card__member__content inherit-bg-color">
+                  <v-list-item-title
+                    class="team-card__member__name inherit-bg-color"
+                    v-text="member.profile.firstname_fa + ' ' + member.profile.lastname_fa"
+                  />
+<!--                  <v-list-item-icon class="team-card__member__icon inherit-bg-color">-->
+<!--                    <v-icon color="rgba(255, 255, 255, 0.12)">mdi-account-box</v-icon>-->
+<!--                  </v-list-item-icon>-->
+                </div>
+              </v-list-item>
+<!--              <v-list-item class="team-card__add-member" v-if="this.team.members.length < 3" dense>-->
+<!--                <div class="team-card__add-member__content inherit-bg-color">-->
+<!--                  <v-list-item-title class="team-card__add-member__name inherit-bg-color">افزودن عضو جدید</v-list-item-title>-->
+<!--                  <v-list-item-icon class="team-card__add-member__icon inherit-bg-color">-->
+<!--                    <v-icon color="#20c9b2">mdi-plus</v-icon>-->
+<!--                  </v-list-item-icon>-->
+<!--                </div>-->
+<!--              </v-list-item>-->
+            </v-list>
+            <div class="team-card__leave mt-6">
+              <v-btn block color="secondary" class="my-4" @click="leaveTeam" rounded>ترک تیم</v-btn>
+            </div>
+          </div>
+          <div v-else class="team-edit">
+            <div class="team-edit__profile">
+              <v-file-input
+                :rules="pictureRules"
+                class="team-edit__profile__input mt-4"
+                accept="image/png, image/jpeg, image/bmp"
+                placeholder="تصویر جدید"
+                prepend-icon="mdi-image-plus"
+                label="افزودن تصویر جدید"
+                v-on:change="onPictureChange"
+                hide-input
+              ></v-file-input>
+            </div>
+            <v-form ref="editTeamName" v-model="valid" onSubmit="return false;" @submit="updateTeamName">
+              <v-text-field
+                v-model="form.name"
+                label="نام جدید تیم"
+                required
+                :rules="requiredRules"
+                class="team-edit__name__field my-5"
+                outlined
+                rounded
+                dense
+              />
+              <div>
+                <v-btn block color="primary" type="submit" :disabled="!valid" rounded>
+                  ویرایش نام تیم
+                </v-btn>
+              </div>
+              <div>
+                <v-btn block color="secondary" class="my-4" @click="resetTeamNameForm" rounded>بازگشت</v-btn>
+              </div>
+            </v-form>
+          </div>
+        </Box>
       </div>
     </SectionContainer>
-<!--    <section-container>-->
-<!--      <div class="d-flex flex-column justify-content-between text-center">-->
-<!--        <div>-->
-<!--          <img class="rounded-circle" :src="team.image" :alt="team.name" height="120" width="120"/>-->
-<!--        </div>-->
-<!--        <div class="team-container">-->
-<!--          <h1>{{ team.name }}</h1>-->
-<!--          <div v-for="member in team.members" :key="member" class="w-full text-right">-->
-<!--            {{ member.profile.firstname_fa }} {{ member.profile.lastname_fa }}-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </section-container>-->
   </div>
 </template>
 <script>
-import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
-import Payment from './Payment';
+import Box from '~/components/utilities/Box';
+import { requiredRules } from '~/mixins/formValidations';
 
 export default {
-  props: ['toggleHaveTeam', 'isPayed'],
-  components: { SectionHeader, SectionContainer, Payment },
+  components: { SectionContainer, Box },
+  mixins: [requiredRules],
+  props: { toggleHaveTeam: Function },
   async fetch() {
-    let res = await this.$axios.$get('team');
-    res.image = "https://"+res.image_url;
-    console.log(res.image)
-    this.team = res;
+    this.team = await this.$axios.$get('team');
   },
   data() {
     return {
-      team: {},
+      form: {
+        name: '',
+        imageUrl: '',
+        image: null,
+      },
+      team: {
+        members: [],
+      },
+      imageDisplay: '',
+      pictureRules: [value => !value || value.size < 2000000 || 'حجم تصویر باید کمتر از 2 مگابایت باشد'],
       loading: false,
+      isEditing: false,
+      valid: false,
     };
   },
   methods: {
-    getOutFromTeam() {
+    onPictureChange(image) {
+      this.form.imageUrl = URL.createObjectURL(image);
+      this.form.image = image;
+
+      const formData = new FormData();
+      formData.append('name', this.team.name);
+      formData.append('image', this.form.image);
+
       this.loading = true;
-      // this.$axios.$delete('team/').then(res => {
-      //   console.log(res)
-      //   this.loading = false;
-      //   if (res.status_code === 200) {
-      //     this.$toast.success('شما با موفقیت از تیم خارج شدید!');
-      //     this.toggleHaveTeam();
-      //   } else {
-      //     this.$toast.error('خروج با مشکل مواجه شد!');
-      //   }
-      // });
-      let res = this.$axios.$delete('team/').then( () => console.log(res))
+
+      this.$axios
+        .$put('team/', formData, { headers: { 'content-type': 'multipart/form-data' } })
+        .then(response => {
+          this.loading = false;
+          this.team = response;
+          this.$toast.success('عکس جدید ذخیره شد!');
+          this.toggleIsEditing();
+        })
+        .catch(error => {
+          this.loading = false;
+          this.form.image = null;
+          this.form.imageUrl = '';
+          this.$toast.error('تغییر عکس با مشکل روبه‌رو شد!');
+          this.toggleIsEditing();
+        });
+    },
+    leaveTeam() {
+      this.loading = true;
+      this.$axios
+        .$delete('team')
+        .then(res => {
+          this.loading = false;
+          this.$toast.success('شما با موفقیت از تیم خارج شدید!');
+          this.toggleHaveTeam();
+        })
+        .catch(error => {
+          this.$toast.error('خروج با مشکل مواجه شد!');
+        });
+    },
+    updateTeamName() {
+      this.loading = true;
+      this.$axios
+        .$put('team/', {
+          name: this.form.name,
+        })
+        .then(response => {
+          this.loading = false;
+          if (response.name === this.form.name) {
+            this.team.name = this.form.name;
+            this.form.name = '';
+            this.$toast.success('نام تیم با موفقیت تغییر کرد!');
+          } else this.$toast.error('تغییر نام با مشکل روبه‌رو شد!');
+          this.toggleIsEditing();
+        })
+        .catch(error => {
+          this.loading = false;
+          this.$toast.error('تغییر نام با مشکل روبه‌رو شد!');
+          this.toggleIsEditing();
+        });
+    },
+    resetTeamNameForm() {
+      this.isEditing = false;
+      this.form.name = '';
+    },
+    toggleIsEditing() {
+      this.isEditing = !this.isEditing;
     },
   },
 };
@@ -85,16 +194,120 @@ export default {
 
 <style lang="scss" scoped>
 @import 'assets/mixins.scss';
-.team-container{
-  background-color: var(--v-bg-base) !important;
-  border-radius: 3rem;
+
+.inherit-bg-color {
+  background-color: inherit !important;
 }
-.myTeam {
-  img {
-    max-width: 100%;
-    @include v-md {
-      max-width: 250px;
-      margin: 0px auto 10px;
+
+.team-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 50%;
+  min-width: 240px;
+  min-height: 240px;
+  margin: auto;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    max-height: 80px;
+  }
+
+  &__picture {
+    transform: translateY(-60px);
+    object-fit: cover;
+    width: 150px !important;
+    height: 150px !important;
+  }
+
+  &__edit {
+    transform: translateY(-115px);
+    object-fit: cover;
+    margin-left: auto;
+    width: 36px;
+    height: 36px;
+
+    &__icon {
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__name {
+  }
+
+  &__members {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__member {
+    width: 100%;
+
+    &__content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    &__name {
+    }
+
+    &__icon {
+    }
+  }
+
+  &__add-member {
+    width: 100%;
+
+    &__content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    &__name {
+    }
+
+    &__icon {
+    }
+  }
+
+  &__leave {
+    width: 100%;
+  }
+}
+
+.team-edit {
+
+  &__name {
+
+    &__field {
+      height: 36px !important;
+    }
+  }
+
+  &__profile {
+
+    &__input {
     }
   }
 }
