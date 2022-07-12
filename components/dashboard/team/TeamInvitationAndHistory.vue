@@ -21,9 +21,9 @@
             <v-icon color="primary" size="40px" class="pl-4 pr-2">mdi-script-text-outline</v-icon>
             تاریخچه دعوت ها
           </h1>
-          <v-alert dark icon="mdi-information" dense class="pt-4 pb-4">
+          <div  class="mb-8 mt-2 notice-box text-center text-caption w-50" style="width : 50% !important;">
             در این قسمت وضعیت دعوتنامه‌هایی را که از طرف تیمتان به افراد فرستاده‌اید مشاهده می کنید!
-          </v-alert>
+          </div>
         </div>
         <div class="pr-10 history-List">
           <div v-if="invitationsList.data && invitationsList.data.length !== 0">
