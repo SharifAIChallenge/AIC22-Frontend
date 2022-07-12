@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionHeader title="دعوتنامه های من" icon="mdi-script-outline"/>
+    <SectionHeader title="دعوت نامه های من" icon="mdi-script-outline"/>
     <SectionContainer>
       <div v-if="pendingList && pendingList.length > 0">
         <div v-for="(list, index) in pendingList" :key="index">
@@ -220,12 +220,10 @@ export default {
       //   }
       // });
       this.$axios.$get('team/invitations/team_pending').then(res => {
-        if (res.status_code === 200) {
           this.pendingList = res;
-        } else {
-          this.$toast.error('خطا در برقراری ارتباط!');
-        }
-      });
+      }).catch(()=>{
+        this.$toast.error('خطا در برقراری ارتباط!');
+      })
       this.loadingBtn = false;
     },
   },

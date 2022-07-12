@@ -165,12 +165,10 @@ export default {
     rejectRequest(id) {
       this.loading = true;
       this.$axios.$put(`team/invitations/user_pending/${id}?answer=no`).then(res => {
-        if (res.status_code === 200) {
           this.$toast.success('دعوت با موفقیت رد شد.');
           this.toggleHaveTeam();
-        } else {
-          this.$toast.error('مشکلی در رد کردن درخواست رخ داد لطفا دوباره امتحان کنید.');
-        }
+      }).catch(() => {
+        this.$toast.error('مشکلی در قبول درخواست رخ داد لطفا دوباره امتحان کنید.');
       });
       this.loading = false;
     },
