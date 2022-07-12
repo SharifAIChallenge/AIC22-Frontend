@@ -154,9 +154,7 @@ export default {
   methods: {
     acceptRequest(id) {
       this.loading = true;
-      this.$axios.$put(`team/invitations/user_pending/${id}`, {
-        status: 'accepted',
-      }).then(res => {
+      this.$axios.$put(`team/invitations/user_pending/${id}?answer=yes`).then(res => {
         this.$toast.success('دعوت با موفقیت پذیرفته شد.');
         this.toggleHaveTeam();
       }).catch(() => {
@@ -166,9 +164,7 @@ export default {
     },
     rejectRequest(id) {
       this.loading = true;
-      this.$axios.$put(`team/invitations/user_pending/${id}`, {
-        status: 'rejected',
-      }).then(res => {
+      this.$axios.$put(`team/invitations/user_pending/${id}?answer=no`).then(res => {
         if (res.status_code === 200) {
           this.$toast.success('دعوت با موفقیت رد شد.');
           this.toggleHaveTeam();

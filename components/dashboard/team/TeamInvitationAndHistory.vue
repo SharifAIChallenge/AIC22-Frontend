@@ -193,9 +193,7 @@ export default {
     },
     acceptRequest(id) {
       this.loadingBtn = true;
-      this.$axios.$put(`team/invitations/team_pending/${id}`, {
-        status: 'accepted',
-      }).then(res => {
+      this.$axios.$put(`team/invitations/team_pending/${id}?answer=yes`).then(res => {
         this.$toast.success('با موفقیت انجام شد!');
       }).catch(() => {
         this.$toast.error('مشکلی رخ داده است!');
@@ -209,9 +207,7 @@ export default {
     },
     rejectRequest(id) {
       this.loadingBtn = true;
-      this.$axios.$put(`team/invitations/team_pending/${id}`, {
-        status: 'rejected',
-      }).then(res => {
+      this.$axios.$put(`team/invitations/team_pending/${id}?answer=no`).then(res => {
         this.$toast.success('با موفقیت انجام شد!');
       }).catch(() => {
         this.$toast.error('مشکلی رخ داده است!');
