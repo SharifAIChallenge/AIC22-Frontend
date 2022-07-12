@@ -37,7 +37,7 @@
       <template v-slot:[`item.name`]="{ item }">
         <div class="d-flex align-center">
           <div class="">
-            <span>{{ item.name }}11</span>
+            <span>{{ item.name }}</span>
           </div>
         </div>
       </template>
