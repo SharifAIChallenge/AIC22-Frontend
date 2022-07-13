@@ -181,7 +181,9 @@ strong {
   background-color: transparent !important;
 }
 
-
+.table table{
+  overflow-x: auto;
+}
 .table td {
   padding: 1rem;
 }
