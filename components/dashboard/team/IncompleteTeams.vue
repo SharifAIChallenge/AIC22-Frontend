@@ -30,9 +30,8 @@
         :loading="tableLoading"
         :items-per-page="itemsPerPage"
         hide-default-footer
-        class="elevation-1 mx-10"
-
-        style="background: transparent; border-color: transparent"
+        class="mx-10"
+        style="background-color : transparent"
     >
       <template v-slot:[`item.name`]="{ item }">
         <div class="d-flex align-center">
@@ -52,7 +51,7 @@
     </v-data-table>
 
     <div class="mt-2">
-      <v-pagination v-model="page" :length="pageCount" total-visible="6" v-on:next="page + 1"
+      <v-pagination v-if="pageCount > 20 " v-model="page" :length="pageCount" total-visible="6" v-on:next="page + 1"
                     @previous="page - 1"></v-pagination>
     </div>
 
@@ -316,6 +315,19 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+
+
+::v-deep .theme--dark.v-pagination .v-pagination__navigation{
+  background-color: transparent;
+  border-radius: 50%;
+  border : 0.1rem solid #0e1224; 
+}
+
+::v-deep .v-pagination__item{
+  border-radius: 50%;
+}
+
+
 .emtyImage {
   width: 60px;
   height: 60px;

@@ -15,6 +15,7 @@ $material-dark-elevation-colors: (
   '12': #0e1224,
   '16': #141432,
   '24': #1a1940,
+  '26': #13202E,
   '32': #182636,
 );
 $material-dark: (
@@ -42,8 +43,8 @@ $material-dark: (
   ),
   'table': (
     'active': map-get($material-dark-elevation-colors, '12'),
-    'hover': map-get($material-dark-elevation-colors, '24'),
-    'group': map-get($material-dark-elevation-colors, '24'),
+    'hover': map-get($material-dark-elevation-colors, '26'),
+    'group': map-get($material-dark-elevation-colors, '26'),
   ),
   'chips': map-get($material-dark-elevation-colors, '24'),
   'timeline':(

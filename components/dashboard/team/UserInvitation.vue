@@ -18,7 +18,7 @@
       </div>
 
       <div class="mb-8 mt-2 notice-box text-center text-caption w-50" style="width : 50% !important;">
-        ایجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
+        اینجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
       </div>
       <div v-if="reqHistory && reqHistory.length === 0" class="mb-10">
         لیست دعوتنامه های شما خالی است

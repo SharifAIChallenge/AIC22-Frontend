@@ -29,8 +29,7 @@
         :loading="tableLoading"
         :items-per-page="itemsPerPage"
         hide-default-footer
-        class="elevation-1 mx-10"
-
+        class="mx-10"
         style="background: transparent; border-color: transparent"
     >
       <template v-slot:[`item.name`]="{ item }">
@@ -44,8 +43,8 @@
         <v-icon class="icon" @click="showusers(item)">mdi-account-box-outline</v-icon>
       </template>
       <template v-slot:[`item.sendRequest`]="{ item }">
-        <div class="d-flex justify-center">
-          <v-icon class="icon add-request__icon" @click="sendInvitation(item.email)">mdi-plus</v-icon>
+        <div class="d-flex justify-center" @click="sendInvitation(item.email)" style="cursor : pointer;">
+          <v-icon class="icon add-request__icon" >mdi-plus</v-icon>
           <span class="mr-1">
               درخواست عضویت
           </span>
@@ -54,8 +53,8 @@
     </v-data-table>
 
     <div class="mt-2">
-      <v-pagination v-model="page" :length="pageCount" total-visible="20" v-on:next="page + 1"
-                    @previous="page - 1"></v-pagination>
+      <v-pagination v-if="pageCount > 20 " v-model="page" :length="pageCount" total-visible="20" v-on:next="page + 1"
+                    @previous="page - 1" style="background-color : transparent"></v-pagination>
     </div>
 
     <v-dialog
@@ -176,7 +175,7 @@ export default {
       header: [
         {text: 'نام', value: 'name'},
         {text: 'اطلاعات', value: 'profile', align: 'center'},
-        {text: 'وضعیت درخواست', value: 'sendRequest', align: 'center'},
+        {text: 'ارسال درخواست عضویت', value: 'sendRequest', align: 'center'},
       ],
       users: [],
       currentUser: {
@@ -197,11 +196,9 @@ export default {
       this.tableLoading = true;
       let user_email = email;
       this.$axios.$post('team/invitations/team_sent', {user_email}).then(res => {
-        if (res.status_code === 200) {
           this.$toast.success(this.translateResponseMessage(res));
-        } else {
+      }).catch(()=>{
           this.$toast.error(this.translateResponseMessage(res));
-        }
       });
       this.tableLoading = false;
     },
@@ -323,6 +320,18 @@ export default {
 ;
 </script>
 <style lang="scss" scoped>
+
+
+::v-deep .theme--dark.v-pagination .v-pagination__navigation{
+  background-color: transparent;
+  border-radius: 50%;
+  border : 0.1rem solid #0e1224; 
+}
+
+::v-deep .v-pagination__item{
+  border-radius: 50%;
+}
+
 .emtyImage {
   width: 60px;
   height: 60px;
@@ -424,5 +433,9 @@ export default {
 
 .add-request__icon {
   color: #20C9B2;
+}
+
+.data_table{
+  background-color: transparent !important;
 }
 </style>
