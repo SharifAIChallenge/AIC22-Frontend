@@ -170,5 +170,10 @@ export default {
     height: 10rem;
     border: 0.5rem solid #13202E;
   }
+
+
+  @media screen and (max-width: 600px ) {
+    margin-left: 7rem;
+  }
 }
 </style>
