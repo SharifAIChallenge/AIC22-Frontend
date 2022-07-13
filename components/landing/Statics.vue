@@ -61,12 +61,23 @@
         <v-row class="justify-center">
           <v-col class="col-12 col-md-3">
             <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
-                    :style="{backgroundImage:`url(${Member})`}">
+                    :style="{backgroundImage:`url(${user})`}">
               <v-card-title class="justify-center text-h2">
-                {{ registerNumber }}
+                {{ stats[1].value }}
               </v-card-title>
               <v-card-text>
                 تعداد ثبت نام
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col class="col-12 col-md-3">
+            <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
+                    :style="{backgroundImage:`url(${team})`}">
+              <v-card-title class="justify-center text-h2">
+                {{ stats[0].value }}
+              </v-card-title>
+              <v-card-text>
+                تعداد تیم
               </v-card-text>
             </v-card>
           </v-col>
@@ -79,29 +90,28 @@
 
 <script>
 import Box from "~/components/utilities/Box";
-import Brackets from "~/assets/images/brackets.svg";
-import Swords from "~/assets/images/swords.svg";
-import Member from "~/assets/images/member.svg";
-import Team from "~/assets/images/team.svg";
+import submit from "~/assets/images/brackets.svg";
+import game from "~/assets/images/swords.svg";
+import user from "~/assets/images/member.svg";
+import team from "~/assets/images/team.svg";
 
 export default {
   name: "Statics",
   props: {
     onIntersecAbout: Function
   },
-  stats : [],
+  
   data() {
     return {
-      Brackets,
-      Swords,
-      Member,
-      Team,
-      registerNumber : 0,
+      stats : [],
+      submit,
+      game,
+      user,
+      team,
     };
   },
   async fetch(){
     this.stats = await this.$axios.$get('statistic/')
-    this.registerNumber = this.stats[0].value
   },
   components: { Box }
 };
