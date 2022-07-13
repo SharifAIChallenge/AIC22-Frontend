@@ -28,6 +28,7 @@
         :page.sync="page"
         :loading="tableLoading"
         :items-per-page="itemsPerPage"
+        disable-sort
         hide-default-footer
         class="mx-10"
         style="background: transparent; border-color: transparent"
@@ -43,11 +44,8 @@
         <v-icon class="icon" @click="showusers(item)">mdi-account-box-outline</v-icon>
       </template>
       <template v-slot:[`item.sendRequest`]="{ item }">
-        <div class="d-flex justify-center" @click="sendInvitation(item.email)" style="cursor : pointer;">
-          <v-icon class="icon add-request__icon" >mdi-plus</v-icon>
-          <span class="mr-1">
-              درخواست عضویت
-          </span>
+        <div class="d-flex justify-center"  style="cursor : pointer;">
+          <v-icon class="icon add-request__icon" @click="sendInvitation(item.email)" >mdi-plus-circle-outline</v-icon>
         </div>
       </template>
     </v-data-table>

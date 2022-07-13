@@ -12,7 +12,6 @@
             v-model="teamName"
             @keydown.enter="search(teamName)"
             height="50px"
-
             full-width
         ></v-text-field>
       </div>
@@ -29,6 +28,7 @@
         :page.sync="page"
         :loading="tableLoading"
         :items-per-page="itemsPerPage"
+        disable-sort
         hide-default-footer
         class="mx-10"
         style="background-color : transparent"
