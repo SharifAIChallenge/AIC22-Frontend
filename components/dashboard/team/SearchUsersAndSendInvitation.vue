@@ -1,294 +1,423 @@
 <template>
-  <v-app>
-    <div class="searchTable">
-      <div class="d-flex flex-wrap justify-space-between align-center pl-6 pl-md-12">
-        <SectionHeader title="جستجوی افراد بدون تیم" icon="mdi-account-search-outline" />
-        <div class="input-top mr-auto">
-          <v-btn color="secondary" height="50px" class="text-h7" @click="filtertoggle()" :loading="tableLoading">
-            <v-icon color="white" size="30px" class="pl-2 pr-2">mdi-filter-variant</v-icon>
-            فیلتر ها
-          </v-btn>
-        </div>
-      </div>
+  <div>
+    <SectionHeader class="mt-2" title="جستجوی افراد" icon="mdi-badge-account-horizontal" />
 
-      <v-data-table
-        :loading="tableLoading"
-        hide-default-footer
-        center
-        :headers="headers"
-        :items="data"
-        class="elevation-1 table-cursor"
-        @click:row="handleClick($event)"
-        :page.sync="page"
-        :items-per-page="itemPerPage"
-        style="background: #141432"
-      >
-        <template v-slot:[`item.profile.firstname_fa`]="{ item }">
-          <div v-if="item.profile.image_link">
-            <div class="profile">
-              <div>
-                <img :src="item.profile.image_link" height="60px" class="ml-2 mt-2" style="border-radius: 50%" />
-              </div>
-              <div>
-                <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
-              </div>
-            </div>
-          </div>
-          <div v-else class="profile">
-            <div class="profile">
-              <!-- <div>
-                <v-icon size="80px" style="right: -8px">mdi-alert-box</v-icon>
-              </div> -->
-              <div>
-                <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
-              </div>
-            </div>
-          </div>
-        </template>
-        <template v-slot:[`item.profile.university_degree`]="{ item }">{{ universityDegree(item.profile.university_degree) }}</template>
-        <template v-slot:[`item.profile.programming_language`]="{ item }">
-          {{ programmingLanguage(item.profile.programming_language) }}
-        </template>
-        <template v-slot:[`item.created`]="{ item }">{{ item.profile.university }}</template>
-        <template v-slot:[`item.profile`]="{ item }">
-          <v-icon size="30px" dark @click="setCurrentUser(item.profile, item.email, item.id, true)" class="icon-hover">
-            mdi-card-account-details-outline
-          </v-icon>
-        </template>
-        <template v-slot:[`item.send`]="{ item }">
-          <v-icon @click="sendInvitation(item.email)" size="30px" class="icon-hover ml-5 ml-md-7">mdi-plus-circle</v-icon>
-        </template>
-      </v-data-table>
-      <div class="text-center pt-4 pb-10" style="position: relative">
-        <v-pagination v-model="page" :length="pageCount" total-visible="6"></v-pagination>
-        <!-- <Logo /> -->
+    <div class="searchBar mt-8 mb-6 px-6 px-md-12">
+      <div class="mx-10" style="width: 40%;max-width: 500px">
+        <v-text-field
+            class="curved"
+            label="جست‌و‌جو نام فرد"
+            outlined
+            dense
+            v-model="UserName"
+            @keydown.enter="search(UserName)"
+            height="50px"
+            full-width
+        ></v-text-field>
       </div>
-
-      <v-dialog v-model="dialog" width="350">
-        <v-btn icon class="close-btn" @click="dialog = false">
-          <v-icon>mdi-close</v-icon>
+      <div>
+        <v-btn height="50px" block color="primary" class="curved pa-4" @click="search(UserName)">
+          <v-icon class="ml-0 ml-md-3">mdi-magnify</v-icon>
+          <div class="hide-sm-and-down px-4">جست‌و‌جو</div>
         </v-btn>
-        <UserProfileForTeam :userData="currentUser" />
-      </v-dialog>
-      <v-dialog v-model="filter" width="350">
-        <v-card>
-          <v-container>
-            <h2 style="text-align: center" class="mb-4">
-              <v-icon color="primary" size="30px">mdi-filter-variant</v-icon>
-              فیلتر ها
-            </h2>
-            <v-form ref="form">
-              <v-text-field v-model="filterData.name" label="نام" outlined height="36px"></v-text-field>
-              <v-text-field v-model="filterData.email" label="ایمیل" outlined dir="ltr" height="36px"></v-text-field>
-              <v-text-field v-model="filterData.university" label="دانشگاه" outlined dir="ltr" height="36px"></v-text-field>
-              <v-text-field v-model="filterData.major" label="رشته" outlined dir="ltr" height="36px"></v-text-field>
-              <div class="title">
-                <v-checkbox v-model="filterData.programming_language" label="++C" value="cpp"></v-checkbox>
-                <v-checkbox v-model="filterData.programming_language" label="Java" value="java"></v-checkbox>
-                <v-checkbox v-model="filterData.programming_language" label="Python3" value="python"></v-checkbox>
-              </div>
-              <div>
-                <v-btn width="100%" height="60px" class="text-h6" color="primary" @click="filterSend()" block>اعمال فیلتر</v-btn>
-              </div>
-            </v-form>
-          </v-container>
-        </v-card>
-      </v-dialog>
+      </div>
     </div>
-  </v-app>
-</template>
+    <v-data-table
+        :headers="header"
+        :items="users"
+        :page.sync="page"
+        :loading="tableLoading"
+        :items-per-page="itemsPerPage"
+        hide-default-footer
+        class="elevation-1 mx-10"
 
+        style="background: transparent; border-color: transparent"
+    >
+      <template v-slot:[`item.name`]="{ item }">
+        <div class="d-flex align-center">
+          <div class="">
+            <span>{{ item.name }}</span>
+          </div>
+        </div>
+      </template>
+      <template v-slot:[`item.profile`]="{ item }">
+        <v-icon class="icon" @click="showusers(item)">mdi-account-box-outline</v-icon>
+      </template>
+      <template v-slot:[`item.sendRequest`]="{ item }">
+        <div class="d-flex justify-center">
+          <v-icon class="icon add-request__icon" @click="sendRequest(item.id)">mdi-plus</v-icon>
+          <span class="mr-1">
+              درخواست عضویت
+          </span>
+        </div>
+      </template>
+    </v-data-table>
+
+    <div class="mt-2">
+      <v-pagination v-model="page" :length="pageCount" total-visible="6" v-on:next="page + 1"
+                    @previous="page - 1"></v-pagination>
+    </div>
+
+    <v-dialog
+        v-model="dialog"
+        max-width="290"
+    >
+      <v-card
+          rounded
+          class="modal-shadow"
+          color="bg_secondary">
+        <v-card-text
+            class="modal modal-shadow"
+        >
+          <div class="profile-picture">
+            <img
+                v-if="dialog_item && dialog_item.image"
+                :src="dialog_item.image"
+                class="rounded-circle"
+            />
+            <img
+                v-else
+                class="rounded-circle"
+                src="~/assets/images/avatar-sample.svg" alt="">
+          </div>
+          <div class="text-center" style="margin-top: -4rem;">
+            <p v-if="dialog_item">
+              {{ dialog_item.name }}
+            </p>
+          </div>
+          <div v-if="dialog_item && dialog_item.members" class="members">
+            <div v-for="(member,index) in dialog_item.members" :key="index">
+              <!--              <UserProfileForusers :userData="member"/>-->
+              <div style="display: flex; justify-content: space-around">
+                <p class="ma-0">
+                  {{ member.profile.firstname_fa }} {{ member.profile.lastname_fa }}
+                </p>
+                <v-icon class="icon" @click="setUser(member)">mdi-account-box-outline</v-icon>
+              </div>
+
+
+            </div>
+          </div>
+
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+        v-model="dialogUser"
+        max-width="290"
+    >
+      <v-card
+          rounded
+          class="modal-shadow"
+          color="bg_secondary">
+        <v-card-text
+            class="modal modal-shadow"
+        >
+          <div class="profile-picture">
+            <img
+                v-if="dialog_item_user && dialog_item_user.profile.image_url"
+                :src="dialog_item_user.profile.image_url"
+                class="rounded-circle"
+            />
+            <img
+                v-else
+                class="rounded-circle"
+                src="~/assets/images/avatar-sample.svg" alt="">
+          </div>
+          <div class="text-center" style="margin-top: -4rem;">
+            <p v-if="dialog_item_user">
+              {{ dialog_item_user.profile.firstname_fa }} {{ dialog_item_user.profile.lastname_fa }}
+            </p>
+          </div>
+          <div>
+            زبان های برنامه نویسی
+            <ul class="pr-4" v-if="dialog_item_user&& dialog_item_user.profile && dialog_item_user.profile.programming_languages.length !== 0">
+              <li v-for="(lang,index) in dialog_item_user.profile.programming_languages" :key="index">
+                {{ lang.programming_language_title }}
+              </li>
+            </ul>
+            <div v-else>
+              -ثبت نشده است !-
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <!--    <v-dialog v-model="ProfileDialog" width="350">-->
+    <!--      <v-btn icon class="close-btn" @click="ProfileDialog = false">-->
+    <!--        <v-icon>mdi-close</v-icon>-->
+    <!--      </v-btn>-->
+    <!--      <UserProfileForTeam :userData="currentUser"/>-->
+    <!--    </v-dialog>-->
+    <!--    <v-dialog v-model="teamDetails" width="350px">-->
+    <!--      <v-btn icon class="close-btn" @click="teamDetails = false">-->
+    <!--        <v-icon>mdi-close</v-icon>-->
+    <!--      </v-btn>-->
+    <!--      <v-card>-->
+    <!--        <img v-if="teamInfo.image_url" :src="teamInfo.image_url" style="max-width: 100%"/>-->
+    <!--        <div class="pa-3">-->
+    <!--          {{ teamInfo.name }}-->
+    <!--        </div>-->
+
+    <!--        <v-row v-for="(member, index) in teamInfo.members" :key="index" class="pa-3" style="width: 100%">-->
+    <!--          <v-col cols="2">-->
+    <!--            <img :src="member.profile.image_link" :alt="member.first_name" height="40px" style="max-width: 40px"/>-->
+    <!--          </v-col>-->
+    <!--          <v-col cols="10">-->
+    <!--            <div class="d-flex align-center">-->
+    <!--              <v-col cols="10">-->
+    <!--                {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}-->
+    <!--              </v-col>-->
+    <!--              <v-col cols="2">-->
+    <!--                <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">-->
+    <!--                  mdi-card-account-details-outline-->
+    <!--                </v-icon>-->
+    <!--              </v-col>-->
+    <!--            </div>-->
+    <!--          </v-col>-->
+    <!--        </v-row>-->
+    <!--        <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال-->
+    <!--          درخواست عضویت-->
+    <!--        </v-btn>-->
+    <!--      </v-card>-->
+    <!--    </v-dialog>-->
+
+  </div>
+</template>
 <script>
-import UserProfileForTeam from './UserProfileForTeam';
-import SectionHeader from '~/components/SectionHeader';
+import UserProfileForTeam from '~/components/dashboard/team/UserProfileForTeam';
 import SectionContainer from '~/components/SectionContainer';
-import Logo from '~/components/dashboard/Logo';
+import SectionHeader from '~/components/SectionHeader';
 
 export default {
-  components: { UserProfileForTeam, SectionHeader, SectionContainer, Logo },
-  async fetch() {
-    this.tableLoading = true;
-    let res = await this.$axios.$get('accounts/without_team');
-    if (res.status_code === 200) {
-      this.data = res.results.data;
-      this.status_code = res.status_code;
-      this.setPageCount(res.count);
-    } else {
-      this.$toast.error('خطا در برقراری ارتباط!');
-    }
-    this.tableLoading = false;
+  name: "SearchUsersAndSendInvitation",
+  components: {
+    UserProfileForTeam,
+    SectionContainer,
+    SectionHeader,
   },
   data() {
     return {
-      logo: Logo,
-      tableLoading: false,
       dialog: false,
-      filter: false,
+      dialogUser: false,
+      dialog_item: null,
+      dialog_item_user: null,
       page: 1,
-      pageCount: 1,
-      itemPerPage: 20,
-      headers: [
-        {
-          text: 'نام و نام‌خانوادگی',
-          align: 'right',
-          sortable: false,
-          value: 'profile.firstname_fa',
-        },
-        { text: 'مقطع تحصیلی', align: 'center', value: 'profile.university_degree' },
-        { text: 'زبان برنامه‌نویسی', align: 'center', value: 'profile.programming_language' },
-        { text: 'دانشگاه', align: 'center', value: 'profile.university' },
-        { text: 'پروفایل', align: 'center', value: 'profile' },
-        { text: 'دعوت', align: 'center', value: 'send' },
+      pageCount: 0,
+      itemsPerPage: 20,
+      teamDetails: false,
+      ProfileDialog: false,
+      tableLoading: true,
+      teamInfo: {},
+      UserName: '',
+      header: [
+        {text: 'نام', value: 'name'},
+        {text: 'اطلاعات', value: 'profile', align: 'center'},
+        {text: 'وضعیت درخواست', value: 'sendRequest', align: 'center'},
       ],
-      data: [],
+      users: [],
       currentUser: {
         profile: {},
         email: '',
         id: 0,
         show: true,
       },
-      filterData: {
-        name: '',
-        email: '',
-        university: '',
-        major: '',
-        programming_language: '',
-      },
-      status_code: 200,
-      lastApi: '',
     };
   },
+  watch: {
+    page: function () {
+      this.changePage(this.page);
+    },
+  },
   methods: {
-    setPageCount(count) {
-      this.pageCount = Math.ceil(count / 20);
+    setUser(member) {
+      this.dialog_item_user = member;
+      this.dialog = false
+      this.dialogUser = true
     },
-    sendInvitation(email) {
+    search(name) {
+      this.users = [];
       this.tableLoading = true;
-      let user_email = email;
-      this.$axios.$post('team/invitations/team_sent', { user_email }).then(res => {
-        if (res.status_code === 200) {
-          this.$toast.success(this.translateResponseMessage(res));
+      this.page = 1;
+      this.$axios.get(`/team/incomplete?name=${name}`).then(res => {
+        const count = 20;
+        if (res.data.count % count === 0) {
+          this.pageCount = res.data.count / count;
         } else {
-          this.$toast.error(this.translateResponseMessage(res));
+          this.pageCount = Math.ceil(res.data.count / count);
         }
+        if (res.data.count === 0) {
+          this.$toast.error('فردی با این نام وجود ندارد.');
+        }
+        console.log("users" , res.data.results)
+        this.users = res.data.results;
+        this.tableLoading = false;
       });
-      this.tableLoading = false;
+      // this.UserName = '';
     },
-    filterSend() {
+    changePage(page) {
       this.tableLoading = true;
-      var lastApi = 'accounts/without_team';
-
-      let index = 0;
-      for (const property in this.filterData) {
-        if (this.filterData[property]) {
-          if (index === 0) lastApi = lastApi + '?' + property + '=' + this.filterData[property];
-          else lastApi = lastApi + '&' + property + '=' + this.filterData[property];
-          index++;
-        }
+      this.users = [];
+      if (this.UserName === '') {
+        this.$axios.get(`/team/incomplete?page=${page}`).then(res => {
+          this.users = res.data.results.data;
+          this.tableLoading = false;
+        });
+      } else {
+        this.$axios.get(`/team/incomplete?name=${this.UserName}&page=${page}`).then(res => {
+          this.users = res.data.results.data;
+          this.tableLoading = false;
+        });
       }
-
-      this.lastApi = lastApi;
-
-      this.$axios.$get(lastApi).then(res => {
-        if (res.status_code === 200) {
-          this.data = res.results.data;
-          this.status_code = res.status_code;
-          this.setPageCount(res.count);
+    },
+    sendRequest(users_id) {
+      this.$axios.post('team/invitations/team_sent', {users_id}).then(res => {
+        if (res.data.status_code === 200) {
+          this.$toast.success(this.translateResponseMessage(res.data));
         } else {
-          this.$toast.error('خطا در برقراری ارتباط!');
+          this.$toast.error(this.translateResponseMessage(res.data));
         }
+      }).catch(res => {
+        this.$toast.error('شما قبلا به این تیم دعوت‌نامه ارسال کردید!');
       });
-      this.tableLoading = false;
-      this.$refs.form.reset();
-      this.filter = !this.filter;
     },
-    handleClick(row) {
-      // this.$router.push(`/ticket/${row.id}`);
-    },
-    calculateAge(birthday) {
-      var dob = new Date(birthday);
-      var diff_ms = Date.now() - dob.getTime();
-      var age_dt = new Date(diff_ms);
-      return Math.abs(age_dt.getUTCFullYear() - 1970);
+    showusers(users) {
+      // this.usersDetails = true;
+      this.dialog = true;
+      this.usersInfo = users;
+      this.dialog_item = users
     },
     setCurrentUser(profile, email, id, show) {
+      this.usersDetails = false;
       this.currentUser.profile = profile;
       this.currentUser.email = email;
       this.currentUser.id = id;
       this.currentUser.show = show;
-      this.dialog = true;
-    },
-    filtertoggle() {
-      this.filter = !this.filter;
+      this.ProfileDialog = true;
     },
     translateResponseMessage(response) {
       if (response.message === 'your invitation sent') return 'دعوت نامه ارسال شد!';
-      else if (response.detail.detail === 'you have a sent an invitation already') return 'شما قبلا به این کاربر دعوت‌نامه ارسال کردید! ';
+      else if (response.detail.detail === 'you have a sent an invitation already') return 'شما قبلا به این تیم دعوت‌نامه ارسال کردید! ';
       else return 'مشکلی در ارسال دعوت نامه رخ داد!';
     },
-    universityDegree(response) {
-      if (response === 'ST') return 'دانش آموز';
-      else if (response === 'BA') return 'کارشناسی';
-      else if (response === 'MA') return 'کارشناسی ارشد';
-      else if (response === 'DO') return 'دکترا';
-    },
-    programmingLanguage(response) {
-      if (response === 'cpp') return 'C++';
-      else if (response === 'py3') return 'Python3';
-      else if (response === 'java') return 'Java';
-    },
-    changePage(page) {
-      this.tableLoading = true;
-      let url = '';
-      if (this.lastApi) url = this.lastApi + '&page=' + page;
-      else url = `/accounts/without_team?page=${page}`;
-      this.$axios.get(url).then(res => {
-        this.data = res.data.results.data;
-        this.tableLoading = false;
-        this.setPageCount(res.data.count);
-      });
-    },
   },
-  watch: {
-    page: function() {
-      this.changePage(this.page);
-    },
+  async fetch() {
+    this.tableLoading = true;
+    await this.$axios.$get('/team/incomplete').then(res => {
+      this.users = res.results;
+      const count = 20;
+      if (res.count % count === 0) {
+        this.pageCount = res.count / count;
+      } else {
+        this.pageCount = Math.ceil(res.count / count);
+      }
+    });
+    this.tableLoading = false;
   },
 };
 </script>
+<style lang="scss" scoped>
+.emtyImage {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.493);
+  border-radius: 50%;
+}
 
-<style lang="scss">
-// @import '~/assets/mixins.scss';
-.searchTable {
-  .main {
-    text-align: center;
+@import 'assets/mixins.scss';
+.icon {
+  &:hover {
+    color: var(--v-primary-base);
   }
-  .table-cursor tbody tr:hover {
-    cursor: pointer;
-  }
-  .profile {
-    display: flex;
-    align-items: center;
-  }
-  .close-btn {
-    font-size: 20px;
-    right: 0px;
-    cursor: pointer;
-  }
-  .title {
-    display: flex;
-    justify-content: space-between;
-  }
-  .icon-hover {
-    &:hover {
-      color: var(--v-primary-base);
+}
+
+.searchBar {
+  display: flex;
+  justify-content: center;
+
+  .hide-sm-and-down {
+    @include v-not-sm {
+      display: none;
     }
   }
-  .input-top {
-    text-align: left;
+}
+
+.curved {
+  border-radius: 99px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.teamImg {
+  max-width: 100%;
+}
+
+.reqInfoAndButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.blueFont {
+  color: rgb(41, 37, 255);
+}
+
+.orangeFont {
+  color: orange;
+}
+
+.greenFont {
+  color: green;
+}
+
+.history {
+  display: flex;
+  justify-content: space-between;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.profile-picture {
+  position: relative !important;
+  display: flex;
+  top: -5rem;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .upload-avatar {
+    width: 12rem;
   }
-  > th {
-    padding-right: 100px;
+
+  img {
+    width: 10rem;
+    height: 10rem;
+
+    border: 0.5rem solid #13202E;
   }
+}
+
+.modal-shadow, .v-dialog.v-dialog--active, .modal {
+  border-radius: 10px !important;
+}
+
+.members {
+  border-top: 1px solid #13202E;
+}
+
+.members > div {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  border-bottom: 1px solid #13202E;
+}
+.add-request__icon{
+  color: #20C9B2;
 }
 </style>
