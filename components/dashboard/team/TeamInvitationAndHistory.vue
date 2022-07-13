@@ -25,7 +25,7 @@
             در این قسمت وضعیت دعوتنامه‌هایی را که از طرف تیمتان به افراد فرستاده‌اید مشاهده می کنید!
           </div>
         </div>
-        <div class="pr-10 history-List">
+        <div class="history-List">
           <div v-if="invitationsList.data && invitationsList.data.length !== 0">
             <div class="table">
               <table class="w-full">
