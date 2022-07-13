@@ -108,24 +108,18 @@ export default {
       game,
       user,
       team,
-      teamNumber : 0
+      teamNumber : 0,
+      registerNumber : 0
     };
   },
   async fetch(){
     await this.$axios.$get('statistic/').then(res=>{
       console.log(res)
       this.teamNumber = res.find(item => item.title==='team').value
+      this.registerNumber = res.find(item => item.title==='user').value
     })
-    console.log(this.teamNumber);
   },
   components: { Box },
-  // mounted(){
-  //   this.$axios.$get('statistic/').then(res =>{
-  //     console.log(res)
-  //     this.teamNumber = res.find(item => {item.title==='team'})
-  //   })
-  //   console.log(this.teamNumber);
-  // }
 };
 </script>
 
