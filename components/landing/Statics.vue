@@ -63,7 +63,7 @@
             <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
                     :style="{backgroundImage:`url(${user})`}">
               <v-card-title class="justify-center text-h2">
-                <!-- {{ stats[1].value }} -->
+                {{registerNumber}}
               </v-card-title>
               <v-card-text>
                 تعداد ثبت نام
