@@ -4,7 +4,7 @@ import fa from 'vuetify/es5/locale/fa';
 require('dotenv').config();
 
 
-// const [MODE, a] = process.env.TOF_MODE;
+// const [MODE, a] = process..env.TOF_MODE;
 const MODE = process.env.MODE;
 
 console.log(MODE);
@@ -115,6 +115,7 @@ export default {
         '@nuxtjs/toast',
         '@nuxtjs/markdownit',
         '@nuxtjs/svg',
+        '@nuxtjs/sentry'
     ],
     // auth: {
     //     strategies: {
@@ -125,6 +126,9 @@ export default {
     //         },
     //     }
     // },
+    sentry:{
+        dsn:'https://e973427ed8c444f5a7c081b8135d90d0@sentry.aichallenge.ir/3',
+    },
     markdownit: {
         preset: 'default',
         linkify: true,
@@ -157,7 +161,7 @@ export default {
         // baseURL: MODE == 's' ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
         // browserBaseURL: MODE == 's' ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
         // browserBaseURL: 'https://aichallenge.sharif.edu/api',
-        // baseURL: process.env.baseURL,
+        // baseURL: process..env.baseURL,
         // baseURL: 'https://aichallenge.sharif.edu/api',
         // baseURL: 'http://172.17.0.1:8000/api'
 

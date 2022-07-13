@@ -17,8 +17,8 @@
         داده ای برای نمایش وجود ندارد
       </div>
 
-      <div class="mb-8 notice-box text-center text-caption w-50">
-        ایجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
+      <div class="mb-8 mt-2 notice-box text-center text-caption w-50" style="width : 50% !important;">
+        اینجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
       </div>
       <div v-if="reqHistory && reqHistory.length === 0" class="mb-10">
         لیست دعوتنامه های شما خالی است
@@ -154,9 +154,7 @@ export default {
   methods: {
     acceptRequest(id) {
       this.loading = true;
-      this.$axios.$put(`team/invitations/user_pending/${id}`, {
-        status: 'accepted',
-      }).then(res => {
+      this.$axios.$put(`team/invitations/user_pending/${id}?answer=yes`).then(res => {
         this.$toast.success('دعوت با موفقیت پذیرفته شد.');
         this.toggleHaveTeam();
       }).catch(() => {
@@ -166,15 +164,11 @@ export default {
     },
     rejectRequest(id) {
       this.loading = true;
-      this.$axios.$put(`team/invitations/user_pending/${id}`, {
-        status: 'rejected',
-      }).then(res => {
-        if (res.status_code === 200) {
+      this.$axios.$put(`team/invitations/user_pending/${id}?answer=no`).then(res => {
           this.$toast.success('دعوت با موفقیت رد شد.');
           this.toggleHaveTeam();
-        } else {
-          this.$toast.error('مشکلی در رد کردن درخواست رخ داد لطفا دوباره امتحان کنید.');
-        }
+      }).catch(() => {
+        this.$toast.error('مشکلی در قبول درخواست رخ داد لطفا دوباره امتحان کنید.');
       });
       this.loading = false;
     },

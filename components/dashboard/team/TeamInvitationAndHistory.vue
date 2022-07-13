@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionHeader title="دعوتنامه های من" icon="mdi-script-outline"/>
+    <SectionHeader title="دعوت نامه های من" icon="mdi-script-outline"/>
     <SectionContainer>
       <div v-if="pendingList && pendingList.length > 0">
         <div v-for="(list, index) in pendingList" :key="index">
@@ -21,9 +21,9 @@
             <v-icon color="primary" size="40px" class="pl-4 pr-2">mdi-script-text-outline</v-icon>
             تاریخچه دعوت ها
           </h1>
-          <v-alert dark icon="mdi-information" dense class="pt-4 pb-4">
+          <div  class="mb-8 mt-2 notice-box text-center text-caption w-50" style="width : 50% !important;">
             در این قسمت وضعیت دعوتنامه‌هایی را که از طرف تیمتان به افراد فرستاده‌اید مشاهده می کنید!
-          </v-alert>
+          </div>
         </div>
         <div class="pr-10 history-List">
           <div v-if="invitationsList.data && invitationsList.data.length !== 0">
@@ -193,9 +193,7 @@ export default {
     },
     acceptRequest(id) {
       this.loadingBtn = true;
-      this.$axios.$put(`team/invitations/team_pending/${id}`, {
-        status: 'accepted',
-      }).then(res => {
+      this.$axios.$put(`team/invitations/team_pending/${id}?answer=yes`).then(res => {
         this.$toast.success('با موفقیت انجام شد!');
       }).catch(() => {
         this.$toast.error('مشکلی رخ داده است!');
@@ -209,9 +207,7 @@ export default {
     },
     rejectRequest(id) {
       this.loadingBtn = true;
-      this.$axios.$put(`team/invitations/team_pending/${id}`, {
-        status: 'rejected',
-      }).then(res => {
+      this.$axios.$put(`team/invitations/team_pending/${id}?answer=no`).then(res => {
         this.$toast.success('با موفقیت انجام شد!');
       }).catch(() => {
         this.$toast.error('مشکلی رخ داده است!');
@@ -224,12 +220,10 @@ export default {
       //   }
       // });
       this.$axios.$get('team/invitations/team_pending').then(res => {
-        if (res.status_code === 200) {
           this.pendingList = res;
-        } else {
-          this.$toast.error('خطا در برقراری ارتباط!');
-        }
-      });
+      }).catch(()=>{
+        this.$toast.error('خطا در برقراری ارتباط!');
+      })
       this.loadingBtn = false;
     },
   },

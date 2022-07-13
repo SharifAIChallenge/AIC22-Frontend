@@ -28,14 +28,14 @@
           >
             <span class="primary right-span" style="width: 6px; height: 100%; position: absolute; right: 0"
                   v-show="activeLink == item.title"></span>
-            <v-list-item-icon class="py-1 my-0" style="transform: translateY(-17px)"
-            >
-              <v-icon v-if="activeLink != item.title">{{ item.icon }}</v-icon>
-              <v-icon v-else color="primary">{{ item.hover }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="mr-6">{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
+            <div style="display: flex; align-items: center">
+              <v-list-item-icon class="ma-auto">
+                <v-icon :color="activeLink == item.title? 'primary' : ''" class="ma-auto">{{ item.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="mr-6">{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
+            </div>
           </v-list-item>
           <v-divider v-if="item.divider" :key="`+${item.title}`"/>
         </template>
@@ -54,17 +54,22 @@
           >
             <span class="primary right-span" style="width: 6px; height: 100%; position: absolute; right: 0"
                   v-show="activeLink == item.title"></span>
-            <v-list-item-icon class="py-1 my-0" style="transform: translateY(-17px)"
-            >
-              <v-icon v-if="activeLink != item.title">{{ item.icon }}</v-icon>
-              <v-icon v-else color="primary">{{ item.hover }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <div style="display: flex;justify-content: space-around; align-items: center">
-                <v-list-item-title class="mr-6">{{ item.title }}</v-list-item-title>
-                <div v-if="item.numberShow" class="pa-1 primary" style="border-radius: 5px; font-weight: normal; font-size: 0.8rem  ">{{ updateDataWithApi(item.api) }}</div>
-              </div>
-            </v-list-item-content>
+            <div style="display: flex; align-items: center">
+
+              <v-list-item-icon class="ma-auto">
+                <v-icon :color="activeLink == item.title? 'primary' : ''" class="ma-auto">{{ item.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <div style="display: flex;justify-content: space-around; align-items: center">
+                  <v-list-item-title class="mr-6">{{ item.title }}</v-list-item-title>
+                  <div v-if="item.numberShow" class="pa-1 primary"
+                       style="border-radius: 5px; font-weight: normal; font-size: 0.8rem">
+                    {{ updateDataWithApi(item.api) }}
+                  </div>
+                </div>
+              </v-list-item-content>
+            </div>
+
           </v-list-item>
           <v-divider v-if="item.divider" :key="`+${item.title}`"/>
         </template>
@@ -85,21 +90,21 @@
         <nuxt/>
       </v-container>
     </v-main>
-    <PaymentDialog :dialog="payDialog" @close="payDialog = false"/>
+    <!-- <PaymentDialog :dialog="payDialog" @close="payDialog = false"/> -->
   </v-app>
 </template>
 
 <script>
-import PaymentDialog from "~/components/dashboard/PaymentDialog";
+// import PaymentDialog from "~/components/dashboard/PaymentDialog";
 import {mapState} from "vuex";
 
 export default {
-  components: {PaymentDialog},
+  components: {},
   data() {
     return {
       drawer: null,
       activeLink: "خانه",
-      payDialog: false,
+      // payDialog: false,
       routes: {
         home: {
           title: "خانه",
@@ -254,9 +259,9 @@ export default {
           this.$router.push("/dashboard/settings");
           this.$toast.error("لطفا ابتدا اطلاعات شخصی را کامل کنید");
         }
-        if (this.profile.has_team) {
-          this.openDialog();
-        }
+        // if (this.profile.has_team) {
+        //   this.openDialog();
+        // }
         // else {
         //   this.routes.games.disabled = true;
         //   // this.routes.tournaments.disabled = true;
@@ -294,7 +299,7 @@ export default {
     },
     openDialog() {
       if (!localStorage.getItem("isSawDialog")) {
-        this.payDialog = true;
+        // this.payDialog = true;
       }
     }
   },
