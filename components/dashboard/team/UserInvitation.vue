@@ -4,7 +4,7 @@
     <SectionContainer>
       <div class="mb-10" v-if="pending && pending.length > 0">
         <v-row>
-          <v-col class="col-3" v-for="(list, index) in pending" :key="index">
+          <v-col cols="6" md="3" v-for="(list, index) in pending" :key="index">
             <MyTeamInvitations :name="list.team.name"
                                :status="list.status"
                                text="اطلاعات تیم"
