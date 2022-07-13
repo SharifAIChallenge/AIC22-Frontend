@@ -63,7 +63,7 @@
             <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
                     :style="{backgroundImage:`url(${user})`}">
               <v-card-title class="justify-center text-h2">
-                {{ stats[1].value }}
+                <!-- {{ stats[1].value }} -->
               </v-card-title>
               <v-card-text>
                 تعداد ثبت نام
@@ -74,7 +74,7 @@
             <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
                     :style="{backgroundImage:`url(${team})`}">
               <v-card-title class="justify-center text-h2">
-                {{ stats[0].value }}
+                {{ teamNumber }}
               </v-card-title>
               <v-card-text>
                 تعداد تیم
@@ -101,19 +101,31 @@ export default {
     onIntersecAbout: Function
   },
   
+  stats : [],
   data() {
     return {
-      stats : [],
       submit,
       game,
       user,
       team,
+      teamNumber : 0
     };
   },
   async fetch(){
-    this.stats = await this.$axios.$get('statistic/')
+    await this.$axios.$get('statistic/').then(res=>{
+      console.log(res)
+      this.teamNumber = res.find(item => item.title==='team').value
+    })
+    console.log(this.teamNumber);
   },
-  components: { Box }
+  components: { Box },
+  // mounted(){
+  //   this.$axios.$get('statistic/').then(res =>{
+  //     console.log(res)
+  //     this.teamNumber = res.find(item => {item.title==='team'})
+  //   })
+  //   console.log(this.teamNumber);
+  // }
 };
 </script>
 
