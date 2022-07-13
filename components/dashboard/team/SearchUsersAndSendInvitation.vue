@@ -36,7 +36,7 @@
       <template v-slot:[`item.name`]="{ item }">
         <div class="d-flex align-center">
           <div class="">
-            <span>{{ item.name }}</span>
+            <span>{{ item.profile.firstname_fa + " " + item.profile.lastname_fa }}</span>
           </div>
         </div>
       </template>
@@ -54,7 +54,7 @@
     </v-data-table>
 
     <div class="mt-2">
-      <v-pagination v-model="page" :length="pageCount" total-visible="6" v-on:next="page + 1"
+      <v-pagination v-model="page" :length="pageCount" total-visible="20" v-on:next="page + 1"
                     @previous="page - 1"></v-pagination>
     </div>
 
@@ -231,8 +231,10 @@ export default {
       this.users = [];
       this.tableLoading = true;
       this.page = 1;
-      this.$axios.get(`/team/incomplete?name=${name}`).then(res => {
+
+      this.$axios.get(`/account/without_team?name=${name}`).then(res => {
         const count = 20;
+        console.log(res)
         if (res.data.count % count === 0) {
           this.pageCount = res.data.count / count;
         } else {
@@ -241,8 +243,9 @@ export default {
         if (res.data.count === 0) {
           this.$toast.error('فردی با این نام وجود ندارد.');
         }
-        this.users = res.data.results;
+        this.users = res.data.results.data;
         this.tableLoading = false;
+
       });
       // this.UserName = '';
     },
@@ -258,52 +261,45 @@ export default {
         this.setPageCount(res.data.count);
       });
     },
-    sendRequest(users_id) {
-      this.$axios.post('team/invitations/team_sent', {users_id}).then(res => {
-        if (res.data.status_code === 200) {
-          this.$toast.success(this.translateResponseMessage(res.data));
-        } else {
-          this.$toast.error(this.translateResponseMessage(res.data));
-        }
-      }).catch(res => {
-        this.$toast.error('شما قبلا به این تیم دعوت‌نامه ارسال کردید!');
-      });
-    },
     showusers(users) {
       // this.usersDetails = true;
-      this.dialog = true;
-      this.usersInfo = users;
-      this.dialog_item = users
+      this.dialogUser = true;
+      this.dialog_item_user = users
+      this.usersInfo = users.profile.firstname_fa + " " + users.profile.lastname_fa;
+      this.dialog_item = users.profile
+      console.log("fucl")
     },
 
-    filterSend() {
-      this.tableLoading = true;
-      var lastApi = 'accounts/without_team';
+    /*
+        filterSend() {
+          this.tableLoading = true;
+          let lastApi = 'account/without_team';
 
-      let index = 0;
-      for (const property in this.filterData) {
-        if (this.filterData[property]) {
-          if (index === 0) lastApi = lastApi + '?' + property + '=' + this.filterData[property];
-          else lastApi = lastApi + '&' + property + '=' + this.filterData[property];
-          index++;
-        }
-      }
+          let index = 0;
+          for (const property in this.filterData) {
+            if (this.filterData[property]) {
+              if (index === 0) lastApi = lastApi + '?' + property + '=' + this.filterData[property];
+              else lastApi = lastApi + '&' + property + '=' + this.filterData[property];
+              index++;
+            }
+          }
 
-      this.lastApi = lastApi;
+          this.lastApi = lastApi;
 
-      this.$axios.$get(lastApi).then(res => {
-        if (res.status_code === 200) {
-          this.data = res.results.data;
-          this.status_code = res.status_code;
-          this.setPageCount(res.count);
-        } else {
-          this.$toast.error('خطا در برقراری ارتباط!');
-        }
-      });
-      this.tableLoading = false;
-      this.$refs.form.reset();
-      this.filter = !this.filter;
-    },
+          this.$axios.$get(lastApi).then(res => {
+            if (res.status_code === 200) {
+              this.data = res.results.data;
+              this.status_code = res.status_code;
+              this.setPageCount(res.count);
+            } else {
+              this.$toast.error('خطا در برقراری ارتباط!');
+            }
+          });
+          this.tableLoading = false;
+          this.$refs.form.reset();
+          this.filter = !this.filter;
+        },
+    */
     translateResponseMessage(response) {
       if (response.message === 'your invitation sent') return 'دعوت نامه ارسال شد!';
       else if (response.detail.detail === 'you have a sent an invitation already') return 'شما قبلا به این تیم دعوت‌نامه ارسال کردید! ';
@@ -312,10 +308,10 @@ export default {
   },
   async fetch() {
     this.tableLoading = true;
-    let res = await this.$axios.$get('accounts/without_team');
-    if (res.status_code === 200) {
+    let res = await this.$axios.$get('account/without_team');
+
+    if (res.count) {
       this.users = res.results.data;
-      this.status_code = res.status_code;
       this.setPageCount(res.count);
     } else {
       this.$toast.error('خطا در برقراری ارتباط!');
@@ -430,4 +426,3 @@ export default {
   color: #20C9B2;
 }
 </style>
-

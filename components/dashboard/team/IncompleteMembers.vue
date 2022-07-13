@@ -306,6 +306,7 @@ export default {
     this.tableLoading = true;
     await this.$axios.$get('/team/incomplete').then(res => {
       this.team = res.results;
+
       const count = 20;
       if (res.count % count === 0) {
         this.pageCount = res.count / count;
