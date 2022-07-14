@@ -188,16 +188,16 @@ export default {
         // }
       },
       middleRoute: {
-        // ticket: {
-        //   title: "تیکت",
-        //   icon: "mdi-filmstrip-box-multiple",
-        //   hover: "mdi-filmstrip-box-multiple",
-        //   link: "/dashboard/ticket",
-        //   api: '#',
-        //   numberShow: true,
-        //   disabled: true,
-        //   gard: true
-        // },
+        ticket: {
+          title: "تیکت",
+          icon: "mdi-filmstrip-box-multiple",
+          hover: "mdi-filmstrip-box-multiple",
+          link: "/dashboard/ticket",
+          api: '#',
+          numberShow: false,
+          disabled: true,
+          gard: true
+        },
         // notification: {
         //   title: "اعلان",
         //   icon: "mdi-bell",
