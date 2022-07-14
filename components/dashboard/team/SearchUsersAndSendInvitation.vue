@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionHeader class="mt-2" title="جستجوی افراد" icon="mdi-badge-account-horizontal"/>
+    <SectionHeader class="mt-2" title="جستجوی افراد بدون تیم" icon="mdi-badge-account-horizontal"/>
 
     <div class="searchBar mt-8 mb-6 px-6 px-md-12">
       <div class="mx-10" style="width: 40%;max-width: 500px">
