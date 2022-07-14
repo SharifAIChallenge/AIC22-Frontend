@@ -8,6 +8,7 @@
             <MyTeamInvitations :name="list.user.profile.firstname_fa + ' ' +list.user.profile.lastname_fa"
                                :status="list.status"
                                text="اطلاعات فرد"
+                               :textClick="()=>{dialog_item = list;dialog = true;}"
                                :accept="()=>acceptRequest(list.id)" :reject="()=>rejectRequest(list.id)"/>
           </v-col>
         </div>
