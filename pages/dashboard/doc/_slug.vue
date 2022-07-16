@@ -1,9 +1,24 @@
-<template></template>
+<template>
+  <div>
+    <v-container >
+      <p class="headline py-5 ma-0">
+        مستندات
+      </p>
+
+    </v-container>
+    <v-divider />
+    <Tree/>
+  </div>
+
+
+</template>
 
 <script>
+import Tree from '~/components/doc/Tree.vue';
+
 export default {
-  auth: false,
-  layout: 'doc',
+  layout: 'dashboard',
+  components:{ Tree },
 };
 </script>
 

@@ -2,14 +2,7 @@
   <div>
     <v-row class="ma-0">
       <v-col cols="12" md="3" lg="2" xl="2" class="tree bg-color pl-0 pa-0">
-        <v-app-bar clipped-right style="left: unset; overflow: hidden" width="100%" height="90" class="dashbordNav">
-          <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer" />
-          <v-row class="justify-center logo">
-            <nuxt-link to="/" class="white--text" style="width: 100%; height: 100%">
-              <img src="../../assets/images/logo/logo__primary.svg" alt="" height="80px" class="nav_logo mt-2" />
-            </nuxt-link>
-          </v-row>
-        </v-app-bar>
+
         <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right clipped class="pt-6 bg-color">
           <v-treeview
             :items="items"
@@ -35,8 +28,7 @@
           </v-treeview>
         </v-navigation-drawer>
       </v-col>
-      <v-col cols="12" md="6" lg="7" class="docWraper">
-        <Header />
+      <v-col cols="12" md="6" lg="7" class="docWraper" >
         <markdown-renderer :content="content" />
       </v-col>
     </v-row>
@@ -45,6 +37,9 @@
 </template>
 
 <script>
+
+import axios from "axios";
+
 const fm = require('front-matter');
 import { parseGithubData, findActiveNode, findOpenIds, findActiveIds } from './parseGithubData';
 import MarkdownRenderer from './MarkdownRenderer.vue';
@@ -60,25 +55,17 @@ export default {
       loading: false,
       metaData: {},
       content: '',
-      repo_name: '',
-      user_name: '',
+      repo_name: 'AIC22-Doc',
+      user_name: 'SharifAIChallenge',
       drawer: null,
     };
   },
   components: { MarkdownRenderer, Header, Loading },
   async fetch() {
     let slug = this.$route.params.slug;
-    await this.$axios
-      .get('gamedoc')
+    fetch('https://api.github.com/repos/SharifAIChallenge/AIC22-Doc/git/trees/main?recursive=1').then(res => res.json())
       .then(res => {
-        const { repo_name, user_name } = res.data.data;
-        this.repo_name = repo_name;
-        this.user_name = user_name;
-        const url = `https://api.github.com/repos/${user_name}/${repo_name}/git/trees/main?recursive=1`;
-        return fetch(url);
-      })
-      .then(res => res.json())
-      .then(res => {
+        console.log(res);
         this.items = parseGithubData(res);
         let activeNode = findActiveNode(res, slug);
         this.openIds = findOpenIds(activeNode);
@@ -90,6 +77,8 @@ export default {
       .then(res => {
         this.metaData = fm(res);
         this.content = '${toc} \n' + this.metaData.body;
+      }).catch(err => {
+        console.log(err);
       });
   },
   methods: {
@@ -105,6 +94,7 @@ export default {
         fetch(url)
           .then(res => res.text())
           .then(res => {
+            console.log(res);
             this.metaData = fm(res);
             this.content = '${toc} \n' + this.metaData.body;
             this.loading = false;
@@ -155,5 +145,13 @@ export default {
 }
 .bg-color {
   background: map-get($material-dark-elevation-colors, '12') !important;
+}
+.docWraper{
+  background-color: #172434;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-radius: 2rem;
+  margin-top: 1rem;
+  margin-right: 2rem;
 }
 </style>
