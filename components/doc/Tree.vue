@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-row class="ma-0">
-      <v-col cols="12" md="3" lg="2" xl="2" class="tree bg-color pl-0 pa-0">
+      <v-col cols="12" md="3" lg="2" xl="2" class="tree bg-color pl-0 pa-0 sidenav-doc">
 
-        <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right clipped class="pt-6 bg-color">
+        <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right  class="pt-6 bg-color">
           <v-treeview
             :items="items"
             :loading="loading"
@@ -28,7 +28,7 @@
           </v-treeview>
         </v-navigation-drawer>
       </v-col>
-      <v-col cols="12" md="6" lg="7" class="docWraper" >
+      <v-col cols="12" md="5" lg="6" class="docWraper" >
         <markdown-renderer :content="content" />
       </v-col>
     </v-row>
@@ -37,9 +37,6 @@
 </template>
 
 <script>
-
-import axios from "axios";
-
 const fm = require('front-matter');
 import { parseGithubData, findActiveNode, findOpenIds, findActiveIds } from './parseGithubData';
 import MarkdownRenderer from './MarkdownRenderer.vue';
@@ -63,9 +60,9 @@ export default {
   components: { MarkdownRenderer, Header, Loading },
   async fetch() {
     let slug = this.$route.params.slug;
-    fetch('https://api.github.com/repos/SharifAIChallenge/AIC22-Doc/git/trees/main?recursive=1').then(res => res.json())
+
+    await fetch('https://api.github.com/repos/SharifAIChallenge/AIC22-Doc/git/trees/main?recursive=1').then(res => res.json())
       .then(res => {
-        console.log(res);
         this.items = parseGithubData(res);
         let activeNode = findActiveNode(res, slug);
         this.openIds = findOpenIds(activeNode);
@@ -80,6 +77,7 @@ export default {
       }).catch(err => {
         console.log(err);
       });
+    console.log('hi')
   },
   methods: {
     active(name) {
@@ -134,7 +132,7 @@ export default {
   }
 }
 .docWraper {
-  margin-right: 16.6666% !important;
+  margin-right: 23% !important;
   @include v-not-lg {
     margin-right: 25% !important;
   }
@@ -144,7 +142,7 @@ export default {
   }
 }
 .bg-color {
-  background: map-get($material-dark-elevation-colors, '12') !important;
+  background: #13202e;
 }
 .docWraper{
   background-color: #172434;
@@ -153,5 +151,14 @@ export default {
   border-radius: 2rem;
   margin-top: 1rem;
   margin-right: 2rem;
+}
+.theme--dark.v-navigation-drawer{
+  background: #13202e;
+}
+.markdown img{
+  width: 100% !important;
+}
+.sidenav-doc{
+
 }
 </style>
