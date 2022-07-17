@@ -1,56 +1,81 @@
 <template>
   <div>
-    <v-row class="ma-0">
-      <v-col cols="12" md="3" lg="2" xl="2" class="tree bg-color pl-0 pa-0">
-        <v-app-bar clipped-right style="left: unset; overflow: hidden" width="100%" height="90" class="dashbordNav">
-          <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer" />
-          <v-row class="justify-center logo">
-            <nuxt-link to="/" class="white--text" style="width: 100%; height: 100%">
-              <img src="../../assets/images/logo/logo__primary.svg" alt="" height="80px" class="nav_logo mt-2" />
-            </nuxt-link>
-          </v-row>
-        </v-app-bar>
-        <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right clipped class="pt-6 bg-color">
-          <v-treeview
-            :items="items"
-            :loading="loading"
-            open-on-click
-            activatable
-            dense
-            :transition="true"
-            @update:open="open($event)"
-            :open="openIds"
-            @update:active="active($event)"
-            :active="activeIds"
-            class="mt-8 treeview"
+    <v-container>
+      <div class="flex items align-center justify-space-between">
+        <p class="headline py-5 ma-0">
+          مستندات
+        </p>
+        <div class="w-full mr-5 overflow-x-auto d-none d-md-block">
+          <v-chip
+              v-for="(item, index) in items"
+              class="mr-3"
+              :key="index"
+              :color="item.id === current_path ? 'primary' : 'bg_secondary'"
+              @click="active(item.id)"
           >
-            <template v-slot:prepend="{ item, open }">
-              <!-- <v-icon v-if="!item.file">
-                {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
-              </v-icon>
-              <v-icon v-else>
-                mdi-file
-              </v-icon> -->
-            </template>
-          </v-treeview>
-        </v-navigation-drawer>
-      </v-col>
-      <v-col cols="12" md="6" lg="7" class="docWraper">
-        <Header />
-        <markdown-renderer :content="content" />
+            {{ item.name }}
+          </v-chip>
+        </div>
+        <div class="d-block d-md-none">
+          <v-select
+              :items="items.map(item => {return {text:item.name,value:item.id}})"
+              label="بخش"
+              @change="(val)=> active(val)"
+              :value="current_path"
+          ></v-select>
+        </div>
+      </div>
+
+
+    </v-container>
+    <v-divider/>
+    <!--    <v-row class="ma-0">-->
+    <!--      <v-col cols="12" md="3" lg="2" xl="2" class="tree bg-color pl-0 pa-0 sidenav-doc">-->
+
+    <!--        <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right  class="pt-6 bg-color">-->
+    <!--          <v-treeview-->
+    <!--            :items="items"-->
+    <!--            :loading="loading"-->
+    <!--            open-on-click-->
+    <!--            activatable-->
+    <!--            dense-->
+    <!--            :transition="true"-->
+    <!--            @update:open="open($event)"-->
+    <!--            :open="openIds"-->
+    <!--            @update:active="active($event)"-->
+    <!--            :active="activeIds"-->
+    <!--            class="mt-8 treeview"-->
+    <!--          >-->
+    <!--            <template v-slot:prepend="{ item, open }">-->
+    <!--              &lt;!&ndash; <v-icon v-if="!item.file">-->
+    <!--                {{ open ? 'mdi-folder-open' : 'mdi-folder' }}-->
+    <!--              </v-icon>-->
+    <!--              <v-icon v-else>-->
+    <!--                mdi-file-->
+    <!--              </v-icon> &ndash;&gt;-->
+    <!--            </template>-->
+    <!--          </v-treeview>-->
+    <!--        </v-navigation-drawer>-->
+    <!--      </v-col>-->
+    <v-row>
+      <v-col cols="12" md="7" lg="8" class="docWraper">
+        <markdown-renderer :content="content"/>
       </v-col>
     </v-row>
+
+    <!--    </v-row>-->
     <loading :active.sync="loading" color="#eb3654" background-color="black" :is-full-page="true"></loading>
   </div>
 </template>
 
 <script>
 const fm = require('front-matter');
-import { parseGithubData, findActiveNode, findOpenIds, findActiveIds } from './parseGithubData';
+import {parseGithubData, findActiveNode, findOpenIds, findActiveIds} from './parseGithubData';
 import MarkdownRenderer from './MarkdownRenderer.vue';
 import Header from './Header';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+
 export default {
   data() {
     return {
@@ -60,55 +85,50 @@ export default {
       loading: false,
       metaData: {},
       content: '',
-      repo_name: '',
-      user_name: '',
+      current_path: '',
+      repo_name: 'AIC22-Doc',
+      user_name: 'SharifAIChallenge',
       drawer: null,
     };
   },
-  components: { MarkdownRenderer, Header, Loading },
+  components: {MarkdownRenderer, Header, Loading},
   async fetch() {
     let slug = this.$route.params.slug;
-    await this.$axios
-      .get('gamedoc')
-      .then(res => {
-        const { repo_name, user_name } = res.data.data;
-        this.repo_name = repo_name;
-        this.user_name = user_name;
-        const url = `https://api.github.com/repos/${user_name}/${repo_name}/git/trees/main?recursive=1`;
-        return fetch(url);
-      })
-      .then(res => res.json())
-      .then(res => {
-        this.items = parseGithubData(res);
-        let activeNode = findActiveNode(res, slug);
-        this.openIds = findOpenIds(activeNode);
-        this.activeIds = findActiveIds(activeNode);
-        const url = `https://raw.githubusercontent.com/${this.user_name}/${this.repo_name}/main/${activeNode.path}`;
-        return fetch(url);
-      })
-      .then(res => res.text())
-      .then(res => {
-        this.metaData = fm(res);
-        this.content = '${toc} \n' + this.metaData.body;
-      });
+
+    await fetch('https://api.github.com/repos/SharifAIChallenge/AIC22-Doc/git/trees/main?recursive=1').then(res => res.json())
+        .then(res => {
+          this.items = parseGithubData(res);
+          let activeNode = findActiveNode(res, slug);
+          this.openIds = findOpenIds(activeNode);
+          this.activeIds = findActiveIds(activeNode);
+          const url = `https://raw.githubusercontent.com/${this.user_name}/${this.repo_name}/main/${activeNode.path}`;
+          this.current_path = activeNode.path;
+          return fetch(url);
+        })
+        .then(res => res.text())
+        .then(res => {
+          this.metaData = fm(res);
+          this.content = '${toc} \n' + this.metaData.body;
+        }).catch(err => {
+          console.log(err);
+        });
   },
   methods: {
-    active(name) {
-      console.log(name);
+    active(item) {
+
       try {
-        const splittedPath = name[0].split('/');
-        const fileName = splittedPath[splittedPath.length - 1];
-        const slug = fileName.substring(0, fileName.length - 3);
-        this.$router.push(`${slug}`);
+        this.$router.push(`${item}`);
         this.loading = true;
-        const url = `https://raw.githubusercontent.com/${this.user_name}/${this.repo_name}/main/${name[0]}`;
+        const url = `https://raw.githubusercontent.com/${this.user_name}/${this.repo_name}/main/${item}`;
         fetch(url)
-          .then(res => res.text())
-          .then(res => {
-            this.metaData = fm(res);
-            this.content = '${toc} \n' + this.metaData.body;
-            this.loading = false;
-          });
+            .then(res => res.text())
+            .then(res => {
+              console.log(res);
+              this.metaData = fm(res);
+              this.content = '${toc} \n' + this.metaData.body;
+              this.loading = false;
+              this.current_path = item;
+            });
       } catch (e) {
         console.log('error');
       }
@@ -136,6 +156,7 @@ export default {
   .v-navigation-drawer {
     position: relative;
   }
+
   @include v-not-md {
     height: 90px;
   }
@@ -143,17 +164,46 @@ export default {
     width: auto !important;
   }
 }
-.docWraper {
-  margin-right: 16.6666% !important;
-  @include v-not-lg {
-    margin-right: 25% !important;
-  }
-  @include v-not-md {
-    margin-right: 0% !important;
-    margin-top: 90px;
-  }
-}
+
 .bg-color {
-  background: map-get($material-dark-elevation-colors, '12') !important;
+  background: #13202e;
 }
+
+.docWraper {
+  background-color: #172434;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-radius: 2rem;
+  margin-top: 2rem;
+  margin-right: 4.5%;
+}
+
+@media screen and (max-width: 1263px) {
+  .docWraper {
+    margin-right: 8%;
+  }
+
+
+}
+
+@media screen and (max-width: 960px) {
+  .docWraper {
+    margin-right: 0%;;
+  }
+
+
+}
+
+.theme--dark.v-navigation-drawer {
+  background: #13202e;
+}
+
+.markdown img {
+  width: 100% !important;
+}
+
+.items {
+  display: flex;
+}
+
 </style>
