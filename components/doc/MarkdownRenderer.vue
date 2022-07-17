@@ -96,7 +96,10 @@ export default {
     padding-top: 26px;
     padding-right: 30px;
     min-height: 100vh;
-    background: map-get($material-dark-elevation-colors, '12');
+    border-color: rgba(255, 255, 255, 0.12);
+    border-width: 0 thin 0 0;
+    border-style: solid;
+    background: #13202e;
     @include v-xl {
       width: 20%;
     }
@@ -119,7 +122,6 @@ export default {
       padding: 4px 0px;
       margin: 0;
       display: block;
-      font-family: 'Vazir', serif;
       @include v-lg {
         font-size: 0.8rem;
         padding: 4px 0px;

@@ -1,9 +1,18 @@
-<template></template>
+<template>
+  <div>
+
+    <Tree/>
+  </div>
+
+
+</template>
 
 <script>
+import Tree from '~/components/doc/Tree.vue';
+
 export default {
-  auth: false,
-  layout: 'doc',
+  layout: 'dashboard',
+  components:{ Tree },
 };
 </script>
 
