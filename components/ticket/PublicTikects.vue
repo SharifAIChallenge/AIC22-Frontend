@@ -1,28 +1,31 @@
 <template>
   <div class="main">
     <v-data-table
-      center
-      :headers="headers"
-      :loading="loadingTable"
-      :items="data"
-      class="elevation-1 table-cursor"
-      @click:row="handleClick($event)"
+        center
+        :headers="headers"
+        :loading="loadingTable"
+        :items="data"
+        class="table-cursor"
+        @click:row="handleClick($event)"
+        style="background-color : transparent"
+        disable-sort
     >
       <template v-slot:[`item.status`]="{ item }" class="ma-2">
-        <v-icon :color="getColor(item.status)">
-          {{ ticketStatusIcon(item.status) }}
-        </v-icon>
+        <div :style="item.status === 'open'? 'background-color: #0071e3;': 'background-color: #42b36f;'"
+             class="status-label">
+          <v-icon color="white" class="px-2">
+            {{ item.status === 'open' ? 'mdi-clock-outline' : 'mdi-check' }}
+          </v-icon>
+          <div style="justify-self: flex-start;">
+            {{ item.status === 'open' ? 'در انتظار پاسخ' : 'بسته شده' }}
+          </div>
+        </div>
       </template>
       <template v-slot:[`item.title`]="{ item }">
         {{ item.title }}
       </template>
       <template v-slot:[`item.num_replies`]="{ item }">
-        <div style="display: flex; align-items:center;">
-          {{ item.num_replies }}
-          <v-icon class="mr-2">
-            mdi-message-reply-outline
-          </v-icon>
-        </div>
+        {{ item.num_replies }}
       </template>
     </v-data-table>
   </div>
@@ -47,14 +50,14 @@ export default {
     return {
       loadingTable: false,
       headers: [
+        {text: 'موضوع', align: 'right', value: 'title', width: '70%'},
+        {text: 'تعداد پیام ها', align: 'center', value: 'num_replies', width: '10%'},
         {
           text: 'وضعیت',
           align: 'center',
           value: 'status',
-          width: '12%',
+          width: '20%%',
         },
-        { text: 'عنوان', align: 'right', value: 'title', width: '78%' },
-        { text: '', align: 'center', value: 'num_replies', width: '10%' },
       ],
       // data: [],
       status_code: 200,
@@ -83,8 +86,18 @@ export default {
 .main {
   text-align: center;
 }
+
 .table-cursor tbody tr:hover {
   cursor: pointer;
-  color: var(--v-secondary-base);
+  background-color: rgba(11, 122, 234, 0.35) !important;
+}
+
+.status-label {
+  border-radius: 999px;
+  width: 140px;
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+  margin: auto;
 }
 </style>
