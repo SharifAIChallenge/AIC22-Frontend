@@ -114,14 +114,14 @@ export default {
           disabled: false,
           gard: false
         },
-        // terms: {
-        //   title: "مستندات",
-        //   icon: "mdi-file-document-outline",
-        //   hover: "mdi-file-document",
-        //   link: "/dashboard/doc/Game-Doc",
-        //   disabled: true,
-        //   gard: true
-        // },
+        terms: {
+          title: "مستندات",
+          icon: "mdi-file-document-outline",
+          hover: "mdi-file-document",
+          link: "/dashboard/doc/Game-Doc",
+          disabled: false,
+          gard: true
+        },
         // doc: {
         //   title: "منابع",
         //   icon: "mdi-source-fork",
