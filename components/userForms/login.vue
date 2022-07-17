@@ -34,17 +34,6 @@
                 >
                   {{ $t("form.signIn") }}
                 </v-btn>
-<!--                <div class="my-6">-->
-<!--                  <div class="or-separator"><span class="px-3">یا</span></div>-->
-<!--                </div>-->
-<!--                <v-btn-->
-<!--                  @click="loginWithGoogle"-->
-<!--                  block-->
-<!--                  color="secondary"-->
-<!--                  rounded>-->
-<!--                  {{ $t("form.signInWithGoogle") }}-->
-<!--                  <v-icon style="margin:5px" size="25px">mdi-google</v-icon>-->
-<!--                </v-btn>-->
               </v-col>
             </v-row>
           </v-form>
@@ -58,7 +47,6 @@
 import PasswordInput from "../PasswordInput";
 import { emailRules, requiredRules } from "../../mixins/formValidations";
 import { mapState } from "vuex";
-import { sendGoogleAuthCode } from "~/api/auth";
 
 export default {
   mixins: [requiredRules, emailRules],
@@ -82,6 +70,7 @@ export default {
         username: this.email,
         password: this.password
       });
+      this.loading = false;
     },
     async loginWithGoogle() {
       const googleUser = await this.$gAuth.signIn();
