@@ -11,7 +11,7 @@
               class="mr-3"
               :key="index"
               :color="item.id === current_path ? 'primary' : 'bg_secondary'"
-              @click="active(item)"
+              @click="active(item.id)"
           >
             {{ item.name }}
           </v-chip>
