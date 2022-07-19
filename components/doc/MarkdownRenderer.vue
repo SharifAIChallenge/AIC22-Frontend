@@ -42,8 +42,8 @@ export default {
   li {
     counter-increment: list-item;
     font-weight: 300;
-    font-family: LTZaridSans;
-    font-size: 1.25rem;
+    font-family: Estedad,sans-serif;
+    font-size: 1rem;
     margin-right: 25px;
   }
   li:before {

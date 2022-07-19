@@ -80,15 +80,15 @@ export default {
       this.loading = true;
       this.$axios.$post('team/', formData, {headers: {'content-type': 'multipart/form-data'}}).then(res => {
         this.loading = false;
-        console.log(res);
-        if (res.status_code === 200 || 201) {
-          this.$toast.success('تیم شما با موفقیت ساخته‌شد');
-          this.toggleHaveTeam();
-        } else if (res.status_code === 400) {
+        this.$toast.success('تیم شما با موفقیت ساخته‌شد');
+        this.toggleHaveTeam();
+      }).catch((e) => {
+        this.loading = false;
+        console.log(e.response.status)
+        if (e.response && e.response.status !== 0) {
           this.$toast.error('تیمی با این نام وجود دارد.');
           this.forfiet();
         } else {
-          //TODO: check other errors and status code
           this.$toast.error('ساخت تیم با خطا مواجه شد');
           this.forfiet();
         }
@@ -148,7 +148,7 @@ export default {
 }
 
 .fileInput {
-  visibility: visible!important;
+  visibility: visible !important;
   margin: auto;
   width: 16rem;
   height: 16rem;
@@ -156,13 +156,13 @@ export default {
 
 .profile-picture {
   display: flex;
-  position: unset!important;
+  position: unset !important;
   justify-content: center;
   flex-direction: column;
   align-items: center;
 
   .upload-avatar {
-    width: auto!important;
+    width: auto !important;
   }
 
   img {
@@ -172,7 +172,7 @@ export default {
   }
 
 
-  @media screen and (max-width: 600px ) {
+  @media screen and (max-width: 600px) {
     margin-left: 7rem;
   }
 }
