@@ -51,7 +51,7 @@
     </v-data-table>
 
     <div class="mt-2">
-      <v-pagination v-if="pageCount > 20 " v-model="page" :length="pageCount" total-visible="20" v-on:next="page + 1"
+      <v-pagination  v-model="page" :length="pageCount" total-visible="20" v-on:next="page + 1"
                     @previous="page - 1" style="background-color : transparent"></v-pagination>
     </div>
 
@@ -229,7 +229,7 @@ export default {
 
       this.$axios.get(`/account/without_team?name=${name}`).then(res => {
         const count = 20;
-        console.log(res)
+        // console.log(res)
         if (res.data.count % count === 0) {
           this.pageCount = res.data.count / count;
         } else {
@@ -262,7 +262,7 @@ export default {
       this.dialog_item_user = users
       this.usersInfo = users.profile.firstname_fa + " " + users.profile.lastname_fa;
       this.dialog_item = users.profile
-      console.log("fucl")
+      // console.log("fucl")
     },
 
     /*

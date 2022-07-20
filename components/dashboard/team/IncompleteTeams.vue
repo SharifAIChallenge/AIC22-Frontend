@@ -51,7 +51,7 @@
     </v-data-table>
 
     <div class="mt-2">
-      <v-pagination v-if="pageCount > 20 " v-model="page" :length="pageCount" total-visible="6" v-on:next="page + 1"
+      <v-pagination v-model="page" :length="pageCount" total-visible="6" v-on:next="page + 1"
                     @previous="page - 1"></v-pagination>
     </div>
 
