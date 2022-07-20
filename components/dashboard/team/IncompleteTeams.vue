@@ -325,6 +325,7 @@ export default {
 
 ::v-deep .v-pagination__item{
   border-radius: 50%;
+  background-color: transparent;
 }
 
 
