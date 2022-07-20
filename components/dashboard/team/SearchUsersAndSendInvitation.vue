@@ -251,7 +251,8 @@ export default {
       if (this.lastApi) url = this.lastApi + '&page=' + page;
       else url = `/account/without_team?page=${page}`;
       this.$axios.get(url).then(res => {
-        this.data = res.data.results.data;
+        console.log(res)
+        this.users = res.data.results.data;
         this.tableLoading = false;
         this.setPageCount(res.data.count);
       });
@@ -328,6 +329,7 @@ export default {
 
 ::v-deep .v-pagination__item{
   border-radius: 50%;
+  background-color: transparent;
 }
 
 .emtyImage {
