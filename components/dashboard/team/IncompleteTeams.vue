@@ -257,12 +257,12 @@ export default {
       this.team = [];
       if (this.teamName === '') {
         this.$axios.get(`/team/incomplete?page=${page}`).then(res => {
-          this.team = res.data.results.data;
+          this.team = res.data.results;
           this.tableLoading = false;
         });
       } else {
         this.$axios.get(`/team/incomplete?name=${this.teamName}&page=${page}`).then(res => {
-          this.team = res.data.results.data;
+          this.team = res.data.results;
           this.tableLoading = false;
         });
       }
@@ -325,6 +325,7 @@ export default {
 
 ::v-deep .v-pagination__item{
   border-radius: 50%;
+  background-color: transparent;
 }
 
 
