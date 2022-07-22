@@ -114,14 +114,14 @@ export default {
           disabled: false,
           gard: false
         },
-        // terms: {
-        //   title: "مستندات",
-        //   icon: "mdi-file-document-outline",
-        //   hover: "mdi-file-document",
-        //   link: "/dashboard/doc/Game-Doc",
-        //   disabled: true,
-        //   gard: true
-        // },
+        terms: {
+          title: "مستندات",
+          icon: "mdi-file-document-outline",
+          hover: "mdi-file-document",
+          link: "/dashboard/doc/Game-Doc",
+          disabled: false,
+          gard: true
+        },
         // doc: {
         //   title: "منابع",
         //   icon: "mdi-source-fork",
@@ -188,16 +188,16 @@ export default {
         // }
       },
       middleRoute: {
-        // ticket: {
-        //   title: "تیکت",
-        //   icon: "mdi-filmstrip-box-multiple",
-        //   hover: "mdi-filmstrip-box-multiple",
-        //   link: "/dashboard/ticket",
-        //   api: '#',
-        //   numberShow: true,
-        //   disabled: true,
-        //   gard: true
-        // },
+        ticket: {
+          title: "تیکت",
+          icon: "mdi-filmstrip-box-multiple",
+          hover: "mdi-filmstrip-box-multiple",
+          link: "/dashboard/ticket",
+          api: '#',
+          numberShow: false,
+          disabled: true,
+          gard: true
+        },
         // notification: {
         //   title: "اعلان",
         //   icon: "mdi-bell",
