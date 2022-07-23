@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../../mixins/formValidations';
-import { resetPassword } from '../../api';
+import {emailRules, requiredRules} from '../../mixins/formValidations';
+import {resetPassword} from '../../api';
 
 export default {
   mixins: [requiredRules, emailRules],
@@ -61,7 +61,14 @@ export default {
     },
     async resetPassword() {
       this.loading = true;
-      let data = await resetPassword(this.$axios,this.email)
+      let data = {}
+      try {
+        data = await resetPassword(this.$axios, this.email)
+      } catch (e) {
+        this.$toast.error('ایمیل پیدا نشد.');
+        this.loading = false;
+        return
+      }
       this.loading = false;
       if (data.detail) {
         if (data.detail === 'Successfully Sent Reset Password Email') {
@@ -81,6 +88,7 @@ export default {
   margin: 100px auto;
   max-width: 500px;
 }
+
 .forgot-title {
   text-align: center;
   margin-bottom: 20px;
@@ -88,6 +96,7 @@ export default {
   font-size: 40px;
   font-weight: bold;
 }
+
 .login-btn {
   position: fixed;
   font-size: 20px;

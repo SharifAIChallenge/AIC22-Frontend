@@ -82,9 +82,10 @@ export default {
         this.loading = false;
         this.$toast.success('تیم شما با موفقیت ساخته‌شد');
         this.toggleHaveTeam();
-      }).catch(e => {
+      }).catch((e) => {
         this.loading = false;
-        if (e.response && e.response.status === 400) {
+        console.log(e.response.status)
+        if (e.response && e.response.status !== 0) {
           this.$toast.error('تیمی با این نام وجود دارد.');
           this.forfiet();
         } else {

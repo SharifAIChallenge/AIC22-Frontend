@@ -114,14 +114,14 @@ export default {
           disabled: false,
           gard: false
         },
-        // terms: {
-        //   title: "مستندات",
-        //   icon: "mdi-file-document-outline",
-        //   hover: "mdi-file-document",
-        //   link: "/dashboard/doc/Game-Doc",
-        //   disabled: true,
-        //   gard: true
-        // },
+        terms: {
+          title: "مستندات",
+          icon: "mdi-file-document-outline",
+          hover: "mdi-file-document",
+          link: "/dashboard/doc/Game-Doc",
+          disabled: false,
+          gard: true
+        },
         // doc: {
         //   title: "منابع",
         //   icon: "mdi-source-fork",
@@ -194,7 +194,7 @@ export default {
         //   hover: "mdi-filmstrip-box-multiple",
         //   link: "/dashboard/ticket",
         //   api: '#',
-        //   numberShow: true,
+        //   numberShow: false,
         //   disabled: true,
         //   gard: true
         // },
