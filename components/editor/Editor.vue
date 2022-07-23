@@ -1,7 +1,7 @@
 <template>
   <section class="editor-container">
     <client-only>
-      <quill-editor ref="editor" v-model="content" :options="editorOption" @change="onChange($event)" />
+      <quill-editor style="border-radius: 15px; border: white 1px solid" ref="editor" v-model="content" :options="editorOption" @change="onChange($event)" />
     </client-only>
   </section>
 </template>
@@ -29,7 +29,7 @@ export default {
           ],
         },
         color: 'white',
-        placeholder: 'متن موردنظر',
+        placeholder: '',
       },
     };
   },
