@@ -115,7 +115,7 @@
               {{ dialog_item_user.profile.firstname_fa }} {{ dialog_item_user.profile.lastname_fa }}
             </p>
           </div>
-          <div class="text-center"">
+          <div class="text-center">
             <p v-if="dialog_item_user">
               {{dialog_item_user.email}}
             </p>
