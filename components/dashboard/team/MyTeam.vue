@@ -34,9 +34,9 @@
                     class="team-card__member__name inherit-bg-color"
                     v-text="member.profile.firstname_fa + ' ' + member.profile.lastname_fa"
                   />
-<!--                  <v-list-item-icon class="team-card__member__icon inherit-bg-color">-->
-<!--                    <v-icon color="rgba(255, 255, 255, 0.12)">mdi-account-box</v-icon>-->
-<!--                  </v-list-item-icon>-->
+                 <v-list-item-icon class="team-card__member__icon inherit-bg-color">
+                   <v-icon color="rgba(255, 255, 255, 0.12)" @click="setUser(member)">mdi-account-box</v-icon>
+                 </v-list-item-icon> 
                 </div>
               </v-list-item>
 <!--              <v-list-item class="team-card__add-member" v-if="this.team.members.length < 3" dense>-->
@@ -88,6 +88,52 @@
           </div>
         </Box>
       </div>
+      <v-dialog
+        v-model="dialogUser"
+        max-width="290"
+    >
+      <v-card
+          rounded
+          class="modal-shadow"
+          color="bg_secondary">
+        <v-card-text
+            class="modal modal-shadow"
+        >
+          <div class="profile-picture">
+            <img
+                v-if="dialog_item_user && dialog_item_user.profile.image_url"
+                :src="dialog_item_user.profile.image_url"
+                class="rounded-circle"
+            />
+            <img
+                v-else
+                class="rounded-circle"
+                src="~/assets/images/avatar-sample.svg" alt="">
+          </div>
+          <div class="text-center" style="margin-top: -4rem;">
+            <p v-if="dialog_item_user">
+              {{ dialog_item_user.profile.firstname_fa }} {{ dialog_item_user.profile.lastname_fa }}
+            </p>
+          </div>
+          <div class="text-center">
+            <p v-if="dialog_item_user">
+              {{dialog_item_user.email}}
+            </p>
+          </div>
+          <div>
+            زبان های برنامه نویسی
+            <ul class="pr-4" v-if="dialog_item_user&& dialog_item_user.profile && dialog_item_user.profile.programming_languages.length !== 0">
+              <li v-for="(lang,index) in dialog_item_user.profile.programming_languages" :key="index">
+                {{ lang.programming_language_title }}
+              </li>
+            </ul>
+            <div v-else>
+              -ثبت نشده است !-
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
     </SectionContainer>
   </div>
 </template>
@@ -118,9 +164,15 @@ export default {
       loading: false,
       isEditing: false,
       valid: false,
+      dialogUser : false,
+      dialog_item_user : null
     };
   },
   methods: {
+    setUser(member) {
+      this.dialog_item_user = member;
+      this.dialogUser = true
+    },
     onPictureChange(image) {
       this.form.imageUrl = URL.createObjectURL(image);
       this.form.image = image;
@@ -194,9 +246,41 @@ export default {
 
 <style lang="scss" scoped>
 @import 'assets/mixins.scss';
+@import 'assets/variables.scss';
 
 .inherit-bg-color {
   background-color: inherit !important;
+}
+
+.team-card__member__icon{
+  cursor: pointer;
+}
+.team-card__member__icon:hover{
+  background-color: var(--v-primary-base);
+}
+
+.profile-picture {
+  position: relative !important;
+  display: flex;
+  top: -5rem;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .upload-avatar {
+    width: 12rem;
+  }
+
+  img {
+    width: 10rem;
+    height: 10rem;
+
+    border: 0.5rem solid #13202E;
+  }
+}
+
+.modal-shadow, .v-dialog.v-dialog--active, .modal {
+  border-radius: 10px !important;
 }
 
 .team-card {
