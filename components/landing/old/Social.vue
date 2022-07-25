@@ -37,7 +37,6 @@ export default {
   methods: {
     openSocial() {
       document.getElementById('menu').classList.toggle('open');
-      console.log(process.env.baseURL);
     },
   },
 };
