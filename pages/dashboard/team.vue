@@ -122,7 +122,6 @@ export default {
       this.getData();
     },
     async getData() {
-      console.log("in");
       let res = await this.$axios.$get("team");
       this.haveTeam = res.status_code !== 403;
     }
