@@ -41,7 +41,7 @@
       </v-row>
       <div class="mb-6">
         ارسال کد به‌منزله قبول تمامی
-        <nuxt-link to="/dashboard/doc">قوانین و شرایط مسابقه</nuxt-link>
+        <nuxt-link to="/dashboard/doc/Game-Doc">قوانین و شرایط مسابقه</nuxt-link>
         است
       </div>
 <!--      <v-btn tile block :disabled="false" :loading="loading" type="submit" v-bind="primaryButtonProps">-->
