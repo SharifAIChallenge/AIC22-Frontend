@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-container>
+    <!-- <v-container> -->
       <div class="flex items align-center justify-space-between">
-        <p class="headline py-5 ma-0">
+        <p class="headline py-5 ma-0 mr-3">
           مستندات
         </p>
         <div class="w-full mr-5 overflow-x-auto d-none d-md-block">
@@ -27,7 +27,7 @@
       </div>
 
 
-    </v-container>
+    <!-- </v-container> -->
     <v-divider/>
     <!--    <v-row class="ma-0">-->
     <!--      <v-col cols="12" md="3" lg="2" xl="2" class="tree bg-color pl-0 pa-0 sidenav-doc">-->
@@ -57,7 +57,7 @@
     <!--          </v-treeview>-->
     <!--        </v-navigation-drawer>-->
     <!--      </v-col>-->
-    <v-row>
+    <v-row class="mb-10">
       <v-col cols="12" md="7" lg="8" class="docWraper">
         <markdown-renderer :content="content"/>
       </v-col>
