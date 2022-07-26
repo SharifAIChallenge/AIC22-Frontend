@@ -123,7 +123,7 @@ export default {
       this.loading = true;
       signup(this.$axios, this.form).then(resp=>{
         this.loading = false;
-        this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل(به همراه پوشه اسپم) خود را چک کنید.';
+        this.result.message = 'ثبت‌نام با موفقیت انجام شد.';
         this.result.type = 'success';
         this.result.value = true;
         this.$toast.success(this.result.message)
