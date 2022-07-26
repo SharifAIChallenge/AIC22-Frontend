@@ -135,6 +135,7 @@ export default {
         text-decoration: none;
         width: 100%;
         display: block;
+        line-height: initial;
         &:hover {
           color: var(--v-primary-darken1);
         }
