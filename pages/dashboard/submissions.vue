@@ -168,7 +168,6 @@ export default {
   methods: {
     async getData() {
       let data = await this.$axios.$get(`/challenge/submissions`);
-      console.log(data)
       this.submissions = data;
     },
     calculateTimeInterval() {
