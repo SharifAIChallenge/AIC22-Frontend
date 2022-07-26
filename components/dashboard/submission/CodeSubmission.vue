@@ -8,10 +8,10 @@
     </v-alert> -->
 
       <v-row>
-        <v-chip-group style="display: flex" v-model="mode" column active-class="primary--text primary">
-          <v-chip filter outlined>اصلی</v-chip>
-          <v-chip filter outlined>مینی‌گیم</v-chip>
-        </v-chip-group>
+<!--        <v-chip-group style="display: flex" v-model="mode" column active-class="primary&#45;&#45;text primary">-->
+<!--          <v-chip filter outlined>اصلی</v-chip>-->
+<!--          <v-chip filter outlined>مینی‌گیم</v-chip>-->
+<!--        </v-chip-group>-->
         <v-col cols="12">
           <v-file-input
               v-model="file"
@@ -77,10 +77,10 @@ export default {
     return {
       valid: false,
       file: null,
-      language: 'jar',
+      language: 'java',
       languageOptions: [
-        {text: 'Jar', value: 'jar'},
-        {text: 'Python 3', value: 'py3'},
+        {text: 'Java', value: 'java'},
+        {text: 'Python 3', value: 'python 3'},
         {text: 'Cpp', value: 'cpp'},
       ],
       fileHint: 'zip',
@@ -104,10 +104,10 @@ export default {
       const formData = new FormData();
       formData.append('file', this.file);
       formData.append('language', this.language);
-      formData.append('is_mini_game', this.mode == 1);
-      formData.append('is_mini_game_final', false);
-      formData.append('status' , 'Uploading');
-      formData.append('is_final' , 'false');
+      // formData.append('is_mini_game', this.mode == 1);
+      // formData.append('is_mini_game_final', false);
+      // formData.append('status' , 'Uploading');
+      // formData.append('is_final' , 'false');
 
       this.loading = true;
       let data = await submitLargeCode(this.$axios, formData);

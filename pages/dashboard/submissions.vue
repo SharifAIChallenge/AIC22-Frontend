@@ -41,10 +41,10 @@
           ارسال کد
         </div>
       </div>
-      <v-chip-group style="display: flex" v-model="mode" column active-class="primary--text primary">
-        <v-chip filter outlined>اصلی</v-chip>
-        <v-chip filter outlined>مینی‌گیم</v-chip>
-      </v-chip-group>
+<!--      <v-chip-group style="display: flex" v-model="mode" column active-class="primary&#45;&#45;text primary">-->
+<!--        <v-chip filter outlined>اصلی</v-chip>-->
+<!--        <v-chip filter outlined>مینی‌گیم</v-chip>-->
+<!--      </v-chip-group>-->
     </v-container>
     <div class="pa-0">
       <v-tabs-items touchless v-model="tabs">
@@ -79,7 +79,7 @@
           <div v-if="tabs === 1" class="main-content pa-0">
             <v-container  class="pa-0 d-flex align-center justify-space-between">
 
-              <submissions-list class="py-6 py-md-12" :submissions="submissions.filter(s => mode == s.is_mini_game)"/>
+              <submissions-list class="py-6 py-md-12" :submissions="submissions/*.filter(s => mode == s.is_mini_game)*/"/>
             </v-container>
             <!--            <SearchUsersAndSendInvitation v-if="haveTeam"/>-->
             <!--            <IncompleteTeams v-else/>-->
@@ -138,11 +138,11 @@ export default {
   layout: 'dashboard',
   transition: 'fade-transition',
 
-  async fetch() {
-    let data = await this.$axios.$get(`/team/submission`);
-    this.submissions = data.submissions;
-    this.calculateTimeInterval();
-  },
+  // async fetch() {
+  //   let data = await this.$axios.$get(`/team/submission`);
+  //   this.submissions = data.submissions;
+  //   this.calculateTimeInterval();
+  // },
   data() {
     return {
       submissions: [],
@@ -167,9 +167,9 @@ export default {
   },
   methods: {
     async getData() {
-      let data = await this.$axios.$get(`/challenge/submission`);
+      let data = await this.$axios.$get(`/challenge/submissions`);
       console.log(data)
-      this.submissions = data.submissions;
+      this.submissions = data;
     },
     calculateTimeInterval() {
       if (!this.submissions.length) this.canSubmitAnotherCode = true;
@@ -188,6 +188,14 @@ export default {
   destroyed() {
     clearInterval(this.interval);
   },
+  watch: {
+    'tabs': {
+      handler() {
+        this.getData();
+      },
+      immediate: true
+    }
+  }
 };
 </script>
 
