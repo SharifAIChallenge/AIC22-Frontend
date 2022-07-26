@@ -1,6 +1,6 @@
 <template>
   <div class="publick-ticket">
-    <v-data-table center :headers="headers" :loading="loading" :items="data" class="elevation-1 table-cursor">
+    <v-data-table center :headers="headers" :loading="loading" :items="data" class="elevation-1 table-cursor" style="background-color : transparent !important;">
       <template v-slot:[`item.status`]="{ item }" class="ma-2">
         <v-icon :color="getColor(item.status)">
           {{ ticketStatusIcon(item.status) }}
@@ -21,7 +21,7 @@
           </v-icon>
         </div>
       </template>
-      <template v-slot:[`item.action`]="{ item }">
+      <!-- <template v-slot:[`item.action`]="{ item }">
         <div class="ticket-btn-z-index">
           <v-btn @click="closeTicket(item.id)">
             نهایی
@@ -30,7 +30,7 @@
             پابلیک
           </v-btn>
         </div>
-      </template>
+      </template> -->
     </v-data-table>
   </div>
 </template>
@@ -50,7 +50,7 @@ export default {
         },
         { text: 'عنوان', align: 'right', value: 'title', width: '68%' },
         { text: '', align: 'center', value: 'num_replies', width: '10%' },
-        { text: 'اکشن', align: 'center', value: 'action', width: '10%' },
+        // { text: 'اکشن', align: 'center', value: 'action', width: '10%' },
       ],
       // data: [],
       status_code: 200,
