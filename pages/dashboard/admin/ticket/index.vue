@@ -1,6 +1,8 @@
 <template>
   <div>
-    <AdminTickets :data="tickets" :loading="loading" />
+    <v-container>
+      <AdminTickets :data="tickets" :loading="loading" />
+    </v-container>
   </div>
 </template>
 
@@ -16,9 +18,12 @@ export default {
     };
   },
   async fetch() {
+    console.log("in")
     this.loading = true;
-    let res = await this.$axios.$get('ai-admin/ticket');
-    this.tickets = res.data.sort((a, b) => new Date(a.created) - new Date(b.created)).reverse();
+    let res = await this.$axios.$get('communication/admin_tickets');
+    console.log(res)
+    this.tickets = res.data;
+    // this.tickets = res.data.sort((a, b) => new Date(a.created) - new Date(b.created)).reverse();
     this.loading = false;
   },
 };
