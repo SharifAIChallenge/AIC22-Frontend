@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="w-full">
     <v-data-table
+        class="table-color"
       :headers="headers"
       center
       :items="submissions"
@@ -12,6 +13,8 @@
       sort-by="submit_time"
       sort-desc
       @page-count="pageCount = $event"
+      style="background: transparent; border-color: transparent"
+
     >
       <template v-slot:[`item.is_final`]="{ item }">
         <v-btn icon disabled @click="changeFinal(item)">
@@ -118,4 +121,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.table-color{
+  background-color: #13202E;
+}
+</style>

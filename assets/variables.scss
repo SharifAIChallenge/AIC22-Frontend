@@ -42,9 +42,9 @@ $material-dark: (
     'title': map-get($material-dark-elevation-colors, '16'),
   ),
   'table': (
-    'active': map-get($material-dark-elevation-colors, '12'),
-    'hover': map-get($material-dark-elevation-colors, '26'),
-    'group': map-get($material-dark-elevation-colors, '26'),
+    'active': map-get($material-dark-elevation-colors, '8'),
+    'hover': map-get($material-dark-elevation-colors, '8'),
+    'group': map-get($material-dark-elevation-colors, '8'),
   ),
   'chips': map-get($material-dark-elevation-colors, '24'),
   'timeline':(

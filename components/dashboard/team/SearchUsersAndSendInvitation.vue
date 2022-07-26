@@ -49,7 +49,6 @@
         </div>
       </template>
     </v-data-table>
-
     <div class="mt-2">
       <v-pagination  v-model="page" :length="pageCount" total-visible="20" v-on:next="page + 1"
                     @previous="page - 1" style="background-color : transparent"></v-pagination>

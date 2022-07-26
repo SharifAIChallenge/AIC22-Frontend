@@ -154,14 +154,14 @@ export default {
           disabled: true,
           gard: true
         },
-        // submissions: {
-        //   title: "ارسال کد",
-        //   icon: "mdi-code-braces",
-        //   hover: "mdi-code-braces-box",
-        //   link: "/dashboard/submissions",
-        //   disabled: true,
-        //   gard: true
-        // },
+        submissions: {
+          title: "ارسال کد",
+          icon: "mdi-code-braces",
+          hover: "mdi-code-braces-box",
+          link: "/dashboard/submissions",
+          disabled: true,
+          gard: true
+        },
         // games: {
         //   title: "بازی ها",
         //   icon: "mdi-sword",
