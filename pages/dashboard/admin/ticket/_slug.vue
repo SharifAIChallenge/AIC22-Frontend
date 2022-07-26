@@ -82,7 +82,7 @@ export default {
   components: { Preview, Editor, SectionContainer },
   async asyncData({ route, $axios }) {
     var slug = route.params.slug;
-    let res = await $axios.$get(`ticket/${slug}`);
+    let res = await $axios.$get(`communication/${slug}`);
     let { data, status_code } = res;
 
     return { data, status_code };
@@ -99,18 +99,17 @@ export default {
       this.text = val;
     },
     sendReplay(id, text) {
-      this.$axios.$post(`ticket/${id}/replies`, { text }).then(res => {
-        if (res.status_code === 200) {
+      this.$axios.$post(`communication/${id}/replies`, { text }).then(res => {
           this.$toast.success('نظر ارسال شد!');
           this.$refs.form.reset();
           this.$refs.form.resetValidation();
-          this.$axios.$get(`ticket/${id}`).then(res => {
+          this.text = ''
+          this.$axios.$get(`communication/${id}`).then(res => {
             this.data = res.data;
             this.status_code = res.status_code;
           });
-        } else {
-          this.$toast.error('مشکلی در ارسال پیش آمده است!');
-        }
+      }).catch(e=>{
+        this.$toast.error("مشکلی در ارسال پیش آمده است.")
       });
     },
   },
