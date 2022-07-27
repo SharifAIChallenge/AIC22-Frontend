@@ -45,6 +45,7 @@ export default {
     font-family: Estedad,sans-serif;
     font-size: 1rem;
     margin-right: 25px;
+    line-height: 3rem;
   }
   li:before {
     // content: counters(list-item, '.') ' ';
@@ -134,6 +135,7 @@ export default {
         text-decoration: none;
         width: 100%;
         display: block;
+        line-height: initial;
         &:hover {
           color: var(--v-primary-darken1);
         }

@@ -188,16 +188,16 @@ export default {
         // }
       },
       middleRoute: {
-        // ticket: {
-        //   title: "تیکت",
-        //   icon: "mdi-filmstrip-box-multiple",
-        //   hover: "mdi-filmstrip-box-multiple",
-        //   link: "/dashboard/ticket",
-        //   api: '#',
-        //   numberShow: false,
-        //   disabled: true,
-        //   gard: true
-        // },
+        ticket: {
+          title: "تیکت",
+          icon: "mdi-filmstrip-box-multiple",
+          hover: "mdi-filmstrip-box-multiple",
+          link: "/dashboard/ticket",
+          api: '#',
+          numberShow: false,
+          disabled: true,
+          gard: true
+        },
         // notification: {
         //   title: "اعلان",
         //   icon: "mdi-bell",
@@ -252,7 +252,6 @@ export default {
   },
   watch: {
     profile(now, old) {
-      console.log(this.profile)
       if (now) {
         this.routes.team.disabled = !this.profile.is_complete;
         if (!this.profile.is_complete && this.$route.path !== "/dashboard/settings") {
