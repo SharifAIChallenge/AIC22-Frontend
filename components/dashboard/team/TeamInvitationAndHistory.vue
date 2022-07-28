@@ -108,18 +108,20 @@
                   class="rounded-circle"
                   src="~/assets/images/avatar-sample.svg" alt="">
             </div>
-            <div class="text-center">
+            <div class="text-center" style="margin-top: -4rem;">
               <p v-if="dialog_item">
                 {{ dialog_item.user.profile.firstname_fa }} {{ dialog_item.user.profile.lastname_fa }}
               </p>
-              <div
-              v-if="dialog_item && dialog_item.user.profile.programming_languages && dialog_item.user.profile.programming_languages.length > 0"
-              >
-                <v-chip
-                    v-for="(lang,index) in dialog_item.user.profile.programming_languages" :key="index"
-                >
-                  {{ lang }}
-                </v-chip>
+            </div>
+            <div>
+              زبان های برنامه نویسی
+              <ul class="pr-4" v-if="dialog_item && dialog_item.user.profile.programming_languages && dialog_item.user.profile.programming_languages.length > 0">
+                <li v-for="(lang,index) in dialog_item.user.profile.programming_languages" :key="index">
+                  {{ lang.programming_language_title }}
+                </li>
+              </ul>
+              <div v-else>
+                -ثبت نشده است !-
               </div>
             </div>
           </v-card-text>
