@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container class="pa-0 d-flex align-center justify-space-between">
-      <p class="headline py-5 ma-0">
+      <p class="headline py-5 ma-0 mr-3">
         تیم
       </p>
       <div>

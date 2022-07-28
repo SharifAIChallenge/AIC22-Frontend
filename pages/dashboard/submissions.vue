@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container class="pa-0 d-flex align-center justify-space-between">
-      <p class="headline py-5 ma-0">
+      <p class="headline py-5 ma-0 mr-3">
         ارسال کد
       </p>
       <!--      <SectionHeader :title="`ارسال کد`" />-->
@@ -32,7 +32,7 @@
 
       <!--    <div class="d-flex align-center justify-space-between ma-5">-->
       <!--      <SectionHeader :title="`تاریخچه ارسال ها`" :icon="`mdi-history`"/>-->
-      <div class="headline py-5 ma-0">
+      <div class="headline py-5 ma-0 mr-3">
         <v-icon color="">"mdi-history"</v-icon>
         <div v-if="tabs === 1">
           تاریخچه ارسال ها
