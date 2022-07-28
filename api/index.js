@@ -79,7 +79,7 @@ export const SUBMIT_CODE = {
 };
 
 export const submitLargeCode = (axios, data) => {
-    return axios.$post('/team/submission', data, {
+    return axios.$post('/challenge/submission', data, {
         headers: {
             'content-type': 'multipart/form-data',
         },
