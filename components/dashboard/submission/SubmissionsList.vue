@@ -104,7 +104,7 @@ export default {
         this.submissions.map(el => {
           el.is_final = false;
         });
-        console.log(this.submissions);
+        // console.log(this.submissions);
         item.is_final = true;
       } else if (data.status_code === 406) {
         this.$toast.error('کد هنوز کامپال نشده است.');
