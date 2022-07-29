@@ -95,16 +95,16 @@ export default {
     GameInvites,
   },
   // todo 404 fixed
-  // async asyncData({ $axios, query }) {
-  //   let tabs = query.id ? 1 : 0;
-  //   let res = await $axios.$get('/challenge/lobby');
-  //   let haveFinalSubmit = true;
-  //   if (res.status_code === 403) {
-  //     haveFinalSubmit = false;
-  //   }
-  //
-  //   return { haveFinalSubmit, tabs };
-  // },
+  async asyncData({ $axios, query }) {
+    let tabs = query.id ? 1 : 0;
+    let res = await $axios.$get('/challenge/lobby');
+    let haveFinalSubmit = true;
+    if (res.status_code === 403) {
+      haveFinalSubmit = false;
+    }
+  
+    return { haveFinalSubmit, tabs };
+  },
   data() {
     return {
       tabs: null,

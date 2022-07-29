@@ -22,7 +22,6 @@ export default {
         java: { i: 'mdi-language-java', color: 'success', text: 'java' },
         cpp: { i: 'mdi-language-cpp', color: 'error', text: 'Cpp' },
         py3: { i: 'mdi-language-python', color: 'info', text: 'Python' },
-        go: { i: 'mdi-language-go', color: 'info', text: 'Go' },
       },
     };
   },
