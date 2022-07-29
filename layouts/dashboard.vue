@@ -162,14 +162,14 @@ export default {
           disabled: true,
           gard: true
         },
-        // games: {
-        //   title: "بازی ها",
-        //   icon: "mdi-sword",
-        //   hover: "mdi-sword-cross",
-        //   link: "/dashboard/games",
-        //   disabled: true,
-        //   gard: true
-        // },
+        games: {
+          title: "بازی ها",
+          icon: "mdi-sword",
+          hover: "mdi-sword-cross",
+          link: "/dashboard/games",
+          disabled: true,
+          gard: true
+        },
         // final: {
         //   title: "فینال",
         //   icon: "mdi-trophy-award",
