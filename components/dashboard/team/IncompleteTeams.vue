@@ -1,6 +1,6 @@
 <template>
   <div>
-        <SectionHeader class="mt-2" title="جستجوی تیم‌ها" icon="mdi-badge-account-horizontal" />
+    <SectionHeader class="mt-2" title="جستجوی تیم‌ها" icon="mdi-badge-account-horizontal"/>
 
     <div class="searchBar mt-8 mb-6 px-6 px-md-12">
       <div class="mx-10" style="width: 40%;max-width: 500px">
@@ -129,7 +129,8 @@
           </div>
           <div>
             زبان های برنامه نویسی
-            <ul class="pr-4" v-if="dialog_item_user&& dialog_item_user.profile && dialog_item_user.profile.programming_languages.length !== 0">
+            <ul class="pr-4"
+                v-if="dialog_item_user&& dialog_item_user.profile && dialog_item_user.profile.programming_languages.length !== 0">
               <li v-for="(lang,index) in dialog_item_user.profile.programming_languages" :key="index">
                 {{ lang.programming_language_title }}
               </li>
@@ -142,44 +143,44 @@
       </v-card>
     </v-dialog>
 
-<!--    <v-dialog v-model="ProfileDialog" width="350">-->
-<!--      <v-btn icon class="close-btn" @click="ProfileDialog = false">-->
-<!--        <v-icon>mdi-close</v-icon>-->
-<!--      </v-btn>-->
-<!--      <UserProfileForTeam :userData="currentUser"/>-->
-<!--    </v-dialog>-->
-<!--    <v-dialog v-model="teamDetails" width="350px">-->
-<!--      <v-btn icon class="close-btn" @click="teamDetails = false">-->
-<!--        <v-icon>mdi-close</v-icon>-->
-<!--      </v-btn>-->
-<!--      <v-card>-->
-<!--        <img v-if="teamInfo.image_url" :src="teamInfo.image_url" style="max-width: 100%"/>-->
-<!--        <div class="pa-3">-->
-<!--          {{ teamInfo.name }}-->
-<!--        </div>-->
+    <!--    <v-dialog v-model="ProfileDialog" width="350">-->
+    <!--      <v-btn icon class="close-btn" @click="ProfileDialog = false">-->
+    <!--        <v-icon>mdi-close</v-icon>-->
+    <!--      </v-btn>-->
+    <!--      <UserProfileForTeam :userData="currentUser"/>-->
+    <!--    </v-dialog>-->
+    <!--    <v-dialog v-model="teamDetails" width="350px">-->
+    <!--      <v-btn icon class="close-btn" @click="teamDetails = false">-->
+    <!--        <v-icon>mdi-close</v-icon>-->
+    <!--      </v-btn>-->
+    <!--      <v-card>-->
+    <!--        <img v-if="teamInfo.image_url" :src="teamInfo.image_url" style="max-width: 100%"/>-->
+    <!--        <div class="pa-3">-->
+    <!--          {{ teamInfo.name }}-->
+    <!--        </div>-->
 
-<!--        <v-row v-for="(member, index) in teamInfo.members" :key="index" class="pa-3" style="width: 100%">-->
-<!--          <v-col cols="2">-->
-<!--            <img :src="member.profile.image_link" :alt="member.first_name" height="40px" style="max-width: 40px"/>-->
-<!--          </v-col>-->
-<!--          <v-col cols="10">-->
-<!--            <div class="d-flex align-center">-->
-<!--              <v-col cols="10">-->
-<!--                {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}-->
-<!--              </v-col>-->
-<!--              <v-col cols="2">-->
-<!--                <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">-->
-<!--                  mdi-card-account-details-outline-->
-<!--                </v-icon>-->
-<!--              </v-col>-->
-<!--            </div>-->
-<!--          </v-col>-->
-<!--        </v-row>-->
-<!--        <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال-->
-<!--          درخواست عضویت-->
-<!--        </v-btn>-->
-<!--      </v-card>-->
-<!--    </v-dialog>-->
+    <!--        <v-row v-for="(member, index) in teamInfo.members" :key="index" class="pa-3" style="width: 100%">-->
+    <!--          <v-col cols="2">-->
+    <!--            <img :src="member.profile.image_link" :alt="member.first_name" height="40px" style="max-width: 40px"/>-->
+    <!--          </v-col>-->
+    <!--          <v-col cols="10">-->
+    <!--            <div class="d-flex align-center">-->
+    <!--              <v-col cols="10">-->
+    <!--                {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}-->
+    <!--              </v-col>-->
+    <!--              <v-col cols="2">-->
+    <!--                <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">-->
+    <!--                  mdi-card-account-details-outline-->
+    <!--                </v-icon>-->
+    <!--              </v-col>-->
+    <!--            </div>-->
+    <!--          </v-col>-->
+    <!--        </v-row>-->
+    <!--        <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال-->
+    <!--          درخواست عضویت-->
+    <!--        </v-btn>-->
+    <!--      </v-card>-->
+    <!--    </v-dialog>-->
 
   </div>
 </template>
@@ -317,13 +318,13 @@ export default {
 <style lang="scss" scoped>
 
 
-::v-deep .theme--dark.v-pagination .v-pagination__navigation{
+::v-deep .theme--dark.v-pagination .v-pagination__navigation {
   background-color: transparent;
   border-radius: 50%;
-  border : 0.1rem solid #0e1224; 
+  border: 0.1rem solid #0e1224;
 }
 
-::v-deep .v-pagination__item{
+::v-deep .v-pagination__item {
   border-radius: 50%;
   background-color: transparent;
 }

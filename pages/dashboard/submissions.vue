@@ -168,7 +168,12 @@ export default {
   methods: {
     async getData() {
       let data = await this.$axios.$get(`/challenge/submissions`);
-      this.submissions = data;
+      data.map(x =>{
+        if (x.language === "python 3"){
+          x.language = 'py3'
+        }
+      });
+      this.submissions = data
     },
     calculateTimeInterval() {
       if (!this.submissions.length) this.canSubmitAnotherCode = true;

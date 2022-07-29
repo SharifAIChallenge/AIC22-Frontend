@@ -1,74 +1,83 @@
 <template>
-  <div>
-    <SectionHeader title="جستجو تیم‌" icon="mdi-magnify" />
-    <div class="searchBar px-6 px-md-12">
-      <div style="width: 70%">
+  <div class="">
+    <SectionHeader title="جستجو تیم‌" icon="mdi-magnify"/>
+    <div style="display: flex; justify-content: space-between; align-items: center" class="mx-12">
+      <h4 style="flex: 1">درخواست بازی با بات</h4>
+      <div style="width: 200px">
+      <v-menu offset-y class="transparent" style="">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn color="primary" block  max-height="100%" class="curved" v-bind="attrs" v-on="on">
+            بازی با بات
+            <v-icon>mdi-menu-down</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item v-for="(item, index) in bots" :key="item.number" @click="playWithBot(item.number, item.name)">
+            <v-list-item-title style="text-align: center" class="d-flex align-end justify-center">
+              <v-icon class="ml-3" size="30">{{ bot_icon[index] }}</v-icon>
+              <span>{{ item.name }}</span>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      </div>
+    </div>
+
+    <div class="searchBar mt-8 mb-6 ">
+      <div class="mx-10 input" style="flex: 1">
         <v-text-field
-          label="اسم تیم"
-          outlined
-          dense
-          v-model="teamName"
-          @keydown.enter="search(teamName)"
-          height="50px"
-          full-width
+            class="curved"
+            label="جست‌و‌جو نام تیم"
+            outlined
+            dense
+            v-model="teamName"
+            @keydown.enter="search(teamName)"
+            height="50px"
+            full-width
         ></v-text-field>
       </div>
-      <div style="width: 20%">
-        <v-btn block color="primary" :loading="tableLoading" @click="search(teamName)">
-          <v-icon class="ml-0 ml-md-3">mdi-magnify</v-icon>
-          <div class="hide-sm-and-down">تیم را پیدا کن</div>
+      <div style="">
+        <v-btn height="50px"   color="primary" class="curved pa-4 btn"
+               @click="search(teamName)">
+          <div class=" px-4">جست‌و‌جو</div>
+        </v-btn>
+      </div>
+      <div>
+        <v-btn height="50px" outlined class="curved outlined-btn pa-4 btn mx-4"
+               :disabled="!this.randomData || this.randomData.length === 1"
+               @click="randomMatch()">
+          <div class=" px-4">انتخاب رندوم</div>
         </v-btn>
       </div>
     </div>
     <v-alert dark icon="mdi-information" dense class="mx-6 mx-md-12" v-if="msg">
       <p>{{ msg }}</p>
     </v-alert>
-    <div>
-      <v-row class="mx-0">
-        <v-col cols="6" class="px-0">
-          <!-- <v-btn color="primary" block width="100%" max-height="100%" :disabled="!botLevel" @click="playWithBot()">
-            <v-icon large class="pl-5">mdi-robot</v-icon>
-            درخواست بازی با بات
-            <span class="mr-1">
-              مرحله
-              {{ botLevel }}
-            </span>
-          </v-btn> -->
+    <!--    <div>-->
+    <!--      <v-row class="mx-0">-->
+    <!--        <v-col cols="6" class="px-0">-->
 
-          <v-menu offset-y class="transparent">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" block width="100%" max-height="100%" v-bind="attrs" v-on="on">
-                <v-icon large class="pl-5">mdi-robot</v-icon>
-                درخواست بازی با بات
-                <v-icon>mdi-menu-down</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item v-for="(item, index) in bots" :key="item.number" @click="playWithBot(item.number, item.name)">
-                <v-list-item-title style="text-align: center" class="d-flex align-end justify-center">
-                  <v-icon class="ml-3" size="30">{{ bot_icon[index] }}</v-icon>
-                  <span>{{ item.name }}</span>
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-col>
-        <v-col class="px-0" cols="6">
-          <v-btn color="primary" block width="100%" :disabled="!this.randomData || this.randomData.length === 1" @click="randomMatch()">
-            <v-icon large class="pl-5">mdi-shuffle-variant</v-icon>
-            انتخاب تیم رندوم
-          </v-btn>
-        </v-col>
-      </v-row>
-    </div>
+    <!--        </v-col>-->
+    <!--        <v-col class="px-0" cols="6">-->
+    <!--          <v-btn color="primary" block width="100%" :disabled="!this.randomData || this.randomData.length === 1"-->
+    <!--                 @click="randomMatch()">-->
+    <!--            <v-icon large class="pl-5">mdi-shuffle-variant</v-icon>-->
+    <!--            انتخاب تیم رندوم-->
+    <!--          </v-btn>-->
+    <!--        </v-col>-->
+    <!--      </v-row>-->
+    <!--    </div>-->
     <div>
       <v-data-table
-        :headers="headers"
-        :items="teams"
-        :page.sync="page"
-        :items-per-page="itemsPerPage"
-        hide-default-footer
-        :loading="tableLoading"
+          :headers="headers"
+          :items="teams"
+          :page.sync="page"
+          :items-per-page="itemsPerPage"
+          :loading="tableLoading"
+          disable-sort
+          hide-default-footer
+          class="mx-10"
+          style="background-color : transparent"
       >
         <template v-slot:item.profile="{ item }">
           <v-icon @click="showTeam(item)" class="ProfileIcon">mdi-card-account-details-outline</v-icon>
@@ -88,14 +97,14 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-card>
-          <img v-if="teamInfo.image_url" :src="teamInfo.image_url" style="max-width: 100%" />
+          <img v-if="teamInfo.image_url" :src="teamInfo.image_url" style="max-width: 100%"/>
           <div class="pa-3">
             {{ teamInfo.name }}
           </div>
 
           <v-row v-for="(member, index) in teamInfo.members" :key="index" class="pa-3" style="width: 100%">
             <v-col cols="2">
-              <img :src="member.profile.image_link" :alt="member.first_name" height="40px" style="max-width: 40px" />
+              <img :src="member.profile.image_link" :alt="member.first_name" height="40px" style="max-width: 40px"/>
             </v-col>
             <v-col cols="10">
               <div class="d-flex align-center">
@@ -103,7 +112,9 @@
                   {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}
                 </v-col>
                 <v-col cols="2">
-                  <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">mdi-card-account-details-outline</v-icon>
+                  <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">
+                    mdi-card-account-details-outline
+                  </v-icon>
                 </v-col>
               </div>
             </v-col>
@@ -115,7 +126,7 @@
         <v-btn icon class="close-btn" @click="ProfileDialog = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <UserProfileForTeam :userData="currentUser" />
+        <UserProfileForTeam :userData="currentUser"/>
       </v-dialog>
     </div>
   </div>
@@ -127,7 +138,7 @@ import SectionHeader from '~/components/SectionHeader';
 import Logo from '~/components/dashboard/Logo';
 
 export default {
-  components: { UserProfileForTeam, SectionHeader, SectionContainer, Logo },
+  components: {UserProfileForTeam, SectionHeader, SectionContainer, Logo},
   data() {
     return {
       page: 1,
@@ -142,9 +153,9 @@ export default {
       teams: [],
       msg: '',
       headers: [
-        { text: 'نام تیم', value: 'name' },
-        { text: 'پروفایل', value: 'profile' },
-        { text: 'بازی دوستانه', value: 'play' },
+        {text: 'نام تیم', value: 'name'},
+        {text: 'پروفایل', value: 'profile'},
+        {text: 'بازی دوستانه', value: 'play'},
       ],
       currentUser: {
         profile: {},
@@ -207,14 +218,14 @@ export default {
     },
     playWithBot(level, name) {
       this.$axios
-        .post(`challenge/bot/${level}`, {})
-        .then(res => {
-          this.$toast.success(`بازی با بات ${name} ساخته شد.`);
-          this.$toast.success('برای مشاهده نتیجه و جزییات به تب تاریخچه رجوع کنید');
-        })
-        .catch(err => {
-          this.$toast.error('در روند ساخت بازی مشکل ایجاد شده است!');
-        });
+          .post(`challenge/bot/${level}`, {})
+          .then(res => {
+            this.$toast.success(`بازی با بات ${name} ساخته شد.`);
+            this.$toast.success('برای مشاهده نتیجه و جزییات به تب تاریخچه رجوع کنید');
+          })
+          .catch(err => {
+            this.$toast.error('در روند ساخت بازی مشکل ایجاد شده است!');
+          });
     },
     changePage(page) {
       this.tableLoading = true;
@@ -240,7 +251,7 @@ export default {
       this.ProfileDialog = true;
     },
     sendGameRequest(teamId) {
-      this.$axios.$post('/challenge/request', { type: 'friendly_match', target_team: `${teamId}` }).then(res => {
+      this.$axios.$post('/challenge/request', {type: 'friendly_match', target_team: `${teamId}`}).then(res => {
         if (res.status_code === 200) {
           this.$toast.success('درخواست با موفقیت ارسال شد');
         } else if (res.detail) {
@@ -251,7 +262,7 @@ export default {
       });
     },
     randomMatch() {
-      this.$axios.$post('/challenge/lobby', { game_type: 'friendly_match' }).then(res => {
+      this.$axios.$post('/challenge/lobby', {game_type: 'friendly_match'}).then(res => {
         if (res.status) {
           this.$toast.success('به لابی بازی‌های دوستانه اضافه شدید');
           this.randomData = [1];
@@ -268,6 +279,7 @@ export default {
 .v-list-item:hover {
   background-color: var(--v-shades-lighten4);
 }
+
 .searchBar {
   display: flex;
   justify-content: space-between;
@@ -284,4 +296,26 @@ export default {
     color: var(--v-primary-base);
   }
 }
+
+.curved {
+  border-radius: 99px;
+}
+
+.outlined-btn {
+  border: var(--v-primary-base) 3px solid;
+}
+@media (max-width: 600px) {
+.searchBar{
+  flex-direction: column;
+align-items: center;
+  .btn{
+    width: 200px;
+    margin-bottom: 10px;
+  }
+  .input{
+    width: 80%;
+  }
+}
+}
+
 </style>
