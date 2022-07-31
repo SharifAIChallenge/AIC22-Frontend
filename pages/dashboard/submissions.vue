@@ -191,7 +191,7 @@ export default {
     },
   },
   mounted() {
-    this.interval = setInterval(this.calculateTimeInterval, 1000 * 60);
+    this.interval = setInterval(this.calculateTimeInterval, 1000);
     this.tabs = this.getData()
   },
   destroyed() {
