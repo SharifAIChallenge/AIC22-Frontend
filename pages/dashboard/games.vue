@@ -1,40 +1,4 @@
 <template>
-<!--  <v-row class=" game ma-0">-->
-<!--    <v-col cols="12" md="8" class="pa-0">-->
-<!--      <v-divider />-->
-<!--      <v-tabs-items v-model="tabs">-->
-<!--        <v-tab-item>-->
-<!--          <div v-if="tabs === 0" class="main-content">-->
-<!--            <NewGame />-->
-<!--          </div>-->
-<!--        </v-tab-item>-->
-<!--        <v-tab-item>-->
-<!--          <div v-if="tabs === 1" class="main-content pa-0">-->
-<!--            <HistoryOfGames />-->
-<!--          </div>-->
-<!--        </v-tab-item>-->
-<!--        <v-tab-item>-->
-<!--          <div v-if="tabs === 2" class="main-content pa-0">-->
-<!--            <GameInvites />-->
-<!--          </div>-->
-<!--        </v-tab-item>-->
-<!--      </v-tabs-items>-->
-<!--    </v-col>-->
-<!--    <v-col cols="12" md="4" class="pa-0 gameTabs" style="background: #080a18">-->
-<!--      <div class="wrapper">-->
-<!--        <div class="d-flex tabsW">-->
-<!--          <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">-->
-<!--            <div v-for="(item, key) in gamesHeader" :key="key" style="margin: 15px auto" class="d-flex flex-column">-->
-<!--              <v-tab :disabled="item.gard && !haveFinalSubmit">-->
-<!--                {{ item.title }}-->
-<!--                <v-icon size="60" style="color: white">{{ item.icon }}</v-icon>-->
-<!--              </v-tab>-->
-<!--            </div>-->
-<!--          </v-tabs>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </v-col>-->
-<!--  </v-row>-->
   <div>
     <v-container class="pa-0 d-flex align-center justify-space-between">
       <p class="headline py-5 ma-0">
@@ -95,16 +59,16 @@ export default {
     GameInvites,
   },
   // todo 404 fixed
-  async asyncData({ $axios, query }) {
-    let tabs = query.id ? 1 : 0;
-    let res = await $axios.$get('/challenge/lobby');
-    let haveFinalSubmit = true;
-    if (res.status_code === 403) {
-      haveFinalSubmit = false;
-    }
-  
-    return { haveFinalSubmit, tabs };
-  },
+  // async asyncData({ $axios, query }) {
+  //   let tabs = query.id ? 1 : 0;
+  //   let res = await $axios.$get('/challenge/lobby');
+  //   let haveFinalSubmit = true;
+  //   if (res.status_code === 403) {
+  //     haveFinalSubmit = false;
+  //   }
+  //
+  //   return { haveFinalSubmit, tabs };
+  // },
   data() {
     return {
       tabs: null,
