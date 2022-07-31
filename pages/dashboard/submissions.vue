@@ -15,7 +15,7 @@
                       {{ item.title }}
                     </span>
                   <v-icon size="24" style="color: white">{{
-                      tabs === key ? item.icon : `${item.icon}-outline`
+                      tabs === key ? item.icon : `${item.icon}`
                     }}
                   </v-icon>
                 </v-tab>
@@ -41,32 +41,36 @@
           ارسال کد
         </div>
       </div>
-<!--      <v-chip-group style="display: flex" v-model="mode" column active-class="primary&#45;&#45;text primary">-->
-<!--        <v-chip filter outlined>اصلی</v-chip>-->
-<!--        <v-chip filter outlined>مینی‌گیم</v-chip>-->
-<!--      </v-chip-group>-->
+      <!--      <v-chip-group style="display: flex" v-model="mode" column active-class="primary&#45;&#45;text primary">-->
+      <!--        <v-chip filter outlined>اصلی</v-chip>-->
+      <!--        <v-chip filter outlined>مینی‌گیم</v-chip>-->
+      <!--      </v-chip-group>-->
     </v-container>
     <div class="pa-0">
       <v-tabs-items touchless v-model="tabs">
         <v-tab-item>
           <div v-if="tabs === 0" class="main-content">
-            <v-col cols="12"  class="pl-0 ">
+            <v-col cols="12" class="pl-0 ">
               <v-card flat class="transparent">
                 <SectionContainer>
-                  <v-alert class=" px-1" type="info" outlined icon="mdi-information-outline">
-                    <p v-if="canSubmitAnotherCode">
-                      محدودیت زمانی بین هر ارسال:‌ ۵ دقیقه
-                    </p>
-                    <p v-else>
-              <span>
-                زمان گذشته از آخرین ارسال:
-              </span>
-                      <span>
-                {{ Math.floor(remainTime) }}
-                دقیقه
-              </span>
-                    </p>
-                  </v-alert>
+                    <!--                    <p v-if="canSubmitAnotherCode">-->
+                    <div v-if="canSubmitAnotherCode" class=" text-center notice-box my-7 ma-6 ma-md-12">
+                      <!--    <Notification class="pb-3 notif" style="margin-right: auto; min-height: 100vh" />-->
+                      <div>
+                        محدودیت زمانی بین هر ارسال:‌ ۵ دقیقه
+                      </div>
+
+                    </div>
+                    <!--                    </p>-->
+                    <div v-else class="text-center notice-box my-7 ma-6 ma-md-12">
+                        <span>
+                          زمان گذشته از آخرین ارسال:
+                        </span>
+                                <span>
+                          {{ Math.floor(remainTime) }}
+                          دقیقه
+                        </span>
+                    </div>
                   <code-submission class="mt-10" @codeSub="this.$fetch" :canSubmitAnotherCode="canSubmitAnotherCode"/>
                 </SectionContainer>
               </v-card>
@@ -77,9 +81,10 @@
         </v-tab-item>
         <v-tab-item>
           <div v-if="tabs === 1" class="main-content pa-0">
-            <v-container  class="pa-0 d-flex align-center justify-space-between">
+            <v-container class="pa-0 d-flex align-center justify-space-between">
 
-              <submissions-list class="py-6 py-md-12" :submissions="submissions/*.filter(s => mode == s.is_mini_game)*/"/>
+              <submissions-list class="py-6 py-md-12"
+                                :submissions="submissions/*.filter(s => mode == s.is_mini_game)*/"/>
             </v-container>
             <!--            <SearchUsersAndSendInvitation v-if="haveTeam"/>-->
             <!--            <IncompleteTeams v-else/>-->
@@ -90,22 +95,22 @@
 
     <!--  </div>-->
 
-<!--    <v-row>-->
+    <!--    <v-row>-->
 
-<!--      <v-col cols="12" md="8" class="pr-md-0 pr-6 pl-5">-->
-<!--        <v-card flat class="transparent">-->
-<!--          <SectionHeader :title="`تاریخچه ارسال ها`" :icon="`mdi-history`"/>-->
-<!--          &lt;!&ndash; <SectionContainer> &ndash;&gt;-->
-<!--          <v-chip-group style="display: flex" v-model="mode" column active-class="secondary&#45;&#45;text secondary">-->
-<!--            <v-chip filter outlined>اصلی</v-chip>-->
-<!--            <v-chip filter outlined>مینی‌گیم</v-chip>-->
-<!--          </v-chip-group>-->
-<!--          <submissions-list class="py-6 py-md-12" :submissions="submissions.filter(s => mode == s.is_mini_game)"/>-->
+    <!--      <v-col cols="12" md="8" class="pr-md-0 pr-6 pl-5">-->
+    <!--        <v-card flat class="transparent">-->
+    <!--          <SectionHeader :title="`تاریخچه ارسال ها`" :icon="`mdi-history`"/>-->
+    <!--          &lt;!&ndash; <SectionContainer> &ndash;&gt;-->
+    <!--          <v-chip-group style="display: flex" v-model="mode" column active-class="secondary&#45;&#45;text secondary">-->
+    <!--            <v-chip filter outlined>اصلی</v-chip>-->
+    <!--            <v-chip filter outlined>مینی‌گیم</v-chip>-->
+    <!--          </v-chip-group>-->
+    <!--          <submissions-list class="py-6 py-md-12" :submissions="submissions.filter(s => mode == s.is_mini_game)"/>-->
 
-<!--          &lt;!&ndash; </SectionContainer> &ndash;&gt;-->
-<!--        </v-card>-->
-<!--      </v-col>-->
-<!--    </v-row>-->
+    <!--          &lt;!&ndash; </SectionContainer> &ndash;&gt;-->
+    <!--        </v-card>-->
+    <!--      </v-col>-->
+    <!--    </v-row>-->
   </div>
 
 </template>
@@ -168,8 +173,8 @@ export default {
   methods: {
     async getData() {
       let data = await this.$axios.$get(`/challenge/submissions`);
-      data.map(x =>{
-        if (x.language === "python 3"){
+      data.map(x => {
+        if (x.language === "python 3") {
           x.language = 'py3'
         }
       });
