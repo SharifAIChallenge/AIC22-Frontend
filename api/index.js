@@ -95,7 +95,7 @@ export const CHANGE_FINAL_SUBMISSION = {
     name: 'CHANGE_FINAL_SUBMISSION',
     method: 'put',
     slug: 'id',
-    url: '/team/submission',
+    url: '/challenge/submission',
 };
 
 //games
