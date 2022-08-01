@@ -24,7 +24,7 @@
                     label="فایل"
                     :rules="fileRules"
                     :hint="fileHint"
-                    accept=".zip"
+                    accept=".zip/*"
                     show-size
                     persistent-hint
                     append-icon="mdi-paperclip"
@@ -57,6 +57,7 @@
             <!--        ارسال-->
             <!--      </v-btn>-->
             <v-btn
+                style="width : 100%"
                 :disabled="!file  || !canSubmitAnotherCode || !profile "
                 :loading="loading"
                 type="submit"

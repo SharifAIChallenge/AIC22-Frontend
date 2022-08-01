@@ -38,10 +38,8 @@ export default {
     }
   },
  mounted(){
-  console.log("in index")
   this.$axios.get('communication/notifications').then(res =>{
             this.news = res.data.data;
-            console.log("response");
         })
  }
 };
