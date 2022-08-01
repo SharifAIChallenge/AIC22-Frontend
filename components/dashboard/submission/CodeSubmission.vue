@@ -16,7 +16,7 @@
               <!--          <v-chip filter outlined>اصلی</v-chip>-->
               <!--          <v-chip filter outlined>مینی‌گیم</v-chip>-->
               <!--        </v-chip-group>-->
-              <v-col cols="12" >
+              <v-col cols="12">
                 <v-file-input
                     :disabled=" !canSubmitAnotherCode || !profile "
                     v-model="file"
@@ -30,6 +30,8 @@
                     append-icon="mdi-paperclip"
                     prepend-icon=""
                     dir="ltr"
+                    outlined
+                    rounded
                 />
               </v-col>
               <v-col>
@@ -41,6 +43,7 @@
                     :rules="requiredRules"
                     required
                     dir="ltr"
+                    rounded
                 />
               </v-col>
             </v-row>
@@ -54,12 +57,11 @@
             <!--        ارسال-->
             <!--      </v-btn>-->
             <v-btn
-                tile
-                block
                 :disabled="!file  || !canSubmitAnotherCode || !profile "
                 :loading="loading"
                 type="submit"
                 v-bind="primaryButtonProps"
+                rounded
             >
               <v-icon left>mdi-upload</v-icon>
               ارسال
@@ -79,6 +81,7 @@ import {submitLargeCode} from '../../../api';
 import {mapState} from 'vuex';
 import SectionContainer from "~/components/SectionContainer";
 import Box from "~/components/utilities/Box";
+import final from "~/pages/final";
 
 export default {
   components: {SectionContainer, Box},
@@ -124,26 +127,25 @@ export default {
       this.loading = true;
       try {
         let data = await submitLargeCode(this.$axios, formData);
-
-        this.loading = false;
-        if (data) {
-          this.$toast.success('فایل با موفقیت آپلود شد.');
-          // this.$emit('codeSub');
+        console.log(data)
+        if (data.status) {
+          if (data.status === 200) {
+            this.$toast.success('فایل با موفقیت آپلود شد.');
+          }
         }
-
       } catch (e) {
-       if (data.detail.non_field_errors) {
-          if (data.detail.non_field_errors[0].includes('wait'))
-            this.$toast.error(this.$tc('dashboard.codeSubmissionMessage', this.codeSubmitDelay));
-        } else if (data.status_code == 403) {
+        if (e.message.includes('400'))
+            this.$toast.error(this.$tc('dashboard.codeSubmissionMessage', 5));
+        else if (e.message.includes('403'))
           this.$toast.error('ابتدا باید در تیمی عضو شوید');
-        } else {
+        else
           this.$toast.error('خطایی در آپلود فایل رخ داد.');
-        }
-        console.log(e)
+      } finally {
+        this.loading = false;
       }
 
-    },
+    }
+    ,
   },
 };
 </script>
