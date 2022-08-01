@@ -71,7 +71,7 @@
                           دقیقه
                         </span>
                     </div>
-                  <code-submission class="mt-10" @codeSub="this.$fetch" :canSubmitAnotherCode="canSubmitAnotherCode"/>
+                  <code-submission class="mt-10"  :canSubmitAnotherCode="canSubmitAnotherCode"/>
                 </SectionContainer>
               </v-card>
             </v-col>
@@ -186,7 +186,7 @@ export default {
         const lastSubmitTime = new Date(this.submissions[this.submissions.length - 1].submit_time);
         const interval = new Date() - lastSubmitTime;
         this.remainTime = interval / (60 * 1000);
-        this.canSubmitAnotherCode = this.remainTime > 5;
+        this.canSubmitAnotherCode = Math.abs(this.remainTime) > 5;
       }
     },
   },

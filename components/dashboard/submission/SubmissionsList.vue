@@ -100,17 +100,22 @@ export default {
   methods: {
     async changeFinal(item) {
       if (item.is_final) return;
-      let data = await this.$axios.$put(`${CHANGE_FINAL_SUBMISSION.url}/${item.id}`);
-      if (data.status_code === 200) {
-        this.$store.dispatch('team/getSubmissions');
-        this.$toast.success('ارسال نهایی با موفقیت تغییر کرد.');
-        this.submissions.map(el => {
-          el.is_final = false;
-        });
-        item.is_final = true;
-      } else if (data.status_code === 406) {
-        this.$toast.error('کد هنوز کامپال نشده است.');
+      try {
+        let data = await this.$axios.put(`${CHANGE_FINAL_SUBMISSION.url}/${item.id}`);
+        if (data.status === 200) {
+          // this.$store.dispatch('team/getSubmissions');
+          // this.$toast.success('ارسال نهایی با موفقیت تغییر کرد.');
+          this.submissions.map(el => {
+            el.is_final = false;
+          });
+          item.is_final = true;
+        }
+      } catch (e) {
+        if (e.message.includes("406")) {
+          this.$toast.error('کد هنوز کامپال نشده است.');
+        }
       }
+
     },
     onDetailClick(text) {
       this.dialog = true;

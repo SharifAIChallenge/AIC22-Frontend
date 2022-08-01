@@ -78,12 +78,13 @@ export const SUBMIT_CODE = {
     url: '/challenge/submission/submit',
 };
 
-export const submitLargeCode = (axios, data) => {
-    return axios.$post('/challenge/submission', data, {
+export const submitLargeCode =  async (axios, data) => {
+    const response =  axios.post('/challenge/submission', data, {
         headers: {
             'content-type': 'multipart/form-data',
         },
-    });
+    })
+    return response;
 };
 //end
 
