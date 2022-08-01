@@ -19,14 +19,14 @@ $material-dark-elevation-colors: (
   '32': #182636,
 );
 $material-dark: (
-  'background':#13202E,
+  'background':map-get($material-dark-elevation-colors, '4'),
   'surface': #090c18,
-  'bg-color': #090c18,
-  'navigation-drawer': map-get($material-dark-elevation-colors, '16'),
+  'bg-color': map-get($material-dark-elevation-colors, '4'),
+  'navigation-drawer': map-get($material-dark-elevation-colors, '8'),
   'toolbar': map-get($material-dark-elevation-colors, '4'),
   'app-bar': map-get($material-dark-elevation-colors, '4'),
   'bottom-navigation': map-get($material-dark-elevation-colors, '8'),
-  'cards': map-get($material-dark-elevation-colors, '24'),
+  'cards': map-get($material-dark-elevation-colors, '8'),
   'tabs': map-get($material-dark-elevation-colors, '8'),
   'calendar': (
     'background-color': map-get($material-dark-elevation-colors, '12'),
@@ -36,17 +36,17 @@ $material-dark: (
     'interval-line-color': map-get($material-dark-elevation-colors, '12'),
   ),
   'picker': (
-    'body': map-get($material-dark-elevation-colors, '16'),
-    'clock': map-get($material-dark-elevation-colors, '16'),
-    'indeterminateTime': map-get($material-dark-elevation-colors, '12'),
-    'title': map-get($material-dark-elevation-colors, '16'),
+    'body': map-get($material-dark-elevation-colors, '8'),
+    'clock': map-get($material-dark-elevation-colors, '8'),
+    'indeterminateTime': map-get($material-dark-elevation-colors, '8'),
+    'title': map-get($material-dark-elevation-colors, '8'),
   ),
   'table': (
-    'active': map-get($material-dark-elevation-colors, '12'),
-    'hover': map-get($material-dark-elevation-colors, '26'),
-    'group': map-get($material-dark-elevation-colors, '26'),
+    'active': map-get($material-dark-elevation-colors, '8'),
+    'hover': map-get($material-dark-elevation-colors, '8'),
+    'group': map-get($material-dark-elevation-colors, '8'),
   ),
-  'chips': map-get($material-dark-elevation-colors, '24'),
+  'chips': map-get($material-dark-elevation-colors, '8'),
   'timeline':(
     'card': map-get($material-dark-elevation-colors,'8')
   ),

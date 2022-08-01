@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionHeader title="دعوت نامه ها" icon="mdi-history" />
+    <SectionHeader title="دعوت نامه ها" icon="mdi-history"/>
     <SectionContainer>
       <v-alert icon="mdi-information" class="mb-8">
         اینجا لیست دعوتنامه هایی را که از تیم ها برای بازی با آن ها دریافت کرده اید، می بینید.
@@ -8,83 +8,146 @@
       <div v-if="this.pendingRequests.length === 0" class="mb-10">
         لیست دعوتنامه های شما خالی است
       </div>
-      <div v-else class="mb-10">
-        <div class="mb-7" v-for="(request, index) in pendingRequests" :key="index">
-          <div>
-            <div class="d-flex align-end pr-16 mb-2" style="height:100%">
-              {{ request.source_team_name }}
-            </div>
-          </div>
-          <div class="mr-16">
-            <v-btn height="50" class="ml-4" @click="declineChallenge(request.id)" :loading="loading">
-              رد کردن
-            </v-btn>
-            <v-btn color="primary" height="50" @click="acceptChallenge(request.id)" :loading="loading">
-              <v-icon>
-                mdi-handshake
-              </v-icon>
-              قبول کردن
-            </v-btn>
-          </div>
-        </div>
-      </div>
+      <v-row v-else class="mb-10">
+        <v-col sm="12" md="4" lg="3" class="mb-7" v-for="(request, index) in pendingRequests" :key="index">
+          <MyTeamInvitations :name="request.source_team_name"
+                             :status="request.status"
+                             text="اطلاعات تیم"
+                             :accept="()=>acceptChallenge(request.id)" :reject="()=>declineChallenge(request.id)"/>
+        </v-col>
+      </v-row>
       <v-alert icon="mdi-information" class="mb-8">
         اینجا لیست دعوتنامه هایی را که برای بازی با سایر تیم ها ارسال کرده اید میبینید.
       </v-alert>
       <div>
-        <div
-          v-for="(request, index) in sentRequests"
-          :key="index"
-          class="mb-7"
-          style="display:flex; flex-direction: row; justify-content:space-between;"
-        >
-          <div>
-            <h3>
-              {{ request.target_team_name }}
-            </h3>
-          </div>
-          <div
-            v-bind:class="{
-              blueFont: request.status === 'pending',
-              orangeFont: request.status === 'rejected',
-              greenFont: request.status === 'accepted',
-            }"
-          >
-            <h3>
-              {{ request.status }}
-            </h3>
-          </div>
-          <div>
-            <v-icon
-              large
-              v-bind:class="{
-                blueFont: request.status === 'pending',
-                orangeFont: request.status === 'rejected',
-                greenFont: request.status === 'accepted',
-              }"
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+            <tr>
+              <th class="text-right">
+                نام تیم
+              </th>
+<!--              <th class="text-right">-->
+<!--                اطلاعات-->
+<!--              </th>-->
+              <th class="text-right">
+                وضعیت عضویت
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+                v-for="(request, index) in sentRequests"
+                :key="index"
             >
-              {{ requestStatusIcon(request.status) }}
-            </v-icon>
-          </div>
-        </div>
+              <td>{{ request.source_team_name }}</td>
+<!--              <td>-->
+<!--                <v-btn-->
+<!--                    class="pa-0"-->
+<!--                    @click.stop="()=>{dialog_item = request.team;dialog = true;}"-->
+<!--                    text plain-->
+<!--                >-->
+<!--                  <v-icon-->
+<!--                  >mdi-account-box-outline-->
+<!--                  </v-icon>-->
+<!--                </v-btn>-->
+<!--              </td>-->
+              <td class="text-center">
+                <v-chip
+                    color="success"
+                    v-if="request.status === 'accepted'"
+                >
+                  <v-icon class="ml-2">mdi-check</v-icon>
+                  تایید شده
+                </v-chip>
+                <v-chip
+                    color="primary"
+                    v-else-if="request.status === 'pending'"
+                >
+                  <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+                  در انتظار تایید
+                </v-chip>
+                <v-chip
+                    color="secondary"
+                    v-else
+                >
+                  <v-icon class="ml-2">mdi-close</v-icon>
+                  رد شده
+                </v-chip>
+              </td>
+            </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
       </div>
+      <v-dialog
+          v-model="dialog"
+          max-width="290"
+
+      >
+        <v-card
+            rounded
+            class="modal-shadow"
+            color="bg_secondary">
+          <v-card-text
+              class="modal modal-shadow"
+          >
+            <div class="profile-picture">
+              <img
+                  v-if="dialog_item && dialog_item.team.image"
+                  :src="dialog_item.team.image"
+                  class="rounded-circle"
+              />
+              <img
+                  v-else
+                  class="rounded-circle"
+                  src="~/assets/images/avatar-sample.svg" alt="">
+            </div>
+            <div class="text-center" style="margin-top: -4rem;">
+              <p v-if="dialog_item">
+                {{ dialog_item.team.name }}
+              </p>
+            </div>
+            <div v-if="dialog_item && dialog_item.team && dialog_item.team.members" class="members">
+              <div v-for="(member,index) in dialog_item.team.members" :key="index">
+                <p class="ma-0">
+                  {{ member.profile.firstname_fa }} {{ member.profile.lastname_fa }}
+                </p>
+              </div>
+            </div>
+
+          </v-card-text>
+          <!--        <v-card-actions>-->
+          <!--          <v-btn-->
+          <!--              @click-->
+          <!--          >-->
+          <!--            عضویت-->
+          <!--          </v-btn>-->
+          <!--        </v-card-actions>-->
+        </v-card>
+      </v-dialog>
+
     </SectionContainer>
   </div>
 </template>
 <script>
 import SectionContainer from '~/components/SectionContainer';
 import SectionHeader from '~/components/SectionHeader';
+import MyTeamInvitations from "~/components/dashboard/team/MyTeamInvitations";
 
 export default {
   components: {
     SectionContainer,
     SectionHeader,
+    MyTeamInvitations
   },
   data() {
     return {
       pendingRequests: [],
       sentRequests: [],
       loading: false,
+      dialog_item: null,
+      dialog: false,
     };
   },
   methods: {

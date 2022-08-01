@@ -57,6 +57,12 @@
     <!--          </v-treeview>-->
     <!--        </v-navigation-drawer>-->
     <!--      </v-col>-->
+    <div class="d-flex justify-content-center" style="max-width:80%">
+       <div class="notice-box mt-5" style="max-width:fit-content;">
+    بنا بر مشکلات فیلترینگ برای مشاهده داک بازی لطفا از فیلترشکن استفاده کنید و یا به این<span><a href="https://github.com/SharifAIChallenge/AIC22-Doc" target="__blank"> لینک </a></span>مراجعه کنید.
+      </div>
+    </div>
+   
     <v-row class="mb-10">
       <v-col cols="12" md="7" lg="8" class="docWraper">
         <markdown-renderer :content="content"/>

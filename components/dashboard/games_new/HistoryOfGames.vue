@@ -1,70 +1,59 @@
 <template>
   <div>
     <SectionHeader title="تاریخچه بازی ها" icon="mdi-history" />
-
-    <!-- <div>
-        <div class="select-filter">
-          <v-combobox v-model="filterSelect" :items="filteIitems" label="تورنومنت" hide-selected outlined></v-combobox>
-          <v-btn height="50" color="primary" class="mr-2" :loading="btnLoading" :disabled="this.filterStatus === this.filterSelect">
-            اعمال فیلتر
-          </v-btn>
-        </div>
-      </div> -->
-    <div class="px-5 px-md-12">
-      <v-chip-group style="display: flex" @change="handleFilterChip" v-model="filterChip" column active-class="secondary--text secondary">
-        <v-chip filter outlined>تمام شده</v-chip>
-      </v-chip-group>
-    </div>
-    <v-data-table
-      :loading="tableLoading"
-      hide-default-footer
-      center
-      :headers="headers"
-      :items="data"
-      :page.sync="page"
-      :items-per-page="itemPerPage"
-      style="background: #141432"
-    >
-      <template v-slot:[`item.x`]="{ item }">
-        <span :style="item.team1.name.indexOf('Bot-') === 0 ? ' color: #42b3aa' : ''">{{ item.team1.name }}</span>
-        -
-        <span>{{ item.team2.name }}</span>
-      </template>
-      <template v-slot:[`item.status`]="{ item }">
-        {{ gameStatus(item.status) }}
-      </template>
-      <template v-slot:[`item.winner.name`]="{ item }">
-        <span :class="item.winner && myteam === item.winner.name ? 'myteam' : ''">
-          {{ item.winner ? item.winner.name : '' }}
-        </span>
-      </template>
-      <template v-slot:[`item.log`]="{ item }">
-        <v-btn icon :loading="btnLoading" :ripple="false" :disabled="!item.log" :href="item.log">
-          <v-icon size="30px" class="icon-hover">mdi-download</v-icon>
-        </v-btn>
-      </template>
-      <template v-slot:[`item.serverLog`]="{ item }">
-        <v-btn icon :loading="btnLoading" :ripple="false" :disabled="!item.server_log" :href="item.server_log">
-          <v-icon size="30px" class="icon-hover">mdi-download</v-icon>
-        </v-btn>
-      </template>
-      <template v-slot:[`item.graphic`]="{ item }">
-        <v-btn
-          icon
-          :loading="btnLoading"
-          :ripple="false"
-          target="blank"
-          :disabled="item.status !== 'successful'"
-          :href="`https://aichallenge.ir/visualizer?log=${item.log}`"
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+        <tr>
+          <th class="text-right">
+            نام تیم
+          </th>
+          <!--              <th class="text-right">-->
+          <!--                اطلاعات-->
+          <!--              </th>-->
+          <th class="text-right">
+            وضعیت عضویت
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+            v-for="(request, index) in data"
+            :key="index"
         >
-          <v-icon size="30px" class="icon-hover">mdi-filmstrip-box-multiple</v-icon>
-        </v-btn>
+          <td>{{ request.team1.name }}</td>
+          <!--              <td>-->
+          <!--                <v-btn-->
+          <!--                    class="pa-0"-->
+          <!--                    @click.stop="()=>{dialog_item = request.team;dialog = true;}"-->
+          <!--                    text plain-->
+          <!--                >-->
+          <!--                  <v-icon-->
+          <!--                  >mdi-account-box-outline-->
+          <!--                  </v-icon>-->
+          <!--                </v-btn>-->
+          <!--              </td>-->
+          <td class="text-center">
+            <v-chip
+                color="success"
+                v-if="request.team1.name === request.winner.name"
+            >
+              <v-icon class="ml-2">mdi-check</v-icon>
+              پیروزی
+            </v-chip>
+            <v-chip
+                color="secondary"
+                v-else
+            >
+              <v-icon class="ml-2">mdi-close</v-icon>
+             شکست
+            </v-chip>
+          </td>
+        </tr>
+        </tbody>
       </template>
-    </v-data-table>
-    <div class="text-center pt-4 pb-10" style="position: relative">
-      <v-pagination v-model="page" :length="pageCount" total-visible="5" class="my-3" />
-      <!-- <Logo /> -->
-    </div>
+    </v-simple-table>
+
   </div>
 </template>
 
@@ -80,20 +69,27 @@ export default {
     this.url = tournomentId ? `challenge/match?tournament_id=${tournomentId}&` : 'challenge/match?';
     this.tableLoading = true;
     let filter = this.filterChip === 0 ? '&status=successful' : '';
-    let res = await this.$axios.$get(`${this.url}page=${this.page}${filter}`);
+    try{
+      let res = await this.$axios.$get(`${this.url}page=${this.page}${filter}`);
+
+    }catch (e) {
+      if (e.response){
+        if (e.response.status === 403){
+          this.$toast.error('برای مشاهده این صفحه باید تیم داشته باشید');
+        } else {
+          this.$toast.error('خطا در برقراری ارتباط!');
+        }
+      }
+    }
 
     let team = await this.$axios.$get('team');
     this.myteam = team.name;
 
-    if (res.status_code === 200) {
+    if (res.status === 200) {
       this.data = res.results.data;
       const count = 20;
       this.pageCount = Math.ceil(res.count / count);
       this.status_code = res.status_code;
-    } else if (res.status_code === 403) {
-      this.$toast.error('برای مشاهده این صفحه باید تیم داشته باشید');
-    } else {
-      this.$toast.error('خطا در برقراری ارتباط!');
     }
     this.tableLoading = false;
   },

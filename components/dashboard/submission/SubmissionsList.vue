@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="w-full">
     <v-data-table
+        class="table-color"
       :headers="headers"
       center
       :items="submissions"
@@ -12,9 +13,11 @@
       sort-by="submit_time"
       sort-desc
       @page-count="pageCount = $event"
+      style="background: transparent; border-color: transparent"
+
     >
       <template v-slot:[`item.is_final`]="{ item }">
-        <v-btn icon disabled @click="changeFinal(item)">
+        <v-btn icon @click="changeFinal(item)">
           <v-icon>
             {{ item.is_final || item.is_mini_game_final ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline' }}
           </v-icon>
@@ -33,11 +36,11 @@
       <template v-slot:[`item.submit_time`]="{ item }">
         <date-time-formatter :date="item.submit_time" />
       </template>
-      <template v-slot:[`item.file`]="{ item }">
+      <!-- <template v-slot:[`item.file`]="{ item }">
         <v-btn v-if="item.download_link" icon :href="item.download_link">
           <v-icon>mdi-download</v-icon>
         </v-btn>
-      </template>
+      </template> -->
       <template v-slot:[`item.log`]="{ item }">
         <v-btn icon @click="onDetailClick(item.infra_compile_message)" :disabled="!item.infra_compile_message">
           <v-icon>mdi-transit-connection</v-icon>
@@ -81,7 +84,7 @@ export default {
         { text: this.$t('dashboard.submitTime'), sortable: true, value: 'submit_time', align: 'center' },
         { text: this.$t('form.language'), sortable: false, value: 'language', align: 'center' },
         { text: this.$t('dashboard.status'), sortable: false, value: 'status', align: 'center' },
-        { text: this.$t('form.file'), sortable: false, value: 'file', align: 'center', width: 70 },
+        // { text: this.$t('form.file'), sortable: false, value: 'file', align: 'center', width: 70 },
         { text: 'جزییات', sortable: false, value: 'log', align: 'center' },
       ];
     },
@@ -97,18 +100,22 @@ export default {
   methods: {
     async changeFinal(item) {
       if (item.is_final) return;
-      let data = await this.$axios.$put(`${CHANGE_FINAL_SUBMISSION.url}/${item.id}`);
-      if (data.status_code === 200) {
-        this.$store.dispatch('team/getSubmissions');
-        this.$toast.success('ارسال نهایی با موفقیت تغییر کرد.');
-        this.submissions.map(el => {
-          el.is_final = false;
-        });
-        // console.log(this.submissions);
-        item.is_final = true;
-      } else if (data.status_code === 406) {
-        this.$toast.error('کد هنوز کامپال نشده است.');
+      try {
+        let data = await this.$axios.put(`${CHANGE_FINAL_SUBMISSION.url}/${item.id}`);
+        if (data.status === 200) {
+          // this.$store.dispatch('team/getSubmissions');
+          // this.$toast.success('ارسال نهایی با موفقیت تغییر کرد.');
+          this.submissions.map(el => {
+            el.is_final = false;
+          });
+          item.is_final = true;
+        }
+      } catch (e) {
+        if (e.message.includes("406")) {
+          this.$toast.error('کد هنوز کامپال نشده است.');
+        }
       }
+
     },
     onDetailClick(text) {
       this.dialog = true;
@@ -118,4 +125,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.table-color{
+  background-color: #13202E;
+}
+</style>
