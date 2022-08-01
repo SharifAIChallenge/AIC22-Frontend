@@ -1,40 +1,50 @@
 <template>
-  <v-row class="d-flex game ma-0">
-    <v-col cols="12" md="8" class="pa-0">
-      <v-divider />
-      <v-tabs-items v-model="tabs">
-        <v-tab-item>
-          <div v-if="tabs === 0" class="main-content">
-            <NewGame />
+  <div>
+    <v-container class="pa-0 d-flex align-center justify-space-between">
+      <p class="headline py-5 ma-0 mr-2">
+        بازی ها
+      </p>
+      <div>
+        <client-only>
+          <div class="d-flex">
+            <v-tabs v-model="tabs" icons-and-text grow color="primary">
+              <div v-for="(item, key) in gamesHeader" :key="key" class="d-flex flex-column">
+                <v-tab :disabled="item.gard && !haveFinalSubmit">
+                    <span class="text--white">
+                      {{ item.title }}
+                    </span>
+                  <v-icon size="24" style="color: white">{{ tabs === key ? item.icon : `${item.icon}-outline` }}</v-icon>
+                </v-tab>
+              </div>
+            </v-tabs>
           </div>
-        </v-tab-item>
-        <v-tab-item>
-          <div v-if="tabs === 1" class="main-content pa-0">
-            <HistoryOfGames />
-          </div>
-        </v-tab-item>
-        <v-tab-item>
-          <div v-if="tabs === 2" class="main-content pa-0">
-            <GameInvites />
-          </div>
-        </v-tab-item>
-      </v-tabs-items>
-    </v-col>
-    <v-col cols="12" md="4" class="pa-0 gameTabs" style="background: #080a18">
-      <div class="wrapper">
-        <div class="d-flex tabsW">
-          <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
-            <div v-for="(item, key) in gamesHeader" :key="key" style="margin: 15px auto" class="d-flex flex-column">
-              <v-tab :disabled="item.gard && !haveFinalSubmit">
-                {{ item.title }}
-                <v-icon size="60" style="color: white">{{ item.icon }}</v-icon>
-              </v-tab>
-            </div>
-          </v-tabs>
-        </div>
+        </client-only>
       </div>
-    </v-col>
-  </v-row>
+    </v-container>
+    <div>
+      <v-divider />
+      <div class="pa-0">
+        <v-tabs-items touchless v-model="tabs">
+          <v-tab-item>
+            <div v-if="tabs === 0" class="main-content">
+              <NewGame />
+            </div>
+          </v-tab-item>
+          <v-tab-item>
+            <div v-if="tabs === 1" class="main-content pa-0">
+              <HistoryOfGames />
+            </div>
+          </v-tab-item>
+          <v-tab-item>
+            <div v-if="tabs === 2" class="main-content">
+              <GameInvites />
+            </div>
+          </v-tab-item>
+        </v-tabs-items>
+      </div>
+    </div>
+  </div>
+
 </template>
 <script>
 import HistoryOfGames from '~/components/dashboard/games_new/HistoryOfGames';
@@ -48,6 +58,7 @@ export default {
     NewGame,
     GameInvites,
   },
+  // todo 404 fixed
   async asyncData({ $axios, query }) {
     let tabs = query.id ? 1 : 0;
     let res = await $axios.$get('/challenge/lobby');
@@ -55,7 +66,7 @@ export default {
     if (res.status_code === 403) {
       haveFinalSubmit = false;
     }
-
+  
     return { haveFinalSubmit, tabs };
   },
   data() {
@@ -63,18 +74,18 @@ export default {
       tabs: null,
       gamesHeader: [
         {
-          title: 'جستجو با تیم ',
-          icon: 'mdi-magnify',
+          title: 'جستجو تیم ها',
+          icon: '',
           gard: false,
         },
         {
           title: 'تاریخچه بازی ها',
-          icon: 'mdi-history',
+          icon: '',
           gard: false,
         },
         {
           title: 'دعوت‌نامه‌ها',
-          icon: 'mdi-script-text',
+          icon: '',
           gard: true,
         },
       ],

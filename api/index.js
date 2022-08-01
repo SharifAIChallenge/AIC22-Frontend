@@ -78,12 +78,13 @@ export const SUBMIT_CODE = {
     url: '/challenge/submission/submit',
 };
 
-export const submitLargeCode = (axios, data) => {
-    return axios.$post('/team/submission', data, {
+export const submitLargeCode =  async (axios, data) => {
+    const response =  axios.post('/challenge/submission', data, {
         headers: {
             'content-type': 'multipart/form-data',
         },
-    });
+    })
+    return response;
 };
 //end
 
@@ -95,7 +96,7 @@ export const CHANGE_FINAL_SUBMISSION = {
     name: 'CHANGE_FINAL_SUBMISSION',
     method: 'put',
     slug: 'id',
-    url: '/team/submission',
+    url: '/challenge/submission',
 };
 
 //games

@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ dateObj.getHours() + ':' + dateObj.getMinutes() + ' - ' + new Intl.DateTimeFormat($i18n.locale).format(dateObj) }}
+    {{ new Intl.NumberFormat($i18n.locale).format(dateObj.getHours())  + ':' + new Intl.NumberFormat($i18n.locale).format(dateObj.getMinutes())  + ' - ' + new Intl.DateTimeFormat($i18n.locale).format(dateObj) }}
   </div>
 </template>
 
