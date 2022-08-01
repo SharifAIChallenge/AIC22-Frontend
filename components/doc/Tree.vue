@@ -129,7 +129,7 @@ export default {
         fetch(url)
             .then(res => res.text())
             .then(res => {
-              console.log(res);
+              // console.log(res);
               this.metaData = fm(res);
               this.content = '${toc} \n' + this.metaData.body;
               this.loading = false;

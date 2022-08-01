@@ -18,10 +18,8 @@ export default {
     };
   },
   async fetch() {
-    console.log("in")
     this.loading = true;
     let res = await this.$axios.$get('communication/admin_tickets');
-    console.log(res)
     this.tickets = res.data;
     // this.tickets = res.data.sort((a, b) => new Date(a.created) - new Date(b.created)).reverse();
     this.loading = false;

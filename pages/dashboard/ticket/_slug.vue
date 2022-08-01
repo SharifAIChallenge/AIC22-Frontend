@@ -38,7 +38,7 @@
             <template v-slot:icon>
               <v-avatar>
                 <img v-if="data.author.email === reply.user.email" :src="reply.user.profile.image_link? reply.user.profile.image_link: '/_nuxt/f8ea7db09a6600d23e2c20104c4d8389.svg'"/>
-                <img v-else :src="reply.user.profile.image_link? reply.user.profile.image_link: ''"/>
+                <img v-else src="~/assets/images/logo/AI_box_logo_without_shadow.svg"/>
               </v-avatar>
             </template>
             <div class="repliy-bg-color pa-3">
@@ -92,8 +92,6 @@ export default {
     var slug = route.params.slug;
     let res = await $axios.$get(`communication/${slug}`);
     let tags = await $axios.$get(`communication/tags`);
-    console.log(res.data.replies)
-    console.log(res.data)
     const {data, status_code} = res;
     return {data, status_code, tags};
   },
