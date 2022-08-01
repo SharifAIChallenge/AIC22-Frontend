@@ -36,11 +36,11 @@
       <template v-slot:[`item.submit_time`]="{ item }">
         <date-time-formatter :date="item.submit_time" />
       </template>
-      <template v-slot:[`item.file`]="{ item }">
+      <!-- <template v-slot:[`item.file`]="{ item }">
         <v-btn v-if="item.download_link" icon :href="item.download_link">
           <v-icon>mdi-download</v-icon>
         </v-btn>
-      </template>
+      </template> -->
       <template v-slot:[`item.log`]="{ item }">
         <v-btn icon @click="onDetailClick(item.infra_compile_message)" :disabled="!item.infra_compile_message">
           <v-icon>mdi-transit-connection</v-icon>
@@ -84,7 +84,7 @@ export default {
         { text: this.$t('dashboard.submitTime'), sortable: true, value: 'submit_time', align: 'center' },
         { text: this.$t('form.language'), sortable: false, value: 'language', align: 'center' },
         { text: this.$t('dashboard.status'), sortable: false, value: 'status', align: 'center' },
-        { text: this.$t('form.file'), sortable: false, value: 'file', align: 'center', width: 70 },
+        // { text: this.$t('form.file'), sortable: false, value: 'file', align: 'center', width: 70 },
         { text: 'جزییات', sortable: false, value: 'log', align: 'center' },
       ];
     },
