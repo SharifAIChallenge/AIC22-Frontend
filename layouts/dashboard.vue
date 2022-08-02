@@ -162,14 +162,14 @@ export default {
           disabled: true,
           gard: true
         },
-        // games: {
-        //   title: "بازی ها",
-        //   icon: "mdi-sword",
-        //   hover: "mdi-sword-cross",
-        //   link: "/dashboard/games",
-        //   disabled: true,
-        //   gard: true
-        // },
+        games: {
+          title: "بازی ها",
+          icon: "mdi-sword",
+          hover: "mdi-sword-cross",
+          link: "/dashboard/games",
+          disabled: true,
+          gard: true
+        },
         // final: {
         //   title: "فینال",
         //   icon: "mdi-trophy-award",
@@ -259,7 +259,7 @@ export default {
           this.$toast.error("لطفا ابتدا اطلاعات شخصی را کامل کنید");
         }
         if(!now.has_team) {
-          // this.routes.games.disabled = true;
+          this.routes.games.disabled = true;
           // this.routes.tournaments.disabled = true;
           this.routes.submissions.disabled = true;
           if (this.$route.path === "/dashboard/submissions") {
