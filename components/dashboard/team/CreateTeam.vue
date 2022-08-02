@@ -43,6 +43,7 @@
   </div>
 </template>
 <script>
+import { getUser } from '~/api/auth';
 import SectionContainer from '~/components/SectionContainer.vue';
 import SectionHeader from '~/components/SectionHeader';
 import Box from '~/components/utilities/Box.vue';
@@ -80,6 +81,9 @@ export default {
       this.loading = true;
       this.$axios.$post('team/', formData, {headers: {'content-type': 'multipart/form-data'}}).then(res => {
         this.loading = false;
+        getUser(this.$axios).then(res =>{
+          this.$store.commit('auth/setUser',res)
+        })
         this.$toast.success('تیم شما با موفقیت ساخته‌شد');
         this.toggleHaveTeam();
       }).catch((e) => {
