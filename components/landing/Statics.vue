@@ -46,17 +46,7 @@
 <!--              </v-card-text>-->
 <!--            </v-card>-->
 <!--          </v-col>-->
-<!--          <v-col class="col-12 col-md-3">-->
-<!--            <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"-->
-<!--                    :style="{backgroundImage:`url(${Member})`}">-->
-<!--              <v-card-title class="justify-center text-h2">-->
-<!--                1334-->
-<!--              </v-card-title>-->
-<!--              <v-card-text>-->
-<!--                نبرد-->
-<!--              </v-card-text>-->
-<!--            </v-card>-->
-<!--          </v-col>-->
+         
 <!--        </v-row>-->
         <v-row class="justify-center">
           <v-col class="col-12 col-md-3">
@@ -78,6 +68,17 @@
               </v-card-title>
               <v-card-text>
                 تعداد تیم
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col class="col-12 col-md-3">
+            <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
+                    :style="{backgroundImage:`url(${submit})`}">
+              <v-card-title class="justify-center text-h2">
+               {{ submissionNumber }}
+              </v-card-title>
+              <v-card-text>
+                ارسال کد
               </v-card-text>
             </v-card>
           </v-col>
@@ -109,7 +110,8 @@ export default {
       user,
       team,
       teamNumber : 0,
-      registerNumber : 0
+      registerNumber : 0,
+      submissionNumber : 0
     };
   },
   async fetch(){
@@ -117,6 +119,7 @@ export default {
       // console.log(res)
       this.teamNumber = res.find(item => item.title==='team').value
       this.registerNumber = res.find(item => item.title==='user').value
+      this.submissionNumber = res.find(item => item.title === 'submit').value
     })
   },
   components: { Box },

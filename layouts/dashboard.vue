@@ -21,7 +21,7 @@
               active-class="font-weight-bold"
               @click="activeLink = item.title"
               style="min-height:36px;height:36px;font-weight:bold"
-              :disabled="!profile"
+              :disabled="item.disabled || !profile"
               :to="item.link"
               exact
               nuxt
@@ -258,14 +258,17 @@ export default {
           this.$router.push("/dashboard/settings");
           this.$toast.error("لطفا ابتدا اطلاعات شخصی را کامل کنید");
         }
-        // if (this.profile.has_team) {
-        //   this.openDialog();
-        // }
-        // else {
-        //   this.routes.games.disabled = true;
-        //   // this.routes.tournaments.disabled = true;
-        //   this.routes.submissions.disabled = true;
-        // }
+        if(!now.has_team) {
+          // this.routes.games.disabled = true;
+          // this.routes.tournaments.disabled = true;
+          this.routes.submissions.disabled = true;
+          if (this.$route.path === "/dashboard/submissions") {
+            this.$router.push("/dashboard/team")
+            this.$toast.error("برای ارسال کد و شرکت در مسابقه ابتدا نیاز است که وارد تیمی شوید.")
+          }
+        }else{
+          this.routes.submissions.disabled = false;
+        }
         // if (this.profile.is_finalist) {
         //   this.routes.team.disabled = false;
         //   this.routes.games.disabled = false;

@@ -141,6 +141,7 @@
 import SectionContainer from '~/components/SectionContainer';
 import Box from '~/components/utilities/Box';
 import { requiredRules } from '~/mixins/formValidations';
+import { getUser } from '~/api/auth';
 
 export default {
   components: { SectionContainer, Box },
@@ -205,6 +206,9 @@ export default {
         .$delete('team')
         .then(res => {
           this.loading = false;
+          getUser(this.$axios).then(res =>{
+          this.$store.commit('auth/setUser',res)
+        })
           this.$toast.success('شما با موفقیت از تیم خارج شدید!');
           this.toggleHaveTeam();
         })
