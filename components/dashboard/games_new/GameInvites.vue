@@ -2,9 +2,9 @@
   <div>
     <SectionHeader title="دعوت نامه ها" icon="mdi-history"/>
     <SectionContainer>
-      <v-alert icon="mdi-information" class="mb-8">
+      <div class="mb-8 mt-2 notice-box text-center text-caption w-50" style="width : 50% !important;">
         اینجا لیست دعوتنامه هایی را که از تیم ها برای بازی با آن ها دریافت کرده اید، می بینید.
-      </v-alert>
+      </div>
       <div v-if="this.pendingRequests.length === 0" class="mb-10">
         لیست دعوتنامه های شما خالی است
       </div>
@@ -16,11 +16,11 @@
                              :accept="()=>acceptChallenge(request.id)" :reject="()=>declineChallenge(request.id)"/>
         </v-col>
       </v-row>
-      <v-alert icon="mdi-information" class="mb-8">
+      <div class="mb-8 mt-2 notice-box text-center text-caption w-50" style="width : 50% !important;">
         اینجا لیست دعوتنامه هایی را که برای بازی با سایر تیم ها ارسال کرده اید میبینید.
-      </v-alert>
+      </div>
       <div>
-        <v-simple-table>
+        <v-simple-table v-if="sentRequests && sentRequests.length > 0">
           <template v-slot:default>
             <thead>
             <tr>
@@ -31,7 +31,7 @@
 <!--                اطلاعات-->
 <!--              </th>-->
               <th class="text-right">
-                وضعیت عضویت
+                وضعیت
               </th>
             </tr>
             </thead>
@@ -79,6 +79,9 @@
             </tbody>
           </template>
         </v-simple-table>
+        <div v-if="sentRequests && sentRequests.length === 0" class="mb-10">
+          لیست بازی های شما خالی است
+        </div>
       </div>
       <v-dialog
           v-model="dialog"
