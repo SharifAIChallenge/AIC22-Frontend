@@ -1,7 +1,7 @@
 <template>
   <div>
     <SectionHeader title="تاریخچه بازی ها" icon="mdi-history" />
-    <v-simple-table>
+    <v-simple-table v-if="data && data.length > 0">
       <template v-slot:default>
         <thead>
         <tr>
@@ -12,7 +12,7 @@
           <!--                اطلاعات-->
           <!--              </th>-->
           <th class="text-right">
-            وضعیت عضویت
+            وضعیت
           </th>
         </tr>
         </thead>
@@ -53,7 +53,9 @@
         </tbody>
       </template>
     </v-simple-table>
-
+    <div v-if="data && data.length === 0" class="mb-10 px-md-12">
+      لیست بازی های شما خالی است
+    </div>
   </div>
 </template>
 
