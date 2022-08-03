@@ -268,6 +268,7 @@ export default {
           }
         }else{
           this.routes.submissions.disabled = false;
+          this.routes.games.disabled = false;
         }
         // if (this.profile.is_finalist) {
         //   this.routes.team.disabled = false;
