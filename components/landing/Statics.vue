@@ -71,7 +71,7 @@
               </v-card-text>
             </v-card>
           </v-col>
-          {{!-- <v-col class="col-12 col-md-3">
+          <v-col class="col-12 col-md-3">
             <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
                     :style="{backgroundImage:`url(${submit})`}">
               <v-card-title class="justify-center text-h2">
@@ -81,7 +81,7 @@
                 ارسال کد
               </v-card-text>
             </v-card>
-          </v-col> --}}
+          </v-col>
         </v-row>
       </div>
     </box>
@@ -116,10 +116,10 @@ export default {
   },
   async fetch(){
     await this.$axios.$get('statistic/').then(res=>{
-      // console.log(res)
+      console.log(res)
       this.teamNumber = res.find(item => item.title==='team').value
       this.registerNumber = res.find(item => item.title==='user').value
-      // this.submissionNumber = res.find(item => item.title === 'submit').value
+      this.submissionNumber = res.find(item => item.title === 'submits').value
     })
   },
   components: { Box },
