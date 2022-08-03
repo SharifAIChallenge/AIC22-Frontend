@@ -116,10 +116,9 @@ export default {
   },
   async fetch(){
     await this.$axios.$get('statistic/').then(res=>{
-      console.log(res)
       this.teamNumber = res.find(item => item.title==='team').value
       this.registerNumber = res.find(item => item.title==='user').value
-      this.submissionNumber = res.find(item => item.title === 'submits').value
+      this.submissionNumber = res.find(item => item.title === 'Submits').value
     })
   },
   components: { Box },
