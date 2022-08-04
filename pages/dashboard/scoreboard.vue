@@ -1,94 +1,95 @@
 <template>
   <v-app>
-    <div class="scoreboard">
-      <div class="d-flex justify-space-between align-center pl-6 pl-md-12">
-        <SectionHeader title="جدول امتیازات" icon="mdi-scoreboard-outline" />
-        <!-- <div class="d-flex align-center">
-          <v-select
-            v-model="scoreboardSelect"
-            :items="scoreboardItems"
-            item-text="table"
-            item-value="src"
-            label="تورنومنت"
-            persistent-hint
-            :hint="`${scoreboardSelect.src}`"
-            @change="changeTable"
-            outlined
-          ></v-select>
-        </div> -->
-      </div>
-      <v-data-table
-        :loading="tableLoading"
-        hide-default-footer
-        center
-        :headers="headers"
-        :items="data"
-        :page.sync="page"
-        :items-per-page="itemPerPage"
-        style="background: #141432"
-        :class="'page-' + page"
-      >
-        <template v-slot:item.rank="{ item, index }">
-          <span>{{ (page - 1) * 20 + (index + 1) }}</span>
-        </template>
-        <template v-slot:item.name="{ item }">
-          <div class="d-flex align-center">
-            <img
-              v-if="item.team.image_url"
-              :src="item.team.image_url"
-              height="60px"
-              class="my-2"
-              style="max-width: 60px; width: 60px; border-radius: 50%"
-            />
-            <span v-else class="emtyImage ml-1 my-2 d-none d-sm-block"></span>
-            <div class="mr-3">
-              <span>{{ item.team.name }}</span>
-            </div>
-          </div>
-        </template>
-        <template v-slot:item.profile="{ item }">
-          <v-icon class="icon" @click="showTeam(item.team)">mdi-card-account-details-outline</v-icon>
-        </template>
-      </v-data-table>
-      <div class="text-center pt-4 pb-10" style="position: relative">
-        <v-pagination v-model="page" :length="pageCount" total-visible="6"></v-pagination>
-        <Logo />
-      </div>
-      <v-dialog v-model="teamDetails" width="350px">
-        <v-btn icon class="close-btn" @click="teamDetails = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <v-card>
-          <img v-if="teamInfo.image_url" :src="teamInfo.image_url" style="max-width: 100%" />
-          <div class="pa-3">
-            {{ teamInfo.name }}
-          </div>
-
-          <v-row v-for="(member, index) in teamInfo.members" :key="index" class="pa-3" style="width: 100%">
-            <v-col cols="2">
-              <img :src="member.profile.image_link" height="40px" style="max-width: 40px" />
-            </v-col>
-            <v-col cols="10">
-              <div class="d-flex align-center">
-                <v-col cols="10">
-                  {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}
-                </v-col>
-                <v-col cols="2">
-                  <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">mdi-card-account-details-outline</v-icon>
-                </v-col>
+    <v-container>
+      <div class="scoreboard">
+        <div class="d-flex justify-space-between align-center pl-6 pl-md-12">
+          <SectionHeader title="جدول امتیازات" icon="mdi-scoreboard-outline" />
+          <!-- <div class="d-flex align-center">
+            <v-select
+              v-model="scoreboardSelect"
+              :items="scoreboardItems"
+              item-text="table"
+              item-value="src"
+              label="تورنومنت"
+              persistent-hint
+              :hint="`${scoreboardSelect.src}`"
+              @change="changeTable"
+              outlined
+            ></v-select>
+          </div> -->
+        </div>
+        <v-data-table
+          :loading="tableLoading"
+          hide-default-footer
+          center
+          :headers="headers"
+          :items="data"
+          :page.sync="page"
+          :items-per-page="itemPerPage"
+          style="background: transparent"
+          :class="'page-' + page"
+        >
+          <template v-slot:item.rank="{ item, index }">
+            <span>{{ (page - 1) * 20 + (index + 1) }}</span>
+          </template>
+          <template v-slot:item.name="{ item }">
+            <div class="d-flex align-center">
+              <img
+                v-if="item.team.image_url"
+                :src="item.team.image_url"
+                height="60px"
+                class="my-2"
+                style="max-width: 60px; width: 60px; border-radius: 50%"
+              />
+              <span v-else class="emtyImage ml-1 my-2 d-none d-sm-block"></span>
+              <div class="mr-3">
+                <span>{{ item.team.name }}</span>
               </div>
-            </v-col>
-          </v-row>
-          <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال درخواست عضویت</v-btn>
-        </v-card>
-      </v-dialog>
-      <v-dialog v-model="ProfileDialog" width="350">
-        <v-btn icon class="close-btn" @click="ProfileDialog = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <UserProfileForTeam :userData="currentUser" />
-      </v-dialog>
-    </div>
+            </div>
+          </template>
+          <template v-slot:item.profile="{ item }">
+            <v-icon class="icon" @click="showTeam(item.team)">mdi-card-account-details-outline</v-icon>
+          </template>
+        </v-data-table>
+        <div class="text-center pt-4 pb-10" style="position: relative">
+          <v-pagination v-model="page" :length="pageCount" total-visible="6"></v-pagination>
+        </div>
+        <v-dialog v-model="teamDetails" width="350px">
+          <v-btn icon class="close-btn" @click="teamDetails = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-card>
+            <img v-if="teamInfo.image_url" :src="teamInfo.image_url" style="max-width: 100%" />
+            <div class="pa-3">
+              {{ teamInfo.name }}
+            </div>
+  
+            <v-row v-for="(member, index) in teamInfo.members" :key="index" class="pa-3" style="width: 100%">
+              <v-col cols="2">
+                <img :src="member.profile.image_link" height="40px" style="max-width: 40px" />
+              </v-col>
+              <v-col cols="10">
+                <div class="d-flex align-center">
+                  <v-col cols="10">
+                    {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}
+                  </v-col>
+                  <v-col cols="2">
+                    <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">mdi-card-account-details-outline</v-icon>
+                  </v-col>
+                </div>
+              </v-col>
+            </v-row>
+            <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال درخواست عضویت</v-btn>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="ProfileDialog" width="350">
+          <v-btn icon class="close-btn" @click="ProfileDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <UserProfileForTeam :userData="currentUser" />
+        </v-dialog>
+      </div>
+    </v-container>
   </v-app>
 </template>
 
@@ -96,21 +97,20 @@
 import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
 import UserProfileForTeam from '~/components/dashboard/team/UserProfileForTeam';
-import Logo from '~/components/dashboard/Logo';
 
 export default {
-  components: { SectionHeader, SectionContainer, UserProfileForTeam, Logo },
+  components: { SectionHeader, SectionContainer, UserProfileForTeam },
   layout: 'dashboard',
   transition: 'fade-transition',
 
-  async asyncData({ $axios, query }) {
-    let url = query.id ? `challenge/scoreboard/${query.id}` : 'challenge/friendly_scoreboard';
-    const res = await $axios.$get(url);
-    const data = res.results.data;
-    const count = 20;
-    const pageCount = Math.ceil(res.count / count);
-    return { data, pageCount, url };
-  },
+  // async asyncData({ $axios, query }) {
+  //   let url = query.id ? `challenge/scoreboard/${query.id}` : 'challenge/friendly_scoreboard';
+  //   const res = await $axios.$get(url);
+  //   const data = res.results.data;
+  //   const count = 20;
+  //   const pageCount = Math.ceil(res.count / count);
+  //   return { data, pageCount, url };
+  // },
   data() {
     return {
       tableLoading: false,
