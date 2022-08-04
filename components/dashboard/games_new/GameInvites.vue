@@ -40,7 +40,7 @@
                 v-for="(request, index) in sentRequests"
                 :key="index"
             >
-              <td>{{ request.source_team_name }}</td>
+              <td>{{ request.target_team_name }}</td>
 <!--              <td>-->
 <!--                <v-btn-->
 <!--                    class="pa-0"-->
