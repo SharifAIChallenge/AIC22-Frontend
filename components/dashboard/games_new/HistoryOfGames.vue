@@ -11,7 +11,7 @@
           <!--              <th class="text-right">-->
           <!--                اطلاعات-->
           <!--              </th>-->
-          <th class="text-right">
+          <th class="text-center">
             وضعیت
           </th>
         </tr>
