@@ -1,27 +1,27 @@
 <template>
   <div class="">
     <SectionHeader title="جستجو تیم‌" icon="mdi-magnify"/>
-    <div style="display: flex; justify-content: space-between; align-items: center" class="mx-12">
-      <h4 style="flex: 1">درخواست بازی با بات</h4>
-      <div style="width: 200px">
-      <v-menu offset-y class="transparent" style="">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="primary" block  max-height="100%" class="curved" v-bind="attrs" v-on="on">
-            بازی با بات
-            <v-icon>mdi-menu-down</v-icon>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item v-for="(item, index) in bots" :key="item.number" @click="playWithBot(item.number, item.name)">
-            <v-list-item-title style="text-align: center" class="d-flex align-end justify-center">
-              <v-icon class="ml-3" size="30">{{ bot_icon[index] }}</v-icon>
-              <span>{{ item.name }}</span>
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      </div>
-    </div>
+<!--    <div style="display: flex; justify-content: space-between; align-items: center" class="mx-12">-->
+<!--      <h4 style="flex: 1">درخواست بازی با بات</h4>-->
+<!--      <div style="width: 200px">-->
+<!--      <v-menu offset-y class="transparent" style="">-->
+<!--        <template v-slot:activator="{ on, attrs }">-->
+<!--          <v-btn color="primary" block  max-height="100%" class="curved" v-bind="attrs" v-on="on">-->
+<!--            بازی با بات-->
+<!--            <v-icon>mdi-menu-down</v-icon>-->
+<!--          </v-btn>-->
+<!--        </template>-->
+<!--        <v-list>-->
+<!--          <v-list-item v-for="(item, index) in bots" :key="item.number" @click="playWithBot(item.number, item.name)">-->
+<!--            <v-list-item-title style="text-align: center" class="d-flex align-end justify-center">-->
+<!--              <v-icon class="ml-3" size="30">{{ bot_icon[index] }}</v-icon>-->
+<!--              <span>{{ item.name }}</span>-->
+<!--            </v-list-item-title>-->
+<!--          </v-list-item>-->
+<!--        </v-list>-->
+<!--      </v-menu>-->
+<!--      </div>-->
+<!--    </div>-->
 
     <div class="searchBar mt-8 mb-6 ">
       <div class="mx-10 input" style="flex: 1">
@@ -50,9 +50,10 @@
         </v-btn>
       </div>
     </div>
-    <v-alert dark icon="mdi-information" dense class="mx-6 mx-md-12" v-if="msg">
-      <p>{{ msg }}</p>
-    </v-alert>
+
+      <div class="notice-box mb-4 mx-6 mx-md-12 text-center " v-if="msg">
+        <p>{{ msg }}</p>
+      </div>
     <!--    <div>-->
     <!--      <v-row class="mx-0">-->
     <!--        <v-col cols="6" class="px-0">-->
@@ -84,7 +85,7 @@
         </template>
         <template v-slot:item.play="{ item }">
           <div style="max-width: 10px">
-            <v-btn color="primary" @click="sendGameRequest(item.id)" block>درخواست بازی</v-btn>
+            <v-btn rounded color="primary" @click="sendGameRequest(item.id)" block>درخواست بازی</v-btn>
           </div>
         </template>
       </v-data-table>
@@ -92,41 +93,46 @@
         <v-pagination v-model="page" total-visible="6" :length="pageCount"></v-pagination>
         <!-- <Logo /> -->
       </div>
-      <v-dialog v-model="teamDetails" width="350px">
-        <v-btn icon class="close-btn" @click="teamDetails = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <v-card>
-          <img v-if="teamInfo.image_url" :src="teamInfo.image_url" style="max-width: 100%"/>
-          <div class="pa-3">
-            {{ teamInfo.name }}
-          </div>
+      <v-dialog
+          v-model="teamDetails"
+          max-width="290"
+      >
+        <v-card
+            rounded
+            class="modal-shadow"
+            color="bg_secondary">
+          <v-card-text
+              class="modal modal-shadow"
+          >
+            <div class="profile-picture">
+              <img
+                  v-if="teamInfo && teamInfo.image"
+                  :src="teamInfo.image"
+                  class="rounded-circle"
+              />
+              <img
+                  v-else
+                  class="rounded-circle"
+                  src="~/assets/images/avatar-sample.svg" alt="">
+            </div>
+            <div class="text-center" style="margin-top: -4rem;">
+              <p v-if="teamInfo">
+                {{ teamInfo.name }}
+              </p>
+            </div>
+            <div v-if="teamInfo && teamInfo.members" class="members">
+              <div v-for="(member,index) in teamInfo.members" :key="index">
+                <!--              <UserProfileForTeam :userData="member"/>-->
+                <div style="display: flex; justify-content: space-around">
+                  <p class="ma-0">
+                    {{ member.profile.firstname_fa }} {{ member.profile.lastname_fa }}
+                  </p>
+                </div>
 
-          <v-row v-for="(member, index) in teamInfo.members" :key="index" class="pa-3" style="width: 100%">
-            <v-col cols="2">
-              <img :src="member.profile.image_link" :alt="member.first_name" height="40px" style="max-width: 40px"/>
-            </v-col>
-            <v-col cols="10">
-              <div class="d-flex align-center">
-                <v-col cols="10">
-                  {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}
-                </v-col>
-                <v-col cols="2">
-                  <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">
-                    mdi-card-account-details-outline
-                  </v-icon>
-                </v-col>
               </div>
-            </v-col>
-          </v-row>
-          <!--          <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال درخواست عضویت</v-btn>-->
+            </div>
+          </v-card-text>
         </v-card>
-      </v-dialog>
-      <v-dialog v-model="ProfileDialog" width="350">
-        <v-btn icon class="close-btn" @click="ProfileDialog = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <UserProfileForTeam :userData="currentUser"/>
       </v-dialog>
     </div>
   </div>
@@ -157,12 +163,7 @@ export default {
         {text: 'پروفایل', value: 'profile'},
         {text: 'بازی دوستانه', value: 'play'},
       ],
-      currentUser: {
-        profile: {},
-        email: '',
-        id: 0,
-        show: true,
-      },
+      currentUser: {},
       bots: [],
       bot_icon: ['mdi-baby-face', 'mdi-robot', 'mdi-robber', 'mdi-emoticon-devil', 'mdi-virus'],
     };
@@ -177,15 +178,17 @@ export default {
     } else {
       this.pageCount = Math.ceil(res.count / count);
     }
-    res = await this.$axios.$get('/challenge/lobby');
-    if (res.status_code === 403) {
-      this.msg = 'برای انجام بازی با تیم تصادفی ابتدا باید در قسمت ارسال کد, کد خود را ارسال کنید';
-    }
-    this.randomData = res.data;
+    await this.$axios.get('/challenge/lobby').then(dt =>{
+      this.randomData = dt.data;
+    }).catch(e =>{
+      if (e.response.data.detail === 'your team doesn\'t have a final submission'){
+        this.msg = 'برای انجام بازی با تیم تصادفی ابتدا باید در قسمت ارسال کد, کد خود را ارسال کنید';
+      }
+    });
     this.tableLoading = false;
-
-    res = await this.$axios.$get('/challenge/bot');
-    this.bots = res.data;
+    // todo uncomment when bots released
+    // res = await this.$axios.$get('/challenge/bot');
+    // this.bots = res.data;
   },
   watch: {
     page: function () {
@@ -242,24 +245,23 @@ export default {
         });
       }
     },
-    setCurrentUser(profile, email, id, show) {
+    setCurrentUser(user) {
       this.teamDetails = false;
-      this.currentUser.profile = profile;
-      this.currentUser.email = email;
-      this.currentUser.id = id;
-      this.currentUser.show = show;
+      this.currentUser = user;
       this.ProfileDialog = true;
     },
     sendGameRequest(teamId) {
-      this.$axios.$post('/challenge/request', {type: 'friendly_match', target_team: `${teamId}`}).then(res => {
-        if (res.status_code === 200) {
+      this.$axios.post('/challenge/request', {type: 'friendly_match', target_team: `${teamId}`}).then(res => {
+        if (res.status === 200) {
           this.$toast.success('درخواست با موفقیت ارسال شد');
-        } else if (res.detail) {
-          const detail = res.detail.detail;
-          if (detail === 'you have a sent an request already') this.$toast.error('قبلا به این تیم دعوت داده‌اید. منتظر پاسخ بمانید');
-          //TODO: check other error
         }
-      });
+      }).catch(e=>{
+        if (e.response.data.detail === 'your team doesn\'t have a final submission'){
+          this.$toast.error('برای انجام بازی با تیم تصادفی ابتدا باید در قسمت ارسال کد, کد خود را ارسال کنید')
+        } else if (e.response.data.detail === 'you have a sent an request already') {
+          this.$toast.error('قبلا به این تیم دعوت داده‌اید. منتظر پاسخ بمانید');
+        }
+      })
     },
     randomMatch() {
       this.$axios.$post('/challenge/lobby', {game_type: 'friendly_match'}).then(res => {
@@ -318,4 +320,31 @@ align-items: center;
 }
 }
 
+.modal-shadow, .v-dialog.v-dialog--active, .modal {
+  border-radius: 10px !important;
+}
+
+.modal-shadow, .v-dialog.v-dialog--active, .modal {
+  border-radius: 10px !important;
+}
+
+.profile-picture {
+  position: relative !important;
+  display: flex;
+  top: -5rem;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .upload-avatar {
+    width: 12rem;
+  }
+
+  img {
+    width: 10rem;
+    height: 10rem;
+
+    border: 0.5rem solid #13202E;
+  }
+}
 </style>

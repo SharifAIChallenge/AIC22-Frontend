@@ -59,14 +59,14 @@ export default {
     GameInvites,
   },
   // todo 404 fixed
-  async asyncData({ $axios, query }) {
+  async asyncData({ $axios, query,$toast }) {
     let tabs = query.id ? 1 : 0;
-    let res = await $axios.$get('/challenge/lobby');
     let haveFinalSubmit = true;
-    if (res.status_code === 403) {
-      haveFinalSubmit = false;
-    }
-  
+    let res = await $axios.get('/challenge/lobby').catch(e=>{
+      if (e.response.data.detail === 'your team doesn\'t have a final submission'){
+        haveFinalSubmit = false
+      }
+    })
     return { haveFinalSubmit, tabs };
   },
   data() {
