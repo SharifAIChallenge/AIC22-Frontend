@@ -22,7 +22,6 @@
             :key="index"
         >
           <td>{{ request.team2.name }}</td>
-          <td></td>
           <!--              <td>-->
           <!--                <v-btn-->
           <!--                    class="pa-0"-->
