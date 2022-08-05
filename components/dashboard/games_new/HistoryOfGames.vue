@@ -21,7 +21,8 @@
             v-for="(request, index) in data"
             :key="index"
         >
-          <td>{{ request.team1.name }}</td>
+          <td>{{ request.team2.name }}</td>
+          <td></td>
           <!--              <td>-->
           <!--                <v-btn-->
           <!--                    class="pa-0"-->
@@ -36,14 +37,28 @@
           <td class="text-center">
             <v-chip
                 color="primary"
-                v-if="!request.winner"
+                v-if="request.status === 'pending'"
             >
               <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
               در انتظار داوری
             </v-chip>
             <v-chip
+                color="primary"
+                v-else-if="request.status === 'running'"
+            >
+              <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+              درحال اجرا
+            </v-chip>
+            <v-chip
+                color="secondary"
+                v-else-if="request.status === 'failed'"
+            >
+              <v-icon class="ml-2">mdi-close</v-icon>
+              خطا
+            </v-chip>
+            <v-chip
                 color="success"
-                v-else-if="request.team1.name === request.winner.name"
+                v-else-if="request.winner && request.team1.name === request.winner.name"
             >
               <v-icon class="ml-2">mdi-check</v-icon>
               پیروزی
