@@ -21,7 +21,8 @@
             v-for="(request, index) in data"
             :key="index"
         >
-          <td>{{ request.team1.name }}</td>
+          <td>{{ request.team2.name }}</td>
+          <td></td>
           <!--              <td>-->
           <!--                <v-btn-->
           <!--                    class="pa-0"-->
