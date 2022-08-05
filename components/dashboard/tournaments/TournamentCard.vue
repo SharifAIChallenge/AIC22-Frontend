@@ -1,17 +1,15 @@
 <template>
-  <v-card :class="`invites ${status === 'pending' ? '' : 'disable'} rounded px-10 pt-10`">
+  <v-card :class="`invites ${status === 'pending' ? '' : 'disable'} rounded px-10 pt-10`" elevation="0">
     <h5 class="text-h5 text-center">
       {{ name }}
     </h5>
-
-    <div class="px-3 acinvites d-flex justify-center" v-if="status === 'pending'">
-      <v-btn class="ml-1" rounded color="primary">تایید</v-btn>
+    <p class="text-center grey--text ">
+    {{start_time}}
+    </p>
+    <div class="px-3 d-flex justify-center" v-if="status === 'pending'">
+      <v-btn class="btn-results ml-1" rounded color="primary">تایید</v-btn>
     </div>
     <v-row v-else>
-      <v-btn class="col-6" rounded color="secondary" disabled>
-        <span v-if="status === 'accepted'">تایید شده</span>
-        <span v-else>رد شده</span>
-      </v-btn>
     </v-row>
   </v-card>
 </template>
@@ -32,6 +30,9 @@ export default {
 .invites.disable {
   background-color: unset !important;
   border: 2px dashed #868686 !important;
+}
+.btn-results{
+  margin-bottom: -1rem;
 }
 
 </style>
