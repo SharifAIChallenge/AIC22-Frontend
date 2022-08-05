@@ -182,7 +182,7 @@ export default {
       this.randomData = dt.data;
     }).catch(e =>{
       if (e.response.data.detail === 'your team doesn\'t have a final submission'){
-        this.msg = 'برای انجام بازی با تیم تصادفی ابتدا باید در قسمت ارسال کد, کد خود را ارسال کنید';
+        this.msg = 'برای انجام بازی ابتدا باید در قسمت ارسال کد, کد خود را ارسال کنید';
       }
     });
     this.tableLoading = false;
@@ -257,19 +257,23 @@ export default {
         }
       }).catch(e=>{
         if (e.response.data.detail === 'your team doesn\'t have a final submission'){
-          this.$toast.error('برای انجام بازی با تیم تصادفی ابتدا باید در قسمت ارسال کد, کد خود را ارسال کنید')
+          this.$toast.error('برای انجام بازی ابتدا باید در قسمت ارسال کد, کد خود را ارسال کنید')
         } else if (e.response.data.detail === 'you have a sent an request already') {
           this.$toast.error('قبلا به این تیم دعوت داده‌اید. منتظر پاسخ بمانید');
         }
       })
     },
     randomMatch() {
-      this.$axios.$post('/challenge/lobby', {game_type: 'friendly_match'}).then(res => {
+      this.$axios.post('/challenge/lobby', {game_type: 'friendly_match'}).then(res => {
         if (res.status) {
           this.$toast.success('به لابی بازی‌های دوستانه اضافه شدید');
           this.randomData = [1];
         }
-      });
+      }).catch(e=>{
+        if (e.response.data.detail === 'your team doesn\'t have a final submission'){
+          this.$toast.error('برای انجام بازی ابتدا باید در قسمت ارسال کد, کد خود را ارسال کنید')
+        }
+      })
     },
   },
 };
