@@ -12,7 +12,13 @@
           <!--                اطلاعات-->
           <!--              </th>-->
           <th class="text-center">
+            لاگ بازی
+          </th>
+          <th class="text-center">
             وضعیت
+          </th>
+          <th class="text-center">
+            برنده
           </th>
         </tr>
         </thead>
@@ -33,6 +39,11 @@
           <!--                  </v-icon>-->
           <!--                </v-btn>-->
           <!--              </td>-->
+          <td class="text-center">
+            <v-btn :disabled="!request.log" icon :href="request.log">
+              <v-icon>mdi-download</v-icon>
+            </v-btn>
+          </td>
           <td class="text-center">
             <v-chip
                 color="primary"
@@ -57,19 +68,16 @@
             </v-chip>
             <v-chip
                 color="success"
-                v-else-if="request.winner && request.team1.name === request.winner.name"
+                v-else-if="request.status === 'successful'"
             >
               <v-icon class="ml-2">mdi-check</v-icon>
-              پیروزی
-            </v-chip>
-            <v-chip
-                color="secondary"
-                v-else
-            >
-              <v-icon class="ml-2">mdi-close</v-icon>
-              شکست
+              به اتمام رسیده
             </v-chip>
 
+
+          </td>
+          <td class="text-center">
+            {{ !request.winner ? '-' : request.winner.name }}
           </td>
         </tr>
         </tbody>
