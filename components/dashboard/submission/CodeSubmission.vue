@@ -24,7 +24,7 @@
                     label="فایل"
                     :rules="fileRules"
                     :hint="fileHint"
-                    accept=".zip/*"
+                    accept="*"
                     show-size
                     persistent-hint
                     append-icon="mdi-paperclip"
@@ -49,7 +49,7 @@
             </v-row>
             <div class="mb-6">
               ارسال کد به‌منزله قبول تمامی
-              <nuxt-link to="/dashboard/doc/Game-Doc">قوانین و شرایط مسابقه</nuxt-link>
+              <a href="https://github.com/SharifAIChallenge/AIC22-Doc/blob/main/4-rules.md" target="_blank">قوانین و شرایط مسابقه</a>
               است
             </div>
             <!--      <v-btn tile block :disabled="false" :loading="loading" type="submit" v-bind="primaryButtonProps">-->

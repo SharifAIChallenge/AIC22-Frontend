@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionHeader title="تاریخچه بازی ها" icon="mdi-history" />
+    <SectionHeader title="تاریخچه بازی ها" icon="mdi-history"/>
     <v-simple-table v-if="data && data.length > 0">
       <template v-slot:default>
         <thead>
@@ -11,8 +11,14 @@
           <!--              <th class="text-right">-->
           <!--                اطلاعات-->
           <!--              </th>-->
-          <th class="text-right">
+          <th class="text-center">
+            لاگ بازی
+          </th>
+          <th class="text-center">
             وضعیت
+          </th>
+          <th class="text-center">
+            برنده
           </th>
         </tr>
         </thead>
@@ -21,7 +27,7 @@
             v-for="(request, index) in data"
             :key="index"
         >
-          <td>{{ request.team1.name }}</td>
+          <td>{{ request.team2.name }}</td>
           <!--              <td>-->
           <!--                <v-btn-->
           <!--                    class="pa-0"-->
@@ -34,20 +40,44 @@
           <!--                </v-btn>-->
           <!--              </td>-->
           <td class="text-center">
+            <v-btn :disabled="!request.log" icon :href="request.log">
+              <v-icon>mdi-download</v-icon>
+            </v-btn>
+          </td>
+          <td class="text-center">
             <v-chip
-                color="success"
-                v-if="request.team1.name === request.winner.name"
+                color="primary"
+                v-if="request.status === 'pending'"
             >
-              <v-icon class="ml-2">mdi-check</v-icon>
-              پیروزی
+              <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+              در انتظار داوری
+            </v-chip>
+            <v-chip
+                color="primary"
+                v-else-if="request.status === 'running'"
+            >
+              <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+              درحال اجرا
             </v-chip>
             <v-chip
                 color="secondary"
-                v-else
+                v-else-if="request.status === 'failed'"
             >
               <v-icon class="ml-2">mdi-close</v-icon>
-             شکست
+              خطا
             </v-chip>
+            <v-chip
+                color="success"
+                v-else-if="request.status === 'successful'"
+            >
+              <v-icon class="ml-2">mdi-check</v-icon>
+              به اتمام رسیده
+            </v-chip>
+
+
+          </td>
+          <td class="text-center">
+            {{ !request.winner ? '-' : request.winner.name }}
           </td>
         </tr>
         </tbody>
@@ -65,18 +95,22 @@ import SectionContainer from '~/components/SectionContainer';
 import Logo from '~/components/dashboard/Logo';
 
 export default {
-  components: { SectionHeader, SectionContainer, Logo },
+  components: {SectionHeader, SectionContainer, Logo},
   async fetch() {
     let tournomentId = this.$route.query.id;
     this.url = tournomentId ? `challenge/match?tournament_id=${tournomentId}&` : 'challenge/match?';
     this.tableLoading = true;
     let filter = this.filterChip === 0 ? '&status=successful' : '';
-    try{
+    try {
       let res = await this.$axios.$get(`${this.url}page=${this.page}${filter}`);
+      this.data = res.results;
+      const count = 20;
+      this.pageCount = Math.ceil(res.count / count);
+      this.status_code = 200;
 
-    }catch (e) {
-      if (e.response){
-        if (e.response.status === 403){
+    } catch (e) {
+      if (e.response) {
+        if (e.response.status === 403) {
           this.$toast.error('برای مشاهده این صفحه باید تیم داشته باشید');
         } else {
           this.$toast.error('خطا در برقراری ارتباط!');
@@ -86,13 +120,6 @@ export default {
 
     let team = await this.$axios.$get('team');
     this.myteam = team.name;
-
-    if (res.status === 200) {
-      this.data = res.results.data;
-      const count = 20;
-      this.pageCount = Math.ceil(res.count / count);
-      this.status_code = res.status_code;
-    }
     this.tableLoading = false;
   },
   data() {
@@ -116,11 +143,11 @@ export default {
           value: 'x',
         },
         // { text: 'زمان', align: 'center', value: '' },
-        { text: 'وضعیت بازی', align: 'center', value: 'status' },
-        { text: 'تیم برنده', align: 'center', value: 'winner.name' },
-        { text: 'لاگ', align: 'center', value: 'log' },
-        { text: 'لاگ سرور', align: 'center', value: 'serverLog' },
-        { text: 'پخش بازی', align: 'center', value: 'graphic' },
+        {text: 'وضعیت بازی', align: 'center', value: 'status'},
+        {text: 'تیم برنده', align: 'center', value: 'winner.name'},
+        {text: 'لاگ', align: 'center', value: 'log'},
+        {text: 'لاگ سرور', align: 'center', value: 'serverLog'},
+        {text: 'پخش بازی', align: 'center', value: 'graphic'},
       ],
       data: [],
       currentGame: {
@@ -200,17 +227,21 @@ export default {
 .myteam {
   color: var(--v-success-lighten1);
 }
+
 .header {
   display: flex;
   justify-content: space-between;
 }
+
 .select-filter {
   display: flex;
 }
+
 .dialog-header {
   display: flex;
   justify-content: space-between;
 }
+
 .profile {
   display: flex;
   align-items: center;
