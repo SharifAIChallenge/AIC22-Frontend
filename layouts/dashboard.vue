@@ -138,20 +138,20 @@ export default {
         //   disabled: true,
         //   gard: true
         // },
-        // scoreboard: {
-        //   title: "جدول امتیازات",
-        //   icon: "mdi-scoreboard-outline",
-        //   hover: "mdi-scoreboard",
-        //   link: "/dashboard/scoreboard",
-        //   disabled: true,
-        //   gard: true
-        // },
+        scoreboard: {
+          title: "جدول امتیازات",
+          icon: "mdi-scoreboard-outline",
+          hover: "mdi-scoreboard",
+          link: "/dashboard/scoreboard",
+          disabled: false,
+          gard: true
+        },
         team: {
           title: "تیم",
           icon: "mdi-account-group-outline",
           hover: "mdi-account-group",
           link: "/dashboard/team",
-          disabled: true,
+          disabled: false,
           gard: true
         },
         submissions: {
@@ -159,7 +159,7 @@ export default {
           icon: "mdi-code-braces",
           hover: "mdi-code-braces-box",
           link: "/dashboard/submissions",
-          disabled: true,
+          disabled: false,
           gard: true
         },
         games: {
@@ -167,7 +167,7 @@ export default {
           icon: "mdi-sword",
           hover: "mdi-sword-cross",
           link: "/dashboard/games",
-          disabled: true,
+          disabled: false,
           gard: true
         },
         // final: {
