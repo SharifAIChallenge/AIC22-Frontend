@@ -2,9 +2,9 @@
   <div>
     <SectionHeader title="دعوت نامه ها" icon="mdi-history"/>
     <SectionContainer>
-      <v-alert icon="mdi-information" class="mb-8">
+      <div class="mb-8 mt-2 notice-box text-center text-caption w-50" style="width : 50% !important;">
         اینجا لیست دعوتنامه هایی را که از تیم ها برای بازی با آن ها دریافت کرده اید، می بینید.
-      </v-alert>
+      </div>
       <div v-if="this.pendingRequests.length === 0" class="mb-10">
         لیست دعوتنامه های شما خالی است
       </div>
@@ -16,22 +16,22 @@
                              :accept="()=>acceptChallenge(request.id)" :reject="()=>declineChallenge(request.id)"/>
         </v-col>
       </v-row>
-      <v-alert icon="mdi-information" class="mb-8">
+      <div class="mb-8 mt-2 notice-box text-center text-caption w-50" style="width : 50% !important;">
         اینجا لیست دعوتنامه هایی را که برای بازی با سایر تیم ها ارسال کرده اید میبینید.
-      </v-alert>
+      </div>
       <div>
-        <v-simple-table>
+        <v-simple-table v-if="sentRequests && sentRequests.length > 0">
           <template v-slot:default>
             <thead>
             <tr>
               <th class="text-right">
                 نام تیم
               </th>
-<!--              <th class="text-right">-->
-<!--                اطلاعات-->
-<!--              </th>-->
-              <th class="text-right">
-                وضعیت عضویت
+              <!--              <th class="text-right">-->
+              <!--                اطلاعات-->
+              <!--              </th>-->
+              <th class="text-center">
+                وضعیت
               </th>
             </tr>
             </thead>
@@ -40,18 +40,18 @@
                 v-for="(request, index) in sentRequests"
                 :key="index"
             >
-              <td>{{ request.source_team_name }}</td>
-<!--              <td>-->
-<!--                <v-btn-->
-<!--                    class="pa-0"-->
-<!--                    @click.stop="()=>{dialog_item = request.team;dialog = true;}"-->
-<!--                    text plain-->
-<!--                >-->
-<!--                  <v-icon-->
-<!--                  >mdi-account-box-outline-->
-<!--                  </v-icon>-->
-<!--                </v-btn>-->
-<!--              </td>-->
+              <td>{{ request.target_team_name }}</td>
+              <!--              <td>-->
+              <!--                <v-btn-->
+              <!--                    class="pa-0"-->
+              <!--                    @click.stop="()=>{dialog_item = request.team;dialog = true;}"-->
+              <!--                    text plain-->
+              <!--                >-->
+              <!--                  <v-icon-->
+              <!--                  >mdi-account-box-outline-->
+              <!--                  </v-icon>-->
+              <!--                </v-btn>-->
+              <!--              </td>-->
               <td class="text-center">
                 <v-chip
                     color="success"
@@ -79,6 +79,9 @@
             </tbody>
           </template>
         </v-simple-table>
+        <div v-if="sentRequests && sentRequests.length === 0" class="mb-10">
+          لیست بازی های شما خالی است
+        </div>
       </div>
       <v-dialog
           v-model="dialog"
@@ -154,11 +157,9 @@ export default {
     acceptChallenge(id) {
       this.loading = true;
       this.$axios.$put(`challenge/request/${id}?answer=1`).then(res => {
-        if (res.status_code === 200) {
-          this.$toast.success('با موفقیت انجام شد!');
-        } else {
-          this.$toast.error('مشکلی رخ داده است!');
-        }
+        this.$toast.success('با موفقیت انجام شد!');
+      }).catch(e => {
+        this.$toast.error('مشکلی رخ داده است!');
       });
       this.pendingRequests = this.pendingRequests.filter(item => item.id !== id);
       this.loading = false;
@@ -166,11 +167,10 @@ export default {
     declineChallenge(id) {
       this.loading = true;
       this.$axios.$put(`challenge/request/${id}?answer=0`).then(res => {
-        if (res.status_code === 200) {
-          this.$toast.success('با موفقیت انجام شد!');
-        } else {
-          this.$toast.error('مشکلی رخ داده است!');
-        }
+        this.$toast.success('با موفقیت انجام شد!');
+      }).catch(e => {
+        this.$toast.error('مشکلی رخ داده است!');
+
       });
       this.pendingRequests = this.pendingRequests.filter(item => item.id !== id);
       this.loading = false;
