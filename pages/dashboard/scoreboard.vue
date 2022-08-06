@@ -96,10 +96,10 @@
                       {{ member.profile.firstname_fa }} {{ member.profile.lastname_fa }}
                     </p>
                   </div>
-                  <div class="text-center mt-10">
-                    <v-btn rounded color="primary" @click="sendRequest(teamInfo.id)">ارسال درخواست عضویت</v-btn>
-                  </div>
                 </div>
+<!--                <div class="text-center mt-10">-->
+<!--                  <v-btn :disabled="teamInfo.members.length>=3" rounded color="primary" @click="sendRequest(teamInfo.id)">ارسال درخواست عضویت</v-btn>-->
+<!--                </div>-->
               </div>
             </v-card-text>
           </v-card>
