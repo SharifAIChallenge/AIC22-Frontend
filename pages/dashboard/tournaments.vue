@@ -13,10 +13,11 @@
           <div class="pa-5 soon-box d-flex justify-space-between">
             <div>
               <h2>
-                اسم
+                {{ last.name }}
               </h2>
               <p class="grey--text mt-2">
-                تست
+                {{ last.start_time }}
+
               </p>
             </div>
             <div class="d-flex align-center">
@@ -33,18 +34,8 @@
         </div>
       </div>
       <v-row>
-        <v-col cols="12" sm="6" md="3">
-          <TournamentCard name="test" status="pending" id="1" start_time="adasd"/>
-        </v-col>
-        <v-col cols="12" sm="6" md="3">
-          <TournamentCard name="test" status="pending" id="1" start_time="adasd"/>
-        </v-col>
-        <v-col cols="12" sm="6" md="3">
-          <TournamentCard name="test" status="pending" id="1" start_time="adasd"/>
-        </v-col>
-        <v-col cols="12" sm="6" md="3" v-for="(list, index) in tournaments" :key="index">
-          <TournamentCard name="test" status="pending" id="1" start_time="adasd"/>
-
+        <v-col cols="12" sm="6" md="3" v-for="(item, index) in tournaments" :key="index">
+          <TournamentCard :name="item.name" status="pending" :id="item.id" :start_time="item.start_time"/>
         </v-col>
       </v-row>
     </v-container>
@@ -70,12 +61,18 @@ export default {
     // res = await $axios.get('challenge/tournament/next');
     // let header = res.data.data;
     // console.log(res.data.data);
-    return {tournaments, finalTournaments};
+    let last = tournaments.reduce(function (prev, curr) {
+      let timePrev = new Date(curr.start_time);
+      let timeCurr = new Date(prev.start_time);
+      return (timePrev > timeCurr) ? curr : prev;
+    });
+    return {tournaments, finalTournaments, last};
   },
   data() {
     return {
       tabs: null,
       header: {},
+      last:{},
       tournaments: [],
       finalTournaments: [],
     };
