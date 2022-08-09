@@ -27,10 +27,10 @@
               <th class="text-right">
                 نام تیم
               </th>
-<!--              <th class="text-right">-->
-<!--                اطلاعات-->
-<!--              </th>-->
-              <th class="text-right">
+              <!--              <th class="text-right">-->
+              <!--                اطلاعات-->
+              <!--              </th>-->
+              <th class="text-center">
                 وضعیت
               </th>
             </tr>
@@ -40,18 +40,18 @@
                 v-for="(request, index) in sentRequests"
                 :key="index"
             >
-              <td>{{ request.source_team_name }}</td>
-<!--              <td>-->
-<!--                <v-btn-->
-<!--                    class="pa-0"-->
-<!--                    @click.stop="()=>{dialog_item = request.team;dialog = true;}"-->
-<!--                    text plain-->
-<!--                >-->
-<!--                  <v-icon-->
-<!--                  >mdi-account-box-outline-->
-<!--                  </v-icon>-->
-<!--                </v-btn>-->
-<!--              </td>-->
+              <td>{{ request.target_team_name }}</td>
+              <!--              <td>-->
+              <!--                <v-btn-->
+              <!--                    class="pa-0"-->
+              <!--                    @click.stop="()=>{dialog_item = request.team;dialog = true;}"-->
+              <!--                    text plain-->
+              <!--                >-->
+              <!--                  <v-icon-->
+              <!--                  >mdi-account-box-outline-->
+              <!--                  </v-icon>-->
+              <!--                </v-btn>-->
+              <!--              </td>-->
               <td class="text-center">
                 <v-chip
                     color="success"
@@ -157,11 +157,9 @@ export default {
     acceptChallenge(id) {
       this.loading = true;
       this.$axios.$put(`challenge/request/${id}?answer=1`).then(res => {
-        if (res.status_code === 200) {
-          this.$toast.success('با موفقیت انجام شد!');
-        } else {
-          this.$toast.error('مشکلی رخ داده است!');
-        }
+        this.$toast.success('با موفقیت انجام شد!');
+      }).catch(e => {
+        this.$toast.error('مشکلی رخ داده است!');
       });
       this.pendingRequests = this.pendingRequests.filter(item => item.id !== id);
       this.loading = false;
@@ -169,11 +167,10 @@ export default {
     declineChallenge(id) {
       this.loading = true;
       this.$axios.$put(`challenge/request/${id}?answer=0`).then(res => {
-        if (res.status_code === 200) {
-          this.$toast.success('با موفقیت انجام شد!');
-        } else {
-          this.$toast.error('مشکلی رخ داده است!');
-        }
+        this.$toast.success('با موفقیت انجام شد!');
+      }).catch(e => {
+        this.$toast.error('مشکلی رخ داده است!');
+
       });
       this.pendingRequests = this.pendingRequests.filter(item => item.id !== id);
       this.loading = false;
