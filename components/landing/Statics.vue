@@ -82,6 +82,17 @@
               </v-card-text>
             </v-card>
           </v-col>
+          <v-col class="col-12 col-md-3">
+            <v-card class="bg-transparent pa-4 bg-fix text-center" elevation="0"
+                    :style="{backgroundImage:`url(${game})`}">
+              <v-card-title class="justify-center text-h2">
+                {{gameNumber}}
+              </v-card-title>
+              <v-card-text>
+                نبرد
+              </v-card-text>
+            </v-card>
+          </v-col>
         </v-row>
       </div>
     </box>
@@ -111,7 +122,8 @@ export default {
       team,
       teamNumber : 0,
       registerNumber : 0,
-      submissionNumber : 0
+      submissionNumber : 0,
+      gameNumber : 0
     };
   },
   async fetch(){
@@ -119,6 +131,7 @@ export default {
       this.teamNumber = res.find(item => item.title==='team').value
       this.registerNumber = res.find(item => item.title==='user').value
       this.submissionNumber = res.find(item => item.title === 'Submits').value
+      this.gameNumber = res.find(item => item.title ==='Games' ).value
     })
   },
   components: { Box },
