@@ -7,7 +7,9 @@
     {{start_time}}
     </p>
     <div class="px-3 d-flex justify-center" v-if="status === 'pending'">
-      <v-btn class="btn-results ml-1" rounded color="primary">مشاهده نتایج</v-btn>
+      <v-btn class="btn-results ml-1" rounded color="primary"
+             :to="`/dashboard/scoreboard?id=${id}`"
+      >مشاهده نتایج</v-btn>
     </div>
     <v-row v-else>
     </v-row>

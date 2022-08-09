@@ -10,23 +10,42 @@
     <v-container>
       <div class=" my-10">
         <div class="gradient pa-5">
-          <div class="pa-5 soon-box d-flex justify-space-between">
+          <div class="pa-5 soon-box justify-space-between">
             <div>
               <h2>
                 {{ last.name }}
               </h2>
               <p class="grey--text mt-2">
-                {{ last.start_time }}
+                {{
+
+                  getTimeText(last.start_time)
+                }}
 
               </p>
             </div>
-            <div class="d-flex align-center">
+            <div class="d-flex align-center justify-center">
               <div class="countdown-item">
                 <p class="value">
-                  25
+                  {{ last.days >= 0 ? last.days : 0 }}
                 </p>
                 <p class="note">
                   روز
+                </p>
+              </div>
+              <div class="countdown-item mx-2">
+                <p class="value">
+                  {{ last.hours >= 0 ? last.hours : 0 }}
+                </p>
+                <p class="note">
+                  ساعت
+                </p>
+              </div>
+              <div class="countdown-item">
+                <p class="value">
+                  {{ last.minutes >= 0 ? last.minutes : 0 }}
+                </p>
+                <p class="note">
+                  دقیقه
                 </p>
               </div>
             </div>
@@ -35,7 +54,7 @@
       </div>
       <v-row>
         <v-col cols="12" sm="6" md="3" v-for="(item, index) in tournaments" :key="index">
-          <TournamentCard :name="item.name" status="pending" :id="item.id" :start_time="item.start_time"/>
+          <TournamentCard :name="item.name" status="pending" :id="item.id" :start_time="getTimeText(item.start_time)"/>
         </v-col>
       </v-row>
     </v-container>
@@ -47,6 +66,7 @@ import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
 import TournamentHeader from '~/components/dashboard/tournaments/TournamentHeader';
 import TournamentCard from '~/components/dashboard/tournaments/TournamentCard';
+import moment from "moment";
 
 export default {
   components: {SectionHeader, SectionContainer, TournamentHeader, TournamentCard},
@@ -68,15 +88,44 @@ export default {
     });
     return {tournaments, finalTournaments, last};
   },
+  mounted() {
+    if (window) {
+
+    }
+  },
   data() {
     return {
       tabs: null,
       header: {},
-      last:{},
+      last: {},
       tournaments: [],
       finalTournaments: [],
     };
   },
+
+  watch: {
+
+    last: {
+      handler(value) {
+        if (this.last.start_time) {
+          setTimeout(() => {
+            var now = new Date().getTime();
+            var distance = Date.parse(this.last.start_time) - now;
+            this.last.days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            this.last.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            this.last.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          }, 1000);
+        }
+
+      },
+      immediate: true // This ensures the watcher is triggered upon creation
+    },
+  },
+  methods: {
+    getTimeText(time) {
+      return moment(time).lang('fa').calendar();
+    }
+  }
 };
 </script>
 <style lang="scss">
@@ -89,8 +138,14 @@ export default {
 .soon-box {
   background-color: #13202E;
   border-radius: 10px;
+  display: flex;
 }
-
+@media screen and (max-width: 524px) {
+  .soon-box{
+    display: block !important;
+  text-align: center;
+  }
+}
 .countdown-item {
   border: #2a415b solid 2px;
   height: 75px;
