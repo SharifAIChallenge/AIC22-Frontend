@@ -130,14 +130,14 @@ export default {
         //   disabled: true,
         //   gard: true
         // },
-        // tournaments: {
-        //   title: "تورنومنت ها",
-        //   icon: "mdi-tournament",
-        //   hover: "mdi-tournament",
-        //   link: "/dashboard/tournaments",
-        //   disabled: true,
-        //   gard: true
-        // },
+        tournaments: {
+          title: "تورنومنت ها",
+          icon: "mdi-tournament",
+          hover: "mdi-tournament",
+          link: "/dashboard/tournaments",
+          disabled: false,
+          gard: true
+        },
         scoreboard: {
           title: "جدول امتیازات",
           icon: "mdi-scoreboard-outline",

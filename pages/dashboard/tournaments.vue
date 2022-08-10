@@ -1,61 +1,63 @@
 <template>
   <div class="tournaments">
-    <SectionHeader title="تورنومنت ها" icon="mdi-tournament" />
-    <div class="px-6 px-md-12">
-      <TournamentHeader :header="header"></TournamentHeader>
-      <v-card color="basil">
-        <!-- <v-card-title class="text-center justify-center py-6">
-          <h1 class="font-weight-bold display-3 basil--text">
-            BASiL
-          </h1>
-        </v-card-title> -->
+    <v-container class="pa-0 d-flex align-center justify-space-between ">
 
-        <v-tabs v-model="tabs" color="primary" grow>
-          <v-tab>
-            دوستانه
-          </v-tab>
-          <v-tab>
-            سیدبندی
-          </v-tab>
-        </v-tabs>
+      <p class="headline py-5 ma-0 mr-2">
+        تورنومنت ها
+      </p>
+    </v-container>
+    <v-divider/>
+    <v-container>
+      <div class=" my-10">
+        <div class="gradient pa-5">
+          <div class="pa-5 soon-box justify-space-between">
+            <div>
+              <h2>
+                {{ last.name }}
+              </h2>
+              <p class="grey--text mt-2">
+                {{
 
-        <v-tabs-items v-model="tabs">
-          <v-tab-item>
-            <v-card color="basil" flat>
-              <v-card-text>
-                <v-row>
-                  <v-col cols="12" sm="6" md="4" xl="3" class="tournament my-4" v-for="tournament in tournaments" :key="tournament.id">
-                    <div>
-                      <TournamentCard :tournament="tournament"></TournamentCard>
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
-          <v-tab-item>
-            <v-card color="basil" flat>
-              <v-card-text>
-                <v-row v-if="finalTournaments.length">
-                  <v-col cols="12" sm="6" md="4" xl="3" class="tournament my-4" v-for="tournament in finalTournaments" :key="tournament.id">
-                    <div>
-                      <TournamentCard :tournament="tournament"></TournamentCard>
-                    </div>
-                  </v-col>
-                </v-row>
-                <div v-else>
-                  <div class="d-flex justify-center py-15">
-                    <h3>
-                      اوپس! تورنمنتی یافت نشد
-                    </h3>
-                  </div>
-                </div>
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
-        </v-tabs-items>
-      </v-card>
-    </div>
+                  getTimeText(last.start_time)
+                }}
+
+              </p>
+            </div>
+            <div class="d-flex align-center justify-center">
+              <div class="countdown-item">
+                <p class="value">
+                  {{ last.days >= 0 ? last.days : 0 }}
+                </p>
+                <p class="note">
+                  روز
+                </p>
+              </div>
+              <div class="countdown-item mx-2">
+                <p class="value">
+                  {{ last.hours >= 0 ? last.hours : 0 }}
+                </p>
+                <p class="note">
+                  ساعت
+                </p>
+              </div>
+              <div class="countdown-item">
+                <p class="value">
+                  {{ last.minutes >= 0 ? last.minutes : 0 }}
+                </p>
+                <p class="note">
+                  دقیقه
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <v-row>
+        <v-col cols="12" sm="6" md="3" v-for="(item, index) in tournaments" :key="index">
+          <TournamentCard :name="item.name" status="pending" :id="item.id" :start_time="getTimeText(item.start_time)"/>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -64,48 +66,104 @@ import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
 import TournamentHeader from '~/components/dashboard/tournaments/TournamentHeader';
 import TournamentCard from '~/components/dashboard/tournaments/TournamentCard';
+import moment from "moment";
 
 export default {
-  components: { SectionHeader, SectionContainer, TournamentHeader, TournamentCard },
+  components: {SectionHeader, SectionContainer, TournamentHeader, TournamentCard},
   layout: 'dashboard',
   transition: 'fade-transition',
-  async asyncData({ $axios }) {
+  async asyncData({$axios}) {
     let res = await $axios.get('challenge/tournament');
-    let data = res.data.data;
-    // console.log(data);
+    let data = res.data;
     let tournaments = data.filter(t => t.type !== 'final');
     let finalTournaments = data.filter(t => t.type === 'final');
 
-    res = await $axios.get('challenge/tournament/next');
-    let header = res.data.data;
+    // res = await $axios.get('challenge/tournament/next');
+    // let header = res.data.data;
     // console.log(res.data.data);
-    return { tournaments, header, finalTournaments };
+    let last = tournaments.reduce(function (prev, curr) {
+      let timePrev = new Date(curr.start_time);
+      let timeCurr = new Date(prev.start_time);
+      return (timePrev > timeCurr) ? curr : prev;
+    });
+    return {tournaments, finalTournaments, last};
+  },
+  mounted() {
+    if (window) {
+
+    }
   },
   data() {
     return {
       tabs: null,
       header: {},
+      last: {},
       tournaments: [],
       finalTournaments: [],
     };
   },
+
+  watch: {
+
+    last: {
+      handler(value) {
+        if (this.last.start_time) {
+          setTimeout(() => {
+            var now = new Date().getTime();
+            var distance = Date.parse(this.last.start_time) - now;
+            this.last.days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            this.last.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            this.last.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          }, 1000);
+        }
+
+      },
+      immediate: true // This ensures the watcher is triggered upon creation
+    },
+  },
+  methods: {
+    getTimeText(time) {
+      return moment(time).lang('fa').calendar();
+    }
+  }
 };
 </script>
 <style lang="scss">
-@import '~/assets/mixins.scss';
-.tournaments {
-  .v-tab {
-    color: white !important;
-    &.v-tab--active {
-      color: var(--v-primary-base) !important;
-    }
+.gradient {
+  box-shadow: inset 0 0 12px 12px #13202E, inset 0 0 3px 2px #13202E;
+  background-image: linear-gradient(
+          20deg, #FC147F, #480AC2, #E08250, #3AE4F6);
+}
+
+.soon-box {
+  background-color: #13202E;
+  border-radius: 10px;
+  display: flex;
+}
+@media screen and (max-width: 524px) {
+  .soon-box{
+    display: block !important;
+  text-align: center;
+  }
+}
+.countdown-item {
+  border: #2a415b solid 2px;
+  height: 75px;
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+
+  p.value {
+    margin: 0;
+    font-size: xx-large;
   }
 
-  .tournament {
-    width: 32%;
-    @include v-not-sm {
-      width: 100%;
-    }
+  p.note {
+    margin: 0;
+    font-size: x-small;
   }
 }
 </style>
