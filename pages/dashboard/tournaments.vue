@@ -52,10 +52,18 @@
               </div>
               <div class="countdown-item">
                 <p class="value">
-                  {{ last.days >= 0 ? last.days : 0 }}
+                  {{ last.seconds >= 0 ? last.seconds : 0 }}
                 </p>
                 <p class="note">
-                  روز
+                  ثانیه
+                </p>
+              </div>
+              <div class="countdown-item  mr-2">
+                <p class="value">
+                  {{ this.last.minutes >= 0 ? this.last.minutes : 0 }}
+                </p>
+                <p class="note">
+                  دقیقه
                 </p>
               </div>
             </div>
@@ -78,15 +86,16 @@
               </div>
               <div class="countdown-item mx-2">
                 <p class="value">
-                  0
+                  {{ this.last.hours >= 0 ? this.last.hours : 0 }}
                 </p>
                 <p class="note">
                   ساعت
                 </p>
               </div>
+
               <div class="countdown-item">
                 <p class="value">
-                 0
+                  {{ last.days >= 0 ? last.days : 0 }}
                 </p>
                 <p class="note">
                   روز
@@ -186,7 +195,6 @@ import TournamentHeader from '~/components/dashboard/tournaments/TournamentHeade
 import TournamentCard from '~/components/dashboard/tournaments/TournamentCard';
 import moment from "moment";
 import 'moment/locale/fa'
-
 export default {
   components: {SectionHeader, SectionContainer, TournamentHeader, TournamentCard},
   layout: 'dashboard',
@@ -244,15 +252,6 @@ export default {
   methods: {
     getTimeText(time) {
       return moment(time).locale('fa').fromNow();
-    },
-    getCurrentDateTime(){
-      return moment().tz('Asia/Tehran')
-    },
-    getDateTime(tm){
-      return moment(tm).tz('Asia/Tehran')
-    },
-    isAfterNow(tm){
-      return moment(tm).tz('Asia/Tehran').isAfter(moment().tz('Asia/Tehran'))
     }
   }
 };
