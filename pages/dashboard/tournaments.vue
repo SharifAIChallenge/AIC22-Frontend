@@ -24,7 +24,7 @@
               </p>
             </div>
             <div
-                v-if="isAfterNow(last.start_time)"
+                v-if="!isAfterNow(last.start_time)"
                 class="d-flex align-center justify-center">
               <div class="countdown-item">
                 <p class="value">
@@ -59,11 +59,39 @@
                 </p>
               </div>
             </div>
-            <div v-else class="pa-3">
-              <v-chip
-                color="secondary">
-                به اتمام رسید
-              </v-chip>
+            <div v-else class="d-flex align-center justify-center">
+              <div class="countdown-item">
+                <p class="value">
+            0
+                </p>
+                <p class="note">
+                  ثانیه
+                </p>
+              </div>
+              <div class="countdown-item  mr-2">
+                <p class="value">
+                  0
+                </p>
+                <p class="note">
+                  دقیقه
+                </p>
+              </div>
+              <div class="countdown-item mx-2">
+                <p class="value">
+                  0
+                </p>
+                <p class="note">
+                  ساعت
+                </p>
+              </div>
+              <div class="countdown-item">
+                <p class="value">
+                 0
+                </p>
+                <p class="note">
+                  روز
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -102,37 +130,36 @@
               <td>{{ getTimeText(tournament.start_time) }}</td>
               <td>{{ tournament.participants }}</td>
               <td class="text-center">
-                <v-chip
+                <span
                     color="primary"
                     v-if="isAfterNow(tournament.start_time)"
                 >
                   <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
                   شروع نشده
-                </v-chip>
+                </span>
 
-                <v-chip
+                <span
                     color="secondary"
                     v-else
                 >
                   <v-icon class="ml-2">mdi-close</v-icon>
                   به اتمام رسید
-                </v-chip>
+                </span>
               </td>
 
               <td class="text-center">
-                <v-chip
+                <span
                     color="success"
                     v-if="tournament.is_member"
                 >
                   عضو هستید
-                </v-chip>
+                </span>
 
-                <v-chip
-                    color="primary"
+                <span
                     v-else
                 >
                   عضو نیستید
-                </v-chip>
+                </span>
               </td>
               <td class="text-center">
                   <v-chip block rounded color="primary"
