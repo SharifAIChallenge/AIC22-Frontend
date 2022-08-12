@@ -15,12 +15,11 @@
               <h2>
                 {{ this.last.name }}
               </h2>
-              <p class="grey--text mt-2">
+              <p class="grey--text mt-2" v-if="!isAfterNow(last.start_time)">
                 {{
 
                   getTimeText(this.last.start_time)
                 }}
-
               </p>
             </div>
             <div
@@ -164,7 +163,8 @@
               <td class="text-center">
                 <v-chip block rounded color="primary"
                         :to="`/dashboard/scoreboard?id=${tournament.id}`"
-                >مشاهده نتایج</v-chip>
+                >مشاهده نتایج
+                </v-chip>
 
               </td>
             </tr>
@@ -245,13 +245,13 @@ export default {
     getTimeText(time) {
       return moment(time).locale('fa').fromNow();
     },
-    getCurrentDateTime(){
+    getCurrentDateTime() {
       return moment().tz('Asia/Tehran')
     },
-    getDateTime(tm){
+    getDateTime(tm) {
       return moment(tm).tz('Asia/Tehran')
     },
-    isAfterNow(tm){
+    isAfterNow(tm) {
       return moment(tm).tz('Asia/Tehran').isAfter(moment().tz('Asia/Tehran'))
     }
   }
