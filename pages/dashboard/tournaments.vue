@@ -23,7 +23,9 @@
 
               </p>
             </div>
-            <div class="d-flex align-center justify-center">
+            <div
+                v-if="!isAfterNow(last.start_time)"
+                class="d-flex align-center justify-center">
               <div class="countdown-item">
                 <p class="value">
                   {{ last.seconds >= 0 ? last.seconds : 0 }}
@@ -35,6 +37,48 @@
               <div class="countdown-item  mr-2">
                 <p class="value">
                   {{ this.last.minutes >= 0 ? this.last.minutes : 0 }}
+                </p>
+                <p class="note">
+                  دقیقه
+                </p>
+              </div>
+              <div class="countdown-item mx-2">
+                <p class="value">
+                  {{ this.last.hours >= 0 ? this.last.hours : 0 }}
+                </p>
+                <p class="note">
+                  ساعت
+                </p>
+              </div>
+              <div class="countdown-item">
+                <p class="value">
+                  {{ last.seconds >= 0 ? last.seconds : 0 }}
+                </p>
+                <p class="note">
+                  ثانیه
+                </p>
+              </div>
+              <div class="countdown-item  mr-2">
+                <p class="value">
+                  {{ this.last.minutes >= 0 ? this.last.minutes : 0 }}
+                </p>
+                <p class="note">
+                  دقیقه
+                </p>
+              </div>
+            </div>
+            <div v-else class="d-flex align-center justify-center">
+              <div class="countdown-item">
+                <p class="value">
+            0
+                </p>
+                <p class="note">
+                  ثانیه
+                </p>
+              </div>
+              <div class="countdown-item  mr-2">
+                <p class="value">
+                  0
                 </p>
                 <p class="note">
                   دقیقه
@@ -61,11 +105,85 @@
           </div>
         </div>
       </div>
-      <v-row>
-        <v-col cols="12" sm="6" md="3" v-for="(item, index) in tournaments" :key="index">
-          <TournamentCard :name="item.name" status="pending" :id="item.id" :start_time="getTimeText(item.start_time)"/>
-        </v-col>
-      </v-row>
+      <div>
+        <v-simple-table v-if="tournaments && tournaments.length > 0">
+          <template v-slot:default>
+            <thead>
+            <tr>
+              <th class="text-right">
+                نام
+              </th>
+              <th class="text-right">
+                تاریخ شروع
+              </th>
+              <th class="text-center">
+                تعداد شرکت کننده
+              </th>
+              <th class="text-center">
+                وضعیت
+              </th>
+              <th class="text-center">
+                وضعیت عضویت
+              </th>
+              <th class="text-center">
+               مشاهده نتایج
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+                v-for="(tournament, index) in tournaments"
+                :key="index"
+            >
+              <td>{{ tournament.name }}</td>
+              <td>{{ getTimeText(tournament.start_time) }}</td>
+              <td class="text-center">{{ tournament.participants }}</td>
+              <td class="text-center">
+                <span
+                    color="primary"
+                    v-if="isAfterNow(tournament.start_time)"
+                >
+                  <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+                  شروع نشده
+                </span>
+
+                <span
+                    color="secondary"
+                    v-else
+                >
+                  <v-icon class="ml-2">mdi-close</v-icon>
+                  به اتمام رسید
+                </span>
+              </td>
+
+              <td class="text-center">
+                <span
+                    color="success"
+                    v-if="tournament.is_member"
+                >
+                  عضو هستید
+                </span>
+
+                <span
+                    v-else
+                >
+                  عضو نیستید
+                </span>
+              </td>
+              <td class="text-center">
+                  <v-chip block rounded color="primary"
+                         :to="`/dashboard/scoreboard?id=${tournament.id}`"
+                  >مشاهده نتایج</v-chip>
+
+              </td>
+            </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+        <div v-else class="mb-10 px-md-12">
+          لیست تورنومنت ها خالی است
+        </div>
+      </div>
     </v-container>
   </div>
 </template>
