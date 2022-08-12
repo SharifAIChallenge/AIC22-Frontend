@@ -8,6 +8,9 @@
           <th class="text-right">
             نام تیم
           </th>
+          <th class="text-right">
+            تورنومنت
+          </th>
           <!--              <th class="text-right">-->
           <!--                اطلاعات-->
           <!--              </th>-->
@@ -28,6 +31,8 @@
             :key="index"
         >
           <td>{{ request.team2.name }}</td>
+          <td>{{ request.tournament.name }}</td>
+
           <!--              <td>-->
           <!--                <v-btn-->
           <!--                    class="pa-0"-->
