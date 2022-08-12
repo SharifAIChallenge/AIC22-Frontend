@@ -76,7 +76,7 @@ import SectionContainer from '~/components/SectionContainer';
 import TournamentHeader from '~/components/dashboard/tournaments/TournamentHeader';
 import TournamentCard from '~/components/dashboard/tournaments/TournamentCard';
 import moment from "moment";
-
+import 'moment/locale/fa'
 export default {
   components: {SectionHeader, SectionContainer, TournamentHeader, TournamentCard},
   layout: 'dashboard',
@@ -133,7 +133,7 @@ export default {
   },
   methods: {
     getTimeText(time) {
-      return moment(time).lang('fa').calendar();
+      return moment(time).locale('fa').fromNow();
     }
   }
 };
