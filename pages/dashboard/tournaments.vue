@@ -107,7 +107,7 @@
               <th class="text-right">
                 تاریخ شروع
               </th>
-              <th class="text-right">
+              <th class="text-center">
                 تعداد شرکت کننده
               </th>
               <th class="text-center">
@@ -128,7 +128,7 @@
             >
               <td>{{ tournament.name }}</td>
               <td>{{ getTimeText(tournament.start_time) }}</td>
-              <td>{{ tournament.participants }}</td>
+              <td class="text-center">{{ tournament.participants }}</td>
               <td class="text-center">
                 <span
                     color="primary"
