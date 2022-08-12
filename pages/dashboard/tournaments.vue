@@ -13,12 +13,12 @@
           <div class="pa-5 soon-box justify-space-between">
             <div>
               <h2>
-                {{ last.name }}
+                {{ this.last.name }}
               </h2>
               <p class="grey--text mt-2">
                 {{
 
-                  getTimeText(last.start_time)
+                  getTimeText(this.last.start_time)
                 }}
 
               </p>
@@ -26,26 +26,35 @@
             <div class="d-flex align-center justify-center">
               <div class="countdown-item">
                 <p class="value">
-                  {{ last.days >= 0 ? last.days : 0 }}
+                  {{ last.seconds >= 0 ? last.seconds : 0 }}
                 </p>
                 <p class="note">
-                  روز
+                  ثانیه
+                </p>
+              </div>
+              <div class="countdown-item  mr-2">
+                <p class="value">
+                  {{ this.last.minutes >= 0 ? this.last.minutes : 0 }}
+                </p>
+                <p class="note">
+                  دقیقه
                 </p>
               </div>
               <div class="countdown-item mx-2">
                 <p class="value">
-                  {{ last.hours >= 0 ? last.hours : 0 }}
+                  {{ this.last.hours >= 0 ? this.last.hours : 0 }}
                 </p>
                 <p class="note">
                   ساعت
                 </p>
               </div>
+
               <div class="countdown-item">
                 <p class="value">
-                  {{ last.minutes >= 0 ? last.minutes : 0 }}
+                  {{ last.days >= 0 ? last.days : 0 }}
                 </p>
                 <p class="note">
-                  دقیقه
+                  روز
                 </p>
               </div>
             </div>
@@ -90,8 +99,27 @@ export default {
   },
   mounted() {
     if (window) {
+      console.log(window.location.href);
+      if (this.last.start_time) {
+        console.log('set inter');
+        this.inter = setInterval(() => {
+          var current = moment().tz('Asia/Tehran');
+          var end = moment(this.last.start_time).tz('Asia/Tehran');
+          var duration = moment.duration(end.diff(current));
+          var seconds = duration.asSeconds();
+          this.last.seconds = Math.ceil(seconds);
+          this.last.days = Math.ceil(Math.floor(seconds / 86400));
+          this.last.hours = Math.ceil(Math.floor((seconds - this.last.days * 86400) / 3600));
+          this.last.minutes = Math.ceil(Math.floor((seconds - this.last.days * 86400 - this.last.hours * 3600) / 60));
+          this.last.seconds = Math.ceil(seconds - this.last.days * 86400 - this.last.hours * 3600 - this.last.minutes * 60);
 
+          this.$forceUpdate()
+        }, 1000);
+      }
     }
+  },
+  unmounted() {
+    clearInterval(this.inter);
   },
   data() {
     return {
@@ -100,26 +128,8 @@ export default {
       last: {},
       tournaments: [],
       finalTournaments: [],
+      inter: 0,
     };
-  },
-
-  watch: {
-
-    last: {
-      handler(value) {
-        if (this.last.start_time) {
-          setTimeout(() => {
-            var now = new Date().getTime();
-            var distance = Date.parse(this.last.start_time) - now;
-            this.last.days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            this.last.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            this.last.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          }, 1000);
-        }
-
-      },
-      immediate: true // This ensures the watcher is triggered upon creation
-    },
   },
   methods: {
     getTimeText(time) {
@@ -140,12 +150,14 @@ export default {
   border-radius: 10px;
   display: flex;
 }
+
 @media screen and (max-width: 524px) {
-  .soon-box{
+  .soon-box {
     display: block !important;
-  text-align: center;
+    text-align: center;
   }
 }
+
 .countdown-item {
   border: #2a415b solid 2px;
   height: 75px;
