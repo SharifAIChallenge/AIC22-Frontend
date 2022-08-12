@@ -15,7 +15,7 @@
               <h2>
                 {{ this.last.name }}
               </h2>
-              <p class="grey--text mt-2" v-if="!isAfterNow(last.start_time)">
+              <p class="grey--text mt-2" v-if="isAfterNow(last.start_time)">
                 {{
 
                   getTimeText(this.last.start_time)
@@ -23,7 +23,7 @@
               </p>
             </div>
             <div
-                v-if="!isAfterNow(last.start_time)"
+                v-if="isAfterNow(last.start_time)"
                 class="d-flex align-center justify-center">
               <div class="countdown-item">
                 <p class="value">
