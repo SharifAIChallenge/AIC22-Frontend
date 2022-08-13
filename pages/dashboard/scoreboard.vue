@@ -190,12 +190,12 @@ export default {
     },
     getData(param) {
       this.tableLoading = true;
-      this.$axios.$get(`${this.url}?page=${this.page}`).then(res => {
-        if (res.status_code === 200) {
-          this.data = res.results.data;
-          this.status_code = res.status_code;
+      this.$axios.get(`${this.url}?page=${this.page}`).then(res => {
+        if (res.status === 200) {
+          this.data = res.data.results;
+          this.status_code = res.status;
           const count = 20;
-          this.pageCount = Math.ceil(res.count / count);
+          this.pageCount = Math.ceil(res.data.count / count);
         } else {
           this.$toast.error('خطا در برقراری ارتباط!');
         }
