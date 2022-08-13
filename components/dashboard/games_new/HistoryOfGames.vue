@@ -91,6 +91,9 @@
     <div v-if="data && data.length === 0" class="mb-10 px-md-12">
       لیست بازی های شما خالی است
     </div>
+    <div class="py-10">
+      <v-pagination v-model="page" total-visible="6" :length="pageCount"></v-pagination>
+    </div>
   </div>
 </template>
 
