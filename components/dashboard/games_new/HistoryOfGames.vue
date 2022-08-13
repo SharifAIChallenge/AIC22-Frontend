@@ -1,95 +1,60 @@
 <template>
   <div>
     <SectionHeader title="تاریخچه بازی ها" icon="mdi-history"/>
-    <v-simple-table v-if="data && data.length > 0">
-      <template v-slot:default>
-        <thead>
-        <tr>
-          <th class="text-right">
-            نام تیم
-          </th>
-          <th class="text-right">
-            تورنومنت
-          </th>
-          <!--              <th class="text-right">-->
-          <!--                اطلاعات-->
-          <!--              </th>-->
-          <th class="text-center">
-            لاگ بازی
-          </th>
-          <th class="text-center">
-            وضعیت
-          </th>
-          <th class="text-center">
-            برنده
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr
-            v-for="(request, index) in data"
-            :key="index"
-        >
-          <td>{{ request.team2.name }}</td>
-          <td>{{ request.tournament.name }}</td>
-
-          <!--              <td>-->
-          <!--                <v-btn-->
-          <!--                    class="pa-0"-->
-          <!--                    @click.stop="()=>{dialog_item = request.team;dialog = true;}"-->
-          <!--                    text plain-->
-          <!--                >-->
-          <!--                  <v-icon-->
-          <!--                  >mdi-account-box-outline-->
-          <!--                  </v-icon>-->
-          <!--                </v-btn>-->
-          <!--              </td>-->
-          <td class="text-center">
-            <v-btn :disabled="!request.log" icon :href="request.log">
-              <v-icon>mdi-download</v-icon>
-            </v-btn>
-          </td>
-          <td class="text-center">
-            <v-chip
-                color="primary"
-                v-if="request.status === 'pending'"
-            >
-              <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
-              در انتظار داوری
-            </v-chip>
-            <v-chip
-                color="primary"
-                v-else-if="request.status === 'running'"
-            >
-              <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
-              درحال اجرا
-            </v-chip>
-            <v-chip
-                color="secondary"
-                v-else-if="request.status === 'failed'"
-            >
-              <v-icon class="ml-2">mdi-close</v-icon>
-              خطا
-            </v-chip>
-            <v-chip
-                color="success"
-                v-else-if="request.status === 'successful'"
-            >
-              <v-icon class="ml-2">mdi-check</v-icon>
-              به اتمام رسیده
-            </v-chip>
-
-
-          </td>
-          <td class="text-center">
-            {{ !request.winner ? '-' : request.winner.name }}
-          </td>
-        </tr>
-        </tbody>
+    <v-data-table
+        :headers="headers"
+        :items="data"
+        :page.sync="page"
+        :loading="tableLoading"
+        disable-sort
+        hide-default-footer
+        class="mx-10"
+        style="background-color : transparent"
+    >
+      <template v-slot:item.log="{ item }">
+        <v-btn :disabled="!item.log" icon :href="item.log">
+          <v-icon>mdi-download</v-icon>
+        </v-btn>
       </template>
-    </v-simple-table>
+      <template v-slot:item.status="{ item }">
+        <v-chip
+            color="primary"
+            v-if="item.status === 'pending'"
+        >
+          <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+          در انتظار داوری
+        </v-chip>
+        <v-chip
+            color="primary"
+            v-else-if="item.status === 'running'"
+        >
+          <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+          درحال اجرا
+        </v-chip>
+        <v-chip
+            color="secondary"
+            v-else-if="item.status === 'failed'"
+        >
+          <v-icon class="ml-2">mdi-close</v-icon>
+          خطا
+        </v-chip>
+        <v-chip
+            color="success"
+            v-else-if="item.status === 'successful'"
+        >
+          <v-icon class="ml-2">mdi-check</v-icon>
+          به اتمام رسیده
+        </v-chip>
+      </template>
+      <template v-slot:item.winner="{ item }">
+        {{ !item.winner ? '-' : item.winner.name }}
+      </template>
+    </v-data-table>
     <div v-if="data && data.length === 0" class="mb-10 px-md-12">
       لیست بازی های شما خالی است
+    </div>
+    <div class="py-10">
+      <v-pagination v-model="page" total-visible="6" :length="pageCount"></v-pagination>
     </div>
   </div>
 </template>
@@ -141,18 +106,11 @@ export default {
       itemPerPage: 20,
       url: '',
       headers: [
-        {
-          text: 'بازی',
-          align: 'right',
-          sortable: false,
-          value: 'x',
-        },
-        // { text: 'زمان', align: 'center', value: '' },
-        {text: 'وضعیت بازی', align: 'center', value: 'status'},
-        {text: 'تیم برنده', align: 'center', value: 'winner.name'},
+        {text: 'نام تیم', align: 'center', value: 'team2.name'},
+        {text: 'تورنومنت', align: 'center', value: 'tournament.name'},
         {text: 'لاگ', align: 'center', value: 'log'},
-        {text: 'لاگ سرور', align: 'center', value: 'serverLog'},
-        {text: 'پخش بازی', align: 'center', value: 'graphic'},
+        {text:'وضعیت',align: 'center',value: 'status'},
+        {text: 'برنده', align: 'center', value: 'winner'},
       ],
       data: [],
       currentGame: {
