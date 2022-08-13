@@ -129,7 +129,9 @@
                 :key="index"
             >
               <td>{{ tournament.name }}</td>
-              <td>{{ getTimeText(tournament.start_time) }}</td>
+              <td>
+                <DateTimeFormatter :date="tournament.start_time"></DateTimeFormatter>
+              </td>
               <td class="text-center">{{ tournament.participants }}</td>
               <td class="text-center">
                 <v-chip
@@ -191,9 +193,10 @@ import TournamentHeader from '~/components/dashboard/tournaments/TournamentHeade
 import TournamentCard from '~/components/dashboard/tournaments/TournamentCard';
 import moment from "moment";
 import 'moment/locale/fa'
+import DateTimeFormatter from "~/components/DateTimeFormatter";
 
 export default {
-  components: {SectionHeader, SectionContainer, TournamentHeader, TournamentCard},
+  components: {DateTimeFormatter, SectionHeader, SectionContainer, TournamentHeader, TournamentCard},
   layout: 'dashboard',
   transition: 'fade-transition',
   async asyncData({$axios}) {
