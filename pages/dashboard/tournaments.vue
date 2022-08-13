@@ -11,19 +11,20 @@
       <div class=" my-10">
         <div class="gradient pa-5">
           <div class="pa-5 soon-box justify-space-between">
-            <div>
+            <div class="d-flex align-center">
               <h2>
                 {{ this.last.name }}
               </h2>
-              <p class="grey--text mt-2">
-                {{
+<!--              <p class="grey&#45;&#45;text mt-2" v-if="isAfterNow(last.start_time)">-->
+<!--                {{-->
 
-                  getTimeText(this.last.start_time)
-                }}
-
-              </p>
+<!--                  getTimeText(this.last.start_time)-->
+<!--                }}-->
+<!--              </p>-->
             </div>
-            <div class="d-flex align-center justify-center">
+            <div
+                v-if="isAfterNow(last.start_time)"
+                class="d-flex align-center justify-center">
               <div class="countdown-item">
                 <p class="value">
                   {{ last.seconds >= 0 ? last.seconds : 0 }}
@@ -48,7 +49,6 @@
                   ساعت
                 </p>
               </div>
-
               <div class="countdown-item">
                 <p class="value">
                   {{ last.days >= 0 ? last.days : 0 }}
@@ -58,14 +58,130 @@
                 </p>
               </div>
             </div>
+            <div v-else class="d-flex align-center justify-center">
+              <div class="countdown-item">
+                <p class="value">
+                  0
+                </p>
+                <p class="note">
+                  ثانیه
+                </p>
+              </div>
+              <div class="countdown-item  mr-2">
+                <p class="value">
+                  0
+                </p>
+                <p class="note">
+                  دقیقه
+                </p>
+              </div>
+              <div class="countdown-item mx-2">
+                <p class="value">
+                  0
+                </p>
+                <p class="note">
+                  ساعت
+                </p>
+              </div>
+              <div class="countdown-item">
+                <p class="value">
+                  0
+                </p>
+                <p class="note">
+                  روز
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <v-row>
-        <v-col cols="12" sm="6" md="3" v-for="(item, index) in tournaments" :key="index">
-          <TournamentCard :name="item.name" status="pending" :id="item.id" :start_time="getTimeText(item.start_time)"/>
-        </v-col>
-      </v-row>
+      <div>
+        <div class="notice-box mb-10 text-center" style="max-width: fit-content">
+          برای شرکت در تورنومنت نیاز است که ارسال نهایی داشته باشید.
+        </div>
+        <v-simple-table v-if="tournaments && tournaments.length > 0">
+          <template v-slot:default>
+            <thead>
+            <tr>
+              <th class="text-right">
+                نام
+              </th>
+              <th class="text-right">
+                تاریخ شروع
+              </th>
+              <th class="text-center">
+                تعداد شرکت کننده
+              </th>
+              <th class="text-center">
+                وضعیت
+              </th>
+<!--              <th class="text-center">-->
+<!--                وضعیت عضویت-->
+<!--              </th>-->
+              <th class="text-center">
+                مشاهده نتایج
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+                v-for="(tournament, index) in tournaments"
+                :key="index"
+            >
+              <td>{{ tournament.name }}</td>
+              <td>
+                <DateTimeFormatter :date="tournament.start_time"></DateTimeFormatter>
+              </td>
+              <td class="text-center">{{ tournament.participants }}</td>
+              <td class="text-center">
+                <v-chip
+                    color="primary"
+                    v-if="isAfterNow(tournament.start_time)"
+                >
+                  <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
+                  شروع نشده
+                </v-chip>
+
+                <v-chip
+                    color="secondary"
+                    v-else
+                >
+                  <v-icon class="ml-2">mdi-close</v-icon>
+                  به اتمام رسید
+                </v-chip>
+              </td>
+
+<!--              <td class="text-center">-->
+<!--                <v-chip-->
+<!--                    color="success"-->
+<!--                    v-if="tournament.is_member"-->
+<!--                >-->
+<!--                  عضو هستید-->
+<!--                </v-chip>-->
+
+<!--                <v-chip-->
+<!--                    color="error"-->
+<!--                    v-else-->
+<!--                >-->
+<!--                  عضو نیستید-->
+<!--                </v-chip>-->
+<!--              </td>-->
+              <td class="text-center">
+                <v-chip block rounded color="primary"
+                        :to="`/dashboard/scoreboard?id=${tournament.id}`"
+                        :disabled="isAfterNow(tournament.start_time)"
+                >مشاهده نتایج
+                </v-chip>
+
+              </td>
+            </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+        <div v-else class="mb-10 px-md-12">
+          لیست تورنومنت ها خالی است
+        </div>
+      </div>
     </v-container>
   </div>
 </template>
@@ -77,8 +193,10 @@ import TournamentHeader from '~/components/dashboard/tournaments/TournamentHeade
 import TournamentCard from '~/components/dashboard/tournaments/TournamentCard';
 import moment from "moment";
 import 'moment/locale/fa'
+import DateTimeFormatter from "~/components/DateTimeFormatter";
+
 export default {
-  components: {SectionHeader, SectionContainer, TournamentHeader, TournamentCard},
+  components: {DateTimeFormatter, SectionHeader, SectionContainer, TournamentHeader, TournamentCard},
   layout: 'dashboard',
   transition: 'fade-transition',
   async asyncData({$axios}) {
@@ -99,9 +217,9 @@ export default {
   },
   mounted() {
     if (window) {
-      console.log(window.location.href);
+      // console.log(window.location.href);
       if (this.last.start_time) {
-        console.log('set inter');
+        // console.log('set inter');
         this.inter = setInterval(() => {
           var current = moment().tz('Asia/Tehran');
           var end = moment(this.last.start_time).tz('Asia/Tehran');
@@ -134,6 +252,15 @@ export default {
   methods: {
     getTimeText(time) {
       return moment(time).locale('fa').fromNow();
+    },
+    getCurrentDateTime() {
+      return moment().tz('Asia/Tehran')
+    },
+    getDateTime(tm) {
+      return moment(tm).tz('Asia/Tehran')
+    },
+    isAfterNow(tm) {
+      return moment(tm).tz('Asia/Tehran').isAfter(moment().tz('Asia/Tehran'))
     }
   }
 };
