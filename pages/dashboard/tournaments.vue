@@ -11,16 +11,16 @@
       <div class=" my-10">
         <div class="gradient pa-5">
           <div class="pa-5 soon-box justify-space-between">
-            <div>
+            <div class="d-flex align-center">
               <h2>
                 {{ this.last.name }}
               </h2>
-              <p class="grey--text mt-2" v-if="isAfterNow(last.start_time)">
-                {{
+<!--              <p class="grey&#45;&#45;text mt-2" v-if="isAfterNow(last.start_time)">-->
+<!--                {{-->
 
-                  getTimeText(this.last.start_time)
-                }}
-              </p>
+<!--                  getTimeText(this.last.start_time)-->
+<!--                }}-->
+<!--              </p>-->
             </div>
             <div
                 v-if="isAfterNow(last.start_time)"
@@ -217,9 +217,9 @@ export default {
   },
   mounted() {
     if (window) {
-      console.log(window.location.href);
+      // console.log(window.location.href);
       if (this.last.start_time) {
-        console.log('set inter');
+        // console.log('set inter');
         this.inter = setInterval(() => {
           var current = moment().tz('Asia/Tehran');
           var end = moment(this.last.start_time).tz('Asia/Tehran');
