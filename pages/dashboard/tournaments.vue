@@ -96,6 +96,9 @@
         </div>
       </div>
       <div>
+        <div class="notice-box mb-10 text-center" style="max-width: fit-content">
+          برای شرکت در تورنومنت نیاز است که ارسال نهایی داشته باشید.
+        </div>
         <v-simple-table v-if="tournaments && tournaments.length > 0">
           <template v-slot:default>
             <thead>
@@ -112,9 +115,9 @@
               <th class="text-center">
                 وضعیت
               </th>
-              <th class="text-center">
-                وضعیت عضویت
-              </th>
+<!--              <th class="text-center">-->
+<!--                وضعیت عضویت-->
+<!--              </th>-->
               <th class="text-center">
                 مشاهده نتایج
               </th>
@@ -129,40 +132,42 @@
               <td>{{ getTimeText(tournament.start_time) }}</td>
               <td class="text-center">{{ tournament.participants }}</td>
               <td class="text-center">
-                <span
+                <v-chip
                     color="primary"
                     v-if="isAfterNow(tournament.start_time)"
                 >
                   <v-icon class="ml-2">mdi-clock-time-four-outline</v-icon>
                   شروع نشده
-                </span>
+                </v-chip>
 
-                <span
+                <v-chip
                     color="secondary"
                     v-else
                 >
                   <v-icon class="ml-2">mdi-close</v-icon>
                   به اتمام رسید
-                </span>
+                </v-chip>
               </td>
 
-              <td class="text-center">
-                <span
-                    color="success"
-                    v-if="tournament.is_member"
-                >
-                  عضو هستید
-                </span>
+<!--              <td class="text-center">-->
+<!--                <v-chip-->
+<!--                    color="success"-->
+<!--                    v-if="tournament.is_member"-->
+<!--                >-->
+<!--                  عضو هستید-->
+<!--                </v-chip>-->
 
-                <span
-                    v-else
-                >
-                  عضو نیستید
-                </span>
-              </td>
+<!--                <v-chip-->
+<!--                    color="error"-->
+<!--                    v-else-->
+<!--                >-->
+<!--                  عضو نیستید-->
+<!--                </v-chip>-->
+<!--              </td>-->
               <td class="text-center">
                 <v-chip block rounded color="primary"
                         :to="`/dashboard/scoreboard?id=${tournament.id}`"
+                        :disabled="isAfterNow(tournament.start_time)"
                 >مشاهده نتایج
                 </v-chip>
 
