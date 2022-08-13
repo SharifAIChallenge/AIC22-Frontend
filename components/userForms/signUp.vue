@@ -3,6 +3,11 @@
     <div class="container">
       <v-row justify="center" align="center">
         <v-col cols="12">
+          <div class = notice-box>
+            مهلت ثبت‌نام به پایان رسیده است.
+          </div>
+        </v-col>
+        <v-col cols="12">
           <v-form ref="form" v-model="valid" @submit.prevent="signUp">
             <v-text-field
               rounded
@@ -47,7 +52,7 @@
                 <v-btn
                   block
                   rounded
-                  :disabled="!valid"
+                  :disabled="true"
                   :loading="loading"
                   type="submit"
                   color="primary"
@@ -111,50 +116,51 @@ export default {
       this.$store.commit('formStatus/changeStatus', form);
     },
     async signUp() {
-      let isFormValid = true;
-      for (const key in this.form) {
-        if (!this.form[key]) isFormValid = false;
-      }
-      if (!isFormValid) return;
-      if (this.form.password_1 !== this.form.password_2) {
-        this.$toast.error('رمزهای عبور همخوانی ندارند');
-        return;
-      }
-      this.loading = true;
-      signup(this.$axios, this.form).then(resp=>{
-        this.loading = false;
-        this.result.message = 'ثبت‌نام با موفقیت انجام شد.';
-        this.result.type = 'success';
-        this.result.value = true;
-        this.$toast.success(this.result.message)
-        this.$refs.form.reset();
-      }).catch(e=>{
-        this.loading = false;
-        if(e.response)
-          if (e.response.statusCode === 500)
-            this.$toast.error('سرور با مشکل رو به رو شده است, لطفا بعدا تلاش کنید');
-          else{
-            this.errors = {};
-            this.errors = Object.keys(e.response.data).map(x => {
-              if (x === 'profile') {
-                Object.keys(e.response.data.profile).forEach(y => this.$set(this.result.errors, y, true));
-              } else {
-                this.$set(this.result.errors, x, true);
-              }
-
-              if (x === 'email') {
-                if (e.response.data[x][0] === 'This field must be unique.') this.result.message = 'ایمیل تکراری است';
-                else if (e.response.data[x][0] === 'Enter a valid email address.') this.result.message = 'فرمت ایمیل معتبر نمی‌باشد';
-              }
-              this.$toast.error(this.result.message)
-            });
-            this.result.type = 'error';
-            this.result.value = true;
-
-          }
-        else
-          this.$toast.error('لطفا اتصال اینترنتی خود را بررسی کنید')
-      })
+      this.$toast.info("مهلت ثبت‌نام به پایان رسیده است.")
+      // let isFormValid = true;
+      // for (const key in this.form) {
+      //   if (!this.form[key]) isFormValid = false;
+      // }
+      // if (!isFormValid) return;
+      // if (this.form.password_1 !== this.form.password_2) {
+      //   this.$toast.error('رمزهای عبور همخوانی ندارند');
+      //   return;
+      // }
+      // this.loading = true;
+      // signup(this.$axios, this.form).then(resp=>{
+      //   this.loading = false;
+      //   this.result.message = 'ثبت‌نام با موفقیت انجام شد.';
+      //   this.result.type = 'success';
+      //   this.result.value = true;
+      //   this.$toast.success(this.result.message)
+      //   this.$refs.form.reset();
+      // }).catch(e=>{
+      //   this.loading = false;
+      //   if(e.response)
+      //     if (e.response.statusCode === 500)
+      //       this.$toast.error('سرور با مشکل رو به رو شده است, لطفا بعدا تلاش کنید');
+      //     else{
+      //       this.errors = {};
+      //       this.errors = Object.keys(e.response.data).map(x => {
+      //         if (x === 'profile') {
+      //           Object.keys(e.response.data.profile).forEach(y => this.$set(this.result.errors, y, true));
+      //         } else {
+      //           this.$set(this.result.errors, x, true);
+      //         }
+      //
+      //         if (x === 'email') {
+      //           if (e.response.data[x][0] === 'This field must be unique.') this.result.message = 'ایمیل تکراری است';
+      //           else if (e.response.data[x][0] === 'Enter a valid email address.') this.result.message = 'فرمت ایمیل معتبر نمی‌باشد';
+      //         }
+      //         this.$toast.error(this.result.message)
+      //       });
+      //       this.result.type = 'error';
+      //       this.result.value = true;
+      //
+      //     }
+      //   else
+      //     this.$toast.error('لطفا اتصال اینترنتی خود را بررسی کنید')
+      // })
     },
     async loginWithGoogle() {
       const googleUser = await this.$gAuth.signIn();

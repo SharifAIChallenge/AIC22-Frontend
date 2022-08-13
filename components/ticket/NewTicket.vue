@@ -8,7 +8,7 @@
           :counter="30"
           :rules="[v => !!v || 'عنوان نمی تواند خالی باشد!', v => (v && v.length <= 30) || 'عنوان نمی تواند بیشتر از 30 کاراکتر باشد!']"
           label=""
-          placeholder="عنوان تیکیت"
+          placeholder="عنوان تیکت"
           style="border-radius: 15px"
           required
           outlined
