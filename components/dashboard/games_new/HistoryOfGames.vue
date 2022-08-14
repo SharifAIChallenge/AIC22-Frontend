@@ -74,7 +74,7 @@ export default {
     try {
       let res = await this.$axios.$get(`${this.url}page=${this.page}${filter}`);
       this.data = res.results;
-      const count = 20;
+      const count = 10;
       this.pageCount = Math.ceil(res.count / count);
       this.status_code = 200;
 
@@ -103,7 +103,7 @@ export default {
       dialog: false,
       page: 1,
       pageCount: 0,
-      itemPerPage: 20,
+      itemPerPage: 10,
       url: '',
       headers: [
         {text: 'نام تیم', align: 'center', value: 'team2.name'},
