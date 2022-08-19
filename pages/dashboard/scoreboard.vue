@@ -262,16 +262,16 @@ export default {
   }
 
   .firstPlace{
-    background-color: #FFCC33 !important;
-    color: black;
+    background-color: #203247 !important;
+    color: white;
   }
   .secondPlace{
-    background-color: #C0C0C0FF !important;
-    color: black;
+    background-color: #203247 !important;
+    color: white;
   }
   .thirdPlace{
-    background-color: #CD7F32 !important;
-    color: black;
+    background-color: #203247 !important;
+    color: white;
   }
   .emtyImage {
     width: 60px;
