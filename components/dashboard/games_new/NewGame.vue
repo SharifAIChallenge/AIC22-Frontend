@@ -228,7 +228,10 @@ export default {
             this.$toast.success('برای مشاهده نتیجه و جزییات به تب تاریخچه رجوع کنید');
           })
           .catch(err => {
-            this.$toast.error('در روند ساخت بازی مشکل ایجاد شده است!');
+            if (err.response.data.message === "You have to wait at least 5 minutes between each bot game!"){
+              this.$toast.error("برای هر بار بازی با بات نیاز است که 5 دقیقه با بازی قبلی فاصله زمانی وجود داشته باشد.")
+            }else this.$toast.error('در روند ساخت بازی مشکل ایجاد شده است!');
+
           });
     },
     changePage(page) {
