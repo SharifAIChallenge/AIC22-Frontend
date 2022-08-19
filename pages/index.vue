@@ -11,7 +11,7 @@
     <Staff/>
 <!--    <Tweets/>-->
     <Blog :posts="posts" title="آخرین اخبار" number="3"/>
-    <CallToAction/>
+<!--    <CallToAction/>-->
   </div>
 </template>
 
