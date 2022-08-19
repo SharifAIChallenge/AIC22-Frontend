@@ -177,10 +177,10 @@ export default {
     rowBackground(item){
       if (this.page ===1 && item.place){
           if (item.place === "first"){
-            return "firstPlace"
+            return "firstPlace font-weight-bold pa-2"
           }else if (item.place === 'second'){
-            return "secondPlace"
-          }else return "thirdPlace"
+            return "secondPlace font-weight-bold pa-2"
+          }else return "thirdPlace font-weight-bold pa-2"
       }
     },
     changeTable(url) {
@@ -238,7 +238,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '/assets/variables.scss';
 @import '/assets/mixins.scss';
 .scoreboard {
@@ -262,13 +262,16 @@ export default {
   }
 
   .firstPlace{
-    background-color: #9A7D0A !important;
+    background-color: #FFCC33 !important;
+    color: black;
   }
   .secondPlace{
-    background-color: #909497 !important;
+    background-color: #C0C0C0FF !important;
+    color: black;
   }
   .thirdPlace{
-    background-color: #D7893C !important;
+    background-color: #CD7F32 !important;
+    color: black;
   }
   .emtyImage {
     width: 60px;
