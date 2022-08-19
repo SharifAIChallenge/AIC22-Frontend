@@ -1,27 +1,27 @@
 <template>
   <div class="">
     <SectionHeader title="جستجو تیم‌" icon="mdi-magnify"/>
-<!--    <div style="display: flex; justify-content: space-between; align-items: center" class="mx-12">-->
-<!--      <h4 style="flex: 1">درخواست بازی با بات</h4>-->
-<!--      <div style="width: 200px">-->
-<!--      <v-menu offset-y class="transparent" style="">-->
-<!--        <template v-slot:activator="{ on, attrs }">-->
-<!--          <v-btn color="primary" block  max-height="100%" class="curved" v-bind="attrs" v-on="on">-->
-<!--            بازی با بات-->
-<!--            <v-icon>mdi-menu-down</v-icon>-->
-<!--          </v-btn>-->
-<!--        </template>-->
-<!--        <v-list>-->
-<!--          <v-list-item v-for="(item, index) in bots" :key="item.number" @click="playWithBot(item.number, item.name)">-->
-<!--            <v-list-item-title style="text-align: center" class="d-flex align-end justify-center">-->
-<!--              <v-icon class="ml-3" size="30">{{ bot_icon[index] }}</v-icon>-->
-<!--              <span>{{ item.name }}</span>-->
-<!--            </v-list-item-title>-->
-<!--          </v-list-item>-->
-<!--        </v-list>-->
-<!--      </v-menu>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div style="display: flex; justify-content: space-between; align-items: center" class="mx-12">
+      <h4 style="flex: 1">درخواست بازی با بات</h4>
+      <div style="width: 200px">
+      <v-menu offset-y class="transparent" style="">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn color="primary" block  max-height="100%" class="curved" v-bind="attrs" v-on="on">
+            بازی با بات
+            <v-icon>mdi-menu-down</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item v-for="(item, index) in bots" :key="item.number" @click="playWithBot(item.number, item.name)">
+            <v-list-item-title style="text-align: center" class="d-flex align-end justify-center">
+              <v-icon class="ml-3" size="30">{{ bot_icon[index] }}</v-icon>
+              <span>{{ item.name }}</span>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      </div>
+    </div>
 
     <div class="searchBar mt-8 mb-6 ">
       <div class="mx-10 input" style="flex: 1">
@@ -186,8 +186,9 @@ export default {
       }
     });
     this.tableLoading = false;
-    // todo uncomment when bots released
-    // res = await this.$axios.$get('/challenge/bot');
+    await this.$axios.$get('/challenge/bot').then(response =>{
+      this.bots = response.data
+    });
     // this.bots = res.data;
   },
   watch: {
