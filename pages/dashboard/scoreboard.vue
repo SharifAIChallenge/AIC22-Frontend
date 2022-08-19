@@ -26,7 +26,7 @@
           :items="data"
           :page.sync="page"
           :items-per-page="itemPerPage"
-          style="background: transparent"
+          :item-class="rowBackground"
           :class="'page-' + page"
         >
           <template v-slot:item.rank="{ item, index }">
@@ -123,6 +123,9 @@ export default {
     let url = query.id ? `challenge/scoreboard/${query.id}` : 'challenge/friendly_scoreboard';
     const res = await $axios.$get(url);
     const data = res.results;
+    data[0].place = "first"
+    data[1].place = "second"
+    data[2].place = "third"
     const count = 20;
     const pageCount = Math.ceil(res.count / count);
     return { data, pageCount, url };
@@ -171,6 +174,15 @@ export default {
     };
   },
   methods: {
+    rowBackground(item){
+      if (this.page ===1 && item.place){
+          if (item.place === "first"){
+            return "firstPlace"
+          }else if (item.place === 'second'){
+            return "secondPlace"
+          }else return "thirdPlace"
+      }
+    },
     changeTable(url) {
       this.$router.push({ path: '/dashboard/scoreboard?q=' + url });
       this.getData(url);
@@ -194,6 +206,9 @@ export default {
         if (res.status === 200) {
           this.data = res.data.results;
           this.status_code = res.status;
+          if (this.page === 1){
+            console.log("in", this.data[0])
+          }
           const count = 20;
           this.pageCount = Math.ceil(res.data.count / count);
         } else {
@@ -224,8 +239,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/variables.scss';
-@import '~/assets/mixins.scss';
+@import '/assets/variables.scss';
+@import '/assets/mixins.scss';
 .scoreboard {
   @include v-sm {
     .page-1 {
@@ -234,7 +249,7 @@ export default {
         &:nth-of-type(2),
         &:nth-of-type(3) {
           //color: var(--v-bg-base);
-          background-color: transparent;
+          //background-color: transparent;
           button {
             color: var(--v-bg-base);
           }
@@ -244,6 +259,16 @@ export default {
         }
       }
     }
+  }
+
+  .firstPlace{
+    background-color: #9A7D0A !important;
+  }
+  .secondPlace{
+    background-color: #909497 !important;
+  }
+  .thirdPlace{
+    background-color: #D7893C !important;
   }
   .emtyImage {
     width: 60px;
