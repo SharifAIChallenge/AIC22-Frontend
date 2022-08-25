@@ -6,18 +6,18 @@
       <div style="width: 200px">
       <v-menu offset-y class="transparent" style="">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn color="primary" block  max-height="100%" class="curved" v-bind="attrs" v-on="on">
+          <v-btn color="primary" block disabled  max-height="100%" class="curved" v-bind="attrs" v-on="on">
             بازی با بات
             <v-icon>mdi-menu-down</v-icon>
           </v-btn>
         </template>
         <v-list>
-          <v-list-item v-for="(item, index) in bots" :key="item.number" @click="playWithBot(item.number, item.name)">
-            <v-list-item-title style="text-align: center" class="d-flex align-end justify-center">
-              <v-icon class="ml-3" size="30">{{ bot_icon[index] }}</v-icon>
-              <span>{{ item.name }}</span>
-            </v-list-item-title>
-          </v-list-item>
+<!--          <v-list-item v-for="(item, index) in bots" :key="item.number" @click="playWithBot(item.number, item.name)">-->
+<!--            <v-list-item-title style="text-align: center" class="d-flex align-end justify-center">-->
+<!--              <v-icon class="ml-3" size="30">{{ bot_icon[index] }}</v-icon>-->
+<!--              <span>{{ item.name }}</span>-->
+<!--            </v-list-item-title>-->
+<!--          </v-list-item>-->
         </v-list>
       </v-menu>
       </div>
@@ -85,7 +85,7 @@
         </template>
         <template v-slot:item.play="{ item }">
           <div style="max-width: 10px">
-            <v-btn rounded color="primary" @click="sendGameRequest(item.id)" block>درخواست بازی</v-btn>
+            <v-btn rounded color="primary" disabled block>درخواست بازی</v-btn>
           </div>
         </template>
       </v-data-table>
