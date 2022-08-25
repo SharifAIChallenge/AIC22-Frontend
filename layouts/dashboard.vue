@@ -159,7 +159,7 @@ export default {
           icon: "mdi-code-braces",
           hover: "mdi-code-braces-box",
           link: "/dashboard/submissions",
-          disabled: false,
+          disabled: true,
           gard: true
         },
         games: {
@@ -261,13 +261,13 @@ export default {
         if(!now.has_team) {
           this.routes.games.disabled = true;
           // this.routes.tournaments.disabled = true;
-          this.routes.submissions.disabled = true;
+          // this.routes.submissions.disabled = true;
           if (this.$route.path === "/dashboard/submissions") {
             this.$router.push("/dashboard/team")
             this.$toast.error("برای ارسال کد و شرکت در مسابقه ابتدا نیاز است که وارد تیمی شوید.")
           }
         }else{
-          this.routes.submissions.disabled = false;
+          // this.routes.submissions.disabled = false;
           this.routes.games.disabled = false;
         }
         // if (this.profile.is_finalist) {

@@ -4,7 +4,7 @@
 
       <div class="my-team ">
         <Box class="team-card pa-8 px-4 d-flex flex-column justify-content-center">
-          <v-form ref="createTeam" v-model="valid" onSubmit="return false;" @submit="uploadCode">
+          <v-form ref="createTeam" v-model="valid" onSubmit="return">
             <!-- <v-alert text icon="mdi-information" class="mb-6" transition="scale-transition">
             <v-chip>
               {{ $t('dashboard.submissions') }}
@@ -63,6 +63,7 @@
                 type="submit"
                 v-bind="primaryButtonProps"
                 rounded
+                disabled
             >
               <v-icon left>mdi-upload</v-icon>
               ارسال
