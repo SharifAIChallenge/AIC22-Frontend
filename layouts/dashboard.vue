@@ -90,16 +90,16 @@
         <nuxt/>
       </v-container>
     </v-main>
-    <!-- <PaymentDialog :dialog="payDialog" @close="payDialog = false"/> -->
+<!--     <PaymentDialog :dialog="openDialog" @close="payDialog = false"/>-->
   </v-app>
 </template>
 
 <script>
-// import PaymentDialog from "~/components/dashboard/PaymentDialog";
+import PaymentDialog from "~/components/dashboard/PaymentDialog";
 import {mapState} from "vuex";
 
 export default {
-  components: {},
+  components: {PaymentDialog},
   data() {
     return {
       drawer: null,
@@ -252,6 +252,7 @@ export default {
   },
   watch: {
     profile(now, old) {
+      // console.log(this.profile)
       if (now) {
         this.routes.team.disabled = !this.profile.is_complete;
         if (!this.profile.is_complete && this.$route.path !== "/dashboard/settings") {
@@ -300,11 +301,11 @@ export default {
         Math.floor(Math.random() * 10);
       }
     },
-    openDialog() {
-      if (!localStorage.getItem("isSawDialog")) {
-        // this.payDialog = true;
-      }
-    }
+    // openDialog() {
+    //   if (this.profile.is_finalist && !localStorage.getItem("isSawDialog")) {
+    //     this.payDialog = true;
+    //   }
+    // }
   },
   beforeMount() {
     // let data = this.routes.find(item => item.link === this.$route.path);

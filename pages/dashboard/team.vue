@@ -43,6 +43,11 @@
               <UserInvitation :toggleHaveTeam="toggleHaveTeam" v-else />
             </div>
           </v-tab-item>
+          <v-tab-item v-if="isFinalist">
+            <div v-if="tabs === 3" class="main-content">
+              <Payment></Payment>
+            </div>
+          </v-tab-item>
         </v-tabs-items>
       </div>
     </div>
@@ -57,10 +62,12 @@ import IncompleteTeams from "~/components/dashboard/team/IncompleteTeams";
 import MyTeam from "~/components/dashboard/team/MyTeam";
 import TeamInvitationAndHistory from "~/components/dashboard/team/TeamInvitationAndHistory";
 import SearchUsersAndSendInvitation from "~/components/dashboard/team/SearchUsersAndSendInvitation";
+import Payment from "~/components/dashboard/team/Payment";
 
 export default {
   layout: "dashboard",
   components: {
+    Payment,
     CreateTeam,
     UserInvitation,
     IncompleteTeams,
@@ -71,6 +78,7 @@ export default {
   data() {
     return {
       haveTeam: false,
+      isFinalist : false,
       tabs: null,
       teamHeader: [
         {
@@ -84,6 +92,9 @@ export default {
         {
           title: "دعوت‌نامه‌های تیم‌ من",
           icon: "mdi-account-plus"
+        },{
+          title: "پرداخت مرحله دوم",
+          icon: "mdi-credit-card"
         }
       ],
       userHeader: [
@@ -106,9 +117,11 @@ export default {
   async asyncData({ $axios, redirect }) {
     // redirect('/dashboard');
     let haveTeam = false;
+    let isFinalist = false;
 
     try{
       let res = await $axios.$get("team");
+      isFinalist = res.is_finalist
       haveTeam = true
     }catch (e) {
       haveTeam = false
