@@ -99,7 +99,7 @@ export default {
         window.location.href = res.data.url;
         this.loading = false
       }).catch(e=>{
-        this.$toast.error("مشکلی در ارتباط با درگاه پیش آمده است، لطفا دوباره تلاش کنسد")
+        this.$toast.error("مشکلی در ارتباط با درگاه پیش آمده است، لطفا دوباره تلاش کنید")
       })
     }
   },
