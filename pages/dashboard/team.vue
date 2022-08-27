@@ -43,7 +43,7 @@
               <UserInvitation :toggleHaveTeam="toggleHaveTeam" v-else />
             </div>
           </v-tab-item>
-          <v-tab-item v-if="!isFinalist">
+          <v-tab-item v-if="isFinalist">
             <div v-if="tabs === 3" class="main-content">
               <Payment></Payment>
             </div>
