@@ -127,7 +127,7 @@ export default {
       haveTeam = false
     }
 
-    return { haveTeam };
+    return { haveTeam, isFinalist };
   },
   methods: {
     toggleHaveTeam() {
