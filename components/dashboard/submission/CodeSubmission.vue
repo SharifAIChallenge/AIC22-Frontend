@@ -63,7 +63,6 @@
                 type="submit"
                 v-bind="primaryButtonProps"
                 rounded
-                disabled
             >
               <v-icon left>mdi-upload</v-icon>
               ارسال
