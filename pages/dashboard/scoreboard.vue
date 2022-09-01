@@ -123,9 +123,9 @@ export default {
     let url = query.id ? `challenge/scoreboard/${query.id}` : 'challenge/friendly_scoreboard';
     const res = await $axios.$get(url);
     const data = res.results;
-    data[0].place = "first"
-    data[1].place = "second"
-    data[2].place = "third"
+    // data[0].place = "first"
+    // data[1].place = "second"
+    // data[2].place = "third"
     const count = 20;
     const pageCount = Math.ceil(res.count / count);
     return { data, pageCount, url };

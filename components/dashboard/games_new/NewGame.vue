@@ -85,7 +85,7 @@
         </template>
         <template v-slot:item.play="{ item }">
           <div style="max-width: 10px">
-            <v-btn rounded color="primary" disabled block>درخواست بازی</v-btn>
+            <v-btn rounded color="primary" block @click="sendGameRequest(item.id)">درخواست بازی</v-btn>
           </div>
         </template>
       </v-data-table>
@@ -186,9 +186,9 @@ export default {
       }
     });
     this.tableLoading = false;
-    await this.$axios.$get('/challenge/bot').then(response =>{
-      this.bots = response.data
-    });
+    // await this.$axios.$get('/challenge/bot').then(response =>{
+    //   this.bots = response.data
+    // });
     // this.bots = res.data;
   },
   watch: {
