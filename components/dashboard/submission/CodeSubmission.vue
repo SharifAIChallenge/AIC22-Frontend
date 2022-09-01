@@ -4,7 +4,7 @@
 
       <div class="my-team ">
         <Box class="team-card pa-8 px-4 d-flex flex-column justify-content-center">
-          <v-form ref="createTeam" v-model="valid" onSubmit="return">
+          <v-form ref="createTeam" v-model="valid" @submit.prevent="uploadCode()">
             <!-- <v-alert text icon="mdi-information" class="mb-6" transition="scale-transition">
             <v-chip>
               {{ $t('dashboard.submissions') }}
@@ -117,9 +117,11 @@ export default {
   },
   methods: {
     async uploadCode() {
+      console.log("in")
       const formData = new FormData();
       formData.append('file', this.file);
       formData.append('language', this.language);
+      console.log(formData)
       // formData.append('is_mini_game', this.mode == 1);
       // formData.append('is_mini_game_final', false);
       // formData.append('status' , 'Uploading');
@@ -128,7 +130,6 @@ export default {
       this.loading = true;
       try {
         let data = await submitLargeCode(this.$axios, formData);
-        console.log(data)
         if (data.status) {
           if (data.status === 200) {
             this.$toast.success('فایل با موفقیت آپلود شد.');
