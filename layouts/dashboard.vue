@@ -268,7 +268,7 @@ export default {
             this.$toast.error("برای ارسال کد و شرکت در مسابقه ابتدا نیاز است که وارد تیمی شوید.")
           }
         }else{
-          // this.routes.submissions.disabled = false;
+          this.routes.submissions.disabled = false;
           this.routes.games.disabled = false;
         }
         // if (this.profile.is_finalist) {
