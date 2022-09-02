@@ -42,13 +42,13 @@
           <div class=" px-4">جست‌و‌جو</div>
         </v-btn>
       </div>
-      <div>
-        <v-btn height="50px" outlined class="curved outlined-btn pa-4 btn mx-4"
-               :disabled="!this.randomData || this.randomData.length === 1"
-               @click="randomMatch()">
-          <div class=" px-4">انتخاب رندوم</div>
-        </v-btn>
-      </div>
+<!--      <div>-->
+<!--        <v-btn height="50px" outlined class="curved outlined-btn pa-4 btn mx-4"-->
+<!--               :disabled="!this.randomData || this.randomData.length === 1"-->
+<!--               @click="randomMatch()">-->
+<!--          <div class=" px-4">انتخاب رندوم</div>-->
+<!--        </v-btn>-->
+<!--      </div>-->
     </div>
 
       <div class="notice-box mb-4 mx-6 mx-md-12 text-center " v-if="msg">
@@ -85,7 +85,7 @@
         </template>
         <template v-slot:item.play="{ item }">
           <div style="max-width: 10px">
-            <v-btn rounded color="primary" block @click="sendGameRequest(item.id)">درخواست بازی</v-btn>
+            <v-btn rounded color="primary" disabled block @click="sendGameRequest(item.id)">درخواست بازی</v-btn>
           </div>
         </template>
       </v-data-table>
@@ -255,6 +255,7 @@ export default {
       this.ProfileDialog = true;
     },
     sendGameRequest(teamId) {
+      return
       this.$axios.post('/challenge/request', {type: 'friendly_match', target_team: `${teamId}`}).then(res => {
         if (res.status === 200) {
           this.$toast.success('درخواست با موفقیت ارسال شد');

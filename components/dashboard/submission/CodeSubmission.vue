@@ -61,6 +61,7 @@
                 :disabled="!file  || !canSubmitAnotherCode || !profile "
                 :loading="loading"
                 type="submit"
+                disabled
                 v-bind="primaryButtonProps"
                 rounded
             >
@@ -117,6 +118,7 @@ export default {
   },
   methods: {
     async uploadCode() {
+      return
       console.log("in")
       const formData = new FormData();
       formData.append('file', this.file);
