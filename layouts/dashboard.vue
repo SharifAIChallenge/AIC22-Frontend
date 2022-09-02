@@ -170,14 +170,23 @@ export default {
           disabled: false,
           gard: true
         },
-        // final: {
-        //   title: "فینال",
-        //   icon: "mdi-trophy-award",
-        //   hover: "mdi-trophy-award",
-        //   link: "/final",
-        //   disabled: true,
-        //   gard: false
-        // },
+        tournamentsResults:{
+          title: 'نتایج',
+          icon: "mdi-trophy-award",
+          hover: "mdi-trophy-award",
+          link: "/dashboard/results",
+          disabled: false,
+          gard: false
+        },
+        final: {
+          title: "فینال",
+          icon: "mdi-trophy-award",
+          hover: "mdi-trophy-award",
+          link: "/final",
+          disabled: true,
+          gard: false
+        },
+
         // live: {
         //   title: "لایو",
         //   icon: "mdi-presentation-play",
@@ -271,10 +280,6 @@ export default {
           this.routes.submissions.disabled = false;
           this.routes.games.disabled = false;
         }
-        // if (this.profile.is_finalist) {
-        //   this.routes.team.disabled = false;
-        //   this.routes.games.disabled = false;
-        // }
         // if (this.$route.path === "/dashboard/team" && !this.profile.is_finalist) {
         //   this.$router.push("/dashboard");
         // }
