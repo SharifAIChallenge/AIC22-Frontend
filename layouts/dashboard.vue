@@ -183,7 +183,7 @@ export default {
           icon: "mdi-trophy-award",
           hover: "mdi-trophy-award",
           link: "/final",
-          disabled: true,
+          disabled: false,
           gard: false
         },
 
